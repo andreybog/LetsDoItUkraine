@@ -64,6 +64,7 @@
   <string>1270280666347714</string>
   <key>FacebookDisplayName</key>
   <string>LetsDoItUkraine</string>
+
   <key>LSApplicationQueriesSchemes</key>
   <array>
     <string>fbapi</string>
@@ -71,5 +72,6 @@
     <string>fbauth2</string>
     <string>fbshareextension</string>
   </array>
+
 </dict>
 </plist>

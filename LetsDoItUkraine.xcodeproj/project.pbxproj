@@ -381,7 +381,8 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+>>>>>>> bbe983b1d72b9902f0eee1ce644a19bbaa97deb7
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -400,7 +401,8 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+>>>>>>> bbe983b1d72b9902f0eee1ce644a19bbaa97deb7
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
