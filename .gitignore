@@ -15,4 +15,5 @@ Thumbs.db
 Pods/*
 
 # XCODE #
+
 *.xcuserstate
