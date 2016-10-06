@@ -14,6 +14,11 @@
 		552BF9061DA196D7008D5317 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9051DA196D7008D5317 /* Assets.xcassets */; };
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
 		552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9121DA19916008D5317 /* GoogleService-Info.plist */; };
+		CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5771DA6DB4C006397B3 /* Cleaning.swift */; };
+		CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5781DA6DB4C006397B3 /* News.swift */; };
+		CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */; };
+		CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */; };
+		CE51C5801DA6DB4C006397B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57B1DA6DB4C006397B3 /* User.swift */; };
 		F7904177E5D314D43DED6DCA /* Pods_LetsDoItUkraine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039A71F878C266E5EBF0BA96 /* Pods_LetsDoItUkraine.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +35,11 @@
 		552BF90A1DA196D7008D5317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552BF9121DA19916008D5317 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.release.xcconfig"; sourceTree = "<group>"; };
+		CE51C5771DA6DB4C006397B3 /* Cleaning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cleaning.swift; sourceTree = "<group>"; };
+		CE51C5781DA6DB4C006397B3 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleCategory.swift; sourceTree = "<group>"; };
+		CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePoint.swift; sourceTree = "<group>"; };
+		CE51C57B1DA6DB4C006397B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,14 +86,8 @@
 			children = (
 				55AD708C1DA1A67300FA1049 /* ViewControllers */,
 				55AD708D1DA1A68A00FA1049 /* Model */,
-				552BF8FC1DA196D7008D5317 /* AppDelegate.swift */,
-				552BF8FE1DA196D7008D5317 /* FirstViewController.swift */,
-				552BF9001DA196D7008D5317 /* SecondViewController.swift */,
+				CE51C5761DA6DB25006397B3 /* SupportingFiles */,
 				552BF9021DA196D7008D5317 /* Main.storyboard */,
-				552BF9051DA196D7008D5317 /* Assets.xcassets */,
-				552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */,
-				552BF9121DA19916008D5317 /* GoogleService-Info.plist */,
-				552BF90A1DA196D7008D5317 /* Info.plist */,
 			);
 			path = LetsDoItUkraine;
 			sourceTree = "<group>";
@@ -91,6 +95,8 @@
 		55AD708C1DA1A67300FA1049 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				552BF8FE1DA196D7008D5317 /* FirstViewController.swift */,
+				552BF9001DA196D7008D5317 /* SecondViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 			);
 			name = ViewControllers;
@@ -99,6 +105,11 @@
 		55AD708D1DA1A68A00FA1049 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE51C5771DA6DB4C006397B3 /* Cleaning.swift */,
+				CE51C5781DA6DB4C006397B3 /* News.swift */,
+				CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */,
+				CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */,
+				CE51C57B1DA6DB4C006397B3 /* User.swift */,
 				55AD708E1DA1A6A700FA1049 /* VO */,
 			);
 			name = Model;
@@ -124,6 +135,18 @@
 				039A71F878C266E5EBF0BA96 /* Pods_LetsDoItUkraine.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE51C5761DA6DB25006397B3 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				552BF8FC1DA196D7008D5317 /* AppDelegate.swift */,
+				552BF9051DA196D7008D5317 /* Assets.xcassets */,
+				552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */,
+				552BF9121DA19916008D5317 /* GoogleService-Info.plist */,
+				552BF90A1DA196D7008D5317 /* Info.plist */,
+			);
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +274,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				552BF9011DA196D7008D5317 /* SecondViewController.swift in Sources */,
+				CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */,
 				552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */,
+				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
+				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
+				CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */,
+				CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */,
 				552BF8FF1DA196D7008D5317 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
