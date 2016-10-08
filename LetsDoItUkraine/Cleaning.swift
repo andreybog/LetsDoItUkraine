@@ -7,21 +7,35 @@
 //
 
 import Foundation
+import CoreLocation
 
-struct Cleaning {
-    var ID: Int
-    var adress: String
-    var pictures: [NSURL]
-    var date: String
-    var description: String
-    var isActive: Bool
+struct Cleaning : CustomDebugStringConvertible {
+  var ID: String
+  var adress: String?
+  var pictures: [[String : String]]?
+  var datetime: String?
+  var description: String?
+  var isActive: Bool
+  var cooridnate: CLLocationCoordinate2D
+  
+  var debugDescription: String {
+    return "CLEANING: \(ID)\n" +
+            "lat: \(cooridnate.latitude) lon: \(cooridnate.longitude)\n" +
+            (isActive ? "Active" : "Not active")
+  }
+  
+  
+  init(withId newId:String, data: [String: AnyObject]) {
+    ID = newId
+    adress = data["address"] as? String
+    pictures = data["pictures"] as? [[String : String]]
+    datetime = data["datetime"] as? String
+    description = data["description"] as? String
+    isActive = data["active"] as! Bool
+    cooridnate = CLLocationCoordinate2D(latitude: data["latitude"] as! Double,
+                                        longitude: data["longitude"] as! Double)
     
-    init(data: [String: AnyObject]) {
-        ID = data["id"] as! Int
-        adress = data["adress"] as! String
-        pictures = [NSURL(string: data["pictures"] as! String)!]
-        date = data["date"] as! String
-        description = data["description"] as! String
-        isActive = data["isActive"] as! Bool
-    }
+  }
+  
+  
 }
