@@ -84,16 +84,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zft-48-YWj">
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="124" id="Lq2-fn-tTN"/>
-                                                </constraints>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place3.png" translatesAutoresizingMaskIntoConstraints="NO" id="Apn-o7-ump">
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="124" id="gDS-fl-OU6"/>
-                                                </constraints>
-                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zft-48-YWj"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place3.png" translatesAutoresizingMaskIntoConstraints="NO" id="Apn-o7-ump"/>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place2.png" translatesAutoresizingMaskIntoConstraints="NO" id="NJz-6F-Gyn"/>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,6 +98,8 @@
                                             <constraint firstAttribute="bottom" secondItem="NJz-6F-Gyn" secondAttribute="bottom" id="LD0-Cg-xBA"/>
                                             <constraint firstItem="WYe-BT-bao" firstAttribute="top" secondItem="72E-ZH-gAO" secondAttribute="top" id="SDp-m6-3mv"/>
                                             <constraint firstItem="NJz-6F-Gyn" firstAttribute="leading" secondItem="zft-48-YWj" secondAttribute="trailing" constant="1" id="Vhz-qC-5HB"/>
+                                            <constraint firstItem="NJz-6F-Gyn" firstAttribute="width" secondItem="zft-48-YWj" secondAttribute="width" id="Y8H-W2-Srl"/>
+                                            <constraint firstItem="Apn-o7-ump" firstAttribute="width" secondItem="zft-48-YWj" secondAttribute="width" id="Z4c-9H-Ces"/>
                                             <constraint firstAttribute="bottom" secondItem="Apn-o7-ump" secondAttribute="bottom" id="hKF-CL-pNq"/>
                                             <constraint firstAttribute="bottom" secondItem="zft-48-YWj" secondAttribute="bottom" id="kJM-ty-r7R"/>
                                             <constraint firstItem="zft-48-YWj" firstAttribute="leading" secondItem="72E-ZH-gAO" secondAttribute="leading" id="lVB-BP-LlI"/>
@@ -264,7 +258,6 @@
                                                 <color key="backgroundColor" red="0.41960784313725491" green="0.76470588235294112" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="8Jz-FM-PyQ"/>
-                                                    <constraint firstAttribute="width" constant="185" id="kX9-5W-qZJ"/>
                                                 </constraints>
                                                 <state key="normal" title="Пойду">
                                                     <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
@@ -278,7 +271,6 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrI-PZ-3D6">
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="185" id="BCC-l3-3cw"/>
                                                     <constraint firstAttribute="height" constant="44" id="HY9-kP-qha"/>
                                                 </constraints>
                                                 <state key="normal" title="Пожертвовать">
@@ -301,6 +293,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="wrI-PZ-3D6" firstAttribute="width" secondItem="1Kk-lA-CJt" secondAttribute="width" id="JBk-8N-Xn0"/>
                                             <constraint firstItem="1Kk-lA-CJt" firstAttribute="leading" secondItem="dEJ-uQ-ZVt" secondAttribute="leading" constant="1" id="LDg-BW-rfm"/>
                                             <constraint firstItem="wrI-PZ-3D6" firstAttribute="top" secondItem="dEJ-uQ-ZVt" secondAttribute="top" constant="10" id="MOp-dk-dvx"/>
                                             <constraint firstItem="TiK-Le-sU4" firstAttribute="top" secondItem="1Kk-lA-CJt" secondAttribute="bottom" constant="20" id="X44-rp-4wI"/>
@@ -504,7 +497,7 @@
                                     <constraint firstItem="Bx2-kH-sso" firstAttribute="centerX" secondItem="8a3-5H-FGH" secondAttribute="centerX" id="Dge-mA-TfO"/>
                                     <constraint firstItem="KAb-vC-1rl" firstAttribute="leading" secondItem="8a3-5H-FGH" secondAttribute="leading" id="F8b-Qj-L18"/>
                                     <constraint firstItem="gfH-N2-0xg" firstAttribute="centerX" secondItem="8a3-5H-FGH" secondAttribute="centerX" id="FK9-Hm-cbh"/>
-                                    <constraint firstAttribute="bottom" secondItem="KAb-vC-1rl" secondAttribute="bottom" constant="150" id="GTK-v1-9KG"/>
+                                    <constraint firstAttribute="bottom" secondItem="KAb-vC-1rl" secondAttribute="bottom" constant="10" id="GTK-v1-9KG"/>
                                     <constraint firstItem="z1k-V5-okh" firstAttribute="top" secondItem="iYa-AI-x6l" secondAttribute="bottom" id="Hc2-gl-zSS"/>
                                     <constraint firstAttribute="trailing" secondItem="9j3-TL-Git" secondAttribute="trailing" id="KG1-MS-f1r"/>
                                     <constraint firstItem="iYa-AI-x6l" firstAttribute="top" secondItem="72E-ZH-gAO" secondAttribute="bottom" id="LQz-3N-3VZ"/>
@@ -555,6 +548,14 @@
                     <value key="contentSizeForViewInPopover" type="size" width="375" height="968"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="cleaningDate" destination="KKf-lX-cB7" id="Qb9-Zp-WsF"/>
+                        <outlet property="cleaningDescription" destination="Ys6-zs-pLu" id="oXo-dL-740"/>
+                        <outlet property="cleaningEmail" destination="Fjd-ev-azB" id="GCb-3U-kyz"/>
+                        <outlet property="cleaningNameCoordinator" destination="cnS-Dh-sWc" id="faH-7W-Kd7"/>
+                        <outlet property="cleaningPhone" destination="Sf7-id-unn" id="g7E-Oc-fRc"/>
+                        <outlet property="cleaningPlace" destination="yC7-yp-VZo" id="Ltk-gV-0Yy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
