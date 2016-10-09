@@ -9,6 +9,23 @@
 import Foundation
 import Firebase
 
+enum CleaningFiler {
+  case all
+  case active
+  case past
+}
+
+enum UserClenaingsFilter {
+  case asModerator
+  case asCleaner
+  case past
+}
+
+enum ClenaingMembersFilter {
+  case coordinator
+  case cleaner
+}
+
 class DataManager {
   private static let _sharedManager = DataManager()
   
@@ -18,13 +35,13 @@ class DataManager {
     let ref = FIRDatabase.database().reference()
     
     self.configureUserCleanings(ref)
-    self.configureCoordinatorCleanings(ref)
+    self.configureCleaningMembers(ref)
     
     return ref
   }()
   
-  private var refCoordinatorCleanings:FIRDatabaseReference!
-  private var _handleCoordinatorCleanings:FIRDatabaseHandle!
+  private var refCleaningMembers:FIRDatabaseReference!
+  private var _handleCleaningMembers:FIRDatabaseHandle!
   private var refUserCleanings:FIRDatabaseReference!
   private var _handleUserCleanings:FIRDatabaseHandle!
   
@@ -33,87 +50,174 @@ class DataManager {
   }
   
   deinit {
-    refCoordinatorCleanings.removeObserver(withHandle: _handleCoordinatorCleanings)
+    refCleaningMembers.removeObserver(withHandle: _handleCleaningMembers)
     refUserCleanings.removeObserver(withHandle: _handleUserCleanings)
   }
   
   // MARK: - API - GET
   
-  func getAllCleanings(with handler: @escaping (_:[Cleaning]) -> Void) {
-    let refCleanings = ref.child("cleanings")
+  private func getObject<T:DictionaryInitable>(fromReference reference:FIRDatabaseQuery, handler: @escaping (_:T?)->Void) {
+    var object:T?
     
-    refCleanings.observeSingleEvent(of: .value, with: { (snapshots) in
-      var cleanings = [Cleaning]()
-      
-      for snapshot in snapshots.children {
-        if let snap = snapshot as? FIRDataSnapshot {
-          let cleaning = Cleaning(withId:snap.key, data: snap.value as! [String : AnyObject])
-          cleanings.append(cleaning)
-        }
-      }
-      handler(cleanings)
-    })
-  }
-  
-  func getCleaning(withId cleaningId:String, onSuccess success: @escaping (_: Cleaning?)->Void) {
-    let refCleaning = ref.child("cleanings/\(cleaningId)")
-    var cleaning:Cleaning?
-    
-    refCleaning.observeSingleEvent(of: .value, with: { (snapshot) in
+    reference.observeSingleEvent(of: .value, with: { (snapshot) in
       if let data = snapshot.value as? [String : AnyObject] {
-        cleaning = Cleaning(withId: snapshot.key, data: data)
+        object = T(withId: snapshot.key, data: data)
       }
-      success(cleaning)
+      handler(object)
     })
   }
   
-  func isUserCoordinator(userId: String, handler: @escaping (_:Bool, _ cleaningsIds:[String]) -> Void) {
-    queryHandler(nodePath: "coordinator-cleanings", childKey: "coordinator", value: userId, handler: handler)
-  }
-
-  func cleaningHasCoordinators(cleaningId: String, handler: @escaping (_:Bool, _ userIds:[String]) -> Void) {
-    queryHandler(nodePath: "coordinator-cleanings", childKey: "cleaning", value: cleaningId, handler: handler)
-  }
-  
-  func cleaningHasCleaners(cleaningId: String, handler: @escaping (_:Bool, _ userIds:[String]) -> Void) {
-    queryHandler(nodePath: "user-cleanings", childKey: "cleaning", value: cleaningId, handler: handler)
-  }
-  
-  func userHasCleanings(userId: String, handler: @escaping (_:Bool, _ cleaningsIds:[String]) -> Void) {
-    queryHandler(nodePath: "user-cleanings", childKey: "user", value: userId, handler: handler)
-  }
-  
-  private func queryHandler(nodePath:String, childKey: String, value: String, handler: @escaping (_:Bool, _:[String]) -> Void) {
-    let query = ref.child(nodePath).queryOrdered(byChild: childKey).queryEqual(toValue: value)
+  private func getObjects<T:DictionaryInitable>(fromReference reference:FIRDatabaseQuery, handler: @escaping (_:[T]) -> Void) {
     
-    query.observeSingleEvent(of: .value, with: { (snapshots) in
-      if !snapshots.hasChildren() {
-        handler(false, [])
-        return
-      }
+    reference.observeSingleEvent(of: .value, with: { [unowned self] (snapshots) in
+      var objects = [T]()
       
-      var ids = [String]()
+      let childrensCount = snapshots.childrenCount
+      var currentIndex: UInt = 1
       
+      // get objects ids
       for snapshot in snapshots.children {
-        if let snap = snapshot as? FIRDataSnapshot {
-          let id = (snap.value as! [String : AnyObject])["cleaning"] as! String
-          ids.append(id)
+        guard let snap = snapshot as? FIRDataSnapshot else { continue }
+        var objectRef:FIRDatabaseReference!
+        
+        switch T.self {
+        case is User.Type:
+          objectRef = self.ref.child("users/\(snap.key)")
+        case is Cleaning.Type:
+          objectRef = self.ref.child("cleanings/\(snap.key)")
+        case is RecycleCategory.Type:
+          objectRef = self.ref.child("recycleCategories/\(snap.key)")
+        case is RecyclePoint.Type:
+          objectRef = self.ref.child("recyclePoints/\(snap.key)")
+        case is News.Type:
+          objectRef = self.ref.child("news/\(snap.key)")
+        default:
+          currentIndex += 1
+          continue
         }
+        
+        // get objects from ids
+        self.getObject(fromReference: objectRef, handler: { (object) in
+          if object != nil {
+            objects.append(object!)
+          }
+          if currentIndex == childrensCount {
+            handler(objects)
+          }
+          currentIndex += 1
+          } as (_:T?)->Void )
       }
-      handler(true, ids)
     })
   }
   
-  // MARK: - API - ADD
+  
+  /*** getting users ***/
+  
+  func getUser(withId userId:String, handler: @escaping (_: User?)->Void) {
+    let refUser = ref.child("users/\(userId)")
+    self.getObject(fromReference: refUser, handler: handler)
+  }
+  
+  func getCleaningMembers(cleaningId: String, filter: ClenaingMembersFilter, handler: @escaping (_:[User]) -> Void) {
+    var refPath = "cleaning-members/\(cleaningId)"
+    
+    switch filter {
+    case .coordinator:    refPath.append("/coordinators")
+    case .cleaner:        refPath.append("/cleaners")
+    }
+    let reference = ref.child(refPath)
+    
+    self.getObjects(fromReference: reference, handler: handler)
+  }
+  
+  
+  
+  /*** getting cleanings ***/
+  
+  func getCleaning(withId cleaningId:String, handler: @escaping (_: Cleaning?)->Void) {
+    let refCleaning = ref.child("cleanings/\(cleaningId)")
+    self.getObject(fromReference: refCleaning,handler: handler)
+  }
+  
+  func getUserCleanings(userId: String, filter: UserClenaingsFilter, handler: @escaping (_:[Cleaning]) -> Void) {
+    var refPath = "user-cleanings/\(userId)"
+    
+    switch filter {
+      case .asModerator:  refPath.append("/asModerator")
+      case .asCleaner:    refPath.append("/asCleaner")
+      case .past:         refPath.append("/past")
+    }
+    let reference = ref.child(refPath)
+    
+    self.getObjects(fromReference: reference, handler: handler)
+  }
+  
+  func getCleanings(filer: CleaningFiler, with handler: @escaping (_:[Cleaning]) -> Void) {
+    var refCleanings:FIRDatabaseQuery = ref.child("cleanings")
+    
+    switch filer {
+    case .active:
+      refCleanings = refCleanings.queryOrdered(byChild: "active").queryEqual(toValue: true)
+    case .past:
+      refCleanings = refCleanings.queryOrdered(byChild: "active").queryEqual(toValue: false)
+    default:
+      break
+    }
+    
+    self.getObjects(fromReference: refCleanings, handler: handler)
+  }
+  
+  /*** getting recycle categories ***/
+  
+  func getRecylceCategory(withId categoryId:String, handler: @escaping (_:RecycleCategory?) -> Void) {
+    let refCategory = ref.child("recycleCategories/\(categoryId)")
+    self.getObject(fromReference: refCategory, handler: handler)
+  }
+  
+  func getAllRecycleCategories(with handler: @escaping (_:[RecycleCategory]) -> Void) {
+    let refCategories = ref.child("recycleCategories")
+    self.getObjects(fromReference: refCategories, handler: handler)
+  }
+  
+  
+  /*** getting recycle points ***/
+  
+  func getRecylcePoint(withId pointId:String, handler: @escaping (_:RecyclePoint?) -> Void) {
+    let refPoint = ref.child("recyclePoints/\(pointId)")
+    self.getObject(fromReference: refPoint, handler: handler)
+  }
+  
+  func getAllRecyclePoints(with handler: @escaping (_:[RecyclePoint]) -> Void) {
+    let refPoints = ref.child("recyclePoints")
+    self.getObjects(fromReference: refPoints, handler: handler)
+  }
+  
+  /*** getting news ***/
+  
+  func getNews(withId newsId:String, handler: @escaping (_:News?) -> Void) {
+    let refNews = ref.child("news/\(newsId)")
+    self.getObject(fromReference: refNews, handler: handler)
+  }
+  
+  func getAllNews(with handler: @escaping (_:[RecyclePoint]) -> Void) {
+    let refNews = ref.child("news")
+    self.getObjects(fromReference: refNews, handler: handler)
+  }
+  
+  // TODO: - API - ADD
+  
+  // TODO: - API - Remove
+  
+  // TODO: - API - Update
   
   // MARK: - Configuration
   
-  func configureCoordinatorCleanings(_ ref: FIRDatabaseReference) {
-    refCoordinatorCleanings = ref.child("coordinator-cleanings")
-    _handleCoordinatorCleanings = refCoordinatorCleanings.observe(.value, with: { (snapshot) in })
+  private func configureCleaningMembers(_ ref: FIRDatabaseReference) {
+    refCleaningMembers = ref.child("cleaning-members")
+    _handleCleaningMembers = refCleaningMembers.observe(.value, with: { (snapshot) in })
   }
   
-  func configureUserCleanings(_ ref: FIRDatabaseReference) {
+  private func configureUserCleanings(_ ref: FIRDatabaseReference) {
     refUserCleanings = ref.child("user-cleanings")
     _handleUserCleanings = refUserCleanings.observe(.value, with: { (snapshot) in })
   }

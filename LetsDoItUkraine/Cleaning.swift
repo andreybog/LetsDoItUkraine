@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-struct Cleaning : CustomDebugStringConvertible {
+struct Cleaning : DictionaryInitable, CustomDebugStringConvertible {
   var ID: String
   var adress: String?
   var pictures: [[String : String]]?

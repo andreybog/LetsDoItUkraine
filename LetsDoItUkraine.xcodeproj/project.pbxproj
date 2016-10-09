@@ -15,6 +15,7 @@
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
 		552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9121DA19916008D5317 /* GoogleService-Info.plist */; };
 		55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BA1DA9238B00441EBE /* DataManager.swift */; };
+		55F658C01DAAB69E00441EBE /* DictionaryInitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BF1DAAB69E00441EBE /* DictionaryInitable.swift */; };
 		CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5771DA6DB4C006397B3 /* Cleaning.swift */; };
 		CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5781DA6DB4C006397B3 /* News.swift */; };
 		CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */; };
@@ -36,6 +37,7 @@
 		552BF90A1DA196D7008D5317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552BF9121DA19916008D5317 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55F658BA1DA9238B00441EBE /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		55F658BF1DAAB69E00441EBE /* DictionaryInitable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryInitable.swift; sourceTree = "<group>"; };
 		ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.release.xcconfig"; sourceTree = "<group>"; };
 		CE51C5771DA6DB4C006397B3 /* Cleaning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cleaning.swift; sourceTree = "<group>"; };
 		CE51C5781DA6DB4C006397B3 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		55AD708D1DA1A68A00FA1049 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				55F658BE1DAAB61E00441EBE /* Protocols */,
 				55F658BA1DA9238B00441EBE /* DataManager.swift */,
 				CE51C5771DA6DB4C006397B3 /* Cleaning.swift */,
 				CE51C5781DA6DB4C006397B3 /* News.swift */,
@@ -130,6 +133,14 @@
 			children = (
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		55F658BE1DAAB61E00441EBE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				55F658BF1DAAB69E00441EBE /* DictionaryInitable.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		9D997B299742B280FA3D8015 /* Frameworks */ = {
@@ -283,6 +294,7 @@
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
 				CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */,
 				CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */,
+				55F658C01DAAB69E00441EBE /* DictionaryInitable.swift in Sources */,
 				55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */,
 				552BF8FF1DA196D7008D5317 /* FirstViewController.swift in Sources */,
 			);
