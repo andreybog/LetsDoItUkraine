@@ -27,7 +27,7 @@ enum ClenaingMembersFilter {
 }
 
 class DataManager {
-  private static let _sharedManager = DataManager()
+  static let sharedManager = DataManager()
   
   private lazy var ref:FIRDatabaseReference = {
     FIRDatabase.database().persistenceEnabled = true
@@ -44,11 +44,7 @@ class DataManager {
   private var _handleCleaningMembers:FIRDatabaseHandle!
   private var refUserCleanings:FIRDatabaseReference!
   private var _handleUserCleanings:FIRDatabaseHandle!
-  
-  static func sharedManager() -> DataManager {
-    return _sharedManager
-  }
-  
+    
   deinit {
     refCleaningMembers.removeObserver(withHandle: _handleCleaningMembers)
     refUserCleanings.removeObserver(withHandle: _handleUserCleanings)
