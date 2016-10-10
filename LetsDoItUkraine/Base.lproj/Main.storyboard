@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,6 +28,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2aQ-Zz-F5l" customClass="FBSDKLoginButton">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Dc4-rr-3Nu"/>
+                                    <constraint firstAttribute="width" constant="150" id="eOv-W0-LdD"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -36,13 +42,18 @@
                             <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
                             <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
                             <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
+                            <constraint firstItem="2aQ-Zz-F5l" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="udD-HW-i9X"/>
+                            <constraint firstItem="2aQ-Zz-F5l" firstAttribute="top" secondItem="A5M-7J-77L" secondAttribute="bottom" constant="60" id="xUj-3y-dAL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PQS-H0-7QW"/>
+                    <connections>
+                        <outlet property="loginFacebookButton" destination="2aQ-Zz-F5l" id="OyT-eB-83y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1927" y="-496"/>
+            <point key="canvasLocation" x="1925.5999999999999" y="-496.10194902548727"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
