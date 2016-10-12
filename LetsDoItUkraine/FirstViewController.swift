@@ -8,7 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
-
+import Firebase
 
 class FirstViewController: UIViewController {
   
@@ -31,7 +31,14 @@ class FirstViewController: UIViewController {
   }
 
   func test() {
+    
   }
+      
+  
 }
+    
+    
+
+
 
 

@@ -8,32 +8,15 @@
 
 import Foundation
 
-struct News : DictionaryInitable, CustomDebugStringConvertible {
+struct News : CustomStringConvertible {
     var ID: String
     var title: String
     var body: String?
-    var date: String
-    var url: NSURL?
-    var picture: NSURL?
+    var date: Date?
+    var url: URL?
+    var picture: URL?
   
-  var debugDescription: String {
+  var description: String {
     return "NEWS: - \(ID) - \(title)"
-  }
-		
-    
-  init(withId newId:String, data: [String: AnyObject]) {
-    ID = newId
-    title = data["title"] as! String
-    body = data["body"] as? String
-    date = data["date"] as! String
-    
-    if let urlString = data["url"] as? String {
-      url = NSURL(string: urlString)
-    }
-    
-    if let picDict = data["picture"] as? [String:AnyObject],
-      let urlString = picDict["url"] as? String {
-      picture = NSURL(string: urlString)
-    }
   }
 }

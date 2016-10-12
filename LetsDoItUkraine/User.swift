@@ -9,33 +9,30 @@
 import Foundation
 
 
-struct User : DictionaryInitable, CustomDebugStringConvertible {
+struct User : CustomStringConvertible {
     var ID: String
     var firstName: String
-    var lastName: String
+    var lastName: String?
     var phone: String?
     var email: String?
-    var photo: NSURL?
+    var photo: URL?
     var country: String?
     var city: String?
   
-  var debugDescription: String {
-    return "USER: - \(ID) - \(firstName) \(lastName)"
-  }
-  
-  init(withId newId: String, data: [String: AnyObject]) {
-    ID = newId
-    firstName = data["firstName"] as! String
-    lastName = data["lastName"] as! String
-    phone = data["phone"] as? String
-    country = data["country"] as? String
-    city = data["city"] as? String
-    email = data["email"] as? String
+  var description: String {
+    let lastName = self.lastName ?? ""
+    let email = self.email ?? ""
+    let phone = self.phone ?? ""
+    let country = self.country ?? ""
+    let city = self.city ?? ""
     
-    if let pictureDict = data["pictures"] as? [String : String],
-      let picUrl = pictureDict["url"] {
-      photo = NSURL(string:picUrl)
-    }
+    return "USER: - \(ID) - \(firstName) \(lastName)\n" +
+            "email: \(email)\tphone: \(phone)\n" +
+            "\(country)/t\(city)"
   }
   
+  init() {
+    ID = "0000"
+    firstName = ""
+  }
 }

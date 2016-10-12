@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E6F1DAD7FA000A04685 /* UsersManager.swift */; };
+		55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E711DAD82BB00A04685 /* CleaningsManager.swift */; };
+		55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E731DAD85E300A04685 /* RecyclePointsManager.swift */; };
+		55033E761DAD867600A04685 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E751DAD867600A04685 /* NewsManager.swift */; };
 		552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FC1DA196D7008D5317 /* AppDelegate.swift */; };
 		552BF8FF1DA196D7008D5317 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FE1DA196D7008D5317 /* FirstViewController.swift */; };
 		552BF9011DA196D7008D5317 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF9001DA196D7008D5317 /* SecondViewController.swift */; };
@@ -15,7 +19,6 @@
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
 		552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9121DA19916008D5317 /* GoogleService-Info.plist */; };
 		55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BA1DA9238B00441EBE /* DataManager.swift */; };
-		55F658C01DAAB69E00441EBE /* DictionaryInitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BF1DAAB69E00441EBE /* DictionaryInitable.swift */; };
 		CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5771DA6DB4C006397B3 /* Cleaning.swift */; };
 		CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5781DA6DB4C006397B3 /* News.swift */; };
 		CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */; };
@@ -27,6 +30,10 @@
 /* Begin PBXFileReference section */
 		039A71F878C266E5EBF0BA96 /* Pods_LetsDoItUkraine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsDoItUkraine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.debug.xcconfig"; sourceTree = "<group>"; };
+		55033E6F1DAD7FA000A04685 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
+		55033E711DAD82BB00A04685 /* CleaningsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsManager.swift; sourceTree = "<group>"; };
+		55033E731DAD85E300A04685 /* RecyclePointsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointsManager.swift; sourceTree = "<group>"; };
+		55033E751DAD867600A04685 /* NewsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		552BF8F91DA196D7008D5317 /* LetsDoItUkraine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsDoItUkraine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		552BF8FC1DA196D7008D5317 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		552BF8FE1DA196D7008D5317 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +44,6 @@
 		552BF90A1DA196D7008D5317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552BF9121DA19916008D5317 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55F658BA1DA9238B00441EBE /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		55F658BF1DAAB69E00441EBE /* DictionaryInitable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryInitable.swift; sourceTree = "<group>"; };
 		ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.release.xcconfig"; sourceTree = "<group>"; };
 		CE51C5771DA6DB4C006397B3 /* Cleaning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cleaning.swift; sourceTree = "<group>"; };
 		CE51C5781DA6DB4C006397B3 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -111,11 +117,10 @@
 			children = (
 				55F658BE1DAAB61E00441EBE /* Protocols */,
 				55F658BA1DA9238B00441EBE /* DataManager.swift */,
-				CE51C5771DA6DB4C006397B3 /* Cleaning.swift */,
-				CE51C5781DA6DB4C006397B3 /* News.swift */,
-				CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */,
-				CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */,
-				CE51C57B1DA6DB4C006397B3 /* User.swift */,
+				55033E6F1DAD7FA000A04685 /* UsersManager.swift */,
+				55033E711DAD82BB00A04685 /* CleaningsManager.swift */,
+				55033E731DAD85E300A04685 /* RecyclePointsManager.swift */,
+				55033E751DAD867600A04685 /* NewsManager.swift */,
 				55AD708E1DA1A6A700FA1049 /* VO */,
 			);
 			name = Model;
@@ -124,6 +129,11 @@
 		55AD708E1DA1A6A700FA1049 /* VO */ = {
 			isa = PBXGroup;
 			children = (
+				CE51C57B1DA6DB4C006397B3 /* User.swift */,
+				CE51C5771DA6DB4C006397B3 /* Cleaning.swift */,
+				CE51C5781DA6DB4C006397B3 /* News.swift */,
+				CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */,
+				CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */,
 			);
 			name = VO;
 			sourceTree = "<group>";
@@ -138,7 +148,6 @@
 		55F658BE1DAAB61E00441EBE /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				55F658BF1DAAB69E00441EBE /* DictionaryInitable.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -294,8 +303,11 @@
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
 				CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */,
 				CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */,
-				55F658C01DAAB69E00441EBE /* DictionaryInitable.swift in Sources */,
+				55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */,
+				55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */,
 				55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */,
+				55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */,
+				55033E761DAD867600A04685 /* NewsManager.swift in Sources */,
 				552BF8FF1DA196D7008D5317 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
