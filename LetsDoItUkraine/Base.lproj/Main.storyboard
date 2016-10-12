@@ -125,10 +125,15 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1k-V5-okh">
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo_example.png" translatesAutoresizingMaskIntoConstraints="NO" id="F4u-d2-yDb">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo_example.png" translatesAutoresizingMaskIntoConstraints="NO" id="F4u-d2-yDb">
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="64" id="wnH-G7-STi"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Боря Гордиенко" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnS-Dh-sWc">
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -147,33 +152,43 @@
                                                     <constraint firstAttribute="height" constant="14" id="esC-yl-I28"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+38093 444 09 09" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sf7-id-unn">
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gordienko.b@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjd-ev-azB">
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="+38093 444 09 09" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-wg-d6k">
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="141" id="t4O-P7-Abk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="gordienko.b@gmail.com" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NtU-1m-DEj">
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="175" id="G4p-2p-XMR"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Sf7-id-unn" firstAttribute="leading" secondItem="yUi-lI-2U2" secondAttribute="trailing" constant="8" id="4VH-4x-sWl"/>
+                                            <constraint firstItem="NtU-1m-DEj" firstAttribute="top" secondItem="rvH-wg-d6k" secondAttribute="bottom" constant="-8" id="5fc-uE-cAx"/>
                                             <constraint firstItem="v1h-Pk-9Gj" firstAttribute="leading" secondItem="F4u-d2-yDb" secondAttribute="trailing" constant="15" id="6Hq-tk-9x4"/>
-                                            <constraint firstItem="Sf7-id-unn" firstAttribute="top" secondItem="cnS-Dh-sWc" secondAttribute="bottom" id="Gni-I7-AH0"/>
+                                            <constraint firstItem="NtU-1m-DEj" firstAttribute="leading" secondItem="v1h-Pk-9Gj" secondAttribute="trailing" constant="8" id="IaF-Db-wqC"/>
                                             <constraint firstItem="yUi-lI-2U2" firstAttribute="top" secondItem="cnS-Dh-sWc" secondAttribute="bottom" constant="4" id="Idc-Ah-TqJ"/>
                                             <constraint firstAttribute="bottom" secondItem="F4u-d2-yDb" secondAttribute="bottom" constant="20" id="IhN-iM-qCz"/>
-                                            <constraint firstItem="Fjd-ev-azB" firstAttribute="leading" secondItem="v1h-Pk-9Gj" secondAttribute="trailing" constant="8" id="LqK-Ga-MUH"/>
+                                            <constraint firstItem="rvH-wg-d6k" firstAttribute="leading" secondItem="yUi-lI-2U2" secondAttribute="trailing" constant="8" id="JZn-Tk-UEo"/>
                                             <constraint firstItem="F4u-d2-yDb" firstAttribute="top" secondItem="z1k-V5-okh" secondAttribute="top" constant="20" id="NZn-Tv-nl0"/>
                                             <constraint firstItem="cnS-Dh-sWc" firstAttribute="leading" secondItem="F4u-d2-yDb" secondAttribute="trailing" constant="15" id="R1a-5X-v7C"/>
-                                            <constraint firstItem="v1h-Pk-9Gj" firstAttribute="top" secondItem="yUi-lI-2U2" secondAttribute="bottom" constant="8" id="VaL-5E-7RB"/>
-                                            <constraint firstItem="Fjd-ev-azB" firstAttribute="top" secondItem="Sf7-id-unn" secondAttribute="bottom" id="W4t-Fi-S4B"/>
-                                            <constraint firstItem="cnS-Dh-sWc" firstAttribute="top" secondItem="z1k-V5-okh" secondAttribute="top" constant="22" id="ayh-Z6-WXG"/>
+                                            <constraint firstAttribute="bottom" secondItem="NtU-1m-DEj" secondAttribute="bottom" constant="2" id="SuC-DI-6kC"/>
+                                            <constraint firstItem="v1h-Pk-9Gj" firstAttribute="top" secondItem="yUi-lI-2U2" secondAttribute="bottom" constant="14" id="VaL-5E-7RB"/>
+                                            <constraint firstItem="cnS-Dh-sWc" firstAttribute="top" secondItem="z1k-V5-okh" secondAttribute="top" constant="20" id="ayh-Z6-WXG"/>
                                             <constraint firstAttribute="height" constant="104" id="iZh-E7-mWD"/>
                                             <constraint firstItem="F4u-d2-yDb" firstAttribute="leading" secondItem="z1k-V5-okh" secondAttribute="leading" constant="15" id="jLS-VY-SCX"/>
                                             <constraint firstItem="yUi-lI-2U2" firstAttribute="leading" secondItem="F4u-d2-yDb" secondAttribute="trailing" constant="15" id="uAh-n6-CiO"/>
+                                            <constraint firstItem="NtU-1m-DEj" firstAttribute="centerY" secondItem="v1h-Pk-9Gj" secondAttribute="centerY" id="ug5-rn-wkJ"/>
+                                            <constraint firstItem="rvH-wg-d6k" firstAttribute="top" secondItem="cnS-Dh-sWc" secondAttribute="bottom" constant="-3" id="vO6-lR-c1y"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bx2-kH-sso">
@@ -281,6 +296,9 @@
                                                         <integer key="value" value="7"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="goToWebSite:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="dqx-ah-2Em"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Информация" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiK-Le-sU4">
                                                 <constraints>
@@ -447,20 +465,25 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puB-IG-m2t">
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Позвать с собой друзей" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GM1-gY-oWd">
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="19" id="hEP-fs-MAz"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUb-gt-jhk">
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <state key="normal" title="Позвать с собой друзей">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="shareDialog:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="ZaZ-Ff-oWm"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="GM1-gY-oWd" firstAttribute="centerY" secondItem="puB-IG-m2t" secondAttribute="centerY" id="XqA-q5-mme"/>
+                                            <constraint firstItem="IUb-gt-jhk" firstAttribute="centerX" secondItem="puB-IG-m2t" secondAttribute="centerX" id="0Vm-Rx-U7U"/>
+                                            <constraint firstItem="IUb-gt-jhk" firstAttribute="leading" secondItem="puB-IG-m2t" secondAttribute="leading" id="8SY-a4-fP0"/>
+                                            <constraint firstItem="IUb-gt-jhk" firstAttribute="centerY" secondItem="puB-IG-m2t" secondAttribute="centerY" id="Qae-pi-pJG"/>
                                             <constraint firstAttribute="height" constant="50" id="eXT-bv-Bx0"/>
-                                            <constraint firstItem="GM1-gY-oWd" firstAttribute="centerX" secondItem="puB-IG-m2t" secondAttribute="centerX" id="wSo-Qg-cfy"/>
+                                            <constraint firstAttribute="trailing" secondItem="IUb-gt-jhk" secondAttribute="trailing" id="epj-SV-xqF"/>
+                                            <constraint firstItem="IUb-gt-jhk" firstAttribute="top" secondItem="puB-IG-m2t" secondAttribute="top" id="fm2-Ax-dlk"/>
+                                            <constraint firstAttribute="bottom" secondItem="IUb-gt-jhk" secondAttribute="bottom" id="ku2-vv-dcm"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAb-vC-1rl">
@@ -549,17 +572,17 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1000"/>
                     <connections>
-                        <outlet property="cleaningDate" destination="KKf-lX-cB7" id="Qb9-Zp-WsF"/>
+                        <outlet property="cleaningDate" destination="KKf-lX-cB7" id="aID-qZ-PfT"/>
                         <outlet property="cleaningDescription" destination="Ys6-zs-pLu" id="oXo-dL-740"/>
-                        <outlet property="cleaningEmail" destination="Fjd-ev-azB" id="GCb-3U-kyz"/>
+                        <outlet property="cleaningEmail" destination="NtU-1m-DEj" id="9gf-GI-F9Y"/>
                         <outlet property="cleaningNameCoordinator" destination="cnS-Dh-sWc" id="faH-7W-Kd7"/>
-                        <outlet property="cleaningPhone" destination="Sf7-id-unn" id="g7E-Oc-fRc"/>
+                        <outlet property="cleaningPhone" destination="rvH-wg-d6k" id="GZS-h4-a0s"/>
                         <outlet property="cleaningPlace" destination="yC7-yp-VZo" id="Ltk-gV-0Yy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3693.5999999999999" y="-528.48575712143929"/>
+            <point key="canvasLocation" x="3693.5999999999999" y="-528.93553223388312"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">

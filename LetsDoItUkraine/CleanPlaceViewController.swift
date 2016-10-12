@@ -10,20 +10,23 @@ import UIKit
 
 class CleanPlaceViewController: UIViewController {
 
+    @IBOutlet weak var cleaningEmail: UITextView!
+    @IBOutlet weak var cleaningPhone: UITextView!
     @IBOutlet weak var cleaningDate: UILabel!
     @IBOutlet weak var cleaningPlace: UILabel!
     @IBOutlet weak var cleaningDescription: UILabel!
-    @IBOutlet weak var cleaningPhone: UILabel!
-    @IBOutlet weak var cleaningEmail: UILabel!
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
+    
+    ////Temporary code
     var clean : [String : Any] = ["id": 1,
                                   "adress": "г. Киев, вул.Велика Василькiвська, 55",
                                   "pictures": "http://beybegi.com/pics/imgs/olympiyskiy.jpg (448KB)",
         "date": "11 ноября 2016, 12:45",
+       
         "description": "НСК Олимпийский. Давайте подстрижем газон!",
         "isActive": true]
     
-    
+    ////Temporary code
     var user : [String : Any] = ["id": 1,
                                   "firstName": "Боря",
                                   "lastName": "Гордиенко",
@@ -65,16 +68,34 @@ class CleanPlaceViewController: UIViewController {
         self.cleaningDescription.text = clean["description"] as! String?
         
         self.cleaningPhone.text = user["phone"] as! String?
+      //  self.cleaningPhone.textColor = UIColor.black
         self.cleaningEmail.text = user["email"] as! String?
         self.cleaningNameCoordinator.text = (user["firstName"] as! String?)! + " " + (user["lastName"] as! String?)!
         
-
-        // Do any additional setup after loading the view.
     }
 
+    
+    @IBAction func goToWebSite(_ sender: AnyObject) {
+        
+        let url = URL(string: "http://www.letsdoit.ua")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    @IBAction func shareDialog(_ sender: AnyObject) {
+         let textToShare = "Swift is awesome!  Check out this website about it!"
+         let objectsToShare = [textToShare, UIActivityType.mail, UIActivityType.postToTwitter, UIActivityType.postToFacebook] as [Any]
+        let vc = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        self.present(vc, animated: true, completion: nil)
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       
     }
     
 

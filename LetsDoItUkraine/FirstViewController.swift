@@ -18,9 +18,9 @@ class FirstViewController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
-    configureDatabase()
+    //configureDatabase()
     
-    ref.child("messages").childByAutoId().setValue(["name" : "Andrey", "text" : "some text"])
+    //ref.child("messages").childByAutoId().setValue(["name" : "Andrey", "text" : "some text"])
     
     let loginButton = FBSDKLoginButton()
     loginButton.center = view.center
