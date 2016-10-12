@@ -123,6 +123,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оболонский р-н" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFT-NA-jAK">
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="mrb-zc-MFP"/>
                                                             </constraints>
@@ -131,6 +132,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оболонская набережная, 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBm-BZ-hoM">
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="YC9-y4-ECt"/>
                                                             </constraints>
@@ -139,6 +141,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Координатор: Гриша" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-uj-c1Z">
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="dTt-7d-EDV"/>
                                                             </constraints>
@@ -147,6 +150,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пойдет: 245" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfN-s3-QdI">
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="pEV-vV-4Sc"/>
                                                             </constraints>
@@ -221,13 +225,23 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKU-aC-RKu">
-                                    <state key="normal" title="Сдать" backgroundImage="DisposeRectangleClear"/>
+                                    <state key="normal" title="Сдать" backgroundImage="DisposeRectangleClear">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" backgroundImage="DisposeRectangleFilled">
+                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <state key="highlighted" backgroundImage="DisposeRectangleFilled">
+                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
                                     <connections>
                                         <action selector="didTouchRecycleButton:" destination="Tb7-fo-teZ" eventType="touchUpInside" id="JeK-oW-JAi"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaZ-h2-JGC">
-                                    <state key="normal" title="Убрать" backgroundImage="CleaningsRectangleFilled"/>
+                                    <state key="normal" title="Убрать" backgroundImage="CleaningsRectangleFilled">
+                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
                                 </button>
                             </subviews>
                             <constraints>
@@ -345,6 +359,7 @@
     <resources>
         <image name="CleaningsRectangleFilled" width="98" height="30"/>
         <image name="DisposeRectangleClear" width="98" height="30"/>
+        <image name="DisposeRectangleFilled" width="98" height="30"/>
         <image name="Placeholder" width="74" height="90"/>
         <image name="Shape" width="21" height="21"/>
         <image name="first" width="30" height="30"/>

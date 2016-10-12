@@ -63,10 +63,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func styleNavigationBar(){
         self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "Rectangle"), for: UIBarMetrics.default)
-        self.cleaningsButton.setBackgroundImage(#imageLiteral(resourceName: "CleaningsRectangleFilled"), for: UIControlState.normal)
-        self.recycleButton.setBackgroundImage(#imageLiteral(resourceName: "DisposeRectangleClear"), for: UIControlState.normal)
-        self.recycleButton.setTitleColor(UIColor.white, for: UIControlState.normal)
-        self.cleaningsButton.setTitleColor(UIColor.init(red: 0.4196, green: 0.7725, blue: 0.6549, alpha: 1), for: UIControlState.normal)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -109,7 +105,11 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     func setCurrentLocationOnMap(){
-        self.mapView.moveCamera(GMSCameraUpdate.setTarget(currentLocationCoordinates, zoom: 15))
+        if let myLocation = mapView.myLocation {
+            self.mapView.moveCamera(GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 15))
+        } else {
+            self.mapView.moveCamera(GMSCameraUpdate.setTarget(currentLocationCoordinates, zoom: 15))
+        }
     }
 
     //MARK: CLLocationManagerDelegate
@@ -131,11 +131,13 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     //MARK: GMSMapViewDelegate
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        mapView.padding = UIEdgeInsetsMake(0, 0, 120, 0)
         self.cleaningsCollectionView.isHidden = false
         return true
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0)
         self.cleaningsCollectionView.isHidden = true
     }
     
@@ -147,7 +149,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
-        
         return cell
     }
     
