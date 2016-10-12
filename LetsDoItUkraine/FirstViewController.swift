@@ -11,8 +11,7 @@ import FBSDKLoginKit
 import Firebase
 
 class FirstViewController: UIViewController {
-  
-  let dataManager = DataManager.sharedManager
+
 
   override func viewDidLoad() {
     super.viewDidLoad()
