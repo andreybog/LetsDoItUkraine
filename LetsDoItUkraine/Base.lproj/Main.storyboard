@@ -43,22 +43,6 @@
             </objects>
             <point key="canvasLocation" x="1927" y="-496"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="t5a-Ei-yxe">
-            <objects>
-                <navigationController id="yko-Of-tUI" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pvu-eW-8fz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="rJ6-tA-pAI" kind="relationship" relationship="rootViewController" id="HQZ-a0-So3"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lnQ-Wh-eAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2897" y="-553"/>
-        </scene>
         <!--Clean Place View Controller-->
         <scene sceneID="gQ5-SP-t2U">
             <objects>
@@ -582,7 +566,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3693.5999999999999" y="-528.93553223388312"/>
+            <point key="canvasLocation" x="2150" y="1031"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -738,6 +722,7 @@
                                             <outlet property="districtLabel" destination="SFT-NA-jAK" id="7fF-Yj-bkl"/>
                                             <outlet property="image" destination="IQX-bK-roF" id="5c3-Wx-yX6"/>
                                             <outlet property="participantsNumberLabel" destination="bfN-s3-QdI" id="u63-1n-BL9"/>
+                                            <segue destination="rJ6-tA-pAI" kind="show" id="9ho-nQ-ISv"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
