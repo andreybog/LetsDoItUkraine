@@ -42,7 +42,21 @@ extension Cleaning : FirebaseInitable {
   }
   
   var dictionary: [String : Any] {
-    return [:]
+    var data: [String : Any] = ["active"    : isActive,
+                                "latitude"  : cooridnate.latitude,
+                                "longitude" : cooridnate.longitude]
+    
+    if let address = address { data["address"] = address }
+    if let datetime = datetime { data["dateTime"] = datetime.string() }
+    if let summary = summary { data["description"] = summary }
+    if let pictures = pictures {
+      var picDict = [String:String]()
+      for (index, url) in pictures.enumerated() {
+        picDict[String(index)] = url.absoluteString
+      }
+      data["pictures"] = picDict
+    }
+    return ["99\(ID)" : data]
   }
   
   static var rootDatabasePath: String = "cleanings"
@@ -92,5 +106,27 @@ class CleaningsManager {
     
     dataManager.getObjects(fromReference: reference, handler: handler)
   }
-
+  
+  func addCleaning(_ cleaning:Cleaning, byCoordinator coordinator:User) {
+    
+  }
+  
+  func addMember(_ user:User, toCleaning cleaning: Cleaning, as memberType: ClenaingMembersFilter) {
+    var userInfoPath = "user-cleanings/\(user.ID)"
+    var cleaningInfoPath = "cleaning-members/\(cleaning.ID))"
+    
+    switch memberType {
+    case .coordinator:
+      userInfoPath.append("/asCoordinator")
+      cleaningInfoPath.append("/coordinators")
+    case .cleaner:
+      userInfoPath.append("/asCleaner")
+      cleaningInfoPath.append("/cleaners")
+    }
+    
+    let valuesForUpdate = [userInfoPath : [cleaning.ID : true],
+                           cleaningInfoPath : [user.ID : true]]
+    
+    dataManager.updateObjects(valuesForUpdate)
+  }
 }

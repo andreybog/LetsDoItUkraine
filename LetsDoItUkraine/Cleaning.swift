@@ -22,5 +22,11 @@ struct Cleaning : CustomStringConvertible {
     return "CLEANING: \(ID)\n" +
             "lat: \(cooridnate.latitude) lon: \(cooridnate.longitude)\n" +
             (isActive ? "Active" : "Not active")
-  }  
+  }
+  
+  init() {
+    ID = ""
+    cooridnate = CLLocationCoordinate2D()
+    isActive = false
+  }
 }

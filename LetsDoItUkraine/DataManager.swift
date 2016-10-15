@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 let kDatabaseDateFormat:String = "yyyy-MM-dd'T'HH:mm:ss'Z'00"
+let kForbiddenPathCharacterSet = CharacterSet(charactersIn:".#$[]")
 
 extension String {
   func date(withFormat format:String = kDatabaseDateFormat) -> Date? {
@@ -105,6 +106,19 @@ class DataManager {
       }
     })
   }
+  
+  // MARK: - API - UPDATE
+  
+  func updateObject<T:FirebaseInitable>(_ object:T) {
+    let reference = ref.child(T.rootDatabasePath)
+    reference.updateChildValues(object.dictionary)
+  }
+  
+  func updateObjects(_ values: [String : Any]) {
+    ref.updateChildValues(values)
+  }
+  
+  // MARK: - CONFIGURATION
   
   private func configureCleaningMembers(_ ref: FIRDatabaseReference) {
     refCleaningMembers = ref.child("cleaning-members")

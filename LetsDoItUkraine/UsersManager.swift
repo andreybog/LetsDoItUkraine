@@ -29,16 +29,16 @@ extension User : FirebaseInitable {
   }
   
   var dictionary: [String : Any] {
-    var userData = ["firstName" : firstName]
+    var data = ["firstName" : firstName]
     
-    if let lastName   = lastName { userData["lastName"] = lastName }
-    if let phone      = phone { userData["phone"] = phone }
-    if let country    = country { userData["country"] = country }
-    if let city       = city { userData["city"] = city }
-    if let email      = email { userData["email"] = email }
-    if let photo      = photo { userData["picture"] = photo.absoluteString }
+    if let lastName   = lastName { data["lastName"] = lastName }
+    if let phone      = phone { data["phone"] = phone }
+    if let country    = country { data["country"] = country }
+    if let city       = city { data["city"] = city }
+    if let email      = email { data["email"] = email }
+    if let photo      = photo { data["picture"] = photo.absoluteString }
     
-    return [ID : userData]
+    return [ID : data]
   }
   
   static var rootDatabasePath: String = "users"
@@ -72,11 +72,16 @@ class UsersManager {
   }
   
   func addUser(_ user: User) {
+    if user.ID.isEmpty || user.ID.rangeOfCharacter(from: kForbiddenPathCharacterSet) != nil {
+      print("Error: userID Must be a non-empty string and not contain '.' '#' '$' '[' or ']''")
+      return
+    }
+      
     let reference =  dataManager.ref.child(User.rootDatabasePath)
     
-    reference.child(user.ID).observeSingleEvent(of: .value, with: { (snapshot) in
+    reference.child(user.ID).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
       if !snapshot.exists() {
-        reference.updateChildValues(user.dictionary)
+        self.dataManager.updateObject(user)
       } else {
         print("Error: User with id: '\(user.ID)' is already exist.")
       }

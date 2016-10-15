@@ -32,7 +32,7 @@ struct User : CustomStringConvertible {
   }
   
   init() {
-    ID = "0000"
+    ID = ""
     firstName = ""
   }
 }
