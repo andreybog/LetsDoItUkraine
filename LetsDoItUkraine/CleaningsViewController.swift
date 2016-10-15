@@ -9,23 +9,20 @@
 import UIKit
 import GoogleMaps
 
+
 class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, GMSMapViewDelegate {
-    //--------Outlets-------------
-        //----Buttons----
+    
     @IBOutlet weak var recycleButton: UIButton!
     @IBOutlet weak var cleaningsButton: UIButton!
-        //---------------
-        //----Views------
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var cleaningsCollectionView: UICollectionView!
-        //---------------
-    //----------------------------
-    //--------Properties----------
+
     var locationManager = CLLocationManager()
     var currentLocationCoordinates = CLLocationCoordinate2D()
-    var cleaningsArray = ["НСК Олимпийский","блвр. Леси Украинки","КНУКМ"]
-    //----------------------------
-    
+    let cleaningsManager = CleaningsManager.defaultManager
+    var cleaningsArray = [Cleaning]()
+    var transferID = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,6 +30,15 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         locationManager.delegate = self
         determineAuthorizationStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        cleaningsManager.getCleanings(filer: .active) { (cleanings) in
+            if cleanings.count != 0 {
+                self.cleaningsArray = cleanings
+                self.setMarkers()
+            } else {
+                print("Error, while loading cleanings!")
+            }
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,20 +50,47 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         styleNavigationBar()
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
-        setMarkers()
+        if self.cleaningsArray.count != 0 {
+            setMarkers()
+        }
         mapView.delegate = self
+        let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
         self.cleaningsCollectionView.isHidden = true
-        self.cleaningsCollectionView.backgroundColor = UIColor.clear
     }
     func setMarkers() {
-        let marker1 = GMSMarker(position: CLLocationCoordinate2DMake(50.433197, 30.521941))
-        let marker2 = GMSMarker(position: CLLocationCoordinate2DMake(50.432717, 30.535749))
-        let marker3 = GMSMarker(position: CLLocationCoordinate2DMake(50.425071, 30.534235))
-        marker1.map = mapView
-        marker2.map = mapView
-        marker3.map = mapView
+        for cleaning in self.cleaningsArray{
+            let marker = GMSMarker(position: cleaning.cooridnate)
+            marker.icon = GMSMarker.markerImage(with: UIColor.green)
+            marker.snippet = cleaning.ID
+            marker.map = mapView
+        }
     }
     
+    func setStreetViewImageWith(coordinates: CLLocationCoordinate2D) -> UIImage?{
+        let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
+        let size = "300x300"
+        let location = "\(coordinates.latitude),%20\(coordinates.longitude)"
+        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(googleStreetViewAPIKey)"
+        guard let url = URL(string: "\(urlString)") else {
+            print(urlString)
+            print("URL cannot be formed with the string")
+            return nil
+        }
+        let imageData : Data
+        do {
+            imageData = try Data(contentsOf: url)
+        } catch {
+            print("No Data by URL")
+            return nil
+        }
+        if let image = UIImage(data: imageData) {
+            return image
+        } else {
+            print("No image while by url data")
+            return nil
+        }
+    }
     
     //MARK: Setting Navigation Bar
     
@@ -131,7 +164,20 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     //MARK: GMSMapViewDelegate
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        mapView.padding = UIEdgeInsetsMake(0, 0, 120, 0)
+        mapView.padding = UIEdgeInsetsMake(0, 0, 110, 0)
+        var index = 0
+        for cleaning in cleaningsArray{
+            if marker.snippet == cleaning.ID{
+                cleaningsArray.remove(at: index)
+                cleaningsArray.insert(cleaning, at: 0)
+                break
+            }
+            index += 1
+        }
+        mapView.animate(toLocation: cleaningsArray[0].cooridnate)
+        mapView.animate(toZoom: 12)
+        
+        self.cleaningsCollectionView.reloadData()
         self.cleaningsCollectionView.isHidden = false
         return true
     }
@@ -141,6 +187,21 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         self.cleaningsCollectionView.isHidden = true
     }
     
+    //MARK: UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        mapView.animate(toLocation: cleaningsArray[indexPath.row].cooridnate)
+        mapView.animate(toZoom: 12)
+
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//            self.transferID = cleaningsArray[indexPath.row].ID
+//    }
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        self.transferID = cleaningsArray[indexPath.row].ID
+        return true
+    }
     
     //MARK: UICollectionViewDataSource
     
@@ -149,13 +210,68 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
+        let cleaning = cleaningsArray[indexPath.row]
+        cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner) { (users) in
+            if users.count != 0 {
+                cell.participantsNumberLabel.text = "Пойдет: \(users.count)"
+            }
+        }
+        cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .coordinator) { (user) in
+            if user.count != 0 {
+                cell.coordinatorNameLabel.text = "Координатор: \((user.first?.lastName)!) \((user.first?.firstName)!)"
+            }
+        }
+        
+        if let image = setStreetViewImageWith(coordinates: cleaning.cooridnate) {
+            cell.image.image = image
+        } else {
+            cell.image.image = #imageLiteral(resourceName: "Placeholder")
+        }
+        
+        let rectShape = CAShapeLayer()
+        rectShape.bounds = cell.frame
+        rectShape.position = cell.center
+        rectShape.path = UIBezierPath(roundedRect: cell.bounds,
+                                      byRoundingCorners: [.topLeft, .bottomLeft, .topRight, .bottomRight],
+                                      cornerRadii: CGSize(width: 10, height: 10)).cgPath
+        cell.layer.backgroundColor = UIColor.clear.cgColor
+        cell.layer.mask = rectShape
+        
+        cell.addressLabel.text = cleaning.address
+
         return cell
+    }
+    
+    //MARK: Prepare for Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "cleaningDetailsSegue" {
+            let cleaningdetailsViewController = segue.destination as! CleanPlaceViewController
+            cleaningdetailsViewController.cleaningID = self.transferID
+        }
+    }
+
+    
+    //MARK: Paging Collection View cell
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWithIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWithIncludingSpacing
+        let roundedIndex = round(index)
+        
+        offset = CGPoint(x: roundedIndex * cellWithIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.cleaningsCollectionView.reloadData()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     @IBAction func didTouchSearchButton(_ sender: UIBarButtonItem) {
     }
 
