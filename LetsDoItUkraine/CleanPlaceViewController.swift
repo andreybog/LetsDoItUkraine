@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 extension Date {
     func dateStringWithFormat(format: String) -> String {
@@ -47,36 +47,49 @@ class CleanPlaceViewController: UIViewController {
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 
         
-// MARK: - getCleaning
-        CleaningsManager.defaultManager.getCleaning(withId: cleaningID) { (cleaning) in
-
-            self.cleaningDate.text = cleaning?.datetime?.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
-            self.cleaningPlace.text = cleaning?.address
-            self.cleaningDescription.text = cleaning?.summary
-            self.cleaningName.text = cleaning?.address
-            if (cleaning?.pictures?.count)! > 0 {
+// getCleaning
+        CleaningsManager.defaultManager.getCleaning(withId: cleaningID) { [unowned self] (cleaning) in
+            if cleaning != nil {
+              self.cleaningDate.text = cleaning?.datetime != nil ? cleaning!.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ") : ""
+              self.cleaningPlace.text = cleaning?.address != nil ? cleaning!.address : ""
+              self.cleaningDescription.text = cleaning?.summary != nil ? cleaning!.summary : ""
+              self.cleaningName.text = cleaning?.address != nil ? cleaning!.address : ""
+                
+              if (cleaning?.pictures?.count)! > 0 {
+                let cleaningPlace = ImageResource(downloadURL: (cleaning?.pictures?[0])! as URL, cacheKey: "")
+                self.cleaningPlacePhoto1.kf.setImage(with: cleaningPlace)
+                }
+                
+                
+            //if (cleaning?.pictures?.count)! > 0 {
                 //for item in (cleaning?.pictures)! {
                  // self.cleaningPlacePhoto1.image = UIImage(data: try! NSData(contentsOf: item) as Data)
                // }
+            //}
             }
         }
       
-// MARK: - getCleaningMembers
-       CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .coordinator) { (users) in
-        
-        self.cleaningPhone.text = users[0].phone
-        self.cleaningEmail.text = users[0].email
-        self.cleaningNameCoordinator.text = users[0].firstName + " " + users[0].lastName!
-        let coordinatorPhoto = try? Data(contentsOf: users[0].photo!)
-        if coordinatorPhoto != nil {
-              self.cleaningCoordinatorPhoto.image = UIImage(data: coordinatorPhoto!)
-           }
+// getCleaningMembers
+       CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .coordinator) { [unowned self](users) in
+        if users.count > 0 {
+          self.cleaningPhone.text = users[0].phone != nil ? users[0].phone : ""
+          self.cleaningEmail.text = users[0].email != nil ? users[0].email : ""
+          self.cleaningNameCoordinator.text = users[0].firstName + " " + users[0].lastName!
+          let photoCoordinator = ImageResource(downloadURL: (users[0].photo)! as URL, cacheKey: "")
+          self.cleaningCoordinatorPhoto.kf.setImage(with: photoCoordinator)
+
+            
+            
+          
+            
+          }
         }
         
-// MARK: - count cleaning members
-        CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .cleaner) { (users) in
-            
-        self.numberOfMembers.text = String(users.count)
+//  count cleaning members
+        CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .cleaner) { [unowned self](users) in
+          if users.count > 0 {
+             self.numberOfMembers.text = String(users.count)
+            }
         }
     
 

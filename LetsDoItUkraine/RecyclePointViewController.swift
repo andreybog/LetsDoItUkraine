@@ -32,13 +32,13 @@ class RecyclePointViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         
             // MARK: - getRecylcePoint
-        RecyclePointsManager.defaultManager.getRecylcePoint(withId: "1") { (recyclePoint) in
+        RecyclePointsManager.defaultManager.getRecylcePoint(withId: "1") { [unowned self] (recyclePoint) in
             self.recyclePointName.text = recyclePoint?.title
-            self.recyclePointPhone.text = recyclePoint?.phone
-            self.recyclePointEmail.text = recyclePoint?.website
-            self.recyclePointSchedule.text = recyclePoint?.schedule
-            self.recyclePointAddress.text = recyclePoint?.adress
-            self.recyclePointSummary.text = recyclePoint?.summary
+            self.recyclePointPhone.text = recyclePoint?.phone != nil ? recyclePoint!.phone : ""
+            self.recyclePointEmail.text = recyclePoint?.website != nil ? recyclePoint!.website : ""
+            self.recyclePointSchedule.text = recyclePoint?.schedule != nil ? recyclePoint!.schedule : ""
+            self.recyclePointAddress.text = recyclePoint?.adress != nil ? recyclePoint!.adress : ""
+            self.recyclePointSummary.text = recyclePoint?.summary != nil ? recyclePoint!.summary : ""
             
             ///
             //self.recyclePointLogo.image = recyclePoint?.logo
