@@ -11,19 +11,22 @@ import GoogleMaps
 import GooglePlaces
 
 
-class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, GMSMapViewDelegate {
+class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, LocateOnTheMapDelegate, GMSMapViewDelegate {
     
     @IBOutlet weak var recycleButton: UIButton!
     @IBOutlet weak var cleaningsButton: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var cleaningsCollectionView: UICollectionView!
+    
+    var searchResultController : SearchResultsController!
+    var resultArray = [String]()
+    
 
     var locationManager = CLLocationManager()
     var currentLocationCoordinates = CLLocationCoordinate2D()
     let cleaningsManager = CleaningsManager.defaultManager
     var cleaningsArray = [Cleaning]()
     var transferID = ""
-    var placesClient : GMSPlacesClient?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +43,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                 print("Error, while loading cleanings!")
             }
         }
-        placesClient = GMSPlacesClient()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,6 +51,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         styleNavigationBar()
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
@@ -61,6 +63,14 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
         self.cleaningsCollectionView.isHidden = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchResultController = SearchResultsController()
+        searchResultController.delegate = self
+    }
+    
+    
     func setMarkers() {
         for cleaning in self.cleaningsArray{
             let marker = GMSMarker(position: cleaning.cooridnate)
@@ -147,6 +157,18 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             self.mapView.moveCamera(GMSCameraUpdate.setTarget(currentLocationCoordinates, zoom: 15))
         }
     }
+    
+    //MARK: LocateOnTheMapDelegate
+    func locateWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
+        DispatchQueue.main.async {
+            let position = CLLocationCoordinate2DMake(lat, lon)
+            let marker = GMSMarker(position: position)
+            let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 15)
+            self.mapView.camera = camera
+            marker.title = title
+            marker.map = self.mapView
+        }
+    }
 
     //MARK: CLLocationManagerDelegate
     
@@ -211,8 +233,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let cleaning = cleaningsArray[indexPath.row]
-//        placesClient?.lookUpPlaceID(String, callback: <#T##GMSPlaceResultCallback##GMSPlaceResultCallback##(GMSPlace?, Error?) -> Void#>)
-//        let adress = GMSAddressComponent()
         cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner) { (users) in
             if users.count != 0 {
                 cell.participantsNumberLabel.text = "Пойдет: \(users.count)"
@@ -242,6 +262,25 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         cell.addressLabel.text = cleaning.address
 
         return cell
+    }
+    
+    
+    //MARK: UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let placesClient = GMSPlacesClient()
+        placesClient.autocompleteQuery(searchText, bounds: nil, filter: nil) { (results, error:Error?) in
+            self.resultArray.removeAll()
+            if results == nil {
+                return
+            }
+            for result in results!{
+                if let result = result as? GMSAutocompletePrediction{
+                    self.resultArray.append(result.attributedFullText.string)
+                }
+            }
+            self.searchResultController.reloadDataWith(Array: self.resultArray)
+        }
     }
     
     //MARK: Prepare for Segue
@@ -276,7 +315,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
 
 
     @IBAction func didTouchSearchBarButton(_ sender: AnyObject) {
-        let searchController = UISearchController(searchResultsController: nil)
+        let searchController = UISearchController(searchResultsController: searchResultController)
         searchController.searchBar.delegate = self
         self.present(searchController, animated: true, completion: nil)
 
