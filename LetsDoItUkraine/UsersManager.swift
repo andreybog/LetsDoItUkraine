@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 extension User : FirebaseInitable {
   
@@ -53,9 +54,18 @@ class UsersManager {
   static let defaultManager = UsersManager()
   private var dataManager = DataManager.sharedManager
   
-  func getUser(withId userId:String, handler: @escaping (_: User?)->Void) {
+  
+  //MARK: - GET USERS
+  
+  func getUser(withId userId:String, handler: @escaping (_: User?) -> Void) {
     let reference =  dataManager.ref.child("\(User.rootDatabasePath)/\(userId)")
     dataManager.getObject(fromReference: reference, handler: handler)
+  }
+  
+  func getAllUsers(handler: @escaping (_: [User]) -> Void) {
+    let refPath = "users"
+    let reference =  dataManager.ref.child(refPath)
+    dataManager.getObjects(fromReference: reference, handler: handler)
   }
   
   func getUserCleanings(userId: String, filter: UserClenaingsFilter, handler: @escaping (_:[Cleaning]) -> Void) {
@@ -70,23 +80,12 @@ class UsersManager {
     let reference =  dataManager.ref.child(refPath)
     dataManager.getObjects(fromReference: reference, handler: handler)
   }
-  
-  func addUser(_ user: User) {
-    if user.ID.isEmpty || user.ID.rangeOfCharacter(from: kForbiddenPathCharacterSet) != nil {
-      print("Error: userID Must be a non-empty string and not contain '.' '#' '$' '[' or ']''")
-      return
-    }
-      
-    let reference =  dataManager.ref.child(User.rootDatabasePath)
     
-    reference.child(user.ID).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-      if !snapshot.exists() {
-        self.dataManager.updateObject(user)
-      } else {
-        print("Error: User with id: '\(user.ID)' is already exist.")
-      }
-    })
-  }
+  // MARK: - MODIFY USER
+  
+    func createUser(_ user: User) {
+        self.dataManager.createObject(user)
+    }
   
   
 }

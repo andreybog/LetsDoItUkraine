@@ -16,15 +16,23 @@ struct RecyclePoint : CustomStringConvertible {
     var website: String?
     var logo: URL?
     var picture: URL?
-    var location: CLLocationCoordinate2D
-    var adress: String?
+    var coordinate: CLLocationCoordinate2D
+    var address: String
     var schedule: String?
     var summary: String?
     var categories: [String]
   
   var description: String {
     return "RECYCLE POINT: - \(ID) - \(title)\n" +
-    "location: \(location.latitude), \(location.longitude)\n" +
+    "location: \(coordinate.latitude), \(coordinate.longitude)\n" +
     "\(categories)"
+  }
+  
+  init() {
+    ID = ""
+    title = ""
+    address = ""
+    categories = []
+    coordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
   }
 }

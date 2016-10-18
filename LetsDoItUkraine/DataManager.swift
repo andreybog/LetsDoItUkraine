@@ -47,7 +47,7 @@ class DataManager {
     let ref = FIRDatabase.database().reference()
     
 //    self.configureUserCleanings(ref)
-    self.configureCleaningMembers(ref)
+//    self.configureCleaningMembers(ref)
     
     return ref
   }()
@@ -107,9 +107,15 @@ class DataManager {
     })
   }
   
+  func getObjectsCount(fromReference reference:FIRDatabaseQuery, handler: @escaping (_:UInt) -> Void) {
+    reference.observeSingleEvent(of: .value, with: { (snapshots) in
+      handler(snapshots.childrenCount)
+    })
+  }
+  
   // MARK: - API - UPDATE
   
-  func updateObject<T:FirebaseInitable>(_ object:T) {
+  func createObject<T:FirebaseInitable>(_ object:T) {
     let reference = ref.child(T.rootDatabasePath)
     reference.updateChildValues(object.dictionary)
   }

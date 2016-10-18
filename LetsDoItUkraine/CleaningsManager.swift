@@ -16,11 +16,10 @@ extension Cleaning : FirebaseInitable {
     guard let key = data.keys.first, let data = data[key] as? [String : Any] else { return nil }
     
     ID = key
-    address = data["address"] as? String
+    address = data["address"] as! String
     
     if let dateString = data["datetime"] as? String {
       datetime = dateString.date()
-      print("datetime: \(datetime)")
     } else {
       datetime = nil
     }
@@ -44,9 +43,9 @@ extension Cleaning : FirebaseInitable {
   var dictionary: [String : Any] {
     var data: [String : Any] = ["active"    : isActive,
                                 "latitude"  : cooridnate.latitude,
-                                "longitude" : cooridnate.longitude]
+                                "longitude" : cooridnate.longitude,
+                                "address"   : address]
     
-    if let address = address { data["address"] = address }
     if let datetime = datetime { data["dateTime"] = datetime.string() }
     if let summary = summary { data["description"] = summary }
     if let pictures = pictures {
@@ -56,7 +55,7 @@ extension Cleaning : FirebaseInitable {
       }
       data["pictures"] = picDict
     }
-    return ["99\(ID)" : data]
+    return [ID : data]
   }
   
   static var rootDatabasePath: String = "cleanings"
@@ -74,6 +73,8 @@ class CleaningsManager {
   
   static let defaultManager = CleaningsManager()
   private var dataManager = DataManager.sharedManager
+  
+  // MARK: - GET METHODS
   
   func getCleaning(withId cleaningId:String, handler: @escaping (_: Cleaning?)->Void) {
     let reference = dataManager.ref.child("\(Cleaning.rootDatabasePath)/\(cleaningId)")
@@ -96,36 +97,66 @@ class CleaningsManager {
   }
   
   func getCleaningMembers(cleaningId: String, filter: ClenaingMembersFilter, handler: @escaping (_:[User]) -> Void) {
-    var refPath = "cleaning-members/\(cleaningId)"
-    
-    switch filter {
-    case .coordinator:    refPath.append("/coordinators")
-    case .cleaner:        refPath.append("/cleaners")
-    }
+    let refPath = cleaningMembersReferencePath(cleaningId: cleaningId, filter: filter)
     let reference = dataManager.ref.child(refPath)
     
     dataManager.getObjects(fromReference: reference, handler: handler)
   }
   
-  func addCleaning(_ cleaning:Cleaning, byCoordinator coordinator:User) {
+  func getCleaningMembersCount(cleaningId: String, filter: ClenaingMembersFilter, handler: @escaping (_:UInt) -> Void) {
+    let refPath = cleaningMembersReferencePath(cleaningId: cleaningId, filter: filter)
+    let reference = dataManager.ref.child(refPath)
     
+    dataManager.getObjectsCount(fromReference: reference, handler: handler)
+  }
+  
+  private func cleaningMembersReferencePath(cleaningId: String, filter: ClenaingMembersFilter) -> String {
+    switch filter {
+    case .coordinator:    return "cleaning-members/\(cleaningId)/coordinators"
+    case .cleaner:        return "cleaning-members/\(cleaningId)/cleaners"
+    }
+  }
+  
+  
+  // MARK: - MODIFY METHODS
+  
+  func createCleaning(_ cleaning:Cleaning, byCoordinator user:User) {
+    let cleaningsRootRef = dataManager.ref.child(Cleaning.rootDatabasePath)
+    let cleaningId = cleaningsRootRef.childByAutoId().key
+    var cleaning = cleaning
+    
+    cleaning.ID = cleaningId
+    dataManager.createObject(cleaning)
+    addMember(user, toCleaning: cleaning, as: .coordinator)
   }
   
   func addMember(_ user:User, toCleaning cleaning: Cleaning, as memberType: ClenaingMembersFilter) {
-    var userInfoPath = "user-cleanings/\(user.ID)"
-    var cleaningInfoPath = "cleaning-members/\(cleaning.ID))"
+    updateMember(user, withCleaning: cleaning, as: memberType, add: true)
+  }
+  
+  func removeMember(_ user:User, fromCleaning cleaning: Cleaning, as memberType: ClenaingMembersFilter) {
+    updateMember(user, withCleaning: cleaning, as: memberType, add: false)
+  }
+  
+  private func updateMember(_ user:User, withCleaning cleaning: Cleaning, as memberType: ClenaingMembersFilter, add: Bool) {
+    var userPath: String
+    var cleaningPath: String
     
     switch memberType {
     case .coordinator:
-      userInfoPath.append("/asCoordinator")
-      cleaningInfoPath.append("/coordinators")
+      userPath = "asCoordinator"
+      cleaningPath = "coordinators"
     case .cleaner:
-      userInfoPath.append("/asCleaner")
-      cleaningInfoPath.append("/cleaners")
+      userPath = "asCleaner"
+      cleaningPath = "cleaners"
     }
     
-    let valuesForUpdate = [userInfoPath : [cleaning.ID : true],
-                           cleaningInfoPath : [user.ID : true]]
+    let userUpdatePath = "user-cleanings/\(user.ID)/\(userPath)/\(cleaning.ID)"
+    let cleaningUpdatePath = "cleaning-members/\(cleaning.ID)/\(cleaningPath)/\(user.ID)"
+    
+    let value:Any = add ? true : NSNull()
+    let valuesForUpdate = [userUpdatePath : value,
+                           cleaningUpdatePath : value]
     
     dataManager.updateObjects(valuesForUpdate)
   }

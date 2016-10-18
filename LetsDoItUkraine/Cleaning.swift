@@ -11,7 +11,7 @@ import CoreLocation
 
 struct Cleaning : CustomStringConvertible {
   var ID: String
-  var address: String?
+  var address: String
   var pictures: [URL]?
   var datetime: Date?
   var summary: String?
@@ -28,5 +28,6 @@ struct Cleaning : CustomStringConvertible {
     ID = ""
     cooridnate = CLLocationCoordinate2D()
     isActive = false
+    address = ""
   }
 }

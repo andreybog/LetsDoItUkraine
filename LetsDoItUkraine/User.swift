@@ -28,7 +28,7 @@ struct User : CustomStringConvertible {
     
     return "USER: - \(ID) - \(firstName) \(lastName)\n" +
             "email: \(email)\tphone: \(phone)\n" +
-            "\(country)/t\(city)"
+            "\(country)\t\(city)"
   }
   
   init() {

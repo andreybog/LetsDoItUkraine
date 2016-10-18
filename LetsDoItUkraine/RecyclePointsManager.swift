@@ -24,7 +24,11 @@ extension RecycleCategory : FirebaseInitable {
   }
   
   var dictionary : [String : Any] {
-    return [:]
+    var data = ["title" : title]
+    
+    if let picture = picture { data["picture"] = picture.absoluteString }
+    
+    return [ID : data]
   }
   
   static var rootDatabasePath = "recycleCategories"
@@ -38,11 +42,11 @@ extension RecyclePoint : FirebaseInitable {
     title = data["title"] as! String
     phone = data["phone"] as? String
     website = data["website"] as? String
-    adress = data["adress"] as? String
+    address = data["address"] as! String
     schedule = data["schedule"] as? String
     summary = data["summary"] as? String
     
-    location = CLLocationCoordinate2D(latitude: data["latitude"] as! Double ,
+    coordinate = CLLocationCoordinate2D(latitude: data["latitude"] as! Double ,
                                       longitude: data["longitude"] as! Double)
     
     if let logoString = data["logo"] as? String {
@@ -56,11 +60,28 @@ extension RecyclePoint : FirebaseInitable {
       picture = nil
     }
     
-    categories = data["categories"] as! [String]
+    if let categories = data["categories"] as? [String] {
+      self.categories = categories
+    } else {
+      self.categories = []
+    }
   }
   
   var dictionary : [String : Any] {
-    return [:]
+    var data: [String : Any] = ["title"     : title,
+                                "latitude"  : coordinate.latitude,
+                                "longitude" : coordinate.longitude,
+                                "categories" : categories,
+                                "address"   : address]
+    
+    if let phone = phone { data["phone"] = phone }
+    if let website = website { data["website"] = website }
+    if let schedule = schedule { data["schedule"] = schedule }
+    if let summary = summary { data["summary"] = summary }
+    if let logo = logo { data["logo"] = logo.absoluteString }
+    if let picture = picture { data["picture"] = picture.absoluteString }
+    
+    return [ID : title]
   }
   
   static var rootDatabasePath = "recyclePoints"
@@ -70,6 +91,8 @@ class RecyclePointsManager {
   
   static let defaultManager = RecyclePointsManager()
   private var dataManager = DataManager.sharedManager
+  
+  // MARK: - GET METHODS
   
   func getRecylcePoint(withId pointId:String, handler: @escaping (_:RecyclePoint?) -> Void) {
     let refPoint = dataManager.ref.child("recyclePoints/\(pointId)")
@@ -91,4 +114,14 @@ class RecyclePointsManager {
     dataManager.getObjects(fromReference: refCategories, handler: handler)
   }
   
+  // MARK: - MODIFY METHODS
+  
+  func createRecylePoint(_ recyclePoint: RecyclePoint) {
+    let recyclePointsRootRef = dataManager.ref.child(RecyclePoint.rootDatabasePath)
+    let recyclePointId = recyclePointsRootRef.childByAutoId().key
+    var recyclePoint = recyclePoint
+    
+    recyclePoint.ID = recyclePointId
+    dataManager.createObject(recyclePoint)
+  }
 }
