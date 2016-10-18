@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     FIRApp.configure()
     FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     GMSServices.provideAPIKey(googleMapsSDKAPIKey)
-    GMSServices.provideAPIKey(googlePlacesAPIKey)
+    GMSPlacesClient.provideAPIKey(googlePlacesAPIKey)
 
     return true
   }

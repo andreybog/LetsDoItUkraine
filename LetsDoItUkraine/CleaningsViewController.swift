@@ -8,9 +8,10 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 
 
-class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, GMSMapViewDelegate {
+class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, GMSMapViewDelegate {
     
     @IBOutlet weak var recycleButton: UIButton!
     @IBOutlet weak var cleaningsButton: UIButton!
@@ -22,6 +23,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     let cleaningsManager = CleaningsManager.defaultManager
     var cleaningsArray = [Cleaning]()
     var transferID = ""
+    var placesClient : GMSPlacesClient?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +40,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                 print("Error, while loading cleanings!")
             }
         }
+        placesClient = GMSPlacesClient()
         
     }
 
@@ -191,13 +194,10 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         mapView.animate(toLocation: cleaningsArray[indexPath.row].cooridnate)
-        mapView.animate(toZoom: 12)
+        mapView.animate(toZoom: 15)
 
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//            self.transferID = cleaningsArray[indexPath.row].ID
-//    }
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         self.transferID = cleaningsArray[indexPath.row].ID
         return true
@@ -211,6 +211,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let cleaning = cleaningsArray[indexPath.row]
+//        placesClient?.lookUpPlaceID(String, callback: <#T##GMSPlaceResultCallback##GMSPlaceResultCallback##(GMSPlace?, Error?) -> Void#>)
+//        let adress = GMSAddressComponent()
         cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner) { (users) in
             if users.count != 0 {
                 cell.participantsNumberLabel.text = "Пойдет: \(users.count)"
@@ -264,7 +266,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         offset = CGPoint(x: roundedIndex * cellWithIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
         targetContentOffset.pointee = offset
     }
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) { 
         self.cleaningsCollectionView.reloadData()
     }
     
@@ -272,7 +274,12 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         NotificationCenter.default.removeObserver(self)
     }
 
-    @IBAction func didTouchSearchButton(_ sender: UIBarButtonItem) {
+
+    @IBAction func didTouchSearchBarButton(_ sender: AnyObject) {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        self.present(searchController, animated: true, completion: nil)
+
     }
 
     @IBAction func didTouchRecycleButton(_ sender: UIButton) {
