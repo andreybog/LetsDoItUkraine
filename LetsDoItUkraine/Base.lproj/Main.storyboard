@@ -746,36 +746,22 @@
                             <rect key="frame" x="124" y="6" width="128" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKU-aC-RKu">
-                                    <state key="normal" title="Сдать" backgroundImage="DisposeRectangleClear">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" backgroundImage="DisposeRectangleFilled">
-                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <state key="highlighted" backgroundImage="DisposeRectangleFilled">
-                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="W5a-5f-i7t">
+                                    <segments>
+                                        <segment title="Сдать"/>
+                                        <segment title="Убрать"/>
+                                    </segments>
+                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
-                                        <action selector="didTouchRecycleButton:" destination="Tb7-fo-teZ" eventType="touchUpInside" id="JeK-oW-JAi"/>
+                                        <action selector="didChangedSegmentControl:" destination="Tb7-fo-teZ" eventType="valueChanged" id="qbu-yA-OcU"/>
                                     </connections>
-                                </button>
-                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaZ-h2-JGC">
-                                    <state key="normal" title="Убрать" backgroundImage="CleaningsRectangleFilled">
-                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                </button>
+                                </segmentedControl>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="IaZ-h2-JGC" secondAttribute="bottom" id="BMO-Uf-nhO"/>
-                                <constraint firstAttribute="trailing" secondItem="IaZ-h2-JGC" secondAttribute="trailing" id="Dza-bK-VSj"/>
-                                <constraint firstItem="IaZ-h2-JGC" firstAttribute="top" secondItem="EvK-O6-znE" secondAttribute="top" id="E0g-d0-RG6"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="top" secondItem="EvK-O6-znE" secondAttribute="top" id="HAY-xT-skO"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="width" secondItem="IaZ-h2-JGC" secondAttribute="width" id="KMC-d0-q2x"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="height" secondItem="IaZ-h2-JGC" secondAttribute="height" id="a0g-bh-aoT"/>
-                                <constraint firstAttribute="bottom" secondItem="RKU-aC-RKu" secondAttribute="bottom" id="f8w-eG-2sk"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="leading" secondItem="EvK-O6-znE" secondAttribute="leading" id="uOF-Mf-BQB"/>
-                                <constraint firstItem="IaZ-h2-JGC" firstAttribute="leading" secondItem="RKU-aC-RKu" secondAttribute="trailing" id="y3F-bP-MJg"/>
+                                <constraint firstItem="W5a-5f-i7t" firstAttribute="top" secondItem="EvK-O6-znE" secondAttribute="top" id="9AV-zg-sMT"/>
+                                <constraint firstAttribute="bottom" secondItem="W5a-5f-i7t" secondAttribute="bottom" id="fDJ-vZ-dw2"/>
+                                <constraint firstItem="W5a-5f-i7t" firstAttribute="leading" secondItem="EvK-O6-znE" secondAttribute="leading" id="kTc-4U-NcB"/>
+                                <constraint firstAttribute="trailing" secondItem="W5a-5f-i7t" secondAttribute="trailing" id="xPi-0I-ftV"/>
                             </constraints>
                         </view>
                         <barButtonItem key="rightBarButtonItem" id="24c-76-8hc">
@@ -790,10 +776,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cleaningsButton" destination="IaZ-h2-JGC" id="6lQ-uE-nfj"/>
+                        <outlet property="Segment" destination="W5a-5f-i7t" id="g8L-l2-dsW"/>
                         <outlet property="cleaningsCollectionView" destination="CF5-t3-9LH" id="Zhk-2g-0pa"/>
                         <outlet property="mapView" destination="CUU-Va-WRV" id="sVl-Bc-rUm"/>
-                        <outlet property="recycleButton" destination="RKU-aC-RKu" id="6Xi-04-M0V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGa-8n-kx7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -879,9 +864,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CleaningsRectangleFilled" width="98" height="30"/>
-        <image name="DisposeRectangleClear" width="98" height="30"/>
-        <image name="DisposeRectangleFilled" width="98" height="30"/>
         <image name="Placeholder" width="74" height="90"/>
         <image name="Shape" width="21" height="21"/>
         <image name="cl_place1.png" width="106" height="84"/>
