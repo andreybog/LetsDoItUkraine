@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecyclePointViewController: UIViewController {
     
@@ -33,16 +34,31 @@ class RecyclePointViewController: UIViewController {
         
             // MARK: - getRecylcePoint
         RecyclePointsManager.defaultManager.getRecylcePoint(withId: "1") { [unowned self] (recyclePoint) in
-            self.recyclePointName.text = recyclePoint?.title
-            self.recyclePointPhone.text = recyclePoint?.phone != nil ? recyclePoint!.phone : ""
-            self.recyclePointEmail.text = recyclePoint?.website != nil ? recyclePoint!.website : ""
-            self.recyclePointSchedule.text = recyclePoint?.schedule != nil ? recyclePoint!.schedule : ""
-            self.recyclePointAddress.text = recyclePoint?.adress != nil ? recyclePoint!.adress : ""
-            self.recyclePointSummary.text = recyclePoint?.summary != nil ? recyclePoint!.summary : ""
             
-            ///
-            //self.recyclePointLogo.image = recyclePoint?.logo
-           // self.recyclePointPicture.image = recyclePoint?.picture
+            self.recyclePointName.text = recyclePoint?.title
+             if let _ = recyclePoint?.phone {
+                self.recyclePointPhone.text = recyclePoint?.phone
+            }
+             if let _ = recyclePoint?.website {
+                self.recyclePointEmail.text = recyclePoint?.website
+            }
+             if let _ = recyclePoint?.schedule {
+                self.recyclePointSchedule.text = recyclePoint?.schedule
+            }
+             if let _ = recyclePoint?.adress {
+                self.recyclePointAddress.text = recyclePoint?.adress
+            }
+             if let _ = recyclePoint?.summary {
+                self.recyclePointSummary.text = recyclePoint?.summary
+            }
+            
+            if let _ = recyclePoint?.logo {
+              self.recyclePointLogo.kf.setImage(with: recyclePoint?.logo)
+            }
+            
+            if let _ = recyclePoint?.picture {
+                self.recyclePointPicture.kf.setImage(with: recyclePoint?.picture)
+            }
             //self.recyclePointData.text = recyclePoint?.
             //self.recyclePointCategories.text = recyclePoint?.categories
             

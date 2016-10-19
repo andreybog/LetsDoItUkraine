@@ -49,38 +49,67 @@ class CleanPlaceViewController: UIViewController {
         
 // getCleaning
         CleaningsManager.defaultManager.getCleaning(withId: cleaningID) { [unowned self] (cleaning) in
-            if cleaning != nil {
-              self.cleaningDate.text = cleaning?.datetime != nil ? cleaning!.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ") : ""
-              self.cleaningPlace.text = cleaning?.address != nil ? cleaning!.address : ""
-              self.cleaningDescription.text = cleaning?.summary != nil ? cleaning!.summary : ""
-              self.cleaningName.text = cleaning?.address != nil ? cleaning!.address : ""
-                
-              if (cleaning?.pictures?.count)! > 0 {
-                let cleaningPlace = ImageResource(downloadURL: (cleaning?.pictures?[0])! as URL, cacheKey: "")
-                self.cleaningPlacePhoto1.kf.setImage(with: cleaningPlace)
+            if let _ = cleaning {
+              if let _ = cleaning?.datetime {
+               self.cleaningDate.text = cleaning!.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+              } else {
+                self.cleaningDate.text = ""
                 }
                 
+                self.cleaningPlace.text = cleaning?.address
                 
-            //if (cleaning?.pictures?.count)! > 0 {
-                //for item in (cleaning?.pictures)! {
-                 // self.cleaningPlacePhoto1.image = UIImage(data: try! NSData(contentsOf: item) as Data)
-               // }
-            //}
-            }
+                if let summary = cleaning?.summary {
+                   self.cleaningDescription.text = summary
+                } else {
+                   self.cleaningDescription.text = ""
+                }
+                
+              self.cleaningName.text = cleaning?.address
+                
+              if let _ = cleaning?.pictures {
+               if (cleaning?.pictures?.count)! > 0 {
+                 var iterator = 1
+                 for item in (cleaning?.pictures)! {
+                    if iterator == 1 {
+                    self.cleaningPlacePhoto1.kf.setImage(with: item)
+                    } else if (iterator == 2) {
+                           self.cleaningPlacePhoto2.kf.setImage(with: item)
+                        } else {
+                            self.cleaningPlacePhoto3.kf.setImage(with: item)
+                        }
+                  iterator += 1
+                  }
+                }
+              }
+           }
         }
       
 // getCleaningMembers
        CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .coordinator) { [unowned self](users) in
         if users.count > 0 {
-          self.cleaningPhone.text = users[0].phone != nil ? users[0].phone : ""
-          self.cleaningEmail.text = users[0].email != nil ? users[0].email : ""
-          self.cleaningNameCoordinator.text = users[0].firstName + " " + users[0].lastName!
-          let photoCoordinator = ImageResource(downloadURL: (users[0].photo)! as URL, cacheKey: "")
-          self.cleaningCoordinatorPhoto.kf.setImage(with: photoCoordinator)
-
+            var user = User()
+            user = users.first!
+            if let cleaningPhone = user.phone {
+                self.cleaningPhone.text = cleaningPhone
+            } else {
+                self.cleaningPhone.text = ""
+            }
             
+            if let cleaningEmail = user.email {
+                self.cleaningEmail.text = cleaningEmail
+            } else {
+                self.cleaningEmail.text = ""
+            }
             
-          
+            if let cleaningLastNameCoordinator = user.lastName {
+                self.cleaningNameCoordinator.text = user.firstName + " " + cleaningLastNameCoordinator
+            } else {
+                self.cleaningNameCoordinator.text = user.firstName
+            }
+            
+            if let _ = user.photo {
+              self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
+            }
             
           }
         }
