@@ -40,7 +40,7 @@ class CleanPlaceViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        let image = UIImage(named: "NavigationBarBackground")! as UIImage
+        let image = UIImage(named: "navBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationItem.title = "Место уборки";

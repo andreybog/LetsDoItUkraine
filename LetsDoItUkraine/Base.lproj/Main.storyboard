@@ -1078,7 +1078,7 @@
                     <navigationItem key="navigationItem" id="Bdu-cS-EZn">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="EvK-O6-znE">
-                            <rect key="frame" x="123.5" y="5.5" width="128" height="33"/>
+                            <rect key="frame" x="124" y="6" width="128" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKU-aC-RKu">
