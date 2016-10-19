@@ -8,6 +8,6 @@
 
 import Foundation
 
-let googleStreetViewAPIKey = "AIzaSyA1TDXPwLbdmyj65TgG3hrUrxZDAH79Cg8"
-let googleMapsSDKAPIKey = "AIzaSyBET-S0Lg7dOJTPivUa_YKYqKkjzEaiw1o"
-let googlePlacesAPIKey = "AIzaSyB14eOlQa6V3g4lRaxYfROITTbWB5AvOSA"
+let kGoogleStreetViewAPIKey = "AIzaSyA1TDXPwLbdmyj65TgG3hrUrxZDAH79Cg8"
+let kGoogleMapsSDKAPIKey = "AIzaSyBET-S0Lg7dOJTPivUa_YKYqKkjzEaiw1o"
+let kGooglePlacesAPIKey = "AIzaSyB14eOlQa6V3g4lRaxYfROITTbWB5AvOSA"

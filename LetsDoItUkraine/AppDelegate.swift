@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     FIRApp.configure()
     FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-    GMSServices.provideAPIKey(googleMapsSDKAPIKey)
-    GMSPlacesClient.provideAPIKey(googlePlacesAPIKey)
+    GMSServices.provideAPIKey(kGoogleMapsSDKAPIKey)
+    GMSPlacesClient.provideAPIKey(kGooglePlacesAPIKey)
 
     return true
   }

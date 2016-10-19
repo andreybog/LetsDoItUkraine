@@ -85,7 +85,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
         let size = "300x300"
         let location = "\(coordinates.latitude),%20\(coordinates.longitude)"
-        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(googleStreetViewAPIKey)"
+        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
         guard let url = URL(string: "\(urlString)") else {
             print(urlString)
             print("URL cannot be formed with the string")
