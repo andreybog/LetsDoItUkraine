@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E6F1DAD7FA000A04685 /* UsersManager.swift */; };
-		55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E711DAD82BB00A04685 /* CleaningsManager.swift */; };
-		55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E731DAD85E300A04685 /* RecyclePointsManager.swift */; };
-		55033E761DAD867600A04685 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E751DAD867600A04685 /* NewsManager.swift */; };
 		06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */; };
 		06C20A931DAABAD8004E1B7E /* location_cl.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20A921DAABAD8004E1B7E /* location_cl.png */; };
 		06C20A951DAABAE9004E1B7E /* location_cl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20A941DAABAE9004E1B7E /* location_cl@2x.png */; };
@@ -42,6 +38,10 @@
 		06C20ACC1DAABC55004E1B7E /* photo_example.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AC01DAABC55004E1B7E /* photo_example.png */; };
 		06C20ACD1DAABC55004E1B7E /* photo_example@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AC11DAABC55004E1B7E /* photo_example@2x.png */; };
 		06C20ACE1DAABC55004E1B7E /* photo_example@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AC21DAABC55004E1B7E /* photo_example@3x.png */; };
+		55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E6F1DAD7FA000A04685 /* UsersManager.swift */; };
+		55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E711DAD82BB00A04685 /* CleaningsManager.swift */; };
+		55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E731DAD85E300A04685 /* RecyclePointsManager.swift */; };
+		55033E761DAD867600A04685 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E751DAD867600A04685 /* NewsManager.swift */; };
 		552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FC1DA196D7008D5317 /* AppDelegate.swift */; };
 		552BF8FF1DA196D7008D5317 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FE1DA196D7008D5317 /* FirstViewController.swift */; };
 		552BF9011DA196D7008D5317 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF9001DA196D7008D5317 /* SecondViewController.swift */; };
@@ -57,6 +57,9 @@
 		CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */; };
 		CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */; };
 		CE51C5801DA6DB4C006397B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57B1DA6DB4C006397B3 /* User.swift */; };
+		CEAEB4761DB6772400730B8F /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB4751DB6772400730B8F /* Checkbox.swift */; };
+		CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */; };
+		CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */; };
 		F7904177E5D314D43DED6DCA /* Pods_LetsDoItUkraine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039A71F878C266E5EBF0BA96 /* Pods_LetsDoItUkraine.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +119,9 @@
 		CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleCategory.swift; sourceTree = "<group>"; };
 		CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePoint.swift; sourceTree = "<group>"; };
 		CE51C57B1DA6DB4C006397B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CEAEB4751DB6772400730B8F /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +209,9 @@
 				552BF8FE1DA196D7008D5317 /* FirstViewController.swift */,
 				552BF9001DA196D7008D5317 /* SecondViewController.swift */,
 				7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */,
+				CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */,
+				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
+				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 			);
 			name = ViewControllers;
@@ -322,7 +331,8 @@
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
 						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 52X9L8BRXX;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -447,12 +457,15 @@
 				552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */,
 				7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
+				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
+				CEAEB4761DB6772400730B8F /* Checkbox.swift in Sources */,
 				CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */,
 				CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */,
 				55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */,
 				55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */,
 				55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */,
+				CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */,
 				55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */,
 				55033E761DAD867600A04685 /* NewsManager.swift in Sources */,
 				7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */,
@@ -582,7 +595,8 @@
 			baseConfigurationReference = 144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 52X9L8BRXX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -590,7 +604,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alenailyenko.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -602,7 +616,8 @@
 			baseConfigurationReference = ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 52X9L8BRXX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -610,7 +625,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alenailyenko.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;

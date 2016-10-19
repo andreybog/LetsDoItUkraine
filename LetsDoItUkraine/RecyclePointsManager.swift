@@ -56,7 +56,7 @@ extension RecyclePoint : FirebaseInitable {
       picture = nil
     }
     
-    categories = data["categories"] as! [String]
+    categories = data["categories"] as! Set<String>
   }
   
   var dictionary : [String : Any] {
@@ -66,10 +66,21 @@ extension RecyclePoint : FirebaseInitable {
   static var rootDatabasePath = "recyclePoints"
 }
 
+enum RecyclePointCategory: String {
+    case Plastic = "plastic"
+    case WastePaper = "paper"
+    case Glass = "glass"
+    case Mercury = "mercury"
+    case Battery = "battery"
+    case OldThings = "oldStuff"
+    case Polythene = "polyethylene"
+}
+
 class RecyclePointsManager {
   
   static let defaultManager = RecyclePointsManager()
   private var dataManager = DataManager.sharedManager
+    
   
   func getRecylcePoint(withId pointId:String, handler: @escaping (_:RecyclePoint?) -> Void) {
     let refPoint = dataManager.ref.child("recyclePoints/\(pointId)")
@@ -90,5 +101,26 @@ class RecyclePointsManager {
     let refCategories = dataManager.ref.child("recycleCategories")
     dataManager.getObjects(fromReference: refCategories, handler: handler)
   }
+
+    func getSelectedRecyclePoints(categories: [RecyclePointCategory], handler: @escaping (_: [RecyclePoint]) -> Void) {
+        getAllRecyclePoints { (points) in
+            let categoryValues = Set(categories.map({c in c.rawValue}))
+            let filteredPoints = points.filter({point in !categoryValues.intersection(point.categories).isEmpty })
+            handler(filteredPoints)
+        }
+    }
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

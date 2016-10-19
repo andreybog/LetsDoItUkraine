@@ -90,7 +90,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
 
     func showEnableLocationServicesAlert(){
-        let alert = UIAlertController(title: "Геопозиция запрещена пользователем для этого приложения.", message: "Если вы хотите сипользовать карты, пожалуйста, разрешите использование геопозиции в настройках приложения.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Геопозиция запрещена пользователем для этого приложения.", message: "Если вы хотите использовать карты, пожалуйста, разрешите использование геопозиции в настройках приложения.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Открыть настройки", style: .default) { (action) in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)

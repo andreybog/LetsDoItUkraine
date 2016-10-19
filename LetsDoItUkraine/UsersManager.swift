@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import FBSDKLoginKit
+import FBSDKShareKit
 
 extension User : FirebaseInitable {
   
@@ -82,6 +84,7 @@ class UsersManager {
       }
     })
   }
-  
+    
+    
   
 }
