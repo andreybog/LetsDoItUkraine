@@ -216,10 +216,10 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     //MARK: - UICollectionViewDelegate
     
+    var indexOfdisplayingCell = 0
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        mapView.animate(toLocation: cleaningsArray[indexPath.row].cooridnate)
-        mapView.animate(toZoom: 15)
-
+        indexOfdisplayingCell = indexPath.row
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -294,26 +294,53 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
 
     
-    //MARK: - Paging Collection View cell
+    //MARK: - UIScrollViewDelegate
+    
+    
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
         let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let cellWithIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
-
         var offset = targetContentOffset.pointee
         let index = (offset.x + scrollView.contentInset.left) / cellWithIncludingSpacing
         let roundedIndex = round(index)
-        
-        offset = CGPoint(x: roundedIndex * cellWithIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        let currentOffset = scrollView.contentOffset
+        let currentOffsetIndex = (currentOffset.x + scrollView.contentInset.left) / cellWithIncludingSpacing
+        let roundedIndexOfCurrentOffset = round(currentOffsetIndex)
+        if roundedIndex > roundedIndexOfCurrentOffset {
+            offset = CGPoint(x: (roundedIndexOfCurrentOffset + 1) * cellWithIncludingSpacing - scrollView.contentInset.left, y: scrollView.contentInset.top)
+        } else if roundedIndex < roundedIndexOfCurrentOffset {
+            offset = CGPoint(x: (roundedIndexOfCurrentOffset - 1) * cellWithIncludingSpacing - scrollView.contentInset.left, y: scrollView.contentInset.top)
+        } else if roundedIndex == roundedIndexOfCurrentOffset {
+            offset = CGPoint(x: roundedIndexOfCurrentOffset * cellWithIncludingSpacing - scrollView.contentInset.left, y: scrollView.contentInset.top)
+        }
         targetContentOffset.pointee = offset
     }
+    
+    
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        mapView.animate(toLocation: cleaningsArray[self.indexOfdisplayingCell].cooridnate)
+        mapView.animate(toZoom: 15)
+
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        self.cleaningsCollectionView.reloadData()
+    }
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) { 
         self.cleaningsCollectionView.reloadData()
     }
     
+    //MARK: - Deinitialisation
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    //MARK: - Actions
 
     @IBAction func didTouchSearchBarButton(_ sender: AnyObject) {
         let searchController = UISearchController(searchResultsController: searchResultController)
