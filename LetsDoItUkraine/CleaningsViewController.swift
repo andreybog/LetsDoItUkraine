@@ -13,7 +13,7 @@ import GooglePlaces
 
 class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, LocateOnTheMapDelegate, GMSMapViewDelegate {
     
-    @IBOutlet weak var Segment: UISegmentedControl!
+    @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var cleaningsCollectionView: UICollectionView!
     
@@ -201,9 +201,10 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             index += 1
         }
         mapView.animate(toLocation: cleaningsArray[0].cooridnate)
-        mapView.animate(toZoom: 12)
+        mapView.animate(toZoom: 15)
         
         self.cleaningsCollectionView.reloadData()
+        self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
         self.cleaningsCollectionView.isHidden = false
         return true
     }
@@ -216,12 +217,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     //MARK: - UICollectionViewDelegate
     
-    var indexOfdisplayingCell = 0
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        indexOfdisplayingCell = indexPath.row
-    }
-    
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         self.transferID = cleaningsArray[indexPath.row].ID
         return true
@@ -232,17 +227,46 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cleaningsArray.count
     }
+    
+    //Temporary, before adding memberCount and coordinator properties to Cleaning Class
+    var cleaningsWithMembers = [[String:String?]]()
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let cleaning = cleaningsArray[indexPath.row]
-        cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner) { (users) in
-            if users.count != 0 {
-                cell.participantsNumberLabel.text = "Пойдет: \(users.count)"
+        
+        //Temporary, before adding memberCount and coordinator properties to Cleaning Class
+        if cleaningsWithMembers.isEmpty {
+            for _ in 0..<cleaningsArray.count {
+                cleaningsWithMembers.append(["coordinator":nil, "memberCount":nil])
             }
         }
-        cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .coordinator) { (user) in
-            if user.count != 0 {
-                cell.coordinatorNameLabel.text = "Координатор: \((user.first?.lastName)!) \((user.first?.firstName)!)"
+        let memberCount = (cleaningsWithMembers[indexPath.row])["memberCount"]!
+        if memberCount != nil {
+            cell.participantsNumberLabel.text = "Пойдет: \(memberCount!)"
+        } else {
+            cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner) { (users) in
+                let count = String(users.count)
+                self.cleaningsWithMembers[indexPath.row].updateValue(count, forKey: "memberCount")
+                collectionView.reloadItems(at:
+                [indexPath])
+            }
+        }
+        let coordinator = (cleaningsWithMembers[indexPath.row])["coordinator"]!
+        if coordinator != nil {
+            cell.coordinatorNameLabel.text = "Координатор: \(coordinator!)"
+        } else {
+            cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .coordinator) { (user) in
+                if user.count != 0 {
+                    let name : String
+                    if let surname = user.first?.lastName{
+                        name = user.first!.firstName + " " + surname
+                    } else {
+                        name = user.first!.firstName
+                    }
+                    self.cleaningsWithMembers[indexPath.row].updateValue(name, forKey: "coordinator")
+                    collectionView.reloadItems(at: [indexPath])
+                }
             }
         }
         
@@ -318,21 +342,11 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         targetContentOffset.pointee = offset
     }
     
-    
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        mapView.animate(toLocation: cleaningsArray[self.indexOfdisplayingCell].cooridnate)
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        mapView.animate(toLocation: cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].cooridnate)
         mapView.animate(toZoom: 15)
-
     }
     
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        self.cleaningsCollectionView.reloadData()
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) { 
-        self.cleaningsCollectionView.reloadData()
-    }
     
     //MARK: - Deinitialisation
     
@@ -350,7 +364,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
 
 
     @IBAction func didChangedSegmentControl(_ sender: AnyObject) {
-        if (Segment.selectedSegmentIndex == 0) {
+        if (segment.selectedSegmentIndex == 0) {
             
         }
     }
