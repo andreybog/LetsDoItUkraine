@@ -514,10 +514,10 @@
                         <outlet property="cleaningNameCoordinator" destination="cnS-Dh-sWc" id="faH-7W-Kd7"/>
                         <outlet property="cleaningPhone" destination="rvH-wg-d6k" id="GZS-h4-a0s"/>
                         <outlet property="cleaningPlace" destination="yC7-yp-VZo" id="Ltk-gV-0Yy"/>
-                        <outlet property="cleaningPlacePhoto1" destination="zft-48-YWj" id="O2p-j4-4eI"/>
-                        <outlet property="cleaningPlacePhoto2" destination="NJz-6F-Gyn" id="MPc-cp-SrO"/>
-                        <outlet property="cleaningPlacePhoto3" destination="Apn-o7-ump" id="KyQ-oE-Cdr"/>
                         <outlet property="numberOfMembers" destination="B53-vg-6G9" id="GEB-W4-qeN"/>
+                        <outletCollection property="cleaningPlaces" destination="zft-48-YWj" id="wyP-gp-M4H"/>
+                        <outletCollection property="cleaningPlaces" destination="NJz-6F-Gyn" id="zZX-5r-vYo"/>
+                        <outletCollection property="cleaningPlaces" destination="Apn-o7-ump" id="bj0-gp-zOZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -528,7 +528,7 @@
         <scene sceneID="Nbz-fu-Bs9">
             <objects>
                 <navigationController id="lPe-fi-hNw" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="I6v-hz-QP1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I6v-hz-QP1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1161,7 +1161,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="if5-Ty-Zrb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cqO-az-vTA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cqO-az-vTA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1180,7 +1180,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="37m-oF-hFA" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YYN-z3-G1B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYN-z3-G1B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1199,7 +1199,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="17N-xH-0bB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="JG7-Y9-UxD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="CwI-2P-xbk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CwI-2P-xbk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

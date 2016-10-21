@@ -20,10 +20,12 @@ extension Date {
 
 
 class CleanPlaceViewController: UIViewController {
-
-    @IBOutlet weak var cleaningPlacePhoto3: UIImageView!
-    @IBOutlet weak var cleaningPlacePhoto2: UIImageView!
-    @IBOutlet weak var cleaningPlacePhoto1: UIImageView!
+    
+    
+    @IBOutlet var cleaningPlaces: [UIImageView]!
+    //@IBOutlet weak var cleaningPlacePhoto3: UIImageView!
+    //@IBOutlet weak var cleaningPlacePhoto2: UIImageView!
+    //@IBOutlet weak var cleaningPlacePhoto1: UIImageView!
     @IBOutlet weak var cleaningCoordinatorPhoto: UIImageView!
     @IBOutlet weak var numberOfMembers: UILabel!
     @IBOutlet weak var cleaningName: UILabel!
@@ -41,7 +43,6 @@ class CleanPlaceViewController: UIViewController {
         
         super.viewDidLoad()
         let image = UIImage(named: "navBackground")! as UIImage
-        self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
@@ -66,29 +67,17 @@ class CleanPlaceViewController: UIViewController {
                 
               self.cleaningName.text = cleaning?.address
                 
-              if let _ = cleaning?.pictures {
-               if (cleaning?.pictures?.count)! > 0 {
-                 var iterator = 1
-                 for item in (cleaning?.pictures)! {
-                    if iterator == 1 {
-                    self.cleaningPlacePhoto1.kf.setImage(with: item)
-                    } else if (iterator == 2) {
-                           self.cleaningPlacePhoto2.kf.setImage(with: item)
-                        } else {
-                            self.cleaningPlacePhoto3.kf.setImage(with: item)
-                        }
-                  iterator += 1
-                  }
+                for i in 0..<cleaning!.pictures!.count {
+                    self.cleaningPlaces[i].kf.setImage(with: cleaning?.pictures?[i])
                 }
-              }
-           }
+                
+            }
         }
       
 // getCleaningMembers
        CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .coordinator) { [unowned self](users) in
         if users.count > 0 {
-            var user = User()
-            user = users.first!
+            let user = users.first!
             if let cleaningPhone = user.phone {
                 self.cleaningPhone.text = cleaningPhone
             } else {
