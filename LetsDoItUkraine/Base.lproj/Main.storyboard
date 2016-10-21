@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,7 +17,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
@@ -566,7 +569,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2150" y="1031"/>
+            <point key="canvasLocation" x="4705" y="629"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -577,7 +580,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
@@ -604,7 +607,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1926" y="222"/>
+            <point key="canvasLocation" x="3804" y="221.73913043478262"/>
         </scene>
         <!--Cleanings View Controller-->
         <scene sceneID="V8u-OQ-IJz">
@@ -615,7 +618,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Rh3-6s-Dyj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ukL-lR-S6r">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-Va-WRV" customClass="GMSMapView">
@@ -743,7 +746,7 @@
                     <navigationItem key="navigationItem" id="Bdu-cS-EZn">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="EvK-O6-znE">
-                            <rect key="frame" x="124" y="6" width="128" height="33"/>
+                            <rect key="frame" x="143" y="5.5" width="128" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="W5a-5f-i7t">
@@ -764,16 +767,24 @@
                                 <constraint firstAttribute="trailing" secondItem="W5a-5f-i7t" secondAttribute="trailing" id="xPi-0I-ftV"/>
                             </constraints>
                         </view>
-                        <barButtonItem key="rightBarButtonItem" id="24c-76-8hc">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jcE-RT-Z0i">
-                                <rect key="frame" x="338" y="11" width="21" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Shape"/>
+                        <rightBarButtonItems>
+                            <barButtonItem id="24c-76-8hc">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jcE-RT-Z0i">
+                                    <rect key="frame" x="373" y="11" width="21" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="Shape"/>
+                                </button>
                                 <connections>
-                                    <action selector="didTouchSearchBarButton:" destination="Tb7-fo-teZ" eventType="touchUpInside" id="Q8R-4t-LoV"/>
+                                    <action selector="didTouchSearchButton:" destination="Tb7-fo-teZ" id="Vla-zY-lwT"/>
                                 </connections>
-                            </button>
-                        </barButtonItem>
+                            </barButtonItem>
+                            <barButtonItem title="Filter" style="done" id="5TX-nr-tTf">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="pvI-Ym-905" kind="presentation" id="tcg-Vz-Mji"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="Segment" destination="W5a-5f-i7t" id="g8L-l2-dsW"/>
@@ -783,7 +794,257 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGa-8n-kx7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1149.5999999999999" y="1030.4347826086957"/>
+            <point key="canvasLocation" x="3028" y="1030.4347826086957"/>
+        </scene>
+        <!--Хочу сдать-->
+        <scene sceneID="Sfp-rE-c3X">
+            <objects>
+                <viewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" hidesBottomBarWhenPushed="YES" id="JTK-qa-cyo" customClass="RecyclePointListViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cn6-6s-buC"/>
+                        <viewControllerLayoutGuide type="bottom" id="7p0-nw-jhp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="li7-7V-641">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JaB-AE-A9f" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Mercury"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="5sp-aE-6WM"/>
+                                    <constraint firstAttribute="width" constant="45" id="Oce-eU-1TH"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="FcE-RK-Ze2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6L-Uy-tqn" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Battery"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="OGa-Ib-x6V"/>
+                                    <constraint firstAttribute="width" constant="45" id="uQR-sJ-f3T"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="TKm-dP-KVO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IEw-Zx-5Dz" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="OldThings"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Fkn-W5-rEW"/>
+                                    <constraint firstAttribute="width" constant="45" id="Myu-Bx-VRd"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="vof-3Z-Bfv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v94-zI-Wo3" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Different"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="1bR-Bt-8FR"/>
+                                    <constraint firstAttribute="height" constant="45" id="C1y-31-lbT"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="THs-3d-Tib"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TF5-Jx-aAR" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="All"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="CCw-34-DSW"/>
+                                    <constraint firstAttribute="width" constant="45" id="iFD-Lz-V1B"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="yud-bS-nsd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RhL-RU-rJA" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Plastic"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="Ax4-XM-fj3"/>
+                                    <constraint firstAttribute="height" constant="45" id="qTn-51-1Va"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="PolytheneRecyclePoint"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="PlasticRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="3EQ-2d-jfX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y1h-Ok-yUT" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="WastePaper"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="1s6-fq-faC"/>
+                                    <constraint firstAttribute="height" constant="45" id="qg7-Xq-d4C"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="ADb-oB-eIV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9L-tT-ckC" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Glass"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="Khj-4O-ZRJ"/>
+                                    <constraint firstAttribute="height" constant="45" id="jLA-Ax-Pxo"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="GlassRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="SsD-hg-q2w"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sr-CO-b6U" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Polythene"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="X9K-8S-ngN"/>
+                                    <constraint firstAttribute="width" constant="45" id="zDU-tx-EQg"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="PolytheneRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="Kfm-aB-7MU"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="baR-Yw-m2N">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uuc-d8-CfA">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="F7f-CX-9oP"/>
+                                            <constraint firstAttribute="height" constant="40" id="dBg-iE-e1Q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Поиск">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="6Vw-uh-XCs" kind="unwind" unwindAction="didTouchSearchButtonOnFiltersViewControllerWithSegue:" id="w99-nT-EyF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.011822579123125591" green="0.68551682692307692" blue="0.37241518769153109" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Uuc-d8-CfA" firstAttribute="centerX" secondItem="baR-Yw-m2N" secondAttribute="centerX" id="Xyj-V2-Jw1"/>
+                                    <constraint firstAttribute="height" constant="45" id="pmR-lh-rSH"/>
+                                    <constraint firstItem="Uuc-d8-CfA" firstAttribute="centerY" secondItem="baR-Yw-m2N" secondAttribute="centerY" id="uqE-sI-tR6"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Sr-CO-b6U" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.8" id="4xo-j0-mGv"/>
+                            <constraint firstItem="v94-zI-Wo3" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="BGM-Bv-pxY"/>
+                            <constraint firstAttribute="bottom" secondItem="baR-Yw-m2N" secondAttribute="bottom" id="CgJ-OA-2H3"/>
+                            <constraint firstItem="RhL-RU-rJA" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leadingMargin" constant="4" id="EV1-jP-jrN"/>
+                            <constraint firstItem="IEw-Zx-5Dz" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.55" id="Hue-Dt-CVY"/>
+                            <constraint firstItem="baR-Yw-m2N" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" id="KLg-Fe-4pr"/>
+                            <constraint firstItem="JaB-AE-A9f" firstAttribute="centerX" secondItem="RhL-RU-rJA" secondAttribute="centerX" id="LDP-Hj-iYg"/>
+                            <constraint firstAttribute="trailing" secondItem="baR-Yw-m2N" secondAttribute="trailing" id="MWf-AL-rXe"/>
+                            <constraint firstItem="Y1h-Ok-yUT" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.3" id="Ur9-5f-sTe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E9L-tT-ckC" secondAttribute="trailing" constant="4" id="Vot-S7-6Pk"/>
+                            <constraint firstItem="7Sr-CO-b6U" firstAttribute="centerX" secondItem="JaB-AE-A9f" secondAttribute="centerX" id="Wgq-Yt-62I"/>
+                            <constraint firstItem="JaB-AE-A9f" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.55" id="Yqw-vR-peM"/>
+                            <constraint firstItem="v94-zI-Wo3" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.8" id="dKo-Kh-m7i"/>
+                            <constraint firstItem="d6L-Uy-tqn" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.55" id="dl0-Y4-Q9H"/>
+                            <constraint firstItem="E9L-tT-ckC" firstAttribute="centerX" secondItem="IEw-Zx-5Dz" secondAttribute="centerX" id="e8S-Lo-pNi"/>
+                            <constraint firstItem="Y1h-Ok-yUT" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="eJe-e6-11I"/>
+                            <constraint firstItem="RhL-RU-rJA" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.3" id="jf2-ut-mn1"/>
+                            <constraint firstItem="IEw-Zx-5Dz" firstAttribute="centerX" secondItem="TF5-Jx-aAR" secondAttribute="centerX" id="raM-Ua-9ZW"/>
+                            <constraint firstItem="d6L-Uy-tqn" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="tCU-yv-Bfa"/>
+                            <constraint firstItem="E9L-tT-ckC" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.3" id="vUN-IV-92k"/>
+                            <constraint firstItem="TF5-Jx-aAR" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.8" id="wHR-01-qaH"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Хочу сдать" id="AmX-0Z-d8v">
+                        <barButtonItem key="rightBarButtonItem" image="Close" id="iB5-MJ-6LP">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="6Vw-uh-XCs" kind="unwind" unwindAction="cancelFiltersViewControllerWithSegue:" id="mjR-Wx-swr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="batteryButton" destination="d6L-Uy-tqn" id="5NI-8m-lYN"/>
+                        <outlet property="glassButton" destination="E9L-tT-ckC" id="QuO-t4-Ue7"/>
+                        <outlet property="mercuryButton" destination="JaB-AE-A9f" id="lnF-HT-QZv"/>
+                        <outlet property="oldThingsButton" destination="IEw-Zx-5Dz" id="fS2-w3-UZp"/>
+                        <outlet property="plasticButton" destination="RhL-RU-rJA" id="tZp-wT-AZ7"/>
+                        <outlet property="polytheneButton" destination="7Sr-CO-b6U" id="3xR-3L-TkR"/>
+                        <outlet property="wastePaperButton" destination="Y1h-Ok-yUT" id="S0b-8i-e5j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8n5-RM-0v7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="6Vw-uh-XCs" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="6550.7246376811599" y="1452.717391304348"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -799,6 +1060,7 @@
                         <segue destination="if5-Ty-Zrb" kind="relationship" relationship="viewControllers" id="Xft-lW-CNg"/>
                         <segue destination="37m-oF-hFA" kind="relationship" relationship="viewControllers" id="5Wn-Zv-rv9"/>
                         <segue destination="17N-xH-0bB" kind="relationship" relationship="viewControllers" id="nze-Bw-1su"/>
+                        <segue destination="3DW-Tj-Il3" kind="relationship" relationship="viewControllers" id="9eU-Vr-9Hv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -811,7 +1073,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="if5-Ty-Zrb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cqO-az-vTA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cqO-az-vTA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -830,7 +1092,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="37m-oF-hFA" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YYN-z3-G1B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYN-z3-G1B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -841,15 +1103,50 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n63-E1-4M3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1150" y="222"/>
+            <point key="canvasLocation" x="3028" y="221.73913043478262"/>
         </scene>
-        <!--Item-->
+        <!--Authorization View Controller-->
+        <scene sceneID="GcY-ek-kXr">
+            <objects>
+                <viewController id="v5W-pN-DXC" customClass="AuthorizationViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OjD-yQ-3lt"/>
+                        <viewControllerLayoutGuide type="bottom" id="C4m-K3-iJE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jsK-ey-A4M">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DkO-rZ-eP6" customClass="FBSDKLoginButton">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="UrU-8x-buN"/>
+                                    <constraint firstAttribute="width" constant="180" id="fqs-Jp-QUN"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DkO-rZ-eP6" firstAttribute="centerX" secondItem="jsK-ey-A4M" secondAttribute="centerX" id="4bV-KS-qcr"/>
+                            <constraint firstItem="DkO-rZ-eP6" firstAttribute="centerY" secondItem="jsK-ey-A4M" secondAttribute="centerY" id="gMz-cQ-GK0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SEL-63-r9v"/>
+                    <connections>
+                        <outlet property="loginButton" destination="DkO-rZ-eP6" id="2UA-xe-HGq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UdB-bx-16O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1168.8" y="572.56371814092961"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="K8b-qq-Vxx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="17N-xH-0bB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="JG7-Y9-UxD"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="JG7-Y9-UxD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="CwI-2P-xbk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CwI-2P-xbk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -860,11 +1157,53 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0f-qQ-FrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="220" y="1032"/>
+            <point key="canvasLocation" x="2098.4000000000001" y="1030.4347826086957"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ma5-Cm-reg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="LZS-gf-utt"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TbV-J5-MOb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="v5W-pN-DXC" kind="relationship" relationship="rootViewController" id="BIk-6k-Wz3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tm2-hi-tkX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="229.59999999999999" y="572.56371814092961"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ppn-Ci-3cj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HL1-Po-bAA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="JTK-qa-cyo" kind="relationship" relationship="rootViewController" id="poE-Ra-vPz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eDC-Za-4sB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5301" y="1462"/>
         </scene>
     </scenes>
     <resources>
+        <image name="CleaningsRectangleFilled" width="98" height="30"/>
+        <image name="Close" width="48" height="48"/>
+        <image name="DisposeRectangleClear" width="98" height="30"/>
+        <image name="DisposeRectangleFilled" width="98" height="30"/>
         <image name="Placeholder" width="74" height="90"/>
+        <image name="PolytheneRecyclePoint" width="45" height="45"/>
         <image name="Shape" width="21" height="21"/>
         <image name="cl_place1.png" width="106" height="84"/>
         <image name="cl_place2.png" width="106" height="84"/>

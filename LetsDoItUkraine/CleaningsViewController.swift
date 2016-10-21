@@ -137,7 +137,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
 
     func showEnableLocationServicesAlert(){
-        let alert = UIAlertController(title: "Геопозиция запрещена пользователем для этого приложения.", message: "Если вы хотите сипользовать карты, пожалуйста, разрешите использование геопозиции в настройках приложения.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Геопозиция запрещена пользователем для этого приложения.", message: "Если вы хотите использовать карты, пожалуйста, разрешите использование геопозиции в настройках приложения.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Открыть настройки", style: .default) { (action) in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
@@ -368,6 +368,26 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             
         }
     }
+    
+    @IBAction func cancelFiltersViewController(segue: UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func didTouchSearchButtonOnFiltersViewController(segue: UIStoryboardSegue) {
+        let vc = segue.source
+        if let filterVC = vc as? RecyclePointListViewController {
+            let data = filterVC.selectedCategories
+            let manager = RecyclePointsManager()
+            manager.getSelectedRecyclePoints(categories: data) { (recyclePoints) in
+                //
+            }
+        }
+        
+      // save data to NSUserDefaults
+        
+    }
+    
+
 
 
 }

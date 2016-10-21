@@ -20,7 +20,7 @@ struct RecyclePoint : CustomStringConvertible {
     var address: String
     var schedule: String?
     var summary: String?
-    var categories: [String]
+    var categories: Set<String>
   
   var description: String {
     return "RECYCLE POINT: - \(ID) - \(title)\n" +
