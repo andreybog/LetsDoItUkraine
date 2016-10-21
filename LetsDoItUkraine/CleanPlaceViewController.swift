@@ -16,7 +16,7 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningPlace: UILabel!
     @IBOutlet weak var cleaningDescription: UILabel!
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
-    
+
     ////Temporary code
     var clean : [String : Any] = ["id": 1,
                                   "adress": "г. Киев, вул.Велика Василькiвська, 55",

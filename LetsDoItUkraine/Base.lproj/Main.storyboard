@@ -622,7 +622,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CF5-t3-9LH">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="wxX-lp-LBf"/>
                                 </constraints>
@@ -630,7 +630,7 @@
                                     <size key="itemSize" width="300" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="0N6-FG-nGS" customClass="CleaningsMapCollectionViewCell" customModule="LetsDoItUkraine" customModuleProvider="target">
@@ -643,6 +643,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gc2-g4-fjT">
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="IQX-bK-roF">
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="100" id="EM1-d3-IYJ"/>
                                                             </constraints>
@@ -665,7 +666,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Координатор: Гриша" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-uj-c1Z">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Координатор: Гриша" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-uj-c1Z">
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="dTt-7d-EDV"/>
@@ -702,11 +703,6 @@
                                                         <constraint firstItem="KkI-uj-c1Z" firstAttribute="leading" secondItem="IQX-bK-roF" secondAttribute="trailing" constant="10" id="xPV-aN-G7L"/>
                                                         <constraint firstItem="SFT-NA-jAK" firstAttribute="top" secondItem="Gc2-g4-fjT" secondAttribute="top" constant="4" id="y1V-Vt-IEz"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                         </view>
@@ -722,7 +718,7 @@
                                             <outlet property="districtLabel" destination="SFT-NA-jAK" id="7fF-Yj-bkl"/>
                                             <outlet property="image" destination="IQX-bK-roF" id="5c3-Wx-yX6"/>
                                             <outlet property="participantsNumberLabel" destination="bfN-s3-QdI" id="u63-1n-BL9"/>
-                                            <segue destination="rJ6-tA-pAI" kind="show" id="9ho-nQ-ISv"/>
+                                            <segue destination="rJ6-tA-pAI" kind="show" identifier="cleaningDetailsSegue" id="9ho-nQ-ISv"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -750,36 +746,22 @@
                             <rect key="frame" x="124" y="6" width="128" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKU-aC-RKu">
-                                    <state key="normal" title="Сдать" backgroundImage="DisposeRectangleClear">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" backgroundImage="DisposeRectangleFilled">
-                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <state key="highlighted" backgroundImage="DisposeRectangleFilled">
-                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="W5a-5f-i7t">
+                                    <segments>
+                                        <segment title="Сдать"/>
+                                        <segment title="Убрать"/>
+                                    </segments>
+                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
-                                        <action selector="didTouchRecycleButton:" destination="Tb7-fo-teZ" eventType="touchUpInside" id="JeK-oW-JAi"/>
+                                        <action selector="didChangedSegmentControl:" destination="Tb7-fo-teZ" eventType="valueChanged" id="qbu-yA-OcU"/>
                                     </connections>
-                                </button>
-                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaZ-h2-JGC">
-                                    <state key="normal" title="Убрать" backgroundImage="CleaningsRectangleFilled">
-                                        <color key="titleColor" red="0.41802310939999998" green="0.77157253029999995" blue="0.65317338709999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                </button>
+                                </segmentedControl>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="IaZ-h2-JGC" secondAttribute="bottom" id="BMO-Uf-nhO"/>
-                                <constraint firstAttribute="trailing" secondItem="IaZ-h2-JGC" secondAttribute="trailing" id="Dza-bK-VSj"/>
-                                <constraint firstItem="IaZ-h2-JGC" firstAttribute="top" secondItem="EvK-O6-znE" secondAttribute="top" id="E0g-d0-RG6"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="top" secondItem="EvK-O6-znE" secondAttribute="top" id="HAY-xT-skO"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="width" secondItem="IaZ-h2-JGC" secondAttribute="width" id="KMC-d0-q2x"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="height" secondItem="IaZ-h2-JGC" secondAttribute="height" id="a0g-bh-aoT"/>
-                                <constraint firstAttribute="bottom" secondItem="RKU-aC-RKu" secondAttribute="bottom" id="f8w-eG-2sk"/>
-                                <constraint firstItem="RKU-aC-RKu" firstAttribute="leading" secondItem="EvK-O6-znE" secondAttribute="leading" id="uOF-Mf-BQB"/>
-                                <constraint firstItem="IaZ-h2-JGC" firstAttribute="leading" secondItem="RKU-aC-RKu" secondAttribute="trailing" id="y3F-bP-MJg"/>
+                                <constraint firstItem="W5a-5f-i7t" firstAttribute="top" secondItem="EvK-O6-znE" secondAttribute="top" id="9AV-zg-sMT"/>
+                                <constraint firstAttribute="bottom" secondItem="W5a-5f-i7t" secondAttribute="bottom" id="fDJ-vZ-dw2"/>
+                                <constraint firstItem="W5a-5f-i7t" firstAttribute="leading" secondItem="EvK-O6-znE" secondAttribute="leading" id="kTc-4U-NcB"/>
+                                <constraint firstAttribute="trailing" secondItem="W5a-5f-i7t" secondAttribute="trailing" id="xPi-0I-ftV"/>
                             </constraints>
                         </view>
                         <barButtonItem key="rightBarButtonItem" id="24c-76-8hc">
@@ -787,17 +769,16 @@
                                 <rect key="frame" x="338" y="11" width="21" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Shape"/>
+                                <connections>
+                                    <action selector="didTouchSearchBarButton:" destination="Tb7-fo-teZ" eventType="touchUpInside" id="Q8R-4t-LoV"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="didTouchSearchButton:" destination="Tb7-fo-teZ" id="Vla-zY-lwT"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cleaningsButton" destination="IaZ-h2-JGC" id="6lQ-uE-nfj"/>
+                        <outlet property="Segment" destination="W5a-5f-i7t" id="g8L-l2-dsW"/>
                         <outlet property="cleaningsCollectionView" destination="CF5-t3-9LH" id="Zhk-2g-0pa"/>
                         <outlet property="mapView" destination="CUU-Va-WRV" id="sVl-Bc-rUm"/>
-                        <outlet property="recycleButton" destination="RKU-aC-RKu" id="6Xi-04-M0V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGa-8n-kx7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -883,9 +864,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CleaningsRectangleFilled" width="98" height="30"/>
-        <image name="DisposeRectangleClear" width="98" height="30"/>
-        <image name="DisposeRectangleFilled" width="98" height="30"/>
         <image name="Placeholder" width="74" height="90"/>
         <image name="Shape" width="21" height="21"/>
         <image name="cl_place1.png" width="106" height="84"/>
