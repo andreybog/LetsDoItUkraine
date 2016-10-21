@@ -63,6 +63,10 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func showMessageToUser() {
+        
+        
+        
+        
         let alert = UIAlertController(title:"Авторизация" , message: "Не удалось авторизироваться с пoмошью Facebook", preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)

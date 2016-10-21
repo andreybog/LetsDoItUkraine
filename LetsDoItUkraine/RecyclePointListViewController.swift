@@ -10,6 +10,8 @@ import UIKit
 
 class RecyclePointListViewController: UIViewController {
     
+    var selectedCategories = Set<RecyclePointCategory>()
+    
     
     @IBOutlet weak var plasticButton: Checkbox!
     @IBOutlet weak var wastePaperButton: Checkbox!
@@ -19,41 +21,34 @@ class RecyclePointListViewController: UIViewController {
     @IBOutlet weak var oldThingsButton: Checkbox!
     @IBOutlet weak var polytheneButton: Checkbox!
     
+    var checkboxesWithCategories = [(Checkbox, RecyclePointCategory)]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        checkboxesWithCategories = [(plasticButton, .Plastic), (wastePaperButton, .WastePaper),
+        (glassButton, .Glass), (mercuryButton, .Mercury), (batteryButton, .Battery), (oldThingsButton, .OldThings),
+        (polytheneButton, .Polythene)]
+        
+        for (chb, category) in checkboxesWithCategories {
+            chb.isChecked = selectedCategories.contains(category)
+        }
     }
     
     @IBAction func searchButtonWasTapped(_ sender: AnyObject) {
-        var categories = [RecyclePointCategory]()
-        if plasticButton.isChecked {
-            categories.append(.Plastic)
-        }
-        if wastePaperButton.isChecked {
-            categories.append(.WastePaper)
-        }
-        if glassButton.isChecked {
-            categories.append(.Glass)
-        }
-        if mercuryButton.isChecked {
-            categories.append(.Mercury)
-        }
-        if batteryButton.isChecked {
-            categories.append(.Battery)
-        }
-        if oldThingsButton.isChecked {
-            categories.append(.OldThings)
-        }
-        if polytheneButton.isChecked {
-            categories.append(.Polythene)
+        selectedCategories = Set<RecyclePointCategory>()
+        
+        // pass copy set
+        for (chb, category) in checkboxesWithCategories {
+            if chb.isChecked {
+                selectedCategories.insert(category)
+            }
         }
         
-        let manager = RecyclePointsManager()
-        manager.getSelectedRecyclePoints(categories: categories) { (recyclePoints) in
-            //
-        }
+        
+        
         
     }
-    
     
 }
 

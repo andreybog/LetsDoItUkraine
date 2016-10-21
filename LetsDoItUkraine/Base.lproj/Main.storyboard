@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -797,7 +799,7 @@
                             <barButtonItem title="Filter" style="done" id="5TX-nr-tTf">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="MCv-dV-UxR" kind="presentation" id="BYc-NW-mKi"/>
+                                    <segue destination="pvI-Ym-905" kind="presentation" id="tcg-Vz-Mji"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -813,10 +815,10 @@
             </objects>
             <point key="canvasLocation" x="3028" y="1030.4347826086957"/>
         </scene>
-        <!--Recycle Point List View Controller-->
+        <!--Хочу сдать-->
         <scene sceneID="Sfp-rE-c3X">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="JTK-qa-cyo" customClass="RecyclePointListViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" hidesBottomBarWhenPushed="YES" id="JTK-qa-cyo" customClass="RecyclePointListViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cn6-6s-buC"/>
                         <viewControllerLayoutGuide type="bottom" id="7p0-nw-jhp"/>
@@ -829,263 +831,225 @@
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Mercury"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="HN9-0W-ENe"/>
-                                    <constraint firstAttribute="height" constant="45" id="cym-oW-nqa"/>
+                                    <constraint firstAttribute="height" constant="45" id="5sp-aE-6WM"/>
+                                    <constraint firstAttribute="width" constant="45" id="Oce-eU-1TH"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="FcE-RK-Ze2"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6L-Uy-tqn" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Battery"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="JTp-CT-NGF"/>
-                                    <constraint firstAttribute="height" constant="45" id="azR-mT-YUj"/>
+                                    <constraint firstAttribute="height" constant="45" id="OGa-Ib-x6V"/>
+                                    <constraint firstAttribute="width" constant="45" id="uQR-sJ-f3T"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="TKm-dP-KVO"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IEw-Zx-5Dz" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="OldThings"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="Dwi-3E-4vQ"/>
-                                    <constraint firstAttribute="width" constant="45" id="RQd-4A-G3V"/>
+                                    <constraint firstAttribute="height" constant="45" id="Fkn-W5-rEW"/>
+                                    <constraint firstAttribute="width" constant="45" id="Myu-Bx-VRd"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sr-CO-b6U" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
-                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Polythene"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="a8c-ZI-cUY"/>
-                                    <constraint firstAttribute="width" constant="45" id="mzt-x5-8EJ"/>
-                                </constraints>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="vof-3Z-Bfv"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v94-zI-Wo3" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Different"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="KvW-H3-VTr"/>
-                                    <constraint firstAttribute="height" constant="45" id="nZJ-NX-iKx"/>
+                                    <constraint firstAttribute="width" constant="45" id="1bR-Bt-8FR"/>
+                                    <constraint firstAttribute="height" constant="45" id="C1y-31-lbT"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="THs-3d-Tib"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TF5-Jx-aAR" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="All"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="NTL-oO-B7P"/>
-                                    <constraint firstAttribute="height" constant="45" id="rPV-Tm-xIT"/>
+                                    <constraint firstAttribute="height" constant="45" id="CCw-34-DSW"/>
+                                    <constraint firstAttribute="width" constant="45" id="iFD-Lz-V1B"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="yud-bS-nsd"/>
+                                </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDK-MF-UpQ">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="L4Z-Tq-yrV"/>
-                                </constraints>
-                                <color key="barTintColor" red="0.0012077390335082597" green="0.42533821784615378" blue="0.0018739170756520845" alpha="1" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <navigationItem title="Поиск" id="4Io-ob-t9a"/>
-                                </items>
-                            </navigationBar>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUq-8B-fT3">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="Dhy-M4-sBE"/>
-                                </constraints>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <navigationItem title="Хочу сдать" id="Bdy-a4-xwx">
-                                        <barButtonItem key="rightBarButtonItem" image="Close" id="XUF-Dn-CbI">
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Полиэтилен" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AV-ps-fh2">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="dEz-5q-lNu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Разное" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNs-xm-FlW">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="KPk-pR-0Sh"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Все пункты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYf-5n-zCk">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="epD-MW-QfK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Макулатура" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeY-D5-1SQ">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="bTo-qH-NLh"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Стеклобой" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enh-dA-bK2">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="Qf2-rU-uvq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пластик" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y27-dv-DDh">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="Tom-S7-xcI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RhL-RU-rJA" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Plastic"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="E8F-1s-WCo"/>
-                                    <constraint firstAttribute="height" constant="45" id="mf6-uf-Kji"/>
+                                    <constraint firstAttribute="width" constant="45" id="Ax4-XM-fj3"/>
+                                    <constraint firstAttribute="height" constant="45" id="qTn-51-1Va"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="PolytheneRecyclePoint"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="PlasticRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isChecked" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="3EQ-2d-jfX"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y1h-Ok-yUT" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="WastePaper"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="Hfn-zo-fzT"/>
-                                    <constraint firstAttribute="width" constant="45" id="brs-iA-8Ss"/>
+                                    <constraint firstAttribute="width" constant="45" id="1s6-fq-faC"/>
+                                    <constraint firstAttribute="height" constant="45" id="qg7-Xq-d4C"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="ADb-oB-eIV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9L-tT-ckC" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Glass"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="B5X-7Q-Iiw"/>
-                                    <constraint firstAttribute="width" constant="45" id="MXA-lh-KZZ"/>
+                                    <constraint firstAttribute="width" constant="45" id="Khj-4O-ZRJ"/>
+                                    <constraint firstAttribute="height" constant="45" id="jLA-Ax-Pxo"/>
                                 </constraints>
                                 <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="GlassRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="SsD-hg-q2w"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ртуть" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xa4-p2-pmx">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sr-CO-b6U" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.001833482442" green="0.64571081399999997" blue="0.0028448149479999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Polythene"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="bdX-bZ-SjH"/>
+                                    <constraint firstAttribute="height" constant="45" id="X9K-8S-ngN"/>
+                                    <constraint firstAttribute="width" constant="45" id="zDU-tx-EQg"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Батарейки" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBy-YT-4py">
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="PolytheneRecyclePoint"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="DefaultRecyclePoint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="Kfm-aB-7MU"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="baR-Yw-m2N">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uuc-d8-CfA">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="F7f-CX-9oP"/>
+                                            <constraint firstAttribute="height" constant="40" id="dBg-iE-e1Q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Поиск">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="6Vw-uh-XCs" kind="unwind" unwindAction="didTouchSearchButtonOnFiltersViewControllerWithSegue:" id="w99-nT-EyF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.011822579123125591" green="0.68551682692307692" blue="0.37241518769153109" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="y0q-05-D7U"/>
+                                    <constraint firstItem="Uuc-d8-CfA" firstAttribute="centerX" secondItem="baR-Yw-m2N" secondAttribute="centerX" id="Xyj-V2-Jw1"/>
+                                    <constraint firstAttribute="height" constant="45" id="pmR-lh-rSH"/>
+                                    <constraint firstItem="Uuc-d8-CfA" firstAttribute="centerY" secondItem="baR-Yw-m2N" secondAttribute="centerY" id="uqE-sI-tR6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Старые вещи" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="io3-kh-uOG">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="9id-uY-kax"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7LV-gt-MqE"/>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAi-JL-xpS"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="v94-zI-Wo3" firstAttribute="top" secondItem="JAi-JL-xpS" secondAttribute="bottom" constant="10" id="09z-f6-JGp"/>
-                            <constraint firstItem="GUq-8B-fT3" firstAttribute="top" secondItem="Cn6-6s-buC" secondAttribute="bottom" id="0AF-rc-FYh"/>
-                            <constraint firstItem="y27-dv-DDh" firstAttribute="top" secondItem="E9L-tT-ckC" secondAttribute="bottom" id="0Py-nu-QTn"/>
-                            <constraint firstAttribute="trailing" secondItem="JAi-JL-xpS" secondAttribute="trailing" id="1ZF-QE-nlu"/>
-                            <constraint firstItem="TF5-Jx-aAR" firstAttribute="top" secondItem="JAi-JL-xpS" secondAttribute="bottom" constant="10" id="2ca-SQ-KfI"/>
-                            <constraint firstItem="io3-kh-uOG" firstAttribute="top" secondItem="IEw-Zx-5Dz" secondAttribute="bottom" id="38f-FI-A9t"/>
-                            <constraint firstItem="5AV-ps-fh2" firstAttribute="top" secondItem="7Sr-CO-b6U" secondAttribute="bottom" id="3Fz-AR-HEC"/>
-                            <constraint firstItem="5AV-ps-fh2" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" constant="20" id="5LM-uR-a5i"/>
-                            <constraint firstItem="GDK-MF-UpQ" firstAttribute="top" secondItem="JNs-xm-FlW" secondAttribute="bottom" constant="20" id="71I-7i-dfw"/>
-                            <constraint firstItem="7LV-gt-MqE" firstAttribute="top" secondItem="enh-dA-bK2" secondAttribute="bottom" constant="10" id="81P-kV-ibd"/>
-                            <constraint firstItem="eeY-D5-1SQ" firstAttribute="top" secondItem="RhL-RU-rJA" secondAttribute="bottom" id="8Pa-e8-Lor"/>
-                            <constraint firstItem="JAi-JL-xpS" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" id="93B-gc-oh8"/>
-                            <constraint firstItem="7LV-gt-MqE" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" id="E1H-zC-2FH"/>
-                            <constraint firstItem="Xa4-p2-pmx" firstAttribute="top" secondItem="JaB-AE-A9f" secondAttribute="bottom" id="Eis-UC-Ozp"/>
-                            <constraint firstItem="d6L-Uy-tqn" firstAttribute="top" secondItem="7LV-gt-MqE" secondAttribute="bottom" constant="10" id="HLE-TN-qVa"/>
-                            <constraint firstItem="7LV-gt-MqE" firstAttribute="height" secondItem="JAi-JL-xpS" secondAttribute="height" id="HcQ-xr-daG"/>
-                            <constraint firstItem="JNs-xm-FlW" firstAttribute="top" secondItem="v94-zI-Wo3" secondAttribute="bottom" id="Hw2-zi-bxe"/>
-                            <constraint firstItem="JNs-xm-FlW" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="IdL-lu-1Jk"/>
-                            <constraint firstItem="RhL-RU-rJA" firstAttribute="top" secondItem="GUq-8B-fT3" secondAttribute="bottom" constant="30" id="If7-qM-zb4"/>
-                            <constraint firstAttribute="trailing" secondItem="GDK-MF-UpQ" secondAttribute="trailing" id="KyH-Bc-FSS"/>
-                            <constraint firstItem="JAi-JL-xpS" firstAttribute="top" secondItem="DBy-YT-4py" secondAttribute="bottom" constant="10" id="LZ0-wD-KcU"/>
-                            <constraint firstItem="v94-zI-Wo3" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="Qz5-ia-GbX"/>
-                            <constraint firstItem="JAi-JL-xpS" firstAttribute="top" secondItem="Xa4-p2-pmx" secondAttribute="bottom" constant="10" id="R1a-ZV-mGT"/>
-                            <constraint firstItem="E9L-tT-ckC" firstAttribute="top" secondItem="GUq-8B-fT3" secondAttribute="bottom" constant="30" id="RUX-ZI-k2z"/>
-                            <constraint firstItem="d6L-Uy-tqn" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="SN8-tf-sy9"/>
-                            <constraint firstItem="JAi-JL-xpS" firstAttribute="top" secondItem="io3-kh-uOG" secondAttribute="bottom" constant="10" id="Sax-uU-Q9r"/>
-                            <constraint firstItem="DBy-YT-4py" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="TFF-Jn-kYQ"/>
-                            <constraint firstItem="GUq-8B-fT3" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" id="ULl-qY-c9T"/>
-                            <constraint firstItem="7p0-nw-jhp" firstAttribute="top" secondItem="GDK-MF-UpQ" secondAttribute="bottom" id="UUX-Pt-yJ7"/>
-                            <constraint firstAttribute="trailing" secondItem="io3-kh-uOG" secondAttribute="trailing" constant="20" id="VE8-qQ-6pG"/>
-                            <constraint firstItem="DYf-5n-zCk" firstAttribute="top" secondItem="TF5-Jx-aAR" secondAttribute="bottom" id="WzP-VA-Jda"/>
-                            <constraint firstItem="7Sr-CO-b6U" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" constant="30" id="YDy-gY-dcX"/>
-                            <constraint firstAttribute="trailing" secondItem="DYf-5n-zCk" secondAttribute="trailing" constant="20" id="Zo7-7g-uTA"/>
-                            <constraint firstItem="JaB-AE-A9f" firstAttribute="top" secondItem="7LV-gt-MqE" secondAttribute="bottom" constant="10" id="ZtL-dz-LP4"/>
-                            <constraint firstAttribute="trailing" secondItem="7LV-gt-MqE" secondAttribute="trailing" id="aWs-0x-ZUJ"/>
-                            <constraint firstItem="enh-dA-bK2" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="dWA-Aa-Vi9"/>
-                            <constraint firstAttribute="trailing" secondItem="IEw-Zx-5Dz" secondAttribute="trailing" constant="30" id="eG7-su-BF3"/>
-                            <constraint firstItem="7Sr-CO-b6U" firstAttribute="top" secondItem="JAi-JL-xpS" secondAttribute="bottom" constant="10" id="eaw-UX-C3x"/>
-                            <constraint firstItem="GDK-MF-UpQ" firstAttribute="top" secondItem="DYf-5n-zCk" secondAttribute="bottom" constant="20" id="fYP-hc-mxj"/>
-                            <constraint firstAttribute="trailing" secondItem="TF5-Jx-aAR" secondAttribute="trailing" constant="30" id="fsS-YX-THc"/>
-                            <constraint firstAttribute="trailing" secondItem="E9L-tT-ckC" secondAttribute="trailing" constant="30" id="hUm-21-ygy"/>
-                            <constraint firstItem="RhL-RU-rJA" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" constant="30" id="hkv-qG-pkD"/>
-                            <constraint firstItem="GDK-MF-UpQ" firstAttribute="top" secondItem="5AV-ps-fh2" secondAttribute="bottom" constant="20" id="iWd-x2-6kv"/>
-                            <constraint firstItem="eeY-D5-1SQ" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" constant="20" id="kkB-ly-Fw1"/>
-                            <constraint firstItem="Xa4-p2-pmx" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" constant="30" id="lJz-YL-hwR"/>
-                            <constraint firstItem="7LV-gt-MqE" firstAttribute="top" secondItem="eeY-D5-1SQ" secondAttribute="bottom" constant="10" id="onb-rQ-nn2"/>
-                            <constraint firstItem="JaB-AE-A9f" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" constant="30" id="qLO-3z-0Mb"/>
-                            <constraint firstAttribute="trailing" secondItem="y27-dv-DDh" secondAttribute="trailing" constant="20" id="rGj-x9-uOB"/>
-                            <constraint firstItem="Y1h-Ok-yUT" firstAttribute="top" secondItem="GUq-8B-fT3" secondAttribute="bottom" constant="30" id="s5N-eP-tZf"/>
-                            <constraint firstItem="enh-dA-bK2" firstAttribute="top" secondItem="Y1h-Ok-yUT" secondAttribute="bottom" id="s7u-jd-7Ib"/>
-                            <constraint firstItem="Y1h-Ok-yUT" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="sDX-ca-Uft"/>
-                            <constraint firstAttribute="trailing" secondItem="GUq-8B-fT3" secondAttribute="trailing" id="sTS-ZE-SS6"/>
-                            <constraint firstItem="DBy-YT-4py" firstAttribute="top" secondItem="d6L-Uy-tqn" secondAttribute="bottom" id="uAn-zF-RBZ"/>
-                            <constraint firstItem="7LV-gt-MqE" firstAttribute="top" secondItem="y27-dv-DDh" secondAttribute="bottom" constant="10" id="wci-BF-e3K"/>
-                            <constraint firstItem="GDK-MF-UpQ" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" id="xjS-YP-jbG"/>
-                            <constraint firstItem="IEw-Zx-5Dz" firstAttribute="top" secondItem="7LV-gt-MqE" secondAttribute="bottom" constant="10" id="z8g-tc-gP3"/>
+                            <constraint firstItem="7Sr-CO-b6U" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.8" id="4xo-j0-mGv"/>
+                            <constraint firstItem="v94-zI-Wo3" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="BGM-Bv-pxY"/>
+                            <constraint firstAttribute="bottom" secondItem="baR-Yw-m2N" secondAttribute="bottom" id="CgJ-OA-2H3"/>
+                            <constraint firstItem="RhL-RU-rJA" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leadingMargin" constant="4" id="EV1-jP-jrN"/>
+                            <constraint firstItem="IEw-Zx-5Dz" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.55" id="Hue-Dt-CVY"/>
+                            <constraint firstItem="baR-Yw-m2N" firstAttribute="leading" secondItem="li7-7V-641" secondAttribute="leading" id="KLg-Fe-4pr"/>
+                            <constraint firstItem="JaB-AE-A9f" firstAttribute="centerX" secondItem="RhL-RU-rJA" secondAttribute="centerX" id="LDP-Hj-iYg"/>
+                            <constraint firstAttribute="trailing" secondItem="baR-Yw-m2N" secondAttribute="trailing" id="MWf-AL-rXe"/>
+                            <constraint firstItem="Y1h-Ok-yUT" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.3" id="Ur9-5f-sTe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E9L-tT-ckC" secondAttribute="trailing" constant="4" id="Vot-S7-6Pk"/>
+                            <constraint firstItem="7Sr-CO-b6U" firstAttribute="centerX" secondItem="JaB-AE-A9f" secondAttribute="centerX" id="Wgq-Yt-62I"/>
+                            <constraint firstItem="JaB-AE-A9f" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.55" id="Yqw-vR-peM"/>
+                            <constraint firstItem="v94-zI-Wo3" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.8" id="dKo-Kh-m7i"/>
+                            <constraint firstItem="d6L-Uy-tqn" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.55" id="dl0-Y4-Q9H"/>
+                            <constraint firstItem="E9L-tT-ckC" firstAttribute="centerX" secondItem="IEw-Zx-5Dz" secondAttribute="centerX" id="e8S-Lo-pNi"/>
+                            <constraint firstItem="Y1h-Ok-yUT" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="eJe-e6-11I"/>
+                            <constraint firstItem="RhL-RU-rJA" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.3" id="jf2-ut-mn1"/>
+                            <constraint firstItem="IEw-Zx-5Dz" firstAttribute="centerX" secondItem="TF5-Jx-aAR" secondAttribute="centerX" id="raM-Ua-9ZW"/>
+                            <constraint firstItem="d6L-Uy-tqn" firstAttribute="centerX" secondItem="li7-7V-641" secondAttribute="centerX" id="tCU-yv-Bfa"/>
+                            <constraint firstItem="E9L-tT-ckC" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.3" id="vUN-IV-92k"/>
+                            <constraint firstItem="TF5-Jx-aAR" firstAttribute="bottom" secondItem="7p0-nw-jhp" secondAttribute="top" multiplier="0.8" id="wHR-01-qaH"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="AmX-0Z-d8v"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationItem key="navigationItem" title="Хочу сдать" id="AmX-0Z-d8v">
+                        <barButtonItem key="rightBarButtonItem" image="Close" id="iB5-MJ-6LP">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="6Vw-uh-XCs" kind="unwind" unwindAction="cancelFiltersViewControllerWithSegue:" id="mjR-Wx-swr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="batteryButton" destination="d6L-Uy-tqn" id="5NI-8m-lYN"/>
                         <outlet property="glassButton" destination="E9L-tT-ckC" id="QuO-t4-Ue7"/>
@@ -1097,8 +1061,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8n5-RM-0v7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="6Vw-uh-XCs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5644" y="1453.2233883058473"/>
+            <point key="canvasLocation" x="6550.7246376811599" y="1452.717391304348"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -1127,7 +1092,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="if5-Ty-Zrb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cqO-az-vTA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cqO-az-vTA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1146,7 +1111,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="37m-oF-hFA" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YYN-z3-G1B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYN-z3-G1B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1200,7 +1165,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="17N-xH-0bB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="search" id="JG7-Y9-UxD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="CwI-2P-xbk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CwI-2P-xbk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1219,7 +1184,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1233,22 +1198,22 @@
             <point key="canvasLocation" x="229.59999999999999" y="572.56371814092961"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="bfn-UB-mgJ">
+        <scene sceneID="Ppn-Ci-3cj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="currentContext" id="MCv-dV-UxR" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eRA-k7-KML">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="JTK-qa-cyo" kind="relationship" relationship="rootViewController" id="7hZ-FE-pwl"/>
+                        <segue destination="JTK-qa-cyo" kind="relationship" relationship="rootViewController" id="poE-Ra-vPz"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ip1-xS-3tv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eDC-Za-4sB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4704.8000000000002" y="1453.2233883058473"/>
+            <point key="canvasLocation" x="5301" y="1462"/>
         </scene>
     </scenes>
     <resources>

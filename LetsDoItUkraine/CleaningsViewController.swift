@@ -161,6 +161,26 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
 
     @IBAction func didTouchRecycleButton(_ sender: UIButton) {
     }
+    
+    @IBAction func cancelFiltersViewController(segue: UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func didTouchSearchButtonOnFiltersViewController(segue: UIStoryboardSegue) {
+        let vc = segue.source
+        if let filterVC = vc as? RecyclePointListViewController {
+            let data = filterVC.selectedCategories
+            let manager = RecyclePointsManager()
+            manager.getSelectedRecyclePoints(categories: data) { (recyclePoints) in
+                //
+            }
+        }
+        
+      // save data to NSUserDefaults
+        
+    }
+    
+
 
 
 }
