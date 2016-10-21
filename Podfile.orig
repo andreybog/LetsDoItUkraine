@@ -13,8 +13,11 @@ target 'LetsDoItUkraine' do
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
   pod 'GoogleMaps'
+<<<<<<< HEAD
   pod 'GooglePlaces'
+=======
   pod 'Kingfisher', '~> 3.0'
+>>>>>>> cleaningInfoView
   
   # Pods for LetsDoItUkraine
 
