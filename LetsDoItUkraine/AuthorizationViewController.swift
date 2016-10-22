@@ -57,7 +57,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
                 user.photo = URL(string: url)
             }
             let usersManager = UsersManager()
-            usersManager.addUser(user)
+            usersManager.createUser(user)
         }
         
     }

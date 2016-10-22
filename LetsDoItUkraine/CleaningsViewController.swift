@@ -20,12 +20,15 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     var searchResultController : SearchResultsController!
     var resultArray = [String]()
     var searchMarker = GMSMarker()
-    
+
 
     var locationManager = CLLocationManager()
     var currentLocationCoordinates = CLLocationCoordinate2D()
     let cleaningsManager = CleaningsManager.defaultManager
     var cleaningsArray = [Cleaning]()
+    var cleaningsMembers:[[User]]!
+    var cleaningsCoordinators:[[User]]!
+    
     var transferID = ""
 
     override func viewDidLoad() {
@@ -35,13 +38,14 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         locationManager.delegate = self
         determineAuthorizationStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        cleaningsManager.getCleanings(filer: .active) { (cleanings) in
-            if cleanings.count != 0 {
-                self.cleaningsArray = cleanings
-                self.setMarkers()
-            } else {
-                print("Error, while loading cleanings!")
-            }
+        cleaningsManager.getCleanings(filer: .active) { [unowned self] (cleanings) in
+            
+            self.cleaningsArray = cleanings
+            self.setMarkers()
+            
+            self.cleaningsMembers = [[User]](repeatElement([], count: cleanings.count))
+            self.cleaningsCoordinators = [[User]](repeatElement([], count: cleanings.count))
+            self.fillMemberArrays()
         }
     }
 
@@ -71,10 +75,20 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         searchResultController.delegate = self
     }
     
+    func fillMemberArrays() {
+        for (index, cleaning) in cleaningsArray.enumerated() {
+            self.cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .coordinator, handler: { (users) in
+                self.cleaningsMembers[index] = users
+            })
+            self.cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner, handler: { (users) in
+                self.cleaningsCoordinators[index] = users
+            })
+        }
+    }
     
     func setMarkers() {
         for cleaning in self.cleaningsArray{
-            let marker = GMSMarker(position: cleaning.cooridnate)
+            let marker = GMSMarker(position: cleaning.coordinate)
             marker.icon = GMSMarker.markerImage(with: UIColor.green)
             marker.snippet = cleaning.ID
             marker.map = mapView
@@ -191,21 +205,19 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.padding = UIEdgeInsetsMake(0, 0, 110, 0)
-        var index = 0
-        for cleaning in cleaningsArray{
-            if marker.snippet == cleaning.ID{
-                cleaningsArray.remove(at: index)
-                cleaningsArray.insert(cleaning, at: 0)
+        
+        for (index, cleaning) in cleaningsArray.enumerated() {
+            if marker.snippet == cleaning.ID {
+                mapView.animate(toLocation: cleaningsArray[index].coordinate)
+                mapView.animate(toZoom: 15)
+                
+                self.cleaningsCollectionView.reloadData()
+                self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+                self.cleaningsCollectionView.isHidden = false
+                
                 break
             }
-            index += 1
         }
-        mapView.animate(toLocation: cleaningsArray[0].cooridnate)
-        mapView.animate(toZoom: 15)
-        
-        self.cleaningsCollectionView.reloadData()
-        self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
-        self.cleaningsCollectionView.isHidden = false
         return true
     }
     
@@ -228,49 +240,19 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         return cleaningsArray.count
     }
     
-    //Temporary, before adding memberCount and coordinator properties to Cleaning Class
-    var cleaningsWithMembers = [[String:String?]]()
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
-        let cleaning = cleaningsArray[indexPath.row]
+        let index = indexPath.row
+        let cleaning = cleaningsArray[index]
+        let coordinator = cleaningsCoordinators[index].first!
         
-        //Temporary, before adding memberCount and coordinator properties to Cleaning Class
-        if cleaningsWithMembers.isEmpty {
-            for _ in 0..<cleaningsArray.count {
-                cleaningsWithMembers.append(["coordinator":nil, "memberCount":nil])
-            }
-        }
-        let memberCount = (cleaningsWithMembers[indexPath.row])["memberCount"]!
-        if memberCount != nil {
-            cell.participantsNumberLabel.text = "Пойдет: \(memberCount!)"
-        } else {
-            cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner) { (users) in
-                let count = String(users.count)
-                self.cleaningsWithMembers[indexPath.row].updateValue(count, forKey: "memberCount")
-                collectionView.reloadItems(at:
-                [indexPath])
-            }
-        }
-        let coordinator = (cleaningsWithMembers[indexPath.row])["coordinator"]!
-        if coordinator != nil {
-            cell.coordinatorNameLabel.text = "Координатор: \(coordinator!)"
-        } else {
-            cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .coordinator) { (user) in
-                if user.count != 0 {
-                    let name : String
-                    if let surname = user.first?.lastName{
-                        name = user.first!.firstName + " " + surname
-                    } else {
-                        name = user.first!.firstName
-                    }
-                    self.cleaningsWithMembers[indexPath.row].updateValue(name, forKey: "coordinator")
-                    collectionView.reloadItems(at: [indexPath])
-                }
-            }
-        }
+        cell.participantsNumberLabel.text = "Пойдет: \(cleaningsMembers[index].count)"
+        cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"
+
         
-        if let image = setStreetViewImageWith(coordinates: cleaning.cooridnate) {
+        if let image = setStreetViewImageWith(coordinates: cleaning.coordinate) {
             cell.image.image = image
         } else {
             cell.image.image = #imageLiteral(resourceName: "Placeholder")
@@ -311,9 +293,18 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     //MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "cleaningDetailsSegue" {
-            let cleaningdetailsViewController = segue.destination as! CleanPlaceViewController
-            cleaningdetailsViewController.cleaningID = self.transferID
+        if segue.identifier == "cleaningDetailsSegue", let cell = sender as? CleaningsMapCollectionViewCell {
+            
+            let row = self.cleaningsCollectionView.indexPath(for: cell)!.row
+            let cleaning = self.cleaningsArray[row]
+            let members = self.cleaningsMembers[row]
+            let coordinators = self.cleaningsCoordinators[row]
+            
+            let cleaningDetailsViewController = segue.destination as! CleanPlaceViewController
+            cleaningDetailsViewController.cleaning = cleaning
+            cleaningDetailsViewController.coordiantors = coordinators
+            cleaningDetailsViewController.members = members
+
         }
     }
 
@@ -343,7 +334,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        mapView.animate(toLocation: cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].cooridnate)
+        mapView.animate(toLocation: cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
         mapView.animate(toZoom: 15)
     }
     

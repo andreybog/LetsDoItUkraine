@@ -59,8 +59,6 @@
 		55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E731DAD85E300A04685 /* RecyclePointsManager.swift */; };
 		55033E761DAD867600A04685 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E751DAD867600A04685 /* NewsManager.swift */; };
 		552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FC1DA196D7008D5317 /* AppDelegate.swift */; };
-		552BF8FF1DA196D7008D5317 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FE1DA196D7008D5317 /* FirstViewController.swift */; };
-		552BF9011DA196D7008D5317 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF9001DA196D7008D5317 /* SecondViewController.swift */; };
 		552BF9041DA196D7008D5317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9021DA196D7008D5317 /* Main.storyboard */; };
 		552BF9061DA196D7008D5317 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9051DA196D7008D5317 /* Assets.xcassets */; };
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
@@ -137,8 +135,6 @@
 		55033E751DAD867600A04685 /* NewsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		552BF8F91DA196D7008D5317 /* LetsDoItUkraine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsDoItUkraine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		552BF8FC1DA196D7008D5317 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		552BF8FE1DA196D7008D5317 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		552BF9001DA196D7008D5317 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		552BF9031DA196D7008D5317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		552BF9051DA196D7008D5317 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		552BF9081DA196D7008D5317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -249,8 +245,6 @@
 			children = (
 				062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */,
 				06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */,
-				552BF8FE1DA196D7008D5317 /* FirstViewController.swift */,
-				552BF9001DA196D7008D5317 /* SecondViewController.swift */,
 				7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */,
 				7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */,
 				CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */,
@@ -520,7 +514,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				552BF9011DA196D7008D5317 /* SecondViewController.swift in Sources */,
 				7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */,
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
 				CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */,
@@ -540,7 +533,6 @@
 				55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */,
 				55033E761DAD867600A04685 /* NewsManager.swift in Sources */,
 				7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */,
-				552BF8FF1DA196D7008D5317 /* FirstViewController.swift in Sources */,
 				062468F91DB4319F00D2BC3A /* RecyclePointViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,17 +16,17 @@ struct Cleaning : CustomStringConvertible {
   var datetime: Date?
   var summary: String?
   var isActive: Bool
-  var cooridnate: CLLocationCoordinate2D
+  var coordinate: CLLocationCoordinate2D
   
   var description: String {
     return "CLEANING: \(ID)\n" +
-            "lat: \(cooridnate.latitude) lon: \(cooridnate.longitude)\n" +
+            "lat: \(coordinate.latitude) lon: \(coordinate.longitude)\n" +
             (isActive ? "Active" : "Not active")
   }
   
   init() {
     ID = ""
-    cooridnate = CLLocationCoordinate2D()
+    coordinate = CLLocationCoordinate2D()
     isActive = false
     address = ""
   }

@@ -35,7 +35,9 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningPlace: UILabel!
     @IBOutlet weak var cleaningDescription: UILabel!
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
-    var cleaningID : String = "1"
+    var cleaning: Cleaning!
+    var coordiantors: [User]!
+    var members: [User]!
 
 
     
@@ -46,71 +48,55 @@ class CleanPlaceViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-
         
-// getCleaning
-        CleaningsManager.defaultManager.getCleaning(withId: cleaningID) { [unowned self] (cleaning) in
-            if let _ = cleaning {
-              if let _ = cleaning?.datetime {
-               self.cleaningDate.text = cleaning!.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
-              } else {
-                self.cleaningDate.text = ""
-                }
-                
-                self.cleaningPlace.text = cleaning?.address
-                
-                if let summary = cleaning?.summary {
-                   self.cleaningDescription.text = summary
-                } else {
-                   self.cleaningDescription.text = ""
-                }
-                
-              self.cleaningName.text = cleaning?.address
-                
-                for i in 0..<cleaning!.pictures!.count {
-                    self.cleaningPlaces[i].kf.setImage(with: cleaning?.pictures?[i])
-                }
-                
-            }
-        }
-      
-// getCleaningMembers
-       CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .coordinator) { [unowned self](users) in
-        if users.count > 0 {
-            let user = users.first!
+        // getCleaningMembers
+        if coordiantors.count > 0 {
+            let user = coordiantors.first!
             if let cleaningPhone = user.phone {
                 self.cleaningPhone.text = cleaningPhone
             } else {
                 self.cleaningPhone.text = ""
             }
-            
             if let cleaningEmail = user.email {
                 self.cleaningEmail.text = cleaningEmail
             } else {
                 self.cleaningEmail.text = ""
             }
-            
             if let cleaningLastNameCoordinator = user.lastName {
                 self.cleaningNameCoordinator.text = user.firstName + " " + cleaningLastNameCoordinator
             } else {
                 self.cleaningNameCoordinator.text = user.firstName
             }
-            
             if let _ = user.photo {
-              self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
+                self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
             }
-            
-          }
         }
         
-//  count cleaning members
-        CleaningsManager.defaultManager.getCleaningMembers(cleaningId: cleaningID, filter: .cleaner) { [unowned self](users) in
-          if users.count > 0 {
-             self.numberOfMembers.text = String(users.count)
+        // getCleaning
+        if let cleaning = self.cleaning {
+            if let _ = cleaning.datetime {
+                self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+            } else {
+                self.cleaningDate.text = ""
+            }
+            
+            self.cleaningPlace.text = cleaning.address
+            
+            if let summary = cleaning.summary {
+                self.cleaningDescription.text = summary
+            } else {
+                self.cleaningDescription.text = ""
+            }
+            
+            self.cleaningName.text = cleaning.address
+            
+            for i in 0..<cleaning.pictures!.count {
+                self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
             }
         }
-    
-
+        
+        //get number of members
+        self.numberOfMembers.text = String(members.count)
         
     }
 

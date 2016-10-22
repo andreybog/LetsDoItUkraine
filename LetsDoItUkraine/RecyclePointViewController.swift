@@ -45,8 +45,8 @@ class RecyclePointViewController: UIViewController {
              if let _ = recyclePoint?.schedule {
                 self.recyclePointSchedule.text = recyclePoint?.schedule
             }
-             if let _ = recyclePoint?.adress {
-                self.recyclePointAddress.text = recyclePoint?.adress
+             if let _ = recyclePoint?.address {
+                self.recyclePointAddress.text = recyclePoint?.address
             }
              if let _ = recyclePoint?.summary {
                 self.recyclePointSummary.text = recyclePoint?.summary
