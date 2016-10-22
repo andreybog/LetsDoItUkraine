@@ -38,15 +38,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         locationManager.delegate = self
         determineAuthorizationStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        cleaningsManager.getCleanings(filer: .active) { [unowned self] (cleanings) in
-            
-            self.cleaningsArray = cleanings
-            self.setMarkers()
-            
-            self.cleaningsMembers = [[User]](repeatElement([], count: cleanings.count))
-            self.cleaningsCoordinators = [[User]](repeatElement([], count: cleanings.count))
-            self.fillMemberArrays()
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,9 +50,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         styleNavigationBar()
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
-        if self.cleaningsArray.count != 0 {
-            setMarkers()
-        }
+        reloadData()
         mapView.delegate = self
         let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
@@ -75,18 +64,31 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         searchResultController.delegate = self
     }
     
+    func reloadData() {
+        let start = Date()
+         cleaningsManager.getCleanings(filer: .active) { [unowned self] (cleanings) in
+            self.cleaningsArray = cleanings
+            self.setMarkers()
+            self.cleaningsMembers = [[User]](repeatElement([], count: cleanings.count))
+            self.cleaningsCoordinators = [[User]](repeatElement([], count: cleanings.count))
+            self.fillMemberArrays()
+            print("BENCH: \(Date().timeIntervalSince(start))")
+        }
+    }
+    
     func fillMemberArrays() {
         for (index, cleaning) in cleaningsArray.enumerated() {
-            self.cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .coordinator, handler: { (users) in
+            self.cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner, handler: { (users) in
                 self.cleaningsMembers[index] = users
             })
-            self.cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .cleaner, handler: { (users) in
+            self.cleaningsManager.getCleaningMembers(cleaningId: cleaning.ID, filter: .coordinator, handler: { (users) in
                 self.cleaningsCoordinators[index] = users
             })
         }
     }
     
     func setMarkers() {
+        mapView.clear()
         for cleaning in self.cleaningsArray{
             let marker = GMSMarker(position: cleaning.coordinate)
             marker.icon = GMSMarker.markerImage(with: UIColor.green)
