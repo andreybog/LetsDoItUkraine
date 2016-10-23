@@ -10,6 +10,8 @@ import UIKit
 
 class HistoryCleningCell: UITableViewCell {
 
+    @IBOutlet var dateCleaningTextLabel: UILabel!
+    @IBOutlet var addressCleaningTextLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

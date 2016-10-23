@@ -9,7 +9,9 @@
 import UIKit
 
 class NoCleaningCell: UITableViewCell {
-
+    @IBOutlet var addCleaningButton: UIButton!
+    
+    @IBOutlet var searchCleaningButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

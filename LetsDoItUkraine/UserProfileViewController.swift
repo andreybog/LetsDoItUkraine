@@ -9,7 +9,7 @@
 import UIKit
 
 
-class userProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var cleaningsTableView: UITableView!
     @IBOutlet weak var userPhotoImageView: UIImageView!
@@ -22,7 +22,7 @@ class userProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kNoCleaningCellIdetefier = "noCleaningCell"
     let kCleaningCellIdentifier = "cleningCell"
     let kHistoryCleaningIdentifier = "HistoryCleaning"
-    let userID = "1"
+    let userID = "2"
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -46,7 +46,7 @@ class userProfileViewController: UIViewController, UITableViewDelegate, UITableV
         
         UsersManager.defaultManager.getUserCleanings(userId: userID, filter: .asCleaner) { [unowned self] (cleanings) in
             self.userCleaningsAsCleaner = cleanings
-            self.coordinatorCounterTextLabel.text = String(self.userCleaningsAsCleaner.count)
+            self.volunteerCounterTextLabel.text = String(self.userCleaningsAsCleaner.count)
             self.cleaningsTableView.reloadData()
         }
         
@@ -74,6 +74,7 @@ class userProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: -UITableViewDelegate
+    
 
     // MARK: -UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -100,7 +101,9 @@ class userProfileViewController: UIViewController, UITableViewDelegate, UITableV
         var cleaningCell:UITableViewCell
         if indexPath.section == 0 {
             if (userCleaningsAsCleaner.count > 0 || userCleaningsAsModerator.count > 0) {
-            cleaningCell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as! CleaningCell
+                cleaningCell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as! CleaningCell
+                let newCell = CleaningCell()
+                cleaningCell = newCell.configureWithCleaning(cleaning: userCleaningsAsCleaner[indexPath.row])
             } else {
             cleaningCell = tableView.dequeueReusableCell(withIdentifier:  kNoCleaningCellIdetefier, for: indexPath) as! NoCleaningCell
             }
