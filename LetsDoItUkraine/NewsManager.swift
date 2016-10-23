@@ -10,10 +10,10 @@ import Foundation
 
 extension News : FirebaseInitable {
     init?(data: [String : Any ]) {
-        guard let key = data.keys.first, let data = data[key] as? [String : Any] else { return nil }
+        guard let id = data["id"] as? String, let title = data["title"] as? String else { return nil }
         
-        ID = key
-        title = data["title"] as! String
+        ID = id
+        self.title = title
         body = data["body"] as? String
         
         if let dateString = data["datetime"] as? String {
@@ -30,7 +30,8 @@ extension News : FirebaseInitable {
     }
     
     var dictionary: [String : Any]  {
-        var data = ["title" : title]
+        var data = ["id"    : ID,
+                    "title" : title]
         
         if let body = body { data["body"] = body }
         if let date = date { data["datetime"] = date.string() }
@@ -51,19 +52,19 @@ class NewsManager {
     // MARK: - GET METHODS
     
     func getNews(withId newsId:String, handler: @escaping (_:News?) -> Void) {
-        let refNews = dataManager.ref.child("news/\(newsId)")
+        let refNews = dataManager.rootRef.child("news/\(newsId)")
         dataManager.getObject(fromReference: refNews, handler: handler)
     }
     
     func getAllNews(with handler: @escaping (_:[RecyclePoint]) -> Void) {
-        let refNews = dataManager.ref.child("news")
+        let refNews = dataManager.rootRef.child("news")
         dataManager.getObjects(fromReference: refNews, handler: handler)
     }
     
     // MARK: - GET METHODS
     
     func createNews(_ news: News) {
-        let newsRootRef = dataManager.ref.child(News.rootDatabasePath)
+        let newsRootRef = dataManager.rootRef.child(News.rootDatabasePath)
         let newsId = newsRootRef.childByAutoId().key
         var news = news
         

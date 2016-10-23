@@ -37,13 +37,14 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
     var coordiantors: [User]!
-    var members: [User]!
+//    var members: [User]!
 
 
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+                
         let image = UIImage(named: "navBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationItem.title = "Место уборки";
@@ -90,13 +91,15 @@ class CleanPlaceViewController: UIViewController {
             
             self.cleaningName.text = cleaning.address
             
-            for i in 0..<cleaning.pictures!.count {
-                self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
+            if cleaning.pictures != nil {
+                for i in 0..<cleaning.pictures!.count {
+                    self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
+                }
             }
         }
         
         //get number of members
-        self.numberOfMembers.text = String(members.count)
+        self.numberOfMembers.text = cleaning.cleanersId != nil ? String(cleaning.cleanersId!.count) : "0"
         
     }
 

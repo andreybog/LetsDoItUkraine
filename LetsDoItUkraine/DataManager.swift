@@ -41,7 +41,7 @@ protocol FirebaseInitable {
 class DataManager {
   static let sharedManager = DataManager()
   
-  lazy var ref:FIRDatabaseReference = {
+  lazy var rootRef:FIRDatabaseReference = {
 //    FIRDatabase.database().persistenceEnabled = true
     
     let ref = FIRDatabase.database().reference()
@@ -69,43 +69,45 @@ class DataManager {
     
     reference.observeSingleEvent(of: .value, with: { (snapshot) in
       if let data = snapshot.value as? [String : AnyObject] {
-        let objectDictionary = [snapshot.key : data]
-        object = T(data: objectDictionary)
+        object = T(data: data)
       }
       handler(object)
     })
   }
   
-  func getObjects<T:FirebaseInitable>(fromReference reference:FIRDatabaseQuery, handler: @escaping (_:[T]) -> Void) {
-    
-    reference.observeSingleEvent(of: .value, with: { [unowned self] (snapshots) in
-      var objects = [T]()
-      
-      let childrensCount = snapshots.childrenCount
-      var currentIndex: UInt = 1
-      
-      // get objects ids
-      for snapshot in snapshots.children {
-        guard let snap = snapshot as? FIRDataSnapshot else {
-          currentIndex += 1
-          continue
-        }
- 
-        let objectRef = self.ref.child("\(T.rootDatabasePath)/\(snap.key)")
+    func getObjects<T:FirebaseInitable>(fromReference reference:FIRDatabaseQuery, handler: @escaping (_:[T]) -> Void) {
         
-        // get objects from ids
-        self.getObject(fromReference: objectRef, handler: { (object) in
-          if object != nil {
-            objects.append(object!)
-          }
-          if currentIndex == childrensCount {
-            handler(objects)
-          }
-          currentIndex += 1
-          } as (_:T?)->Void )
-      }
-    })
-  }
+        reference.observeSingleEvent(of: .value, with: { [unowned self] (snapshots) in
+            var objects = [T]()
+            
+            var childrensCount = snapshots.childrenCount
+            var currentObjectsCount: UInt = 0
+            
+            // get objects ids
+            for snapshot in snapshots.children {
+                guard let snap = snapshot as? FIRDataSnapshot else {
+                    childrensCount -= 1
+                    continue
+                }
+                
+                let objectRef = self.rootRef.child("\(T.rootDatabasePath)/\(snap.key)")
+                
+                // get objects from ids
+                self.getObject(fromReference: objectRef, handler: { (object) in
+                    if object != nil {
+                        objects.append(object!)
+                        currentObjectsCount += 1
+                    } else {
+                        childrensCount -= 1
+                    }
+                    if currentObjectsCount == childrensCount {
+                        handler(objects)
+                    }
+                    
+                    } as (_:T?)->Void )
+                }
+            })
+    }
   
   func getObjectsCount(fromReference reference:FIRDatabaseQuery, handler: @escaping (_:UInt) -> Void) {
     reference.observeSingleEvent(of: .value, with: { (snapshots) in
@@ -113,15 +115,42 @@ class DataManager {
     })
   }
   
+    func getObjects<T:FirebaseInitable>(withIds ids:[String], handler: @escaping (_:[T]) -> Void) {
+        var objects = [T]()
+        let objectsRootPath = T.rootDatabasePath
+        var objectsCount = ids.count
+        var currentObjectsCount: Int = 0
+        
+        for id in ids {
+            let objectRef = self.rootRef.child("\(objectsRootPath)/\(id)")
+            
+            // get objects from ids
+            self.getObject(fromReference: objectRef, handler: { (object) in
+                if object != nil {
+                    objects.append(object!)
+                    currentObjectsCount += 1
+                } else {
+                    currentObjectsCount -= 1
+                }
+                if currentObjectsCount == objectsCount {
+                    handler(objects)
+                }
+                
+            } as (_:T?)->Void )
+            
+        }
+
+    }
+    
   // MARK: - API - UPDATE
   
   func createObject<T:FirebaseInitable>(_ object:T) {
-    let reference = ref.child(T.rootDatabasePath)
+    let reference = rootRef.child(T.rootDatabasePath)
     reference.updateChildValues(object.dictionary)
   }
   
   func updateObjects(_ values: [String : Any]) {
-    ref.updateChildValues(values)
+    rootRef.updateChildValues(values)
   }
   
   // MARK: - CONFIGURATION

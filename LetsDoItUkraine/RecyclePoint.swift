@@ -29,10 +29,10 @@ struct RecyclePoint : CustomStringConvertible {
   }
   
   init() {
-    ID = ""
-    title = ""
-    address = ""
+    ID = "[no id]"
+    title = "[no title]"
+    address = "[no address]"
     categories = []
-    coordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    coordinate = CLLocationCoordinate2D()
   }
 }

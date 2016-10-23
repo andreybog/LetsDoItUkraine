@@ -13,11 +13,10 @@ import CoreLocation
 extension Cleaning : FirebaseInitable {
     
     init?(data: [String : Any]) {
-        guard let key = data.keys.first, let data = data[key] as? [String : Any] else { return nil }
+        guard let id = data["id"] as? String, let addr = data["address"] as? String else { return nil }
         
-        ID = key
-        address = data["address"] as! String
-        
+        ID = id
+        address = addr
         if let dateString = data["datetime"] as? String {
             datetime = dateString.date()
         } else {
@@ -29,25 +28,32 @@ extension Cleaning : FirebaseInitable {
                                             longitude: data["longitude"] as! Double)
         
         if let picturesDict = data["pictures"] as? [String : String] {
-            var pictures = [URL]()
-            for (_, val) in picturesDict {
-                pictures.append(URL(string:val)!)
-            }
-            self.pictures = pictures
+            self.pictures = ([String](picturesDict.values)).map({ (urlString) -> URL in
+                return URL(string: urlString)!
+            })
         } else {
             self.pictures = nil
         }
         
+        if let coordinators = data["coordinators"] as? [String:Bool] {
+            coordinatorsId = [String](coordinators.keys)
+        } else { coordinatorsId = nil }
+        
+        if let cleaners = data["cleaners"] as? [String:Bool] {
+            cleanersId = [String](cleaners.keys)
+        } else { cleanersId = nil }
     }
     
     var dictionary: [String : Any] {
-        var data: [String : Any] = ["active"    : isActive,
+        var data: [String : Any] = ["id"        : ID,
+                                    "active"    : isActive,
                                     "latitude"  : coordinate.latitude,
                                     "longitude" : coordinate.longitude,
                                     "address"   : address]
         
         if let datetime = datetime { data["dateTime"] = datetime.string() }
         if let summary = summary { data["description"] = summary }
+        
         if let pictures = pictures {
             var picDict = [String:String]()
             for (index, url) in pictures.enumerated() {
@@ -55,6 +61,23 @@ extension Cleaning : FirebaseInitable {
             }
             data["pictures"] = picDict
         }
+        
+        if let coordinatorsId = coordinatorsId {
+            var coordDict = [String:Bool]()
+            for id in coordinatorsId {
+                coordDict[id] = true
+            }
+            data["coordinators"] = coordDict
+        }
+        
+        if let cleanersId = cleanersId {
+            var cleanersDict = [String:Bool]()
+            for id in cleanersId {
+                cleanersDict[id] = true
+            }
+            data["cleaners"] = cleanersDict
+        }
+        
         return [ID : data]
     }
     
@@ -69,20 +92,144 @@ enum ClenaingMembersFilter {
     case coordinator, cleaner
 }
 
+let kCleaningsManagerCleaningAddNotification:NSNotification.Name = NSNotification.Name("kCleaningsManagerCleaningAddNotification")
+let kCleaningsManagerCleaningChangeNotification:NSNotification.Name = NSNotification.Name("kCleaningsManagerCleaningChangeNotification")
+let kCleaningsManagerCleaningRemoveNotification:NSNotification.Name = NSNotification.Name("kCleaningsManagerCleaningRemoveNotification")
+
+let kCleaningsManagerCleaningKey = "kCleaningsManagerCleaningKey"
+
 class CleaningsManager {
     
     static let defaultManager = CleaningsManager()
     private var dataManager = DataManager.sharedManager
     
+    var activeCleanings = [String:Cleaning]()
+    private var pastCleanings = [String:Cleaning]()
+    
+    private lazy var activeCleaningsRef: FIRDatabaseQuery = {
+        return DataManager.sharedManager.rootRef.child(Cleaning.rootDatabasePath).queryOrdered(byChild: "active").queryEqual(toValue: true)}()
+    
+    private var addHandler: FIRDatabaseHandle?
+    private var changeHandler: FIRDatabaseHandle?
+    private var removeHandler: FIRDatabaseHandle?
+   
+    private var timer:Timer?
+    
+    private var observersCount:Int = 0 {
+        willSet {
+            if newValue < 0 {
+                return
+            }
+        }
+        didSet {
+            if observersCount == 0 {
+                print("removeObservers")
+                removeObservers()
+                activeCleanings.removeAll()
+            } else if oldValue == 0 {
+                print("addObservers")
+                addObservers()
+            }
+        }
+    }
+    
+    // MARK: - OBSERVER METHODS
+    
+    func retainObserver() {
+        observersCount += 1
+    }
+    
+    func releaseObserver() {
+        observersCount -= 1
+    }
+    
+    private func addObservers() {
+        
+        addHandler = activeCleaningsRef.observe(.childAdded, with: { [unowned self] (snapshot) in
+            if let data = snapshot.value as? [String:Any], let cleaning = Cleaning.init(data: data) {
+                self.activeCleanings[cleaning.ID] = cleaning
+                
+                let notification = Notification(name: kCleaningsManagerCleaningAddNotification,
+                                                object: self,
+                                                userInfo: [kCleaningsManagerCleaningKey : cleaning])
+                
+                if #available(iOS 10.0, *) {
+                    if let timer = self.timer {
+                        timer.invalidate()
+                    }
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { (timer) in
+                        NotificationCenter.default.post(notification)
+                    })
+                } else {
+                    NotificationCenter.default.post(notification)
+                }
+            }
+        }, withCancel: { (error) in
+            print(error.localizedDescription)
+        })
+        
+        removeHandler = activeCleaningsRef.observe(.childRemoved, with: { [unowned self] (snapshot) in
+            if let data = snapshot.value as? [String:Any], let cleaning = Cleaning.init(data: data) {
+                self.activeCleanings.removeValue(forKey: cleaning.ID)
+                
+                let notification = Notification(name: kCleaningsManagerCleaningRemoveNotification,
+                                                object: self,
+                                                userInfo: [kCleaningsManagerCleaningKey : cleaning])
+                
+                NotificationCenter.default.post(notification)
+            }
+            }, withCancel: { (error) in
+                print(error.localizedDescription)
+        })
+        
+        changeHandler = activeCleaningsRef.observe(.childChanged, with: { [unowned self] (snapshot) in
+            if let data = snapshot.value as? [String:Any], let cleaning = Cleaning(data: data) {
+                self.activeCleanings.updateValue(cleaning, forKey: cleaning.ID)
+                
+                let notification = Notification(name: kCleaningsManagerCleaningChangeNotification,
+                                                object: self,
+                                                userInfo: [kCleaningsManagerCleaningKey : cleaning])
+                
+                NotificationCenter.default.post(notification)
+            }
+            }, withCancel: { (error) in
+                print(error.localizedDescription)
+        })
+        
+    }
+    
+    private func removeObservers() {
+        if addHandler != nil { activeCleaningsRef.removeObserver(withHandle: addHandler!) }
+        if changeHandler != nil { activeCleaningsRef.removeObserver(withHandle: changeHandler!) }
+        if removeHandler != nil { activeCleaningsRef.removeObserver(withHandle: removeHandler!) }
+    }
+    
     // MARK: - GET METHODS
     
     func getCleaning(withId cleaningId:String, handler: @escaping (_: Cleaning?)->Void) {
-        let reference = dataManager.ref.child("\(Cleaning.rootDatabasePath)/\(cleaningId)")
-        dataManager.getObject(fromReference: reference,handler: handler)
+        if let activeCleaning = activeCleanings[cleaningId] {
+            handler(activeCleaning)
+            return
+        } else if let pastCleaning = pastCleanings[cleaningId] {
+            handler(pastCleaning)
+            return
+        }
+        
+        let reference = dataManager.rootRef.child("\(Cleaning.rootDatabasePath)/\(cleaningId)")
+        dataManager.getObject(fromReference: reference, handler: { [unowned self] (cleaning) in
+            if cleaning != nil {
+                if cleaning!.isActive {
+                    self.activeCleanings[cleaning!.ID] = cleaning!
+                } else {
+                    self.pastCleanings[cleaning!.ID] = cleaning!
+                }
+            }
+            handler(cleaning)
+        } as (_:Cleaning?)->Void)
     }
     
     func getCleanings(filer: CleaningFiler, with handler: @escaping (_:[Cleaning]) -> Void) {
-        var refCleanings: FIRDatabaseQuery = dataManager.ref.child(Cleaning.rootDatabasePath)
+        var refCleanings: FIRDatabaseQuery = dataManager.rootRef.child(Cleaning.rootDatabasePath)
         
         switch filer {
         case .active:
@@ -96,24 +243,24 @@ class CleaningsManager {
         dataManager.getObjects(fromReference: refCleanings, handler: handler)
     }
     
-    func getCleaningMembers(cleaningId: String, filter: ClenaingMembersFilter, handler: @escaping (_:[User]) -> Void) {
-        let refPath = cleaningMembersReferencePath(cleaningId: cleaningId, filter: filter)
-        let reference = dataManager.ref.child(refPath)
+    func getCleanings(withIds ids: [String], handler: @escaping (_:[Cleaning]) -> Void) {
+        var cleanings = [Cleaning]()
         
-        dataManager.getObjects(fromReference: reference, handler: handler)
-    }
-    
-    func getCleaningMembersCount(cleaningId: String, filter: ClenaingMembersFilter, handler: @escaping (_:UInt) -> Void) {
-        let refPath = cleaningMembersReferencePath(cleaningId: cleaningId, filter: filter)
-        let reference = dataManager.ref.child(refPath)
+        var cleaningsCount = ids.count
+        var currentCleaningsCount = 0
         
-        dataManager.getObjectsCount(fromReference: reference, handler: handler)
-    }
-    
-    private func cleaningMembersReferencePath(cleaningId: String, filter: ClenaingMembersFilter) -> String {
-        switch filter {
-        case .coordinator:    return "cleaning-members/\(cleaningId)/coordinators"
-        case .cleaner:        return "cleaning-members/\(cleaningId)/cleaners"
+        for id in ids {
+            getCleaning(withId: id, handler: { (cleaning) in
+                if cleaning != nil {
+                    cleanings.append(cleaning!)
+                    currentCleaningsCount += 1
+                } else {
+                    cleaningsCount -= 1
+                }
+                if currentCleaningsCount == cleaningsCount {
+                    handler(cleanings)
+                }
+            })
         }
     }
     
@@ -121,7 +268,7 @@ class CleaningsManager {
     // MARK: - MODIFY METHODS
     
     func createCleaning(_ cleaning:Cleaning, byCoordinator user:User) {
-        let cleaningsRootRef = dataManager.ref.child(Cleaning.rootDatabasePath)
+        let cleaningsRootRef = dataManager.rootRef.child(Cleaning.rootDatabasePath)
         let cleaningId = cleaningsRootRef.childByAutoId().key
         var cleaning = cleaning
         
@@ -151,8 +298,8 @@ class CleaningsManager {
             cleaningPath = "cleaners"
         }
         
-        let userUpdatePath = "user-cleanings/\(user.ID)/\(userPath)/\(cleaning.ID)"
-        let cleaningUpdatePath = "cleaning-members/\(cleaning.ID)/\(cleaningPath)/\(user.ID)"
+        let userUpdatePath = "users/\(user.ID)/\(userPath)/\(cleaning.ID)"
+        let cleaningUpdatePath = "cleanings/\(cleaning.ID)/\(cleaningPath)/\(user.ID)"
         
         let value:Any = add ? true : NSNull()
         let valuesForUpdate = [userUpdatePath : value,
