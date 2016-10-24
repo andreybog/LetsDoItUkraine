@@ -91,6 +91,8 @@ enum RecyclePointCategory: String {
     case Battery = "battery"
     case OldThings = "oldStuff"
     case Polythene = "polyethylene"
+    case Different = "other"
+    case All = "all"
 }
 
 class RecyclePointsManager {

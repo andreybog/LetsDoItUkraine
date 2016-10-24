@@ -30,6 +30,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     var cleaningsCoordinators:[[User]]!
     
     var transferID = ""
+    
+    var recyclePointCategories = Set<RecyclePointCategory>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +40,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         locationManager.delegate = self
         determineAuthorizationStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        recyclePointCategories = FiltersModel.sharedModel.retrieveCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -307,6 +306,12 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             cleaningDetailsViewController.coordiantors = coordinators
             cleaningDetailsViewController.members = members
 
+        } else if segue.identifier == "ShowFilters" {
+            if let navcon = segue.destination as? UINavigationController {
+                if let filtersVC = navcon.viewControllers[0] as? RecyclePointListViewController {
+                    filtersVC.selectedCategories = Set(recyclePointCategories)
+                }
+            }
         }
     }
 
@@ -369,18 +374,13 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     @IBAction func didTouchSearchButtonOnFiltersViewController(segue: UIStoryboardSegue) {
         let vc = segue.source
         if let filterVC = vc as? RecyclePointListViewController {
-            let data = filterVC.selectedCategories
-            let manager = RecyclePointsManager()
-            manager.getSelectedRecyclePoints(categories: data) { (recyclePoints) in
-                //
+            recyclePointCategories = Set(filterVC.selectedCategories)
+            FiltersModel.sharedModel.saveCategories(categories: recyclePointCategories)
+
+            RecyclePointsManager.defaultManager.getSelectedRecyclePoints(categories: recyclePointCategories) { (recyclePoints) in
+                print(recyclePoints)
             }
         }
-        
-      // save data to NSUserDefaults
-        
     }
-    
-
-
 
 }
