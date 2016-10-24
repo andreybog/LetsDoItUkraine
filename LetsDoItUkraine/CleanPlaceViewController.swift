@@ -34,7 +34,7 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
     var coordiantors: [User]!
-//    var members: [User]!
+////   var members: [User]!
 
 
     
