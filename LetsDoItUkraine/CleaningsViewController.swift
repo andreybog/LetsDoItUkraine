@@ -151,26 +151,16 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func addCleaningsObservers() {
         cleaningsManager.retainObserver()
         NotificationCenter.default.addObserver(self, selector: #selector(handleCleaningsModifyNotification),
-                                               name: kCleaningsManagerCleaningAddNotification,
+                                               name: kCleaningsManagerCleaningModifyNotification,
                                                object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleCleaningsModifyNotification),
-                                               name: kCleaningsManagerCleaningRemoveNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleCleaningsModifyNotification),
-                                               name: kCleaningsManagerCleaningChangeNotification,
-                                               object: nil)
-        
     }
     
     func removeCleaningsObservers() {
         cleaningsManager.releaseObserver()
-        NotificationCenter.default.removeObserver(self, name: kCleaningsManagerCleaningAddNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: kCleaningsManagerCleaningRemoveNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: kCleaningsManagerCleaningChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: kCleaningsManagerCleaningModifyNotification, object: nil)
     }
     
     func handleCleaningsModifyNotification(_ notification:Notification) {
-        print("handleCleaningsModifyNotification")
         reloadData()
     }
     
