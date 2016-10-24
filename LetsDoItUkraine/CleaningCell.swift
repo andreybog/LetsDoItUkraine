@@ -13,9 +13,6 @@ import UIKit
 class CleaningCell: UITableViewCell {
     @IBOutlet weak var cleaningAdressTextLabel: UILabel!
 
-    @IBOutlet weak var cleaningAddress: UILabel!
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +26,8 @@ class CleaningCell: UITableViewCell {
     
     func configureWithCleaning (cleaning:Cleaning)->(CleaningCell) {
         let cell = CleaningCell()
-        cell.cleaningAdressTextLabel.text = cleaning.address!
+        cleaningAdressTextLabel.text = cleaning.address != nil ? ("\(cleaning.address!)") : "Адрес не найден"
         return cell;
     }
+    
 }

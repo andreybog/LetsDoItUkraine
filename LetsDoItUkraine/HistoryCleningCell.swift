@@ -9,10 +9,11 @@
 import UIKit
 
 class HistoryCleningCell: UITableViewCell {
-
-    @IBOutlet var dateCleaningTextLabel: UILabel!
-    @IBOutlet var addressCleaningTextLabel: UILabel!
-    override func awakeFromNib() {
+    @IBOutlet weak var cleaningAdressTextLabel: UILabel!
+    @IBOutlet var cleaningDateTextLabel: UILabel!
+    
+    
+        override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
@@ -21,6 +22,13 @@ class HistoryCleningCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configureWithCleaning (cleaning:Cleaning)->(CleaningCell) {
+        let cell = CleaningCell()
+        cleaningDateTextLabel.text = cleaning.datetime != nil ? ("\(cleaning.datetime!.shortDate)") : ""
+        cleaningAdressTextLabel.text = cleaning.address != nil ? ("\(cleaning.address!)") : "Адрес не найден"
+        return cell
     }
 
 }

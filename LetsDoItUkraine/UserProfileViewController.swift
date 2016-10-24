@@ -22,7 +22,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kNoCleaningCellIdetefier = "noCleaningCell"
     let kCleaningCellIdentifier = "cleningCell"
     let kHistoryCleaningIdentifier = "HistoryCleaning"
-    let userID = "2"
+    let userID = "1"
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -63,7 +63,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func updateUserInformationUI() {
-        self.userNameTextLabel.text = ("\(self.user.firstName) \(self.user.lastName!)")
+        if let lastName = self.user.lastName {
+            self.userNameTextLabel.text = ("\(self.user.firstName) \(lastName)")
+        } else {
+            self.userNameTextLabel.text = ("\(self.user.firstName)")
+        }
         self.userLocationTextLabel.text = ("\(self.user.country!), г.\(self.user.city!)")
     }
     
@@ -74,6 +78,12 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: -UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+        let cleaning = userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row]
+        //performSegue(withIdentifier: "cleanPlaceSegue", sender: cleaning)
+        }
+    }
     
 
     // MARK: -UITableViewDataSource
@@ -98,19 +108,57 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cleaningCell:UITableViewCell
         if indexPath.section == 0 {
             if (userCleaningsAsCleaner.count > 0 || userCleaningsAsModerator.count > 0) {
-                cleaningCell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as! CleaningCell
-                let newCell = CleaningCell()
-                cleaningCell = newCell.configureWithCleaning(cleaning: userCleaningsAsCleaner[indexPath.row])
+                if let cell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as? CleaningCell {
+                    cell.configureWithCleaning(cleaning: userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row])
+                    return cell
+                }
+                return UITableViewCell()
             } else {
-            cleaningCell = tableView.dequeueReusableCell(withIdentifier:  kNoCleaningCellIdetefier, for: indexPath) as! NoCleaningCell
+                if let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier:kNoCleaningCellIdetefier, for: indexPath) as? NoCleaningCell {
+                    return cell
+                }
+                return UITableViewCell()
             }
         } else {
-        cleaningCell = tableView.dequeueReusableCell(withIdentifier:  kHistoryCleaningIdentifier, for: indexPath) as! HistoryCleningCell
+            if let cell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as? HistoryCleningCell {
+                cell.configureWithCleaning(cleaning: userCleaningsPast[indexPath.row])
+                return cell
+            }
+            return UITableViewCell()
         }
-        return cleaningCell
+    }
+    
+    // MARK: -Segue
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        switch segue.identifier {
+//        case segue.identifier == "cleanPlaceSegue":
+//            let nextScene = segue.destination as? CleanPlaceViewController
+//        case segue.identifier == "addCleaning":
+//            let nextScene = segue.destination as? CleanPlaceViewController
+//        case segue.identifier == "searchCleaning":
+//            let nextScene = segue.destination as? CleaningsViewController
+//        default:
+//            break
+//        }
+//    }
+    
+    
+    // MARK: -Actions
+
+    @IBAction func searchCleaningsButtonDidTapped(_ sender: AnyObject) {
+         print("search button tapped")
+        //performSegue(withIdentifier: "searchCleaning", sender: self)
+    }
+    
+    @IBAction func addCleaningDidTapped(_ sender: AnyObject) {
+        print("add button tapped")
+        //performSegue(withIdentifier: "addCleaning", sender: self)
+    }
+
+    @IBAction func settingsButtonDidTapped(_ sender: AnyObject) {
     }
     
 }
