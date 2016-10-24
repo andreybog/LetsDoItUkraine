@@ -492,7 +492,7 @@
         <scene sceneID="Nbz-fu-Bs9">
             <objects>
                 <navigationController id="lPe-fi-hNw" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="I6v-hz-QP1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I6v-hz-QP1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1074,6 +1074,9 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="MercuryRecyclePoint"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="MercuryFilter"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="FcE-RK-Ze2"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6L-Uy-tqn" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <accessibility key="accessibilityConfiguration" identifier="Battery"/>
@@ -1102,6 +1105,9 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="OldThingsRecyclePoint"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="OldThingsFilter"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="searchButtonWasTapped:" destination="JTK-qa-cyo" eventType="touchUpInside" id="vof-3Z-Bfv"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v94-zI-Wo3" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <accessibility key="accessibilityConfiguration" identifier="Different"/>
@@ -1425,7 +1431,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="17N-xH-0bB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="search" id="JG7-Y9-UxD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="CwI-2P-xbk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CwI-2P-xbk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1444,7 +1450,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
