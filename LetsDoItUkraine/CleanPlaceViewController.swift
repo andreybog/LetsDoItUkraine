@@ -49,11 +49,8 @@ class CleanPlaceViewController: UIViewController {
         
         // getCleaningMembers
         if let user = coordiantors.first {
-            
-            guard let cleaningPhone = user.phone else {
-                return self.cleaningPhone.text = ""
-            }
-                self.cleaningPhone.text = cleaningPhone
+
+            self.cleaningPhone.text = user.phone ?? ""
             
             guard let cleaningEmail = user.email else {
                 return self.cleaningEmail.text = ""
@@ -92,6 +89,8 @@ class CleanPlaceViewController: UIViewController {
                     self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
                 }
             }
+            
+            
         }
         
         //get number of members
