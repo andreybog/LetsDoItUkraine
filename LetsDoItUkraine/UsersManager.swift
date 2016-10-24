@@ -28,16 +28,16 @@ extension User : FirebaseInitable {
       photo = nil
     }
     if let asCleaner = data["asCleaner"] as? [String:Bool] {
-        asCleanerId = [String](asCleaner.keys)
-    } else { asCleanerId = nil }
+        asCleanerIds = [String](asCleaner.keys)
+    } else { asCleanerIds = nil }
     
     if let asCoordinator = data["asCoordinator"] as? [String:Bool] {
-        asCoordinatorId = [String](asCoordinator.keys)
-    } else { asCoordinatorId = nil }
+        asCoordinatorIds = [String](asCoordinator.keys)
+    } else { asCoordinatorIds = nil }
     
     if let pastCleanings = data["pastCleanings"] as? [String:Bool] {
-        pastCleaningsId = [String](pastCleanings.keys)
-    } else { pastCleaningsId = nil }
+        pastCleaningsIds = [String](pastCleanings.keys)
+    } else { pastCleaningsIds = nil }
   }
   
   var dictionary: [String : Any] {
@@ -51,7 +51,7 @@ extension User : FirebaseInitable {
     if let email      = email { data["email"] = email }
     if let photo      = photo { data["picture"] = photo.absoluteString }
     
-    if let asCleanerId = asCleanerId {
+    if let asCleanerId = asCleanerIds {
         var asCleanerDict = [String:Bool]()
         for id in asCleanerId {
             asCleanerDict[id] = true
@@ -59,7 +59,7 @@ extension User : FirebaseInitable {
         data["asCleaner"] = asCleanerDict
     }
     
-    if let asCoordinatorId = asCoordinatorId {
+    if let asCoordinatorId = asCoordinatorIds {
         var asCoordinatorDict = [String:Bool]()
         for id in asCoordinatorId {
             asCoordinatorDict[id] = true
@@ -67,7 +67,7 @@ extension User : FirebaseInitable {
         data["asCoordinator"] = asCoordinatorDict
     }
     
-    if let pastCleaningsId = pastCleaningsId {
+    if let pastCleaningsId = pastCleaningsIds {
         var pastCleaningsDict = [String:Bool]()
         for id in pastCleaningsId {
             pastCleaningsDict[id] = true

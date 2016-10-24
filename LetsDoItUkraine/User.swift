@@ -18,9 +18,9 @@ struct User : CustomStringConvertible {
     var photo: URL?
     var country: String?
     var city: String?
-    var asCleanerId: [String]?
-    var asCoordinatorId: [String]?
-    var pastCleaningsId: [String]?
+    var asCleanerIds: [String]?
+    var asCoordinatorIds: [String]?
+    var pastCleaningsIds: [String]?
   
   var description: String {
     let lastName = self.lastName ?? ""

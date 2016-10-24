@@ -89,8 +89,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func fillMemberArrays() {
         for (index, cleaning) in cleaningsArray.enumerated() {
-            if cleaning.coordinatorsId != nil {
-                usersManager.getUsers(withIds: cleaning.coordinatorsId!, handler: { users in
+            if cleaning.coordinatorsIds != nil {
+                usersManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { users in
                     self.cleaningsCoordinators[index] = users
                 })
             }
@@ -277,7 +277,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let index = indexPath.row
         let cleaning = cleaningsArray[index]
         let coordinator = cleaningsCoordinators[index].first!
-        let cleanersCount = cleaning.cleanersId != nil ? cleaning.cleanersId!.count : 0
+        let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
         
         cell.participantsNumberLabel.text = "Пойдет: \(cleanersCount)"
         cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"

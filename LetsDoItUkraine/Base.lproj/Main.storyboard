@@ -1033,10 +1033,10 @@
                                 <rect key="frame" x="338" y="11" width="21" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Shape"/>
+                                <connections>
+                                    <action selector="didTouchSearchBarButton:" destination="Tb7-fo-teZ" eventType="touchUpInside" id="kW0-xR-bx5"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="didTouchSearchButton:" destination="Tb7-fo-teZ" id="Vla-zY-lwT"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -1468,7 +1468,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="HL1-Po-bAA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

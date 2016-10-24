@@ -77,7 +77,7 @@ class CleanPlaceViewController: UIViewController {
                 }
             }
             
-            self.numberOfMembers.text = String(cleaning.cleanersId!.count)
+            self.numberOfMembers.text = String(cleaning.cleanersIds!.count)
                  } else {
             self.numberOfMembers.text = "0"
 

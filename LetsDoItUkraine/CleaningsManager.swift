@@ -13,35 +13,35 @@ import CoreLocation
 extension Cleaning : FirebaseInitable {
     
     init?(data: [String : Any]) {
-        guard let id = data["id"] as? String, let addr = data["address"] as? String else { return nil }
+        guard let id = data["id"] as? String, let addr = data["address"] as? String else {
+            return nil
+        }
         
         ID = id
         address = addr
-        if let dateString = data["datetime"] as? String {
-            datetime = dateString.date()
-        } else {
-            datetime = nil
-        }
+        
+        datetime = (data["dateTime"] as? String)?.date() ?? nil
+        
         summary = data["description"] as? String
         isActive = data["active"] as! Bool
         coordinate = CLLocationCoordinate2D(latitude: data["latitude"] as! Double,
                                             longitude: data["longitude"] as! Double)
         
         if let picturesDict = data["pictures"] as? [String : String] {
-            self.pictures = ([String](picturesDict.values)).map({ (urlString) -> URL in
+            self.pictures = picturesDict.map { (_, urlString) -> URL in
                 return URL(string: urlString)!
-            })
+            }
         } else {
             self.pictures = nil
         }
         
         if let coordinators = data["coordinators"] as? [String:Bool] {
-            coordinatorsId = [String](coordinators.keys)
-        } else { coordinatorsId = nil }
+            coordinatorsIds = [String](coordinators.keys)
+        } else { coordinatorsIds = nil }
         
         if let cleaners = data["cleaners"] as? [String:Bool] {
-            cleanersId = [String](cleaners.keys)
-        } else { cleanersId = nil }
+            cleanersIds = [String](cleaners.keys)
+        } else { cleanersIds = nil }
     }
     
     var dictionary: [String : Any] {
@@ -62,15 +62,15 @@ extension Cleaning : FirebaseInitable {
             data["pictures"] = picDict
         }
         
-        if let coordinatorsId = coordinatorsId {
+        if let coordinatorsIds = coordinatorsIds {
             var coordDict = [String:Bool]()
-            for id in coordinatorsId {
+            for id in coordinatorsIds {
                 coordDict[id] = true
             }
             data["coordinators"] = coordDict
         }
         
-        if let cleanersId = cleanersId {
+        if let cleanersId = cleanersIds {
             var cleanersDict = [String:Bool]()
             for id in cleanersId {
                 cleanersDict[id] = true
@@ -84,7 +84,7 @@ extension Cleaning : FirebaseInitable {
     static var rootDatabasePath: String = "cleanings"
 }
 
-enum CleaningFiler {
+enum CleaningFilter {
     case all, active, past
 }
 
@@ -253,7 +253,7 @@ class CleaningsManager {
         } as (_:Cleaning?)->Void)
     }
     
-    func getCleanings(filer: CleaningFiler, with handler: @escaping (_:[Cleaning]) -> Void) {
+    func getCleanings(filer: CleaningFilter, with handler: @escaping (_:[Cleaning]) -> Void) {
         var refCleanings: FIRDatabaseQuery = dataManager.rootRef.child(Cleaning.rootDatabasePath)
         
         switch filer {
