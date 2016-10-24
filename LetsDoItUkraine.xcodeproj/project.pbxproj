@@ -73,6 +73,7 @@
 		CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */; };
 		CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */; };
 		CE51C5801DA6DB4C006397B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57B1DA6DB4C006397B3 /* User.swift */; };
+		CE6EC3831DBDF56000449440 /* FiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EC3821DBDF56000449440 /* FiltersModel.swift */; };
 		CEAEB4761DB6772400730B8F /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB4751DB6772400730B8F /* Checkbox.swift */; };
 		CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */; };
 		CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */; };
@@ -151,6 +152,7 @@
 		CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleCategory.swift; sourceTree = "<group>"; };
 		CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePoint.swift; sourceTree = "<group>"; };
 		CE51C57B1DA6DB4C006397B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CE6EC3821DBDF56000449440 /* FiltersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersModel.swift; sourceTree = "<group>"; };
 		CEAEB4751DB6772400730B8F /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointListViewController.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */,
 				CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */,
 				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
+				CE6EC3821DBDF56000449440 /* FiltersModel.swift */,
 				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 			);
@@ -529,6 +532,7 @@
 				55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */,
 				55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */,
 				55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */,
+				CE6EC3831DBDF56000449440 /* FiltersModel.swift in Sources */,
 				CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */,
 				55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */,
 				55033E761DAD867600A04685 /* NewsManager.swift in Sources */,
@@ -668,7 +672,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alenailyenko.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -689,7 +693,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alenailyenko.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;

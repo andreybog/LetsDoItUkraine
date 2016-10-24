@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "BatteryRecyclePoint.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Close2x.png",
       "scale" : "2x"
     },
     {

@@ -20,6 +20,9 @@ class RecyclePointListViewController: UIViewController {
     @IBOutlet weak var batteryButton: Checkbox!
     @IBOutlet weak var oldThingsButton: Checkbox!
     @IBOutlet weak var polytheneButton: Checkbox!
+    @IBOutlet weak var allButton: Checkbox!
+    @IBOutlet weak var differentButton: Checkbox!
+    
     
     var checkboxesWithCategories = [(Checkbox, RecyclePointCategory)]()
     
@@ -28,25 +31,20 @@ class RecyclePointListViewController: UIViewController {
         
         checkboxesWithCategories = [(plasticButton, .Plastic), (wastePaperButton, .WastePaper),
         (glassButton, .Glass), (mercuryButton, .Mercury), (batteryButton, .Battery), (oldThingsButton, .OldThings),
-        (polytheneButton, .Polythene)]
+        (polytheneButton, .Polythene), (allButton, .All), (differentButton, .Different)]
         
         for (chb, category) in checkboxesWithCategories {
             chb.isChecked = selectedCategories.contains(category)
         }
     }
     
-    @IBAction func searchButtonWasTapped(_ sender: AnyObject) {
-        selectedCategories = Set<RecyclePointCategory>()
-        
-        // pass copy set
+    @IBAction func SearchButtonWasTouched() {
+        selectedCategories.removeAll()
         for (chb, category) in checkboxesWithCategories {
             if chb.isChecked {
                 selectedCategories.insert(category)
             }
         }
-        
-        
-        
         
     }
     
