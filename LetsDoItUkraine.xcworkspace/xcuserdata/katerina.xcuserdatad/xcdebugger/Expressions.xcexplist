@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #1):CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "NSURL(string:&quot;http://m.io.ua/img_aa/medium/0644/08/06440810.jpg&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "cleaning?.datetime as! String?">
+            </PersistentString>
+            <PersistentString
+               value = "resource">
+            </PersistentString>
+            <PersistentString
+               value = "NSData(contentsOf: item)">
+            </PersistentString>
+            <PersistentString
+               value = "cleaning?.pictures?[0]">
+            </PersistentString>
+            <PersistentString
+               value = "self.cleaningPlace.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.viewDidLoad() -&gt; ():CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "clean">
+            </PersistentString>
+            <PersistentString
+               value = "imageOrganizator.height">
+            </PersistentString>
+            <PersistentString
+               value = "CleaningsManager.defaultManager">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #2):CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "users[0].photo">
+            </PersistentString>
+            <PersistentString
+               value = "users[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
