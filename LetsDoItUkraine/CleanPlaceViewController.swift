@@ -62,28 +62,25 @@ class CleanPlaceViewController: UIViewController {
         // getCleaning
         if let cleaning = self.cleaning {
             
+            self.cleaningPlace.text = cleaning.address
+            self.cleaningName.text = cleaning.address
+            self.cleaningDescription.text = cleaning.summary ?? ""
+
             guard let _ = cleaning.datetime else {
                 return self.cleaningDate.text = ""
             }
             self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
-            
-            self.cleaningPlace.text = cleaning.address
-            
-            guard let summary = cleaning.summary else {
-                return self.cleaningDescription.text = ""
-            }
-                self.cleaningDescription.text = summary
-            
-            self.cleaningName.text = cleaning.address
-            
+              
             if cleaning.pictures != nil {
                 for i in 0..<cleaning.pictures!.count {
                     self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
                 }
             }
+            
             self.numberOfMembers.text = String(cleaning.cleanersId!.count)
                  } else {
             self.numberOfMembers.text = "0"
+
             
         }
         
