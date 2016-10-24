@@ -9,19 +9,19 @@
 import Foundation
 
 class FiltersModel {
+    
     static var sharedModel = FiltersModel()
     
-    private init() {}
-    
-    func saveCategories(categories: Set<RecyclePointCategory>) {
-        UserDefaults.standard.set(Array(categories).map({$0.rawValue}), forKey: "Categories")
+    var categories:Set<RecyclePointCategory> = [] {
+        didSet {
+            UserDefaults.standard.set(Array(categories).map({$0.rawValue}), forKey: "Categories")
+            UserDefaults.standard.synchronize()
+        }
     }
     
-    func retrieveCategories() -> Set<RecyclePointCategory> {
+    private init() {
         if let result = UserDefaults.standard.value(forKey: "Categories") as? [String] {
-            return Set(result.map({r in RecyclePointCategory(rawValue: r)!}))
-        } else {
-            return Set<RecyclePointCategory>()
+            self.categories = Set(result.map({ RecyclePointCategory(rawValue: $0)! }))
         }
     }
 }

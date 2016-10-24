@@ -41,7 +41,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         determineAuthorizationStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
-        recyclePointCategories = FiltersModel.sharedModel.retrieveCategories()
+        recyclePointCategories = FiltersModel.sharedModel.categories
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -375,7 +375,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let vc = segue.source
         if let filterVC = vc as? RecyclePointListViewController {
             recyclePointCategories = Set(filterVC.selectedCategories)
-            FiltersModel.sharedModel.saveCategories(categories: recyclePointCategories)
+            FiltersModel.sharedModel.categories = recyclePointCategories
 
             RecyclePointsManager.defaultManager.getSelectedRecyclePoints(categories: recyclePointCategories) { (recyclePoints) in
                 print(recyclePoints)
