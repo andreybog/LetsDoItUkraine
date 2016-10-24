@@ -51,16 +51,8 @@ class CleanPlaceViewController: UIViewController {
         if let user = coordiantors.first {
 
             self.cleaningPhone.text = user.phone ?? ""
-            
-            guard let cleaningEmail = user.email else {
-                return self.cleaningEmail.text = ""
-            }
-                self.cleaningEmail.text = cleaningEmail
-        
-            guard let cleaningLastNameCoordinator = user.lastName else {
-                return self.cleaningNameCoordinator.text = user.firstName
-            }
-            self.cleaningNameCoordinator.text = user.firstName + " " + cleaningLastNameCoordinator
+            self.cleaningEmail.text = user.email ?? ""
+            self.cleaningNameCoordinator.text = user.firstName + " " + (user.lastName ?? "")
             
             if let _ = user.photo {
                 self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
@@ -89,12 +81,11 @@ class CleanPlaceViewController: UIViewController {
                     self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
                 }
             }
-            
+            self.numberOfMembers.text = String(cleaning.cleanersId!.count)
+                 } else {
+            self.numberOfMembers.text = "0"
             
         }
-        
-        //get number of members
-        self.numberOfMembers.text = cleaning.cleanersId != nil ? String(cleaning.cleanersId!.count) : "0"
         
     }
 
