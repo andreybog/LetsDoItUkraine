@@ -23,9 +23,6 @@ class CleanPlaceViewController: UIViewController {
     
     
     @IBOutlet var cleaningPlaces: [UIImageView]!
-    //@IBOutlet weak var cleaningPlacePhoto3: UIImageView!
-    //@IBOutlet weak var cleaningPlacePhoto2: UIImageView!
-    //@IBOutlet weak var cleaningPlacePhoto1: UIImageView!
     @IBOutlet weak var cleaningCoordinatorPhoto: UIImageView!
     @IBOutlet weak var numberOfMembers: UILabel!
     @IBOutlet weak var cleaningName: UILabel!
@@ -51,23 +48,23 @@ class CleanPlaceViewController: UIViewController {
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         // getCleaningMembers
-        if coordiantors.count > 0 {
-            let user = coordiantors.first!
-            if let cleaningPhone = user.phone {
+        if let user = coordiantors.first {
+            
+            guard let cleaningPhone = user.phone else {
+                return self.cleaningPhone.text = ""
+            }
                 self.cleaningPhone.text = cleaningPhone
-            } else {
-                self.cleaningPhone.text = ""
+            
+            guard let cleaningEmail = user.email else {
+                return self.cleaningEmail.text = ""
             }
-            if let cleaningEmail = user.email {
                 self.cleaningEmail.text = cleaningEmail
-            } else {
-                self.cleaningEmail.text = ""
+        
+            guard let cleaningLastNameCoordinator = user.lastName else {
+                return self.cleaningNameCoordinator.text = user.firstName
             }
-            if let cleaningLastNameCoordinator = user.lastName {
-                self.cleaningNameCoordinator.text = user.firstName + " " + cleaningLastNameCoordinator
-            } else {
-                self.cleaningNameCoordinator.text = user.firstName
-            }
+            self.cleaningNameCoordinator.text = user.firstName + " " + cleaningLastNameCoordinator
+            
             if let _ = user.photo {
                 self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
             }
@@ -75,19 +72,18 @@ class CleanPlaceViewController: UIViewController {
         
         // getCleaning
         if let cleaning = self.cleaning {
-            if let _ = cleaning.datetime {
-                self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
-            } else {
-                self.cleaningDate.text = ""
+            
+            guard let _ = cleaning.datetime else {
+                return self.cleaningDate.text = ""
             }
+            self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
             
             self.cleaningPlace.text = cleaning.address
             
-            if let summary = cleaning.summary {
-                self.cleaningDescription.text = summary
-            } else {
-                self.cleaningDescription.text = ""
+            guard let summary = cleaning.summary else {
+                return self.cleaningDescription.text = ""
             }
+                self.cleaningDescription.text = summary
             
             self.cleaningName.text = cleaning.address
             
