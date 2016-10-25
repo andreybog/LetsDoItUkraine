@@ -23,7 +23,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
 
 
     var locationManager = CLLocationManager()
-    var currentLocationCoordinates = CLLocationCoordinate2D()
     let cleaningsManager = CleaningsManager.defaultManager
     let usersManager = UsersManager.defaultManager
     var cleaningsArray = [Cleaning]()
@@ -36,13 +35,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
         determineAuthorizationStatus()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        
         recyclePointCategories = FiltersModel.sharedModel.categories
     }
     
@@ -160,12 +155,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         reloadData()
     }
     
-    func handleApplicationWillEnterForegroundNotification(_ notification:Notification) {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            startUpdatingLocation()
-        }
-    }
-    
     //MARK: - Location methods
     func determineAuthorizationStatus(){
         switch CLLocationManager.authorizationStatus() {
@@ -198,8 +187,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func setCurrentLocationOnMap(){
         if let myLocation = mapView.myLocation {
             self.mapView.moveCamera(GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 15))
-        } else {
-            self.mapView.moveCamera(GMSCameraUpdate.setTarget(currentLocationCoordinates, zoom: 15))
+        }else {
+            self.mapView.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(50.425977, 30.534182), zoom: 12))
         }
     }
     
@@ -223,7 +212,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = locations.last!
-        currentLocationCoordinates = currentLocation.coordinate
         if currentLocation.horizontalAccuracy < locationManager.desiredAccuracy {
             locationManager.stopUpdatingLocation()
             self.mapView.isMyLocationEnabled = true
@@ -372,13 +360,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         mapView.animate(toLocation: cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
         mapView.animate(toZoom: 15)
-    }
-    
-    
-    //MARK: - Deinitialisation
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: - Actions
