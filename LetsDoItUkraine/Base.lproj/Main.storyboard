@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -492,7 +492,7 @@
         <scene sceneID="Nbz-fu-Bs9">
             <objects>
                 <navigationController id="lPe-fi-hNw" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I6v-hz-QP1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="I6v-hz-QP1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -969,6 +969,11 @@
                                             <constraint firstItem="Gc2-g4-fjT" firstAttribute="top" secondItem="0N6-FG-nGS" secondAttribute="top" id="RCv-P3-HGI"/>
                                             <constraint firstAttribute="bottom" secondItem="Gc2-g4-fjT" secondAttribute="bottom" id="nGP-Jc-OmV"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="addressLabel" destination="ZBm-BZ-hoM" id="TTo-HE-mUZ"/>
                                             <outlet property="coordinatorNameLabel" destination="KkI-uj-c1Z" id="QmQ-Lv-ftl"/>
@@ -1431,7 +1436,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="17N-xH-0bB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="search" id="JG7-Y9-UxD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CwI-2P-xbk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="CwI-2P-xbk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1450,7 +1455,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1468,7 +1473,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HL1-Po-bAA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

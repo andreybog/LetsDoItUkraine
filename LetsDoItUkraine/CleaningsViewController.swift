@@ -28,6 +28,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     var cleaningsArray = [Cleaning]()
     var cleaningsMembers:[[User]]!
     var cleaningsCoordinators:[[User]]!
+    var cleaningsDistricts = [String]()
     
     var transferID = ""
     
@@ -39,21 +40,23 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         locationManager.delegate = self
         determineAuthorizationStatus()
         recyclePointCategories = FiltersModel.sharedModel.categories
+        mapView.settings.compassButton = true
+        mapView.settings.myLocationButton = true
+        mapView.delegate = self
+        let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
+        searchResultController = SearchResultsController()
+        searchResultController.delegate = self
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        styleNavigationBar()
-        mapView.settings.compassButton = true
-        mapView.settings.myLocationButton = true
 //        reloadData()
         
         addCleaningsObservers()
-
-        mapView.delegate = self
-        let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
         self.cleaningsCollectionView.isHidden = true
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -62,16 +65,12 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         removeCleaningsObservers()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        searchResultController = SearchResultsController()
-        searchResultController.delegate = self
-    }
-    
     func reloadData() {
         self.cleaningsArray = [Cleaning](cleaningsManager.activeCleanings.values)
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
+        self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
         self.fillMemberArrays()
+        self.fillDisctrictArray()
         self.updateUI()
     }
     
@@ -90,6 +89,46 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                 })
             }
         }
+    }
+    
+    func fillDisctrictArray(){
+        for (index, cleaning) in cleaningsArray.enumerated() {
+            searchForSublocalityWith(coordinates: cleaning.coordinate, handler: { (districtName) in
+                self.cleaningsDistricts[index] = districtName
+            })
+        }
+    }
+    
+    func searchForSublocalityWith(coordinates: CLLocationCoordinate2D, handler: @escaping (_:String) -> Void){
+        
+        let urlString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(coordinates.latitude),%20\(coordinates.longitude)&language=ru&key=\(kGoogleMapsGeocodingAPIKey)"
+        let url = URL(string: "\(urlString)")
+        let task = URLSession.shared.dataTask(with: url!) { (data, responce, error) in
+            if error != nil{
+                print(error)
+            }else {
+                do {
+                    if data != nil{
+                        var districtName = ""
+                        let dic = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves) as! NSDictionary
+                        print(dic)
+                        let dictionaryResults = dic["results"] as! [[String:AnyObject]]
+                        let addressComponents = dictionaryResults.first?["address_components"] as! [[String:AnyObject]]
+                        for component in addressComponents {
+                            let componentTypes = component["types"] as! [String]
+                            if componentTypes.contains("sublocality"){
+                                districtName = component["long_name"] as! String
+                            }
+                        }
+                        handler(districtName)
+                    }
+                } catch {
+                    print("Error")
+                }
+            }
+        }
+        task.resume()
+        
     }
     
     func setMarkers() {
@@ -129,9 +168,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     //MARK: - Setting Navigation Bar
     
-    func styleNavigationBar(){
-        self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "Rectangle"), for: UIBarMetrics.default)
-    }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -265,8 +301,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let index = indexPath.row
         let cleaning = cleaningsArray[index]
         let coordinator = cleaningsCoordinators[index].first!
+        let district = cleaningsDistricts[index]
         let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
-        
+        cell.districtLabel.text = district
         cell.participantsNumberLabel.text = "Пойдет: \(cleanersCount)"
         cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"
 
@@ -276,16 +313,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         } else {
             cell.image.image = #imageLiteral(resourceName: "Placeholder")
         }
-        
-        let rectShape = CAShapeLayer()
-        rectShape.bounds = cell.frame
-        rectShape.position = cell.center
-        rectShape.path = UIBezierPath(roundedRect: cell.bounds,
-                                      byRoundingCorners: [.topLeft, .bottomLeft, .topRight, .bottomRight],
-                                      cornerRadii: CGSize(width: 10, height: 10)).cgPath
-        cell.layer.backgroundColor = UIColor.clear.cgColor
-        cell.layer.mask = rectShape
-        
+
         cell.addressLabel.text = cleaning.address
 
         return cell
