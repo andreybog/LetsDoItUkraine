@@ -30,8 +30,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     var cleaningsCoordinators:[[User]]!
     var cleaningsDistricts = [String]()
     
-    var transferID = ""
-    
     var recyclePointCategories = Set<RecyclePointCategory>()
 
     override func viewDidLoad() {
@@ -166,13 +164,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
-    //MARK: - Setting Navigation Bar
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
-    }
-
-    
     //MARK: - Notifications
     
     func addCleaningsObservers() {
@@ -281,13 +272,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         self.searchMarker.map = nil
     }
     
-    //MARK: - UICollectionViewDelegate
-    
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        self.transferID = cleaningsArray[indexPath.row].ID
-        return true
-    }
-    
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -362,8 +346,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
 
     
     //MARK: - UIScrollViewDelegate
-    
-    
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 

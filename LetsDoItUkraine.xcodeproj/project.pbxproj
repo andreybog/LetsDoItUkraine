@@ -37,6 +37,8 @@
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
 		552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9121DA19916008D5317 /* GoogleService-Info.plist */; };
 		55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BA1DA9238B00441EBE /* DataManager.swift */; };
+		7F1EC6DE1DBFD26B00235EDA /* RecyclePointMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */; };
+		7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */; };
 		7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */; };
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
 		7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F362AFD1DB20D0A0066BBFA /* Constants.swift */; };
@@ -88,6 +90,8 @@
 		552BF90A1DA196D7008D5317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552BF9121DA19916008D5317 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55F658BA1DA9238B00441EBE /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapViewController.swift; sourceTree = "<group>"; };
+		7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsViewController.swift; sourceTree = "<group>"; };
 		7F362AFD1DB20D0A0066BBFA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 		55AD708C1DA1A67300FA1049 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */,
 				062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */,
 				06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */,
 				7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */,
@@ -234,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */,
+				7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -301,7 +307,7 @@
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 52X9L8BRXX;
+						DevelopmentTeam = 8Z4963745C;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -423,6 +429,8 @@
 				CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */,
 				55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */,
 				55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */,
+				7F1EC6DE1DBFD26B00235EDA /* RecyclePointMapViewController.swift in Sources */,
+				7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */,
 				55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */,
 				CE6EC3831DBDF56000449440 /* FiltersModel.swift in Sources */,
 				CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */,
@@ -556,7 +564,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 52X9L8BRXX;
+				DEVELOPMENT_TEAM = 8Z4963745C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -564,7 +572,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alenailyenko.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antonalekseev.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -577,7 +585,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 52X9L8BRXX;
+				DEVELOPMENT_TEAM = 8Z4963745C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -585,7 +593,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alenailyenko.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antonalekseev.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
