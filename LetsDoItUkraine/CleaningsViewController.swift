@@ -30,14 +30,12 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     var cleaningsCoordinators:[[User]]!
     var cleaningsDistricts = [String]()
     
-    var recyclePointCategories = Set<RecyclePointCategory>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
         determineAuthorizationStatus()
-        recyclePointCategories = FiltersModel.sharedModel.categories
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
         mapView.delegate = self
@@ -54,7 +52,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         
         addCleaningsObservers()
         self.cleaningsCollectionView.isHidden = true
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -335,13 +332,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             cleaningDetailsViewController.coordiantors = coordinators
             
 
-        } else if segue.identifier == "ShowFilters" {
-            if let navcon = segue.destination as? UINavigationController {
-                if let filtersVC = navcon.viewControllers.first as? RecyclePointListViewController {
-                    filtersVC.selectedCategories = Set(recyclePointCategories)
-                }
-            }
-        }
+        } 
     }
 
     
@@ -387,20 +378,4 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
-    @IBAction func cancelFiltersViewController(segue: UIStoryboardSegue) {
-        
-    }
-    
-    @IBAction func didTouchSearchButtonOnFiltersViewController(segue: UIStoryboardSegue) {
-        let vc = segue.source
-        if let filterVC = vc as? RecyclePointListViewController {
-            recyclePointCategories = Set(filterVC.selectedCategories)
-            FiltersModel.sharedModel.categories = recyclePointCategories
-
-            RecyclePointsManager.defaultManager.getSelectedRecyclePoints(categories: recyclePointCategories) { (recyclePoints) in
-                print(recyclePoints)
-            }
-        }
-    }
-
 }

@@ -56,7 +56,7 @@ class NewsManager {
         dataManager.getObject(fromReference: refNews, handler: handler)
     }
     
-    func getAllNews(with handler: @escaping (_:[RecyclePoint]) -> Void) {
+    func getAllNews(with handler: @escaping (_:[News]) -> Void) {
         let refNews = dataManager.rootRef.child("news")
         dataManager.getObjects(fromReference: refNews, handler: handler)
     }
