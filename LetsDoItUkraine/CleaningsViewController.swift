@@ -109,7 +109,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                     if data != nil{
                         var districtName = ""
                         let dic = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves) as! NSDictionary
-                        print(dic)
                         let dictionaryResults = dic["results"] as! [[String:AnyObject]]
                         let addressComponents = dictionaryResults.first?["address_components"] as! [[String:AnyObject]]
                         for component in addressComponents {
