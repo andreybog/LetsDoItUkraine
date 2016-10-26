@@ -41,6 +41,10 @@
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
 		7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F362AFD1DB20D0A0066BBFA /* Constants.swift */; };
 		7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */; };
+		CE266C9C1DC10C0E00732D5B /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */; };
+		CE425A251DBFCF9A00F9650A /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE425A241DBFCF9A00F9650A /* NewsListViewController.swift */; };
+		CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE425A261DBFD0D200F9650A /* NewsTableViewCell.swift */; };
+		CE425A291DBFE36900F9650A /* AddNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE425A281DBFE36900F9650A /* AddNewsViewController.swift */; };
 		CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5771DA6DB4C006397B3 /* Cleaning.swift */; };
 		CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5781DA6DB4C006397B3 /* News.swift */; };
 		CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */; };
@@ -93,6 +97,10 @@
 		7F362AFD1DB20D0A0066BBFA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsController.swift; sourceTree = "<group>"; };
 		ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.release.xcconfig"; sourceTree = "<group>"; };
+		CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
+		CE425A241DBFCF9A00F9650A /* NewsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
+		CE425A261DBFD0D200F9650A /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		CE425A281DBFE36900F9650A /* AddNewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewsViewController.swift; sourceTree = "<group>"; };
 		CE51C5771DA6DB4C006397B3 /* Cleaning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cleaning.swift; sourceTree = "<group>"; };
 		CE51C5781DA6DB4C006397B3 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleCategory.swift; sourceTree = "<group>"; };
@@ -191,14 +199,15 @@
 		55AD708C1DA1A67300FA1049 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */,
 				062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */,
+				CE425A241DBFCF9A00F9650A /* NewsListViewController.swift */,
+				CE425A281DBFE36900F9650A /* AddNewsViewController.swift */,
 				06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */,
 				7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */,
 				7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */,
 				CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */,
 				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
-				CE6EC3821DBDF56000449440 /* FiltersModel.swift */,
-				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 			);
 			name = ViewControllers;
@@ -213,6 +222,8 @@
 				55033E711DAD82BB00A04685 /* CleaningsManager.swift */,
 				55033E731DAD85E300A04685 /* RecyclePointsManager.swift */,
 				55033E751DAD867600A04685 /* NewsManager.swift */,
+				CE6EC3821DBDF56000449440 /* FiltersModel.swift */,
+				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
 				55AD708E1DA1A6A700FA1049 /* VO */,
 			);
 			name = Model;
@@ -234,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */,
+				CE425A261DBFD0D200F9650A /* NewsTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -417,17 +429,21 @@
 				7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
 				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
+				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
 				CEAEB4761DB6772400730B8F /* Checkbox.swift in Sources */,
+				CE425A291DBFE36900F9650A /* AddNewsViewController.swift in Sources */,
 				CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */,
 				CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */,
 				55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */,
 				55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */,
 				55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */,
+				CE425A251DBFCF9A00F9650A /* NewsListViewController.swift in Sources */,
 				CE6EC3831DBDF56000449440 /* FiltersModel.swift in Sources */,
 				CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */,
 				55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */,
 				55033E761DAD867600A04685 /* NewsManager.swift in Sources */,
+				CE266C9C1DC10C0E00732D5B /* NewsItemViewController.swift in Sources */,
 				7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */,
 				062468F91DB4319F00D2BC3A /* RecyclePointViewController.swift in Sources */,
 			);

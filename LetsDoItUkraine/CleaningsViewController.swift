@@ -13,6 +13,8 @@ import GooglePlaces
 
 class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, LocateOnTheMapDelegate, GMSMapViewDelegate {
     
+    
+    
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var cleaningsCollectionView: UICollectionView!
@@ -32,6 +34,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     var transferID = ""
     
+    //RecyclePoints
     var recyclePointCategories = Set<RecyclePointCategory>()
 
     override func viewDidLoad() {
@@ -43,6 +46,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         determineAuthorizationStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationWillEnterForegroundNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
+        //RecyclePoints
         recyclePointCategories = FiltersModel.sharedModel.categories
     }
     
@@ -396,9 +400,13 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
+    //RecyclePoints
+    
     @IBAction func cancelFiltersViewController(segue: UIStoryboardSegue) {
         
     }
+    
+    //RecyclePoints
     
     @IBAction func didTouchSearchButtonOnFiltersViewController(segue: UIStoryboardSegue) {
         let vc = segue.source
