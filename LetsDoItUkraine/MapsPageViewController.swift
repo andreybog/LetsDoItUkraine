@@ -11,6 +11,8 @@ import GooglePlaces
 
 class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSource, UISearchBarDelegate {
     
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    
     lazy var orderedViewControllers : [UIViewController] = {
         return [self.addViewControllerWith(name: "RecyclePointMap"), self.addViewControllerWith(name: "CleaningsMap")]
     }()
@@ -66,6 +68,19 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
         }
     
         return orderedViewControllers[nextIndex]
+    }
+    @IBAction func didTouchSegmentControl(_ sender: AnyObject) {
+        if let segment = sender as? UISegmentedControl{
+            if segment.selectedSegmentIndex == 0{
+                if let firstViewController = orderedViewControllers.first{
+                    setViewControllers([firstViewController], direction: .reverse, animated: true, completion: nil)
+                }
+            } else {
+                if let secondViewController = orderedViewControllers.last{
+                    setViewControllers([secondViewController], direction: .forward, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
 }

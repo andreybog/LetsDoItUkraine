@@ -156,6 +156,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             print("No Data by URL")
             return nil
         }
+        
         if let image = UIImage(data: imageData) {
             return image
         } else {

@@ -1072,6 +1072,9 @@
                                 <segment title="Убрать"/>
                             </segments>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="didTouchSegmentControl:" destination="r8C-IH-Nav" eventType="valueChanged" id="asC-vZ-db9"/>
+                            </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="Shape" style="plain" id="ShG-Oh-s4g">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QY4-wV-6K3">
@@ -1084,6 +1087,9 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segmentControl" destination="hes-2T-TdA" id="xd3-7U-htg"/>
+                    </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zxJ-id-cj1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
