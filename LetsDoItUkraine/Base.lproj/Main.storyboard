@@ -502,7 +502,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="viH-uO-F82" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3596" y="653.52323838080963"/>
+            <point key="canvasLocation" x="5124" y="653.52323838080963"/>
         </scene>
         <!--Recycle Point View Controller-->
         <scene sceneID="T3Y-1z-rPu">
@@ -861,12 +861,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mx-v2-dC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4420" y="653.52323838080963"/>
+            <point key="canvasLocation" x="5943.1999999999998" y="720.98950524737631"/>
         </scene>
         <!--Cleanings View Controller-->
         <scene sceneID="V8u-OQ-IJz">
             <objects>
-                <viewController id="Tb7-fo-teZ" customClass="CleaningsViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CleaningsMap" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tb7-fo-teZ" customClass="CleaningsViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c2r-Ld-BlY"/>
                         <viewControllerLayoutGuide type="bottom" id="Rh3-6s-Dyj"/>
@@ -1054,16 +1054,51 @@
             </objects>
             <point key="canvasLocation" x="553" y="654"/>
         </scene>
+        <!--Maps Page View Controller-->
+        <scene sceneID="sM8-mJ-Fme">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="r8C-IH-Nav" customClass="MapsPageViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="fbN-cc-X7y">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" image="Filter" id="C7L-eJ-NFE">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="hes-2T-TdA">
+                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Сдать"/>
+                                <segment title="Убрать"/>
+                            </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" image="Shape" style="plain" id="ShG-Oh-s4g">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QY4-wV-6K3">
+                                <rect key="frame" x="338" y="11" width="21" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Shape"/>
+                                <connections>
+                                    <action selector="didTouchSearchButton:" destination="r8C-IH-Nav" eventType="touchUpInside" id="1XT-Ew-k1Q"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zxJ-id-cj1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2436" y="653.52323838080963"/>
+        </scene>
         <!--Recycle Point Map View Controller-->
         <scene sceneID="ura-eE-xGq">
             <objects>
-                <viewController id="Hj5-f0-CCF" customClass="RecyclePointMapViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecyclePointMap" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hj5-f0-CCF" customClass="RecyclePointMapViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P1e-jB-maB"/>
                         <viewControllerLayoutGuide type="bottom" id="uk8-uj-pKH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Wkh-c0-hcQ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6g-rv-BsU" customClass="GMSMapView">
@@ -1199,15 +1234,6 @@
                         <barButtonItem key="leftBarButtonItem" image="Filter" id="D12-Id-0je">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ItC-6l-Tza">
-                            <rect key="frame" x="113" y="7" width="150" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Сдать"/>
-                                <segment title="Убрать"/>
-                            </segments>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="Shape" id="Ar8-TN-SUe">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
@@ -1219,7 +1245,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TkK-Xc-fhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2399.1999999999998" y="653.52323838080963"/>
+            <point key="canvasLocation" x="3270" y="654"/>
         </scene>
         <!--Хочу сдать-->
         <scene sceneID="Sfp-rE-c3X">
@@ -1556,7 +1582,7 @@
                     <connections>
                         <segue destination="17N-xH-0bB" kind="relationship" relationship="viewControllers" id="nze-Bw-1su"/>
                         <segue destination="3DW-Tj-Il3" kind="relationship" relationship="viewControllers" id="9eU-Vr-9Hv"/>
-                        <segue destination="J1p-9M-MTQ" kind="relationship" relationship="viewControllers" id="pSk-3y-fSc"/>
+                        <segue destination="udh-nQ-rOj" kind="relationship" relationship="viewControllers" id="8ah-yV-K3B"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -1654,25 +1680,24 @@
             </objects>
             <point key="canvasLocation" x="753" y="1506"/>
         </scene>
-        <!--Recycle Points-->
-        <scene sceneID="Hgx-n3-NER">
+        <!--Page View-->
+        <scene sceneID="2Bc-0Z-X2d">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J1p-9M-MTQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recycle Points" image="Shape" id="unb-K4-G8m"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Page View" image="Shape" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="gCG-IH-KFh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Hj5-f0-CCF" kind="relationship" relationship="rootViewController" id="Pfp-vA-eLR"/>
+                        <segue destination="r8C-IH-Nav" kind="relationship" relationship="rootViewController" id="K1N-gm-arb"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZiI-Hu-evl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fcW-m8-JbT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1460" y="653.52323838080963"/>
+            <point key="canvasLocation" x="1496.8" y="653.52323838080963"/>
         </scene>
     </scenes>
     <resources>

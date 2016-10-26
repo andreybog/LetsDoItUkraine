@@ -14,6 +14,10 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recyclePointsCollectionView: UICollectionView!
     
+//    var recyclePointCategories = Set<RecyclePointCategory>()
+    
+    var searchMarker = GMSMarker()
+    
     var locationManager = CLLocationManager()
     
     
@@ -27,6 +31,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         mapView.delegate = self
         let layout = self.recyclePointsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: self.view.frame.width - 20, height: 100)
+//        recyclePointCategories = FiltersModel.sharedModel.categories
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +43,18 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
             self.mapView.moveCamera(GMSCameraUpdate.setTarget(mylocation.coordinate, zoom: 15))
         } else {
             self.mapView.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(50.425977, 30.534182), zoom: 12.0))
+        }
+    }
+    
+    //MARK: - LocateOnTheMapDelegate
+    func locateWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
+        DispatchQueue.main.async {
+            let position = CLLocationCoordinate2DMake(lat, lon)
+            self.searchMarker = GMSMarker(position: position)
+            let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 15)
+            self.mapView.camera = camera
+            self.searchMarker.title = title
+            self.searchMarker.map = self.mapView
         }
     }
     
@@ -119,5 +136,9 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         }
         targetContentOffset.pointee = offset
     }
+    
+
+    
+    
 
 }

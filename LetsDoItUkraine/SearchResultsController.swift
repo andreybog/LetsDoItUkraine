@@ -8,10 +8,10 @@
 
 import UIKit
 
+
 protocol LocateOnTheMapDelegate {
     func locateWith(longtitude lon:Double, andLatitude lat: Double, andTitle title: String)
 }
-
 
 class SearchResultsController: UITableViewController {
 
