@@ -14,7 +14,6 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var proposeNewsView: UIView!
     
     
     var news = [News]() {
@@ -37,14 +36,12 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func showLoadingState() {
-        proposeNewsView.isHidden = true
         tableView.isHidden = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     
     func showContent() {
-        proposeNewsView.isHidden = false
         tableView.isHidden = false
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
@@ -94,10 +91,6 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    @IBAction func proposeNewsButtonWasTouched() {
-        
-        
-    }
     
     @IBAction func createNews(segue: UIStoryboardSegue) {
         

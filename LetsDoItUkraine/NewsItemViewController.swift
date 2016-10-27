@@ -13,11 +13,7 @@ class NewsItemViewController: UIViewController {
     
     @IBOutlet weak var newsItemPhoto: UIImageView!
     
-    var newsItem: News? {
-        didSet {
-            updateNews()
-        }
-    }
+    var newsItem: News?
     
     @IBOutlet weak var newsItemTitle: UILabel!
     
@@ -27,8 +23,7 @@ class NewsItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        updateNews()
     }
 
     
