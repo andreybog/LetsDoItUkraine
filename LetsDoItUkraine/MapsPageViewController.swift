@@ -9,7 +9,7 @@
 import UIKit
 import GooglePlaces
 
-class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSource, UISearchBarDelegate {
+class MapsPageViewController: UIPageViewController {
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
@@ -23,7 +23,6 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource = self
         
         if let firstViewController = orderedViewControllers.first{
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
@@ -32,43 +31,9 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?{
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
-        let previousIndex = viewControllerIndex - 1
-        
-        guard previousIndex >= 0 else{
-            return nil
-        }
-        
-        guard orderedViewControllers.count > previousIndex else {
-            return nil
-        }
-    
-        return orderedViewControllers[previousIndex]
-    }
-
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
-        let nextIndex = viewControllerIndex + 1
-        
-        guard orderedViewControllers.count != nextIndex else {
-            return nil
-        }
-        
-        guard orderedViewControllers.count > nextIndex else {
-            return nil
-        }
-    
-        return orderedViewControllers[nextIndex]
-    }
     @IBAction func didTouchSegmentControl(_ sender: AnyObject) {
         if let segment = sender as? UISegmentedControl{
             if segment.selectedSegmentIndex == 0{

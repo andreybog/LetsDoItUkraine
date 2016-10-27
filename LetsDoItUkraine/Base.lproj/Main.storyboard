@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -487,7 +487,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2566" y="1648"/>
+            <point key="canvasLocation" x="4838" y="1648"/>
         </scene>
         <!--Recycle Point View Controller-->
         <scene sceneID="T3Y-1z-rPu">
@@ -846,7 +846,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mx-v2-dC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4206" y="721"/>
+            <point key="canvasLocation" x="5628" y="681"/>
         </scene>
         <!--Cleanings View Controller-->
         <scene sceneID="V8u-OQ-IJz">
@@ -1037,7 +1037,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGa-8n-kx7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2567" y="654"/>
+            <point key="canvasLocation" x="4038" y="614"/>
         </scene>
         <!--Maps Page View Controller-->
         <scene sceneID="sM8-mJ-Fme">
@@ -1081,7 +1081,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zxJ-id-cj1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1831" y="654"/>
+            <point key="canvasLocation" x="4038" y="-204"/>
         </scene>
         <!--Recycle Point Map View Controller-->
         <scene sceneID="ura-eE-xGq">
@@ -1240,7 +1240,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TkK-Xc-fhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3314" y="654"/>
+            <point key="canvasLocation" x="4838" y="614"/>
         </scene>
         <!--Хочу сдать-->
         <scene sceneID="Sfp-rE-c3X">
@@ -1556,7 +1556,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8n5-RM-0v7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="6Vw-uh-XCs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1895" y="1521"/>
+            <point key="canvasLocation" x="4038" y="1521"/>
         </scene>
         <!--Новости-->
         <scene sceneID="SmP-DM-jXh">
@@ -1688,7 +1688,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l90-BB-0hJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-497" y="1281"/>
+            <point key="canvasLocation" x="1369" y="1521"/>
         </scene>
         <!--News Item View Controller-->
         <scene sceneID="4kh-Tj-Ysd">
@@ -1765,7 +1765,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ic-4P-4ZW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="356" y="1280.5097451274364"/>
+            <point key="canvasLocation" x="2182" y="1521"/>
         </scene>
         <!--Add News View Controller-->
         <scene sceneID="eQu-EA-nWu">
@@ -1892,7 +1892,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8b-fd-rh9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="scI-3g-vQd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1193" y="1281"/>
+            <point key="canvasLocation" x="553" y="1521"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -1947,7 +1947,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UdB-bx-16O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1370" y="-170"/>
+            <point key="canvasLocation" x="553" y="588"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ma5-Cm-reg">
@@ -1955,7 +1955,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1966,14 +1966,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm2-hi-tkX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="553" y="-170"/>
+            <point key="canvasLocation" x="1369" y="588"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ppn-Ci-3cj">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="HL1-Po-bAA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1984,7 +1984,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDC-Za-4sB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1130" y="1521"/>
+            <point key="canvasLocation" x="3222" y="1521"/>
         </scene>
         <!--Page View-->
         <scene sceneID="2Bc-0Z-X2d">
@@ -1992,7 +1992,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Page View" image="Shape" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2003,7 +2003,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcW-m8-JbT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1009" y="654"/>
+            <point key="canvasLocation" x="3148" y="-204"/>
         </scene>
         <!--News-->
         <scene sceneID="iec-pi-mIf">
@@ -2011,7 +2011,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ii6-9N-Krl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="News" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2022,7 +2022,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="llj-ye-JYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-974" y="464"/>
+            <point key="canvasLocation" x="2182" y="588"/>
         </scene>
     </scenes>
     <resources>
