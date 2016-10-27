@@ -9,28 +9,37 @@
 import UIKit
 import GoogleMaps
 
-class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
+class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, GMSMapViewDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recyclePointsCollectionView: UICollectionView!
     
+    //Categories
     var recyclePointCategories = Set<RecyclePointCategory>()
     
     var searchMarker = GMSMarker()
     
-    var locationManager = CLLocationManager()
+    let presenter = RecyclePointMapPresenter()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.delegate = self
-        determineAutorizationStatus()
+        presenter.determineAutorizationStatus { (status) in
+            switch status{
+            case "Denied":
+                self.showEnableLocationServicesAlert()
+            default:
+                print("Default")
+            }
+        }
+        self.mapView.isMyLocationEnabled = true
+        setCurrentLocationOnMap()
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
         mapView.delegate = self
         let layout = self.recyclePointsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: self.view.frame.width - 20, height: 100)
+        //Categories
         recyclePointCategories = FiltersModel.sharedModel.categories
     }
 
@@ -58,21 +67,6 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         }
     }
     
-    //MARK: - Location Methods
-    
-    func determineAutorizationStatus() {
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .denied:
-            showEnableLocationServicesAlert()
-        case .authorizedWhenInUse:
-            startUpdatingLocation()
-        default:
-            print("Default")
-        }
-    }
-    
     func showEnableLocationServicesAlert() {
         let alert = UIAlertController(title: "Геопозиция запрещена пользователем для этого приложения.", message: "Если вы хотите использовать карты, пожалуйста, разрешите использование геопозиции в настройках приложения.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
@@ -82,11 +76,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         
         present(alert, animated: true, completion: nil)
     }
-    
-    func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
-    }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFilters" {
             if let navcon = segue.destination as? UINavigationController {
@@ -94,26 +84,13 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
                     filtersVC.selectedCategories = Set(recyclePointCategories)
                 }
             }
+        } else if segue.identifier == "RecyclePointDetailsSegue" {
+            if let vc = segue.destination as? RecyclePointViewController {
+                
+            }
         }
     }
-    
-    //MARK: - CLLocationManagerDelegate
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        determineAutorizationStatus()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let currentLocation = locations.last!
-        if currentLocation.horizontalAccuracy < locationManager.desiredAccuracy {
-            locationManager.stopUpdatingLocation()
-            self.mapView.isMyLocationEnabled = true
-            setCurrentLocationOnMap()
-        }
-    }
-    
-    
-    
+        
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

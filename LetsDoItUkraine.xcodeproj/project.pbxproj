@@ -43,6 +43,8 @@
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
 		7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F362AFD1DB20D0A0066BBFA /* Constants.swift */; };
 		7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */; };
+		7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */; };
+		7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA71DC1E364007F62E6 /* LocationManager.swift */; };
 		7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */; };
 		CE266C9C1DC10C0E00732D5B /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */; };
 		CE425A251DBFCF9A00F9650A /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE425A241DBFCF9A00F9650A /* NewsListViewController.swift */; };
@@ -101,6 +103,8 @@
 		7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsViewController.swift; sourceTree = "<group>"; };
 		7F362AFD1DB20D0A0066BBFA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsPageViewController.swift; sourceTree = "<group>"; };
+		7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycePointMapPresenter.swift; sourceTree = "<group>"; };
+		7FF46FA71DC1E364007F62E6 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsController.swift; sourceTree = "<group>"; };
 		ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.release.xcconfig"; sourceTree = "<group>"; };
 		CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 		552BF8FB1DA196D7008D5317 /* LetsDoItUkraine */ = {
 			isa = PBXGroup;
 			children = (
+				7FF46FA41DC1E18C007F62E6 /* Presenters */,
 				06C20A521DA7AF34004E1B7E /* Data */,
 				55AD708C1DA1A67300FA1049 /* ViewControllers */,
 				55AD708D1DA1A68A00FA1049 /* Model */,
@@ -232,6 +237,7 @@
 				55033E751DAD867600A04685 /* NewsManager.swift */,
 				CE6EC3821DBDF56000449440 /* FiltersModel.swift */,
 				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
+				7FF46FA71DC1E364007F62E6 /* LocationManager.swift */,
 				55AD708E1DA1A6A700FA1049 /* VO */,
 			);
 			name = Model;
@@ -264,6 +270,14 @@
 			children = (
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		7FF46FA41DC1E18C007F62E6 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */,
+			);
+			name = Presenters;
 			sourceTree = "<group>";
 		};
 		9D997B299742B280FA3D8015 /* Frameworks */ = {
@@ -432,9 +446,11 @@
 			files = (
 				7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */,
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
+				7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */,
 				CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */,
 				7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */,
 				7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */,
+				7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */,
 				552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */,
 				7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
@@ -582,6 +598,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = S6L573JZYJ;
@@ -603,6 +620,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = S6L573JZYJ;
