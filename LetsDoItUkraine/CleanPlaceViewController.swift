@@ -46,7 +46,15 @@ class CleanPlaceViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-                
+        
+        
+        
+        for idd in self.cleaning.cleanersIds! {
+                           UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
+                               print(mem?.firstName)
+                           })
+                        }
+            
         let image = UIImage(named: "navBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationController?.navigationBar.tintColor = UIColor.white

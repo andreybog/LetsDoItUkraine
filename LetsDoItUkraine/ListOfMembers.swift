@@ -34,10 +34,11 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = self.tableViewMembers.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCellCleanMember
-        cell.nameMember.text = firstNameMember[indexPath.row] + " " + lastNameMember[indexPath.row]
-        cell.phoneMember.text = phoneMember[indexPath.row]
-        //cell.photoMember.kf.setImage(with: photoMember[indexPath.row])
-
+        if firstNameMember.count > 0 {
+          cell.nameMember.text = firstNameMember[indexPath.row] + " " + lastNameMember[indexPath.row]
+          cell.phoneMember.text = phoneMember[indexPath.row]
+          //cell.photoMember.kf.setImage(with: photoMember[indexPath.row])
+        }
         return cell
         
     }
