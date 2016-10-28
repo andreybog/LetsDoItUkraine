@@ -306,6 +306,7 @@ class CleaningsManager {
         updateMember(user, withCleaning: cleaning, as: memberType, add: true)
     }
     
+    
     func removeMember(_ user:User, fromCleaning cleaning: Cleaning, as memberType: ClenaingMembersFilter) {
         updateMember(user, withCleaning: cleaning, as: memberType, add: false)
     }

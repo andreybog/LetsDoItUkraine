@@ -13,6 +13,8 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
+    var recyclePointCategories = Set<RecyclePointCategory>()
+    
     lazy var orderedViewControllers : [UIViewController] = {
         return [self.addViewControllerWith(name: "RecyclePointMap"), self.addViewControllerWith(name: "CleaningsMap")]
     }()
@@ -28,6 +30,8 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
         if let firstViewController = orderedViewControllers.first{
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
+        
+        recyclePointCategories = FiltersModel.sharedModel.categories
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,4 +87,34 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowFilters" {
+            if let navcon = segue.destination as? UINavigationController {
+                if let filtersVC = navcon.viewControllers.first as? RecyclePointListViewController {
+                    filtersVC.selectedCategories = Set(recyclePointCategories)
+                }
+            }
+        }
+    }
+    
+    @IBAction func cancelFiltersViewController(segue: UIStoryboardSegue) {
+        
+    }
+    
+    
+    @IBAction func didTouchSearchButtonOnFiltersViewController(segue: UIStoryboardSegue) {
+        let vc = segue.source
+        if let filterVC = vc as? RecyclePointListViewController {
+            recyclePointCategories = Set(filterVC.selectedCategories)
+            FiltersModel.sharedModel.categories = recyclePointCategories
+            
+            RecyclePointsManager.defaultManager.getSelectedRecyclePoints(categories: recyclePointCategories) { (recyclePoints) in
+                print(recyclePoints)
+            }
+        }
+    }
+
+    
 }
+
+

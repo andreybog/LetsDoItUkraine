@@ -14,7 +14,6 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recyclePointsCollectionView: UICollectionView!
     
-    var recyclePointCategories = Set<RecyclePointCategory>()
     
     var searchMarker = GMSMarker()
     
@@ -31,7 +30,6 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         mapView.delegate = self
         let layout = self.recyclePointsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: self.view.frame.width - 20, height: 100)
-        recyclePointCategories = FiltersModel.sharedModel.categories
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,16 +85,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         locationManager.startUpdatingLocation()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowFilters" {
-            if let navcon = segue.destination as? UINavigationController {
-                if let filtersVC = navcon.viewControllers.first as? RecyclePointListViewController {
-                    filtersVC.selectedCategories = Set(recyclePointCategories)
-                }
-            }
-        }
-    }
-    
+        
     //MARK: - CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -147,23 +136,6 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         targetContentOffset.pointee = offset
     }
     
-    @IBAction func cancelFiltersViewController(segue: UIStoryboardSegue) {
-        
-    }
-    
-    //RecyclePoints
-    
-    @IBAction func didTouchSearchButtonOnFiltersViewController(segue: UIStoryboardSegue) {
-        let vc = segue.source
-        if let filterVC = vc as? RecyclePointListViewController {
-            recyclePointCategories = Set(filterVC.selectedCategories)
-            FiltersModel.sharedModel.categories = recyclePointCategories
-            
-            RecyclePointsManager.defaultManager.getSelectedRecyclePoints(categories: recyclePointCategories) { (recyclePoints) in
-                print(recyclePoints)
-            }
-        }
-    }
     
 
     

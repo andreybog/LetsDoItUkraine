@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FBSDKShareKit
 class NewsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
@@ -26,14 +26,16 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+
         
         showLoadingState()
-        NewsManager.defaultManager.getAllNews { (news) in
-            self.news = news
-            self.showContent()
+        NewsManager.defaultManager.getAllNews {[weak weakSelf = self] (news) in
+            weakSelf?.news = news
+            weakSelf?.showContent()
         }
 
     }
+    
     
     func showLoadingState() {
         tableView.isHidden = true
@@ -75,11 +77,12 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
             formatter.dateFormat = "dd MMMM yyyy"
             cell.newsDate.text = formatter.string(from: rowDate)
         }
+        
         return cell
         
     }
     
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard let identifier = segue.identifier, identifier == "ShowNewsItem" else { return }
@@ -93,7 +96,12 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func createNews(segue: UIStoryboardSegue) {
-        
+        guard let addNewsVC = segue.source as? AddNewsViewController else { return }
+        var news = News()
+        guard let title = addNewsVC.newsTitleLabel.text else {return}
+        news.title = title
+        news.body = addNewsVC.newsBodyLabel.text
+        print(news.title, news.body)
     }
     
     @IBAction func cancelAddNewsViewController(segue: UIStoryboardSegue) {

@@ -14,9 +14,12 @@ class AddNewsViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     @IBOutlet weak var newsImage: UIImageView!
     
+    @IBOutlet weak var newsTitleLabel: UITextField!
+    
+    @IBOutlet weak var newsBodyLabel: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        newsImage.setRounded()
 
         imagePicker.delegate = self
     }
@@ -74,13 +77,7 @@ class AddNewsViewController: UIViewController, UIImagePickerControllerDelegate, 
 
 }
 
-extension UIImageView {
-    
-    func setRounded() {
-        //self.layer.cornerRadius = 40
-        //self.layer.masksToBounds = true
-    }
-}
+
 
 
 
