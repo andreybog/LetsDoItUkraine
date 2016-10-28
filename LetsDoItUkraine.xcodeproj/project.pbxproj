@@ -45,6 +45,7 @@
 		7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */; };
 		7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */; };
 		7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA71DC1E364007F62E6 /* LocationManager.swift */; };
+		7FF46FAA1DC2223A007F62E6 /* CleaningsMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA91DC2223A007F62E6 /* CleaningsMapPresenter.swift */; };
 		7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */; };
 		CE266C9C1DC10C0E00732D5B /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */; };
 		CE425A251DBFCF9A00F9650A /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE425A241DBFCF9A00F9650A /* NewsListViewController.swift */; };
@@ -105,6 +106,7 @@
 		7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsPageViewController.swift; sourceTree = "<group>"; };
 		7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycePointMapPresenter.swift; sourceTree = "<group>"; };
 		7FF46FA71DC1E364007F62E6 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		7FF46FA91DC2223A007F62E6 /* CleaningsMapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapPresenter.swift; sourceTree = "<group>"; };
 		7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsController.swift; sourceTree = "<group>"; };
 		ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.release.xcconfig"; sourceTree = "<group>"; };
 		CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemViewController.swift; sourceTree = "<group>"; };
@@ -212,13 +214,13 @@
 			children = (
 				7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */,
 				7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */,
+				7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */,
+				7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */,
 				CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */,
 				062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */,
 				CE425A241DBFCF9A00F9650A /* NewsListViewController.swift */,
 				CE425A281DBFE36900F9650A /* AddNewsViewController.swift */,
 				06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */,
-				7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */,
-				7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */,
 				CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */,
 				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */,
+				7FF46FA91DC2223A007F62E6 /* CleaningsMapPresenter.swift */,
 			);
 			name = Presenters;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */,
 				552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */,
 				7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */,
+				7FF46FAA1DC2223A007F62E6 /* CleaningsMapPresenter.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
 				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
 				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,

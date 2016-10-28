@@ -11,7 +11,7 @@ import Foundation
 
 class RecyclePointMapPresenter {
     
-    let locationManager = LocationManager()
+    private let locationManager = LocationManager()
     
     func determineAutorizationStatus(handler: @escaping (_: String) -> Void) {
         self.locationManager.determineAutorizationStatus { (status) in
