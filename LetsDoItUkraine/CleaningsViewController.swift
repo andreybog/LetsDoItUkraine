@@ -11,18 +11,18 @@ import GoogleMaps
 import GooglePlaces
 
 
-class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, LocateOnTheMapDelegate, GMSMapViewDelegate, CleaningsMapPresentDelegate {
+class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, GMSMapViewDelegate, CleaningsMapPresentDelegate {
     
+    
+    //MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var cleaningsCollectionView: UICollectionView!
     
-    //transfer
-    var searchResultController : SearchResultsController!
-    var resultArray = [String]()
-    
+    //MARK: - Properties
     var searchMarker = GMSMarker()
     var presenter = CleaningsMapPresenter()
-
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.determineAutorizationStatus { (status) in
@@ -42,24 +42,15 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         mapView.delegate = self
         let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
-        //transfer
-        searchResultController = SearchResultsController()
-        searchResultController.delegate = self
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.cleaningsCollectionView.isHidden = true
+        setCurrentLocationOnMap()
     }
     
-    func updateUI() {
-        setMarkers()
-        if !cleaningsCollectionView.isHidden {
-            cleaningsCollectionView.reloadData()
-        }
-    }
-    
+    //MARK: - Methods
     private func setMarkers() {
         mapView.clear()
         for cleaning in presenter.cleaningsArray{
@@ -70,7 +61,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
-    func setStreetViewImageWith(coordinates: CLLocationCoordinate2D) -> UIImage?{
+    private func setStreetViewImageWith(coordinates: CLLocationCoordinate2D) -> UIImage?{
         let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
         let size = "300x300"
         let location = "\(coordinates.latitude),%20\(coordinates.longitude)"
@@ -96,7 +87,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
-    func showEnableLocationServicesAlert(){
+    private func showEnableLocationServicesAlert(){
         let alert = UIAlertController(title: "Геопозиция запрещена пользователем для этого приложения.", message: "Если вы хотите использовать карты, пожалуйста, разрешите использование геопозиции в настройках приложения.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Открыть настройки", style: .default) { (action) in
@@ -115,7 +106,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
-    //MARK: - LocateOnTheMapDelegate
     func locateWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
         DispatchQueue.main.async {
             let position = CLLocationCoordinate2DMake(lat, lon)
@@ -124,6 +114,14 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             self.mapView.camera = camera
             self.searchMarker.title = title
             self.searchMarker.map = self.mapView
+        }
+    }
+    
+    //MARK: - CleaningsMapPresentDelegate
+    func updateUI() {
+        setMarkers()
+        if !cleaningsCollectionView.isHidden {
+            cleaningsCollectionView.reloadData()
         }
     }
     
@@ -154,13 +152,10 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     //MARK: - UICollectionViewDataSource
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.cleaningsArray.count
     }
-    
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let index = indexPath.row
@@ -184,25 +179,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         return cell
     }
     
-    
-    //MARK: - UISearchBarDelegate
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let placesClient = GMSPlacesClient()
-        placesClient.autocompleteQuery(searchText, bounds: nil, filter: nil) { (results, error:Error?) in
-            self.resultArray.removeAll()
-            if results == nil {
-                return
-            }
-            for result in results!{
-                if let result = result as? GMSAutocompletePrediction{
-                    self.resultArray.append(result.attributedFullText.string)
-                }
-            }
-            self.searchResultController.reloadDataWith(Array: self.resultArray)
-        }
-    }
-    
     //MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "cleaningDetailsSegue", let cell = sender as? CleaningsMapCollectionViewCell {
@@ -214,14 +190,10 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             let cleaningDetailsViewController = segue.destination as! CleanPlaceViewController
             cleaningDetailsViewController.cleaning = cleaning
             cleaningDetailsViewController.coordiantors = coordinators
-            
-
         } 
     }
-
     
     //MARK: - UIScrollViewDelegate
-    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
         let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -245,14 +217,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         mapView.animate(toLocation: presenter.cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
         mapView.animate(toZoom: 15)
-    }
-    
-    //MARK: - Actions
-
-    @IBAction func didTouchSearchBarButton(_ sender: AnyObject) {
-        let searchController = UISearchController(searchResultsController: searchResultController)
-        searchController.searchBar.delegate = self
-        self.present(searchController, animated: true, completion: nil)
     }
 
 }

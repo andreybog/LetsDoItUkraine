@@ -9,14 +9,14 @@
 import UIKit
 
 
-protocol LocateOnTheMapDelegate {
-    func locateWith(longtitude lon:Double, andLatitude lat: Double, andTitle title: String)
+protocol SearchResultsDelegate {
+    func pass(longtitude lon:Double, andLatitude lat: Double, andTitle title: String)
 }
 
 class SearchResultsController: UITableViewController {
 
     var searchResults : [String]!
-    var delegate : LocateOnTheMapDelegate!
+    var delegate : SearchResultsDelegate!
     
     func reloadDataWith(Array array: [String]){
         self.searchResults = array
@@ -74,7 +74,7 @@ class SearchResultsController: UITableViewController {
                         let location = resultsGeometry["location"] as! [String:AnyObject]
                         let lat = location["lat"] as! Double
                         let lon = location["lng"] as! Double
-                        self.delegate.locateWith(longtitude: lon, andLatitude: lat, andTitle: self.searchResults[indexPath.row])
+                        self.delegate.pass(longtitude: lon, andLatitude: lat, andTitle: self.searchResults[indexPath.row])
                     }
                 } catch {
                     print("Error")

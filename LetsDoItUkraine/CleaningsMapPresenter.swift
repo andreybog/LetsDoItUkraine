@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Kingfisher
 
 protocol CleaningsMapPresentDelegate {
     func updateUI()
@@ -16,6 +17,7 @@ class CleaningsMapPresenter {
     
     private let locationManager = LocationManager()
     var delegate : CleaningsMapPresentDelegate!
+    var isObsereverOn : Bool
     
     private let cleaningsManager = CleaningsManager.defaultManager
     private let usersManager = UsersManager.defaultManager
@@ -23,12 +25,14 @@ class CleaningsMapPresenter {
     var cleaningsArray = [Cleaning]()
     var cleaningsCoordinators:[[User]]!
     var cleaningsDistricts = [String]()
+    var streetViewImages = [String]()
     
     init() {
         self.cleaningsArray = [Cleaning](cleaningsManager.activeCleanings.values)
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
         self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
-        addCleaningsObservers()
+        self.streetViewImages = [String](repeatElement("", count: cleaningsArray.count))
+        self.isObsereverOn = false
     }
     
     deinit {
@@ -40,13 +44,17 @@ class CleaningsMapPresenter {
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
         self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
         if cleaningsArray.count > 0 {
-            self.fillMemberAndDistrictArrays()
+            self.fillMemberDistrictArraysAndStreetViewUrl()
+        }
+        if !self.isObsereverOn {
+            addCleaningsObservers()
+            isObsereverOn = true
         }
         delegate.updateUI()
     }
     
     
-    private func fillMemberAndDistrictArrays() {
+    private func fillMemberDistrictArraysAndStreetViewUrl() {
         for (index, cleaning) in cleaningsArray.enumerated() {
             if cleaning.coordinatorsIds != nil {
                 usersManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { users in
@@ -56,8 +64,20 @@ class CleaningsMapPresenter {
             searchForSublocalityWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)", handler: { (districtName) in
                 self.cleaningsDistricts[index] = districtName
             })
+            setStreetViewImageWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)", handler: { (urlString) in
+                self.streetViewImages[index] = urlString
+            })
         }
     }
+    
+    func setStreetViewImageWith(coordinates: String, handler: @escaping (_: String) -> Void){
+        let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
+        let size = "300x300"
+        let location = "\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
+        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
+        handler(urlString)
+    }
+
     
     private func searchForSublocalityWith(coordinates: String, handler: @escaping (_:String) -> Void){
         

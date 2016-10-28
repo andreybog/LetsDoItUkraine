@@ -19,6 +19,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     var searchMarker = GMSMarker()
     
+    
     let presenter = RecyclePointMapPresenter()
     
     
@@ -42,6 +43,11 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         //Categories
         recyclePointCategories = FiltersModel.sharedModel.categories
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setCurrentLocationOnMap()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,8 +61,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         }
     }
     
-    //MARK: - LocateOnTheMapDelegate
-    func locateWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
+    func locateOnMapWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
         DispatchQueue.main.async {
             let position = CLLocationCoordinate2DMake(lat, lon)
             self.searchMarker = GMSMarker(position: position)
@@ -85,12 +90,12 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
                 }
             }
         } else if segue.identifier == "RecyclePointDetailsSegue" {
-            if let vc = segue.destination as? RecyclePointViewController {
-                
-            }
+//            if let vc = segue.destination as? RecyclePointViewController {
+//                
+//            }
         }
     }
-        
+    
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
