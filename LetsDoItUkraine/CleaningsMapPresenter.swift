@@ -7,10 +7,26 @@
 //
 
 import Foundation
-import Kingfisher
+
+//protocol CleaningView {
+//    var district: String! { get set }
+//}
+//
+//extension CleaningsMapCollectionViewCell: CleaningView {
+//
+//    var district: String! {
+//        get {
+//            return self.districtLabel.text ?? ""
+//        }
+//        set {
+//            self.districtLabel.text = newValue
+//        }
+//    }
+//}
 
 protocol CleaningsMapPresentDelegate {
     func updateUI()
+//    func fillCleaningShortDetails(cleaning:CleaningView, index: Int)
 }
 
 class CleaningsMapPresenter {
@@ -25,13 +41,13 @@ class CleaningsMapPresenter {
     var cleaningsArray = [Cleaning]()
     var cleaningsCoordinators:[[User]]!
     var cleaningsDistricts = [String]()
-    var streetViewImages = [String]()
+    var streetViewImages = [URL?]()
     
     init() {
         self.cleaningsArray = [Cleaning](cleaningsManager.activeCleanings.values)
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
         self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
-        self.streetViewImages = [String](repeatElement("", count: cleaningsArray.count))
+        self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
         self.isObsereverOn = false
     }
     
@@ -43,6 +59,7 @@ class CleaningsMapPresenter {
         self.cleaningsArray = [Cleaning](cleaningsManager.activeCleanings.values)
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
         self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
+        self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
         if cleaningsArray.count > 0 {
             self.fillMemberDistrictArraysAndStreetViewUrl()
         }
@@ -65,7 +82,12 @@ class CleaningsMapPresenter {
                 self.cleaningsDistricts[index] = districtName
             })
             setStreetViewImageWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)", handler: { (urlString) in
-                self.streetViewImages[index] = urlString
+                let url = URL(string: urlString)
+                if url != nil {
+                    self.streetViewImages[index] = url!
+                } else {
+                    self.streetViewImages[index] = nil
+                }
             })
         }
     }
@@ -93,12 +115,24 @@ class CleaningsMapPresenter {
                         let dic = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves) as! NSDictionary
                         let dictionaryResults = dic["results"] as! [[String:AnyObject]]
                         let addressComponents = dictionaryResults.first?["address_components"] as! [[String:AnyObject]]
-                        for component in addressComponents {
-                            let componentTypes = component["types"] as! [String]
-                            if componentTypes.contains("sublocality"){
-                                districtName = component["long_name"] as! String
+                        var isComponentTypeAvailable = false
+                        let arrayOfLocalities = ["sublocality", "locality", "administrative_area_level_2", "administrative_area_level_1"]
+                        for locality in arrayOfLocalities {
+                            for component in addressComponents {
+                                let componentTypes = component["types"] as! [String]
+                                if componentTypes.contains(locality){
+                                    districtName = component["long_name"] as! String
+                                    isComponentTypeAvailable = true
+                                    break
+                                }
+                            }
+                            if isComponentTypeAvailable{
+                                break
                             }
                         }
+                        
+                        
+                        
                         handler(districtName)
                     }
                 } catch {

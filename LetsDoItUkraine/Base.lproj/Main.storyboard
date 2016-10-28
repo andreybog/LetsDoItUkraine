@@ -1954,7 +1954,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1972,7 +1972,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HL1-Po-bAA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1991,7 +1991,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Page View" image="Shape" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2010,7 +2010,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ii6-9N-Krl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="News" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2049,6 +2049,6 @@
         <image name="webSite.png" width="14" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tcg-Vz-Mji"/>
+        <segue reference="Ez7-rV-Cmg"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -59,9 +59,7 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
                 return
             }
             for result in results!{
-                if let result = result as? GMSAutocompletePrediction{
-                    self.resultArray.append(result.attributedFullText.string)
-                }
+                self.resultArray.append(result.attributedFullText.string)
             }
             self.searchController.reloadDataWith(Array: self.resultArray)
         }
@@ -70,14 +68,14 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
     //MARK: - Actions
     
     @IBAction func didTouchSegmentControl(_ sender: AnyObject) {
-        if let segment = sender as? UISegmentedControl{
-            if segment.selectedSegmentIndex == 0{
-                if let firstViewController = orderedViewControllers.first{
+        if let segment = sender as? UISegmentedControl {
+            if segment.selectedSegmentIndex == 0 {
+                if let firstViewController = orderedViewControllers.first {
                     self.navigationItem.leftBarButtonItem?.isEnabled = true
                     setViewControllers([firstViewController], direction: .reverse, animated: true, completion: nil)
                 }
             } else {
-                if let secondViewController = orderedViewControllers.last{
+                if let secondViewController = orderedViewControllers.last {
                     self.navigationItem.leftBarButtonItem?.isEnabled = false
                     setViewControllers([secondViewController], direction: .forward, animated: true, completion: nil)
                 }

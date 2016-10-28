@@ -25,6 +25,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         presenter.determineAutorizationStatus { (status) in
             switch status{
             case "Denied":
@@ -33,13 +34,17 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                 print("Default")
             }
         }
+        
         presenter.delegate = self
         presenter.loadCleanings()
+        
         self.mapView.isMyLocationEnabled = true
         setCurrentLocationOnMap()
+        
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
         mapView.delegate = self
+        
         let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
     }
@@ -163,30 +168,25 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let coordinator = presenter.cleaningsCoordinators[index].first!
         let district = presenter.cleaningsDistricts[index]
         let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
+        let url = presenter.streetViewImages[index]
         cell.districtLabel.text = district
         cell.participantsNumberLabel.text = "Пойдет: \(cleanersCount)"
         cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"
-
-        
-        if let image = setStreetViewImageWith(coordinates: cleaning.coordinate) {
-            cell.image.image = image
+        if url != nil {
+            cell.image.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"))
         } else {
             cell.image.image = #imageLiteral(resourceName: "Placeholder")
         }
-
         cell.addressLabel.text = cleaning.address
-
         return cell
     }
     
     //MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "cleaningDetailsSegue", let cell = sender as? CleaningsMapCollectionViewCell {
-            
             let row = self.cleaningsCollectionView.indexPath(for: cell)!.row
             let cleaning = presenter.cleaningsArray[row]
             let coordinators = presenter.cleaningsCoordinators[row]
-            
             let cleaningDetailsViewController = segue.destination as! CleanPlaceViewController
             cleaningDetailsViewController.cleaning = cleaning
             cleaningDetailsViewController.coordiantors = coordinators
@@ -218,5 +218,4 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         mapView.animate(toLocation: presenter.cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
         mapView.animate(toZoom: 15)
     }
-
 }
