@@ -3,43 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #1):CleanPlaceViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "NSURL(string:&quot;http://m.io.ua/img_aa/medium/0644/08/06440810.jpg&quot;)">
-            </PersistentString>
-            <PersistentString
-               value = "cleaning?.datetime as! String?">
-            </PersistentString>
-            <PersistentString
-               value = "resource">
-            </PersistentString>
-            <PersistentString
-               value = "NSData(contentsOf: item)">
-            </PersistentString>
-            <PersistentString
-               value = "cleaning?.pictures?[0]">
-            </PersistentString>
-            <PersistentString
-               value = "self.cleaningPlace.text">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CleanPlaceViewController.viewDidLoad() -&gt; ():CleanPlaceViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "clean">
-            </PersistentString>
-            <PersistentString
-               value = "imageOrganizator.height">
-            </PersistentString>
-            <PersistentString
-               value = "CleaningsManager.defaultManager">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #2):CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -47,6 +10,94 @@
             </PersistentString>
             <PersistentString
                value = "users[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UsersManager.getUser(withId : String, handler : (User?) -&gt; ()) -&gt; ():UsersManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "allUsers[userId]">
+            </PersistentString>
+            <PersistentString
+               value = "userId">
+            </PersistentString>
+            <PersistentString
+               value = "user">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.goToCleaning(AnyObject) -&gt; ():CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.cleaning">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.nameMember">
+            </PersistentString>
+            <PersistentString
+               value = "members1?.firstName">
+            </PersistentString>
+            <PersistentString
+               value = "self.cleaning.cleanersIds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #1):CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "NSData(contentsOf: item)">
+            </PersistentString>
+            <PersistentString
+               value = "resource">
+            </PersistentString>
+            <PersistentString
+               value = "NSURL(string:&quot;http://m.io.ua/img_aa/medium/0644/08/06440810.jpg&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "cleaning?.pictures?[0]">
+            </PersistentString>
+            <PersistentString
+               value = "self.cleaningPlace.text">
+            </PersistentString>
+            <PersistentString
+               value = "cleaning?.datetime as! String?">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.viewDidLoad() -&gt; ():CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.cleaning.cleanersIds">
+            </PersistentString>
+            <PersistentString
+               value = "clean">
+            </PersistentString>
+            <PersistentString
+               value = "datetime">
+            </PersistentString>
+            <PersistentString
+               value = "CleaningsManager.defaultManager">
+            </PersistentString>
+            <PersistentString
+               value = "cleaning.address">
+            </PersistentString>
+            <PersistentString
+               value = "cleaning.datetime!">
+            </PersistentString>
+            <PersistentString
+               value = "imageOrganizator.height">
+            </PersistentString>
+            <PersistentString
+               value = "mem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
