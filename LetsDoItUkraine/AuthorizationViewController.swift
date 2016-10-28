@@ -18,11 +18,12 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     
     @IBOutlet weak var loginButton: FBSDKLoginButton!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.readPermissions = ["public_profile","email", "user_friends"]
         loginButton.delegate = self
+        
+        
     }
     
     func fetchFacebookUserForID(ID: String) {

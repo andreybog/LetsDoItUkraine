@@ -15,6 +15,11 @@ struct News : CustomStringConvertible {
     var date: Date?
     var url: URL?
     var picture: URL?
+    
+    init() {
+        self.ID = ""
+        self.title = ""
+    }
   
   var description: String {
     return "NEWS: - \(ID) - \(title)"
