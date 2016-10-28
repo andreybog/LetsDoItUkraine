@@ -14,6 +14,8 @@
 		062469031DB4353E00D2BC3A /* logoRecyclePoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 062469001DB4353E00D2BC3A /* logoRecyclePoint.png */; };
 		062469041DB4353E00D2BC3A /* logoRecyclePoint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 062469011DB4353E00D2BC3A /* logoRecyclePoint@2x.png */; };
 		062469051DB4353E00D2BC3A /* logoRecyclePoint@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 062469021DB4353E00D2BC3A /* logoRecyclePoint@3x.png */; };
+		0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */; };
+		0652A9FD1DC2A23F00DF38DF /* CustomCellCleanMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */; };
 		06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */; };
 		06C20AC31DAABC55004E1B7E /* cl_place1.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AB71DAABC55004E1B7E /* cl_place1.png */; };
 		06C20AC41DAABC55004E1B7E /* cl_place1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AB81DAABC55004E1B7E /* cl_place1@2x.png */; };
@@ -72,6 +74,8 @@
 		062469001DB4353E00D2BC3A /* logoRecyclePoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoRecyclePoint.png; sourceTree = "<group>"; };
 		062469011DB4353E00D2BC3A /* logoRecyclePoint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoRecyclePoint@2x.png"; sourceTree = "<group>"; };
 		062469021DB4353E00D2BC3A /* logoRecyclePoint@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoRecyclePoint@3x.png"; sourceTree = "<group>"; };
+		0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOfMembers.swift; sourceTree = "<group>"; };
+		0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCleanMember.swift; sourceTree = "<group>"; };
 		06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanPlaceViewController.swift; sourceTree = "<group>"; };
 		06C20AB71DAABC55004E1B7E /* cl_place1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cl_place1.png; sourceTree = "<group>"; };
 		06C20AB81DAABC55004E1B7E /* cl_place1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cl_place1@2x.png"; sourceTree = "<group>"; };
@@ -223,6 +227,8 @@
 				06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */,
 				CECCC0C61DB2D81600C7A1D5 /* RecyclePointListViewController.swift */,
 				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
+				0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */,
+				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 			);
 			name = ViewControllers;
@@ -458,9 +464,11 @@
 				7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */,
 				7FF46FAA1DC2223A007F62E6 /* CleaningsMapPresenter.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
+				0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */,
 				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
 				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
+				0652A9FD1DC2A23F00DF38DF /* CustomCellCleanMember.swift in Sources */,
 				CEAEB4761DB6772400730B8F /* Checkbox.swift in Sources */,
 				CE425A291DBFE36900F9650A /* AddNewsViewController.swift in Sources */,
 				CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */,
