@@ -35,10 +35,10 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
     var coordiantors: [User]!
-    var firstNameMember:[String] = ["Ivan", "Stephan", "Mike"]
-    var lastNameMember:[String] = ["Qqqqq", "Ddddd", "Xxxx"]
-    var phoneMember:[String] = ["11111", "22222", "33333"]
-    var photoMember:URL = NSURL(string: "") as! URL
+    var firstNameMember:[String] = []
+    var lastNameMember:[String] = []
+    var phoneMember:[String] = []
+    var photoMember = [URL]()
 ////   var members: [User]!
 
 
@@ -47,13 +47,6 @@ class CleanPlaceViewController: UIViewController {
         
         super.viewDidLoad()
         
-        
-        
-        for idd in self.cleaning.cleanersIds! {
-                           UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
-                               print(mem?.firstName)
-                           })
-                        }
             
         let image = UIImage(named: "navBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
@@ -134,13 +127,22 @@ class CleanPlaceViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let listMembersVC = segue.destination as! ListOfMembers
-//         if let cleaning = self.cleaning {
-        //            for id in self.cleaning.cleanersIds! {
-        //                UsersManager.defaultManager.getUser(withId: "i36", handler: { (mem) in
-        //                    print(mem?.firstName)
-        //                })
-        //            }
-//          }
+        if let _ = self.cleaning {
+                   for idd in self.cleaning.cleanersIds! {
+                        UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
+                            if mem != nil {
+                                let firstN = mem?.firstName ?? ""
+                                let lastN = mem?.lastName ?? ""
+                                let phoneN = mem?.phone ?? ""
+                                
+                                self.firstNameMember.append(firstN)
+                                self.phoneMember.append(phoneN)
+                                self.lastNameMember.append(lastN)
+                                self.photoMember.append((mem?.photo)! as URL)
+                            }
+                       })
+                    }
+          }
     
         listMembersVC.firstNameMember = self.firstNameMember
         listMembersVC.lastNameMember = self.lastNameMember

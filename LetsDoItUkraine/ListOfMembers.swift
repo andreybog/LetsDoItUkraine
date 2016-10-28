@@ -16,7 +16,8 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
     var firstNameMember:[String] = [""]
     var lastNameMember:[String] = [""]
     var phoneMember:[String] = [""]
-    var photoMember:URL = NSURL(string: "") as! URL
+    var photoMember = [URL]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,8 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
         if firstNameMember.count > 0 {
           cell.nameMember.text = firstNameMember[indexPath.row] + " " + lastNameMember[indexPath.row]
           cell.phoneMember.text = phoneMember[indexPath.row]
-          //cell.photoMember.kf.setImage(with: photoMember[indexPath.row])
+          cell.photoMember.kf.setImage(with: photoMember[indexPath.row])
+            
         }
         return cell
         
