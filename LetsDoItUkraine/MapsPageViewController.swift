@@ -9,9 +9,14 @@
 import UIKit
 import GooglePlaces
 
-class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSource, UISearchBarDelegate {
+class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchResultsDelegate {
+    
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    
+    let searchController = SearchResultsController()
+    var resultArray = [String]()
     
     lazy var orderedViewControllers : [UIViewController] = {
         return [self.addViewControllerWith(name: "RecyclePointMap"), self.addViewControllerWith(name: "CleaningsMap")]
@@ -23,8 +28,7 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource = self
-        
+        searchController.delegate = self
         if let firstViewController = orderedViewControllers.first{
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
@@ -32,55 +36,55 @@ class MapsPageViewController: UIPageViewController, UIPageViewControllerDataSour
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: - SearchResultsDelegate
+    func pass(longtitude lon:Double, andLatitude lat: Double, andTitle title: String){
+        if segmentControl.selectedSegmentIndex == 0{
+            let vc = orderedViewControllers.first as! RecyclePointMapViewController
+            vc.locateOnMapWith(longtitude: lon, andLatitude: lat, andTitle: title)
+        }else {
+            let vc = orderedViewControllers.last as! CleaningsViewController
+            vc.locateWith(longtitude: lon, andLatitude: lat, andTitle: title)
+        }
+    }
+    
+    //MARK: - UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let placesClient = GMSPlacesClient()
+        placesClient.autocompleteQuery(searchText, bounds: nil, filter: nil) { (results, error:Error?) in
+            self.resultArray.removeAll()
+            if results == nil {
+                return
+            }
+            for result in results!{
+                self.resultArray.append(result.attributedFullText.string)
+            }
+            self.searchController.reloadDataWith(Array: self.resultArray)
+        }
     }
 
+    //MARK: - Actions
     
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?{
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
-        let previousIndex = viewControllerIndex - 1
-        
-        guard previousIndex >= 0 else{
-            return nil
-        }
-        
-        guard orderedViewControllers.count > previousIndex else {
-            return nil
-        }
-    
-        return orderedViewControllers[previousIndex]
-    }
-
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
-        let nextIndex = viewControllerIndex + 1
-        
-        guard orderedViewControllers.count != nextIndex else {
-            return nil
-        }
-        
-        guard orderedViewControllers.count > nextIndex else {
-            return nil
-        }
-    
-        return orderedViewControllers[nextIndex]
-    }
     @IBAction func didTouchSegmentControl(_ sender: AnyObject) {
-        if let segment = sender as? UISegmentedControl{
-            if segment.selectedSegmentIndex == 0{
-                if let firstViewController = orderedViewControllers.first{
+        if let segment = sender as? UISegmentedControl {
+            if segment.selectedSegmentIndex == 0 {
+                if let firstViewController = orderedViewControllers.first {
+                    self.navigationItem.leftBarButtonItem?.isEnabled = true
                     setViewControllers([firstViewController], direction: .reverse, animated: true, completion: nil)
                 }
             } else {
-                if let secondViewController = orderedViewControllers.last{
+                if let secondViewController = orderedViewControllers.last {
+                    self.navigationItem.leftBarButtonItem?.isEnabled = false
                     setViewControllers([secondViewController], direction: .forward, animated: true, completion: nil)
                 }
             }
         }
     }
-    
+    @IBAction func didTouchSearchAddressButton(_ sender: AnyObject) {
+        let controller = UISearchController(searchResultsController: self.searchController)
+        controller.searchBar.delegate = self
+        present(controller, animated: true)
+    }
 }

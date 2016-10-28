@@ -9,14 +9,14 @@
 import UIKit
 
 
-protocol LocateOnTheMapDelegate {
-    func locateWith(longtitude lon:Double, andLatitude lat: Double, andTitle title: String)
+protocol SearchResultsDelegate {
+    func pass(longtitude lon:Double, andLatitude lat: Double, andTitle title: String)
 }
 
 class SearchResultsController: UITableViewController {
 
     var searchResults : [String]!
-    var delegate : LocateOnTheMapDelegate!
+    var delegate : SearchResultsDelegate!
     
     func reloadDataWith(Array array: [String]){
         self.searchResults = array
@@ -29,27 +29,19 @@ class SearchResultsController: UITableViewController {
         
         self.searchResults = Array()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellIdentifier")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.searchResults.count
     }
 
@@ -82,7 +74,7 @@ class SearchResultsController: UITableViewController {
                         let location = resultsGeometry["location"] as! [String:AnyObject]
                         let lat = location["lat"] as! Double
                         let lon = location["lng"] as! Double
-                        self.delegate.locateWith(longtitude: lon, andLatitude: lat, andTitle: self.searchResults[indexPath.row])
+                        self.delegate.pass(longtitude: lon, andLatitude: lat, andTitle: self.searchResults[indexPath.row])
                     }
                 } catch {
                     print("Error")
