@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import Firebase
 
 extension User : FirebaseInitable {
   
   init?(data: [String : Any]) {
-    guard let key = data.keys.first, let data = data[key] as? [String : Any] else { return nil }
+    guard let id = data["id"] as? String, let fName = data["firstName"] as? String else { return nil }
     
-    ID = key
-    firstName = data["firstName"] as! String
+    ID = id
+    firstName = fName
     lastName = data["lastName"] as? String
     phone = data["phone"] as? String
     country = data["country"] as? String
@@ -26,19 +27,55 @@ extension User : FirebaseInitable {
     } else {
       photo = nil
     }
+    if let asCleaner = data["asCleaner"] as? [String:Bool] {
+        asCleanerId = [String](asCleaner.keys)
+    } else { asCleanerId = nil }
+    
+    if let asCoordinator = data["asCoordinator"] as? [String:Bool] {
+        asCoordinatorId = [String](asCoordinator.keys)
+    } else { asCoordinatorId = nil }
+    
+    if let pastCleanings = data["pastCleanings"] as? [String:Bool] {
+        pastCleaningsId = [String](pastCleanings.keys)
+    } else { pastCleaningsId = nil }
   }
   
   var dictionary: [String : Any] {
-    var userData = ["firstName" : firstName]
+    var data: [String : Any] = ["id"        : ID,
+                                "firstName" : firstName]
     
-    if let lastName   = lastName { userData["lastName"] = lastName }
-    if let phone      = phone { userData["phone"] = phone }
-    if let country    = country { userData["country"] = country }
-    if let city       = city { userData["city"] = city }
-    if let email      = email { userData["email"] = email }
-    if let photo      = photo { userData["picture"] = photo.absoluteString }
+    if let lastName   = lastName { data["lastName"] = lastName }
+    if let phone      = phone { data["phone"] = phone }
+    if let country    = country { data["country"] = country }
+    if let city       = city { data["city"] = city }
+    if let email      = email { data["email"] = email }
+    if let photo      = photo { data["picture"] = photo.absoluteString }
     
-    return [ID : userData]
+    if let asCleanerId = asCleanerId {
+        var asCleanerDict = [String:Bool]()
+        for id in asCleanerId {
+            asCleanerDict[id] = true
+        }
+        data["asCleaner"] = asCleanerDict
+    }
+    
+    if let asCoordinatorId = asCoordinatorId {
+        var asCoordinatorDict = [String:Bool]()
+        for id in asCoordinatorId {
+            asCoordinatorDict[id] = true
+        }
+        data["asCoordinator"] = asCoordinatorDict
+    }
+    
+    if let pastCleaningsId = pastCleaningsId {
+        var pastCleaningsDict = [String:Bool]()
+        for id in pastCleaningsId {
+            pastCleaningsDict[id] = true
+        }
+        data["pastCleanings"] = pastCleaningsDict
+    }
+    
+    return [ID : data]
   }
   
   static var rootDatabasePath: String = "users"
@@ -53,35 +90,56 @@ class UsersManager {
   static let defaultManager = UsersManager()
   private var dataManager = DataManager.sharedManager
   
-  func getUser(withId userId:String, handler: @escaping (_: User?)->Void) {
-    let reference =  dataManager.ref.child("\(User.rootDatabasePath)/\(userId)")
-    dataManager.getObject(fromReference: reference, handler: handler)
-  }
+    private var allUsers = [String:User]()
   
-  func getUserCleanings(userId: String, filter: UserClenaingsFilter, handler: @escaping (_:[Cleaning]) -> Void) {
-    var refPath = "user-cleanings/\(userId)"
-    
-    switch filter {
-    case .asModerator:  refPath.append("/asModerator")
-    case .asCleaner:    refPath.append("/asCleaner")
-    case .past:         refPath.append("/past")
+  //MARK: - GET USERS
+  
+  func getUser(withId userId:String, handler: @escaping (_: User?) -> Void) {
+    if let user = allUsers[userId] {
+        handler(user)
+        return
     }
     
-    let reference =  dataManager.ref.child(refPath)
-    dataManager.getObjects(fromReference: reference, handler: handler)
+    let reference =  dataManager.rootRef.child("\(User.rootDatabasePath)/\(userId)")
+    dataManager.getObject(fromReference: reference, handler: { [unowned self] (user) in
+        if user != nil {
+           self.allUsers[user!.ID] = user!
+        }
+        handler(user)
+    } as (_:User?) -> Void)
   }
   
-  func addUser(_ user: User) {
-    let reference =  dataManager.ref.child(User.rootDatabasePath)
-    
-    reference.child(user.ID).observeSingleEvent(of: .value, with: { (snapshot) in
-      if !snapshot.exists() {
-        reference.updateChildValues(user.dictionary)
-      } else {
-        print("Error: User with id: '\(user.ID)' is already exist.")
-      }
-    })
+  func getAllUsers(handler: @escaping (_: [User]) -> Void) {
+    let reference =  dataManager.rootRef.child(User.rootDatabasePath)
+    dataManager.getObjects(fromReference: reference, handler: handler)
   }
+
+    func getUsers(withIds ids: [String], handler: @escaping (_:[User]) -> Void) {
+        var users = [User]()
+        
+        var usersCount = ids.count
+        var currentUsersCount = 0
+        for id in ids {
+            getUser(withId: id, handler: { (user) in
+                if user != nil {
+                    users.append(user!)
+                    currentUsersCount += 1
+                } else {
+                    usersCount -= 1
+                }
+                if currentUsersCount == usersCount {
+                    handler(users)
+                }
+            })
+        }
+    }
+
+      
+  // MARK: - MODIFY USER
+  
+    func createUser(_ user: User) {
+        self.dataManager.createObject(user)
+    }
   
   
 }

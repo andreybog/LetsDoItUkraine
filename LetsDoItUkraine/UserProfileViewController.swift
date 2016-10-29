@@ -22,7 +22,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kNoCleaningCellIdetefier = "noCleaningCell"
     let kCleaningCellIdentifier = "cleningCell"
     let kHistoryCleaningIdentifier = "HistoryCleaning"
-    let userID = "1"
+    let userID = "i02"
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -44,24 +44,28 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
-        UsersManager.defaultManager.getUserCleanings(userId: userID, filter: .asCleaner) { [unowned self] (cleanings) in
-            self.userCleaningsAsCleaner = cleanings
-            self.volunteerCounterTextLabel.text = String(self.userCleaningsAsCleaner.count)
-            self.cleaningsTableView.reloadData()
+        if let userCleaningsAsCleanerIDs = user.pastCleaningsId {
+            CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsAsCleanerIDs, handler: { [unowned self] (cleanings) in
+                self.userCleaningsAsCleaner = cleanings
+                self.cleaningsTableView.reloadData()
+            })
         }
         
-        UsersManager.defaultManager.getUserCleanings(userId: userID, filter: .asModerator) { [unowned self] (cleanings) in
-            self.userCleaningsAsModerator = cleanings
-            self.coordinatorCounterTextLabel.text = String(self.userCleaningsAsModerator.count)
-            self.cleaningsTableView.reloadData()
+        if let userCleaningsAsModeratorIDs = user.asCoordinatorId {
+            CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsAsModeratorIDs, handler: { [unowned self] (cleanings) in
+                self.userCleaningsAsModerator = cleanings
+                self.cleaningsTableView.reloadData()
+                })
         }
         
-        UsersManager.defaultManager.getUserCleanings(userId: userID, filter: .past) { [unowned self] (cleanings) in
-            self.userCleaningsPast = cleanings
-            self.cleaningsTableView.reloadData()
+        if let userCleaningsPastIDs = user.pastCleaningsId {
+            CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsPastIDs, handler: { [unowned self] (cleanings) in
+                self.userCleaningsPast = cleanings
+                self.cleaningsTableView.reloadData()
+                })
         }
     }
-
+        
     func updateUserInformationUI() {
         if let lastName = self.user.lastName {
             self.userNameTextLabel.text = ("\(self.user.firstName) \(lastName)")
@@ -109,7 +113,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            if (userCleaningsAsCleaner.count > 0 || userCleaningsAsModerator.count > 0) {
+            if (!userCleaningsAsCleaner.isEmpty || !userCleaningsAsModerator.isEmpty) {
                 if let cell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as? CleaningCell {
                     cell.configureWithCleaning(cleaning: userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row])
                     return cell

@@ -18,6 +18,9 @@ struct User : CustomStringConvertible {
     var photo: URL?
     var country: String?
     var city: String?
+    var asCleanerId: [String]?
+    var asCoordinatorId: [String]?
+    var pastCleaningsId: [String]?
   
   var description: String {
     let lastName = self.lastName ?? ""
@@ -28,11 +31,11 @@ struct User : CustomStringConvertible {
     
     return "USER: - \(ID) - \(firstName) \(lastName)\n" +
             "email: \(email)\tphone: \(phone)\n" +
-            "\(country)/t\(city)"
+            "\(country)\t\(city)"
   }
   
   init() {
-    ID = "0000"
-    firstName = ""
+    ID = "[no id]"
+    firstName = "[unnamed]"
   }
 }

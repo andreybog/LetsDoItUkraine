@@ -7,70 +7,99 @@
 //
 
 import UIKit
+import Kingfisher
+
+extension Date {
+    func dateStringWithFormat(format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "ru_RU") as Locale!
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self as Date)
+    }
+}
+
 
 class CleanPlaceViewController: UIViewController {
-
+    
+    
+    @IBOutlet var cleaningPlaces: [UIImageView]!
+    //@IBOutlet weak var cleaningPlacePhoto3: UIImageView!
+    //@IBOutlet weak var cleaningPlacePhoto2: UIImageView!
+    //@IBOutlet weak var cleaningPlacePhoto1: UIImageView!
+    @IBOutlet weak var cleaningCoordinatorPhoto: UIImageView!
+    @IBOutlet weak var numberOfMembers: UILabel!
+    @IBOutlet weak var cleaningName: UILabel!
     @IBOutlet weak var cleaningEmail: UITextView!
     @IBOutlet weak var cleaningPhone: UITextView!
     @IBOutlet weak var cleaningDate: UILabel!
     @IBOutlet weak var cleaningPlace: UILabel!
     @IBOutlet weak var cleaningDescription: UILabel!
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
-    
-    ////Temporary code
-    var clean : [String : Any] = ["id": 1,
-                                  "adress": "г. Киев, вул.Велика Василькiвська, 55",
-                                  "pictures": "http://beybegi.com/pics/imgs/olympiyskiy.jpg (448KB)",
-        "date": "11 ноября 2016, 12:45",
-       
-        "description": "НСК Олимпийский. Давайте подстрижем газон!",
-        "isActive": true]
-    
-    ////Temporary code
-    var user : [String : Any] = ["id": 1,
-                                  "firstName": "Боря",
-                                  "lastName": "Гордиенко",
-                                  "phone": "+38093 444 09 09",
-                                  "country": "Украина",
-                                  "city": "Киев",
-                                  "email": "gordienko.b@gmail.com",
-                                  "photo": "http://beybegi.com/pics/imgs/olympiyskiy.jpg (448KB)"
-                                  ]
-    
+    var cleaning: Cleaning!
+    var coordiantors: [User]!
+//    var members: [User]!
+
+
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        let image = UIImage(named: "NavigationBarBackground")! as UIImage
+                
+        let image = UIImage(named: "navBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
+        // getCleaningMembers
+        if coordiantors.count > 0 {
+            let user = coordiantors.first!
+            if let cleaningPhone = user.phone {
+                self.cleaningPhone.text = cleaningPhone
+            } else {
+                self.cleaningPhone.text = ""
+            }
+            if let cleaningEmail = user.email {
+                self.cleaningEmail.text = cleaningEmail
+            } else {
+                self.cleaningEmail.text = ""
+            }
+            if let cleaningLastNameCoordinator = user.lastName {
+                self.cleaningNameCoordinator.text = user.firstName + " " + cleaningLastNameCoordinator
+            } else {
+                self.cleaningNameCoordinator.text = user.firstName
+            }
+            if let _ = user.photo {
+                self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
+            }
+        }
         
-        // Setup the gradient
-//          let gradientLayer = CAGradientLayer()
-//          gradientLayer.frame = (self.navigationController?.navigationBar.bounds)!
-//          gradientLayer.colors =  [UIColor.green,UIColor.blue ].map{$0.cgColor}
-//           gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
-//           gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-//        
-//        // Render the gradient to UIImage
-//          UIGraphicsBeginImageContext(gradientLayer.bounds.size)
-//          gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
-//          let image = UIGraphicsGetImageFromCurrentImageContext()
-//          UIGraphicsEndImageContext()
-//        
-//        // Set the UIImage as background propert
-//         self.navigationController?.navigationBar.setBackgroundImage(image, for: UIBarMetrics.default)
+        // getCleaning
+        if let cleaning = self.cleaning {
+            if let _ = cleaning.datetime {
+                self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+            } else {
+                self.cleaningDate.text = ""
+            }
+            
+            self.cleaningPlace.text = cleaning.address
+            
+            if let summary = cleaning.summary {
+                self.cleaningDescription.text = summary
+            } else {
+                self.cleaningDescription.text = ""
+            }
+            
+            self.cleaningName.text = cleaning.address
+            
+            if cleaning.pictures != nil {
+                for i in 0..<cleaning.pictures!.count {
+                    self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
+                }
+            }
+        }
         
-        self.cleaningDate.text = clean["date"] as! String?
-        self.cleaningPlace.text = clean["adress"] as! String?
-        self.cleaningDescription.text = clean["description"] as! String?
-        
-        self.cleaningPhone.text = user["phone"] as! String?
-      //  self.cleaningPhone.textColor = UIColor.black
-        self.cleaningEmail.text = user["email"] as! String?
-        self.cleaningNameCoordinator.text = (user["firstName"] as! String?)! + " " + (user["lastName"] as! String?)!
+        //get number of members
+        self.numberOfMembers.text = cleaning.cleanersId != nil ? String(cleaning.cleanersId!.count) : "0"
         
     }
 
@@ -86,8 +115,7 @@ class CleanPlaceViewController: UIViewController {
     }
     
     @IBAction func shareDialog(_ sender: AnyObject) {
-         let textToShare = "Swift is awesome!  Check out this website about it!"
-         let objectsToShare = [textToShare, UIActivityType.mail, UIActivityType.postToTwitter, UIActivityType.postToFacebook] as [Any]
+         let objectsToShare = ["", UIActivityType.mail, UIActivityType.postToTwitter, UIActivityType.postToFacebook] as [Any]
         let vc = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
         self.present(vc, animated: true, completion: nil)
         

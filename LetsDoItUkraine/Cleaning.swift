@@ -10,17 +10,27 @@ import Foundation
 import CoreLocation
 
 struct Cleaning : CustomStringConvertible {
-  var ID: String
-  var address: String?
-  var pictures: [URL]?
-  var datetime: Date?
-  var summary: String?
-  var isActive: Bool
-  var cooridnate: CLLocationCoordinate2D
-  
-  var description: String {
-    return "CLEANING: \(ID)\n" +
-            "lat: \(cooridnate.latitude) lon: \(cooridnate.longitude)\n" +
+    var ID: String
+    var address: String
+    var pictures: [URL]?
+    var datetime: Date?
+    var summary: String?
+    var isActive: Bool
+    var coordinate: CLLocationCoordinate2D
+    var coordinatorsId: [String]?
+    var cleanersId: [String]?
+    
+    
+    var description: String {
+        return "CLEANING: \(ID)\n" +
+            "lat: \(coordinate.latitude) lon: \(coordinate.longitude)\n" +
             (isActive ? "Active" : "Not active")
-  }  
+    }
+    
+    init() {
+        ID = "[no id]"
+        coordinate = CLLocationCoordinate2D()
+        isActive = false
+        address = "[no address]"
+    }
 }

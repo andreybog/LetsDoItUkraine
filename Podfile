@@ -13,6 +13,8 @@ target 'LetsDoItUkraine' do
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
   pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'Kingfisher', '~> 3.0'
   
   # Pods for LetsDoItUkraine
 

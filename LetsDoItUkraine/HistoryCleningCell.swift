@@ -24,11 +24,9 @@ class HistoryCleningCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWithCleaning (cleaning:Cleaning)->(CleaningCell) {
-        let cell = CleaningCell()
+    func configureWithCleaning (cleaning:Cleaning) {
         cleaningDateTextLabel.text = cleaning.datetime != nil ? ("\(cleaning.datetime!.shortDate)") : ""
-        cleaningAdressTextLabel.text = cleaning.address != nil ? ("\(cleaning.address!)") : "Адрес не найден"
-        return cell
+        cleaningAdressTextLabel.text = cleaning.address
     }
 
 }

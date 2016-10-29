@@ -24,10 +24,8 @@ class CleaningCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWithCleaning (cleaning:Cleaning)->(CleaningCell) {
-        let cell = CleaningCell()
-        cleaningAdressTextLabel.text = cleaning.address != nil ? ("\(cleaning.address!)") : "Адрес не найден"
-        return cell;
+    func configureWithCleaning (cleaning:Cleaning) {
+        cleaningAdressTextLabel.text = cleaning.address
     }
     
 }
