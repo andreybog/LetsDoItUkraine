@@ -91,8 +91,23 @@ class UsersManager {
   private var dataManager = DataManager.sharedManager
   
     private var allUsers = [String:User]()
+    
+    var currentUser:User?
   
   //MARK: - GET USERS
+    
+    
+    func getCurrentUser(handler: @escaping (_:User?)->Void) {
+        
+        if let currentUser = FIRAuth.auth()?.currentUser {
+            UsersManager.defaultManager.getUser(withId: currentUser.uid, handler: { [unowned self] (user) in
+                self.currentUser = user
+                handler(user)
+            })
+        } else {
+            handler(nil)
+        }
+    }
   
   func getUser(withId userId:String, handler: @escaping (_: User?) -> Void) {
     if let user = allUsers[userId] {
