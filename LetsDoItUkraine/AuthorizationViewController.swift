@@ -64,11 +64,12 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+        
     }
 
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
+        if error != nil || FBSDKAccessToken.current() == nil {
             self.showMessageToUser()
             return
         }

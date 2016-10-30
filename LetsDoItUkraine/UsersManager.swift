@@ -10,103 +10,154 @@ import Foundation
 import Firebase
 
 extension User : FirebaseInitable {
-  
-  init?(data: [String : Any]) {
-    guard let id = data["id"] as? String, let fName = data["firstName"] as? String else { return nil }
     
-    ID = id
-    firstName = fName
-    lastName = data["lastName"] as? String
-    phone = data["phone"] as? String
-    country = data["country"] as? String
-    city = data["city"] as? String
-    email = data["email"] as? String
+    init?(data: [String:Any]) {
     
-    if let picUrl = data["picture"] as? String {
-      photo = URL(string:picUrl)
-    } else {
-      photo = nil
-    }
-    if let asCleaner = data["asCleaner"] as? [String:Bool] {
-        asCleanerIds = [String](asCleaner.keys)
-    } else { asCleanerIds = nil }
-    
-    if let asCoordinator = data["asCoordinator"] as? [String:Bool] {
-        asCoordinatorIds = [String](asCoordinator.keys)
-    } else { asCoordinatorIds = nil }
-    
-    if let pastCleanings = data["pastCleanings"] as? [String:Bool] {
-        pastCleaningsIds = [String](pastCleanings.keys)
-    } else { pastCleaningsIds = nil }
-  }
-  
-  var dictionary: [String : Any] {
-    var data: [String : Any] = ["id"        : ID,
-                                "firstName" : firstName]
-    
-    if let lastName   = lastName { data["lastName"] = lastName }
-    if let phone      = phone { data["phone"] = phone }
-    if let country    = country { data["country"] = country }
-    if let city       = city { data["city"] = city }
-    if let email      = email { data["email"] = email }
-    if let photo      = photo { data["picture"] = photo.absoluteString }
-    
-    if let asCleanerId = asCleanerIds {
-        var asCleanerDict = [String:Bool]()
-        for id in asCleanerId {
-            asCleanerDict[id] = true
+        guard let id = data["id"] as? String, let fName = data["firstName"] as? String else { return nil }
+        
+        ID = id
+        firstName = fName
+        lastName = data["lastName"] as? String
+        phone = data["phone"] as? String
+        country = data["country"] as? String
+        city = data["city"] as? String
+        email = data["email"] as? String
+        
+        if let picUrl = data["picture"] as? String {
+            photo = URL(string:picUrl)
+        } else {
+            photo = nil
         }
-        data["asCleaner"] = asCleanerDict
+        
+        if let metadata = data["cleaningsMetadata"] as? [String : [String:Any]] {
+            cleaningsMetadata = metadata.map { (_, value) -> CleaningMetadata in
+                return CleaningMetadata(data: value)!
+            }
+        } else { cleaningsMetadata = nil }
     }
     
-    if let asCoordinatorId = asCoordinatorIds {
-        var asCoordinatorDict = [String:Bool]()
-        for id in asCoordinatorId {
-            asCoordinatorDict[id] = true
+    var toJSON: [String : Any] {
+        var data: [String : Any] = ["id"        : ID,
+                                    "firstName" : firstName]
+        
+        if let lastName   = lastName { data["lastName"] = lastName }
+        if let phone      = phone { data["phone"] = phone }
+        if let country    = country { data["country"] = country }
+        if let city       = city { data["city"] = city }
+        if let email      = email { data["email"] = email }
+        if let photo      = photo { data["picture"] = photo.absoluteString }
+        
+        if let cleaningsMetadata = cleaningsMetadata {
+            var metadata = [String : Any]()
+            for data in cleaningsMetadata {
+                metadata[data.ID] = data.toJSON
+            }
+            data["cleaningsMetadata"] = metadata
         }
-        data["asCoordinator"] = asCoordinatorDict
+        
+        return [ID : data]
     }
     
-    if let pastCleaningsId = pastCleaningsIds {
-        var pastCleaningsDict = [String:Bool]()
-        for id in pastCleaningsId {
-            pastCleaningsDict[id] = true
-        }
-        data["pastCleanings"] = pastCleaningsDict
+    var ref:FIRDatabaseReference {
+        return UsersManager.defaultManager.dataManager.rootRef.child("\(User.rootDatabasePath)/\(ID)")
     }
     
-    return [ID : data]
-  }
-  
-  static var rootDatabasePath: String = "users"
+    static var rootDatabasePath: String = "users"
 }
 
-enum UserClenaingsFilter {
-  case asModerator, asCleaner, past
+
+// Cleanings Metadata extension - asCoordinator, asCleaner, pastCleanings
+//
+extension User {
+    var asCoordinatorIds:[String]? {
+        guard let metadata = cleaningsMetadata, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+            return nil
+        }
+        
+        return (metadata.filter { $0.startAt >= pivotDate && $0.userRole! == UserRole.coordinator }).map { $0.ID }
+    }
+    
+    var asCleanerIds:[String]? {
+        guard let metadata = cleaningsMetadata, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+            return nil
+        }
+        
+        return (metadata.filter { $0.startAt >= pivotDate && $0.userRole! == UserRole.cleaner }).map { $0.ID }
+    }
+    
+    var pastCleaningsIds:[String]? {
+        guard let metadata = cleaningsMetadata, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+            return nil
+        }
+        
+        return (metadata.filter { $0.startAt < pivotDate }).map { $0.ID }
+    }
 }
+
 
 class UsersManager {
   
   static let defaultManager = UsersManager()
-  private var dataManager = DataManager.sharedManager
+  fileprivate var dataManager = DataManager.sharedManager
   
     private var allUsers = [String:User]()
     
-    var currentUser:User?
+    private(set) var currentUser:User? {
+        willSet {
+            if newValue == nil {
+                print("CURRENT USER: Remove observers")
+                currentUserCleanings = nil
+                removeObservers()
+            }
+        }
+        didSet {
+            if oldValue == nil && currentUser != nil {
+                print("CURRENT USER: Add observers")
+                currentUserCleanings = [Cleaning]()
+                addObservers()
+            }
+        }
+    }
+    
+    var currentUserCleanings: [Cleaning]?
+    
+    var currentUserAsCoordinator: [Cleaning]? {
+        guard let cleanings = currentUserCleanings, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+            return nil
+        }
+        return cleanings.filter { $0.startAt >= pivotDate && ($0.coordinatorsIds?.contains(currentUser!.ID) ?? false) }
+    }
+    
+    var currentUserAsCleaner: [Cleaning]? {
+        guard let cleanings = currentUserCleanings, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+            return nil
+        }
+        return cleanings.filter { $0.startAt >= pivotDate && ($0.cleanersIds?.contains(currentUser!.ID) ?? false) }
+    }
+    
+    var currentUserPastCleanings: [Cleaning]? {
+        guard let cleanings = currentUserCleanings, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+            return nil
+        }
+        return cleanings.filter { $0.startAt < pivotDate }
+    }
+    
+    private var addHandler: FIRDatabaseHandle?
+    private var changeHandler: FIRDatabaseHandle?
+    private var removeHandler: FIRDatabaseHandle?
   
   //MARK: - GET USERS
     
-    
     func getCurrentUser(handler: @escaping (_:User?)->Void) {
         
-        if let currentUser = FIRAuth.auth()?.currentUser {
-            UsersManager.defaultManager.getUser(withId: currentUser.uid, handler: { [unowned self] (user) in
-                self.currentUser = user
-                handler(user)
-            })
-        } else {
-            handler(nil)
+        guard let currentUser = FIRAuth.auth()?.currentUser else {
+            return handler(nil)
         }
+        
+        UsersManager.defaultManager.getUser(withId: currentUser.uid, handler: { [unowned self] (user) in
+            self.currentUser = user
+            handler(user)
+        })
     }
   
   func getUser(withId userId:String, handler: @escaping (_: User?) -> Void) {
@@ -156,5 +207,54 @@ class UsersManager {
         self.dataManager.createObject(user)
     }
   
-  
+  // MARK: - OBSERVERS
+    
+    private func addObservers() {
+        addHandler = currentUser?.ref.child("cleaningsMetadata").observe(.childAdded, with: { [weak self] (snapshot) in
+            
+            if let data = snapshot.value as? [String : Any], let metadata = CleaningMetadata(data: data) {
+                
+                CleaningsManager.defaultManager.getCleaning(withId: metadata.ID, handler: { (cleaning) in
+                    if cleaning != nil {
+                        self?.currentUser?.cleaningsMetadata?.append(metadata)
+                        self?.currentUserCleanings?.append(cleaning!)
+                    }
+                })
+            }
+        })
+        
+        changeHandler = currentUser?.ref.child("cleaningsMetadata").observe(.childChanged, with: { [weak self] (snapshot) in
+            if let data = snapshot.value as? [String : Any], let metadata = CleaningMetadata(data: data) {
+                
+                if let index = self?.currentUser?.cleaningsMetadata?.index(where: { $0.ID == metadata.ID }) {
+                    
+                    CleaningsManager.defaultManager.getCleaning(withId: metadata.ID, handler: { (cleaning) in
+                        if cleaning != nil {
+                            self?.currentUser?.cleaningsMetadata?[index] = metadata
+                            self?.currentUserCleanings?[index] = cleaning!
+                        }
+                    })
+                    
+                }
+            }
+        })
+        
+        removeHandler = currentUser?.ref.child("cleaningsMetadata").observe(.childRemoved, with: { [weak self] (snapshot) in
+            if let data = snapshot.value as? [String : Any], let metadata = CleaningMetadata(data: data) {
+                
+                if let index = self?.currentUser?.cleaningsMetadata?.index(where: { $0.ID == metadata.ID }) {
+                    self?.currentUser?.cleaningsMetadata?.remove(at: index)
+                    self?.currentUserCleanings?.remove(at: index)
+                }
+            }
+            
+        })
+    }
+    
+    private func removeObservers() {
+        if addHandler != nil { currentUser!.ref.child("cleaningsMetadata").removeObserver(withHandle: addHandler!) }
+        if changeHandler != nil { currentUser!.ref.child("cleaningsMetadata").removeObserver(withHandle: changeHandler!) }
+        if removeHandler != nil { currentUser!.ref.child("cleaningsMetadata").removeObserver(withHandle: removeHandler!) }
+    }
+    
 }
