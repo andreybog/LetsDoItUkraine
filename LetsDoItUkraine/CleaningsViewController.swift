@@ -165,13 +165,15 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let index = indexPath.row
         let cleaning = presenter.cleaningsArray[index]
-        let coordinator = presenter.cleaningsCoordinators[index].first!
+        
         let district = presenter.cleaningsDistricts[index]
         let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
         let url = presenter.streetViewImages[index]
         cell.districtLabel.text = district
         cell.participantsNumberLabel.text = "Пойдет: \(cleanersCount)"
-        cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"
+        if let coordinator = presenter.cleaningsCoordinators[index].first {
+            cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"
+        }
         if url != nil {
             cell.image.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"))
         } else {

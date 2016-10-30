@@ -7,10 +7,13 @@
 //
 
 import Foundation
-
+import Firebase
 extension News : FirebaseInitable {
-    init?(data: [String : Any ]) {
-        guard let id = data["id"] as? String, let title = data["title"] as? String else { return nil }
+    init?(data: [String : Any]) {
+        
+        guard let id = data["id"] as? String, let title = data["title"] as? String else {
+            return nil
+        }
         
         ID = id
         self.title = title
@@ -29,7 +32,7 @@ extension News : FirebaseInitable {
         } else { picture = nil }
     }
     
-    var dictionary: [String : Any]  {
+    var toJSON: [String : Any]  {
         var data = ["id"    : ID,
                     "title" : title]
         
@@ -41,23 +44,27 @@ extension News : FirebaseInitable {
         return [ID : data]
     }
     
+    var ref:FIRDatabaseReference {
+        return NewsManager.defaultManager.dataManager.rootRef.child("\(News.rootDatabasePath)/\(ID)")
+    }
+    
     static var rootDatabasePath = "news"
 }
 
 class NewsManager {
     
     static let defaultManager = NewsManager()
-    private var dataManager = DataManager.sharedManager
+    fileprivate var dataManager = DataManager.sharedManager
     
     // MARK: - GET METHODS
     
     func getNews(withId newsId:String, handler: @escaping (_:News?) -> Void) {
-        let refNews = dataManager.rootRef.child("news/\(newsId)")
+        let refNews = dataManager.rootRef.child("\(News.rootDatabasePath)/\(newsId)")
         dataManager.getObject(fromReference: refNews, handler: handler)
     }
     
     func getAllNews(with handler: @escaping (_:[News]) -> Void) {
-        let refNews = dataManager.rootRef.child("news")
+        let refNews = dataManager.rootRef.child(News.rootDatabasePath)
         dataManager.getObjects(fromReference: refNews, handler: handler)
     }
     
