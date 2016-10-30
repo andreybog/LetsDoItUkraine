@@ -21,11 +21,9 @@ extension Date {
 
 class CleanPlaceViewController: UIViewController {
     
+    @IBOutlet weak var goToCleaning: UIButton!
     
     @IBOutlet var cleaningPlaces: [UIImageView]!
-    //@IBOutlet weak var cleaningPlacePhoto3: UIImageView!
-    //@IBOutlet weak var cleaningPlacePhoto2: UIImageView!
-    //@IBOutlet weak var cleaningPlacePhoto1: UIImageView!
     @IBOutlet weak var cleaningCoordinatorPhoto: UIImageView!
     @IBOutlet weak var numberOfMembers: UILabel!
     @IBOutlet weak var cleaningName: UILabel!
@@ -37,37 +35,32 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
     var coordiantors: [User]!
-//    var members: [User]!
+    var firstNameMember:[String] = []
+    var lastNameMember:[String] = []
+    var phoneMember:[String] = []
+    var photoMember = [URL]()
+////   var members: [User]!
 
 
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-                
+        
+            
         let image = UIImage(named: "navBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         // getCleaningMembers
-        if coordiantors.count > 0 {
-            let user = coordiantors.first!
-            if let cleaningPhone = user.phone {
-                self.cleaningPhone.text = cleaningPhone
-            } else {
-                self.cleaningPhone.text = ""
-            }
-            if let cleaningEmail = user.email {
-                self.cleaningEmail.text = cleaningEmail
-            } else {
-                self.cleaningEmail.text = ""
-            }
-            if let cleaningLastNameCoordinator = user.lastName {
-                self.cleaningNameCoordinator.text = user.firstName + " " + cleaningLastNameCoordinator
-            } else {
-                self.cleaningNameCoordinator.text = user.firstName
-            }
+        if let user = coordiantors.first {
+
+            self.cleaningPhone.text = user.phone ?? ""
+            self.cleaningEmail.text = user.email ?? ""
+            self.cleaningNameCoordinator.text = user.firstName + " " + (user.lastName ?? "")
+            
             if let _ = user.photo {
                 self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
             }
@@ -75,31 +68,37 @@ class CleanPlaceViewController: UIViewController {
         
         // getCleaning
         if let cleaning = self.cleaning {
-            if let _ = cleaning.datetime {
-                self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
-            } else {
-                self.cleaningDate.text = ""
-            }
             
             self.cleaningPlace.text = cleaning.address
-            
-            if let summary = cleaning.summary {
-                self.cleaningDescription.text = summary
-            } else {
-                self.cleaningDescription.text = ""
-            }
-            
             self.cleaningName.text = cleaning.address
+            self.cleaningDescription.text = cleaning.summary ?? ""
+
             
             if cleaning.pictures != nil {
                 for i in 0..<cleaning.pictures!.count {
                     self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
                 }
             }
+            
+            self.numberOfMembers.text = String(cleaning.cleanersIds!.count)
+            
+            for id in self.cleaning.cleanersIds! {
+               UsersManager.defaultManager.getUser(withId: id, handler: { (mem) in
+                   print(mem?.firstName)
+                })
+           }
+            
+            guard let _ = cleaning.datetime else {
+              self.cleaningDate.text = ""
+                return
+            }
+            self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+
+            
+                 } else {
+            self.numberOfMembers.text = "0"
         }
-        
-        //get number of members
-        self.numberOfMembers.text = cleaning.cleanersId != nil ? String(cleaning.cleanersId!.count) : "0"
+
         
     }
 
@@ -126,6 +125,39 @@ class CleanPlaceViewController: UIViewController {
        
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let listMembersVC = segue.destination as! ListOfMembers
+        if let _ = self.cleaning {
+                   for idd in self.cleaning.cleanersIds! {
+                        UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
+                            if mem != nil {
+                                let firstN = mem?.firstName ?? ""
+                                let lastN = mem?.lastName ?? ""
+                                let phoneN = mem?.phone ?? ""
+                                
+                                self.firstNameMember.append(firstN)
+                                self.phoneMember.append(phoneN)
+                                self.lastNameMember.append(lastN)
+                                self.photoMember.append((mem?.photo)! as URL)
+                            }
+                       })
+                    }
+          }
+    
+        listMembersVC.firstNameMember = self.firstNameMember
+        listMembersVC.lastNameMember = self.lastNameMember
+        listMembersVC.phoneMember = self.phoneMember
+        listMembersVC.photoMember = self.photoMember
+        
+    }
+    
+
+     @IBAction func goToCleaning(_ sender: AnyObject) {
+
+        //CleaningsManager.defaultManager.addMember(<#T##user: User##User#>, toCleaning: self.cleaning, as: .cleaner)
+        self.goToCleaning.isEnabled = false
+    }
+
 
     /*
     // MARK: - Navigation

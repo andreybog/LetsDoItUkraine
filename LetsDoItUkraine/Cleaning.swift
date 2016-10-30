@@ -13,12 +13,12 @@ struct Cleaning : CustomStringConvertible {
     var ID: String
     var address: String
     var pictures: [URL]?
-    var datetime: Date?
+    var datetime: Date!
     var summary: String?
     var isActive: Bool
     var coordinate: CLLocationCoordinate2D
-    var coordinatorsId: [String]?
-    var cleanersId: [String]?
+    var coordinatorsIds: [String]?
+    var cleanersIds: [String]?
     
     
     var description: String {

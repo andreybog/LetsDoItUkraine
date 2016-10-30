@@ -18,15 +18,12 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     
     @IBOutlet weak var loginButton: FBSDKLoginButton!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.readPermissions = ["public_profile","email", "user_friends"]
         loginButton.delegate = self
-        let alert = UIAlertController(title:"Авторизация" , message: "Не удалось авторизироваться с пoмошью Facebook", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        
+        
     }
     
     func fetchFacebookUserForID(ID: String) {
@@ -63,11 +60,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func showMessageToUser() {
-        
-        
-        
-        
-        let alert = UIAlertController(title:"Авторизация" , message: "Не удалось авторизироваться с пoмошью Facebook", preferredStyle: .alert)
+        let alert = UIAlertController(title:"Авторизация" , message: "Не удалось авторизироваться с пoмощью Facebook", preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)

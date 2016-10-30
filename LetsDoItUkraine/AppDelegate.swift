@@ -11,6 +11,7 @@ import Firebase
 import FBSDKCoreKit
 import GoogleMaps
 import GooglePlaces
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,12 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    UINavigationBar.appearance().setBackgroundImage(#imageLiteral(resourceName: "Rectangle"), for: .default)
+    UINavigationBar.appearance().setBackgroundImage(#imageLiteral(resourceName: "NavigationBarTheme"), for: .default)
     
     FIRApp.configure()
     FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     GMSServices.provideAPIKey(kGoogleMapsSDKAPIKey)
     GMSPlacesClient.provideAPIKey(kGooglePlacesAPIKey)
+    
+    IQKeyboardManager.sharedManager().enable = true
 
     return true
   }

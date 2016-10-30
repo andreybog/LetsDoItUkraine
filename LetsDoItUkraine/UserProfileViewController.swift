@@ -44,21 +44,21 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
-        if let userCleaningsAsCleanerIDs = user.pastCleaningsId {
+        if let userCleaningsAsCleanerIDs = user.pastCleaningsIds {
             CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsAsCleanerIDs, handler: { [unowned self] (cleanings) in
                 self.userCleaningsAsCleaner = cleanings
                 self.cleaningsTableView.reloadData()
             })
         }
         
-        if let userCleaningsAsModeratorIDs = user.asCoordinatorId {
+        if let userCleaningsAsModeratorIDs = user.asCoordinatorIds {
             CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsAsModeratorIDs, handler: { [unowned self] (cleanings) in
                 self.userCleaningsAsModerator = cleanings
                 self.cleaningsTableView.reloadData()
                 })
         }
         
-        if let userCleaningsPastIDs = user.pastCleaningsId {
+        if let userCleaningsPastIDs = user.pastCleaningsIds {
             CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsPastIDs, handler: { [unowned self] (cleanings) in
                 self.userCleaningsPast = cleanings
                 self.cleaningsTableView.reloadData()
@@ -67,12 +67,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
         
     func updateUserInformationUI() {
-        if let lastName = self.user.lastName {
-            self.userNameTextLabel.text = ("\(self.user.firstName) \(lastName)")
-        } else {
-            self.userNameTextLabel.text = ("\(self.user.firstName)")
-        }
-        self.userLocationTextLabel.text = ("\(self.user.country!), г.\(self.user.city!)")
+        let lastName = self.user.lastName ?? ""
+        let userCountry = self.user.country ?? ""
+        let userCity = self.user.city ?? ""
+        self.userNameTextLabel.text = self.user.firstName + "" + lastName
+        self.userLocationTextLabel.text = userCountry + userCity
     }
     
     
@@ -84,7 +83,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: -UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-        let cleaning = userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row]
+        //let cleaning = userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row]
         //performSegue(withIdentifier: "cleanPlaceSegue", sender: cleaning)
         }
     }
