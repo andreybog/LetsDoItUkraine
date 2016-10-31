@@ -39,7 +39,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         presenter.loadCleanings()
         
         self.mapView.isMyLocationEnabled = true
-        setCurrentLocationOnMap()
         
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
@@ -123,12 +122,17 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     //MARK: - CleaningsMapPresentDelegate
-    func updateUI() {
+    func didUpdateCleanings() {
         setMarkers()
         if !cleaningsCollectionView.isHidden {
             cleaningsCollectionView.reloadData()
         }
     }
+    
+//    func fillCleaningShortDetails(cleaning:CleaningView, index: Int) {
+//        cleaning.address = presenter.cleaningsArray[index].address
+//        cleaning.coordinator = "Координатор: \(presenter.cleaningsCoordinators.first?.first?.firstName) \(presenter.cleaningsCoordinators.first?.first?.lastName ?? "")"
+//    }
     
     //MARK: - GMSMapViewDelegate
     
@@ -147,6 +151,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                 break
             }
         }
+        self.searchMarker.map = nil
         return true
     }
     
@@ -165,7 +170,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let index = indexPath.row
         let cleaning = presenter.cleaningsArray[index]
-        let coordinator = presenter.cleaningsCoordinators[index].first!
+        let coordinator = presenter.cleaningsCoordinators.first!.first!
         let district = presenter.cleaningsDistricts[index]
         let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
         let url = presenter.streetViewImages[index]

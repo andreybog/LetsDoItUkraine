@@ -10,6 +10,9 @@ import Foundation
 
 //protocol CleaningView {
 //    var district: String! { get set }
+//    var address: String! {get set}
+//    var coordinator : String! {get set}
+//    var participants : String! {get set}
 //}
 //
 //extension CleaningsMapCollectionViewCell: CleaningView {
@@ -22,10 +25,34 @@ import Foundation
 //            self.districtLabel.text = newValue
 //        }
 //    }
+//    var address: String! {
+//        get{
+//            return self.addressLabel.text ?? ""
+//        }
+//        set {
+//            self.districtLabel.text = newValue
+//        }
+//    }
+//    var coordinator : String! {
+//        get{
+//            return self.coordinatorNameLabel.text ?? ""
+//        }
+//        set {
+//            self.coordinatorNameLabel.text = newValue
+//        }
+//    }
+//    var participants : String! {
+//        get{
+//            return self.participantsNumberLabel.text ?? ""
+//        }
+//        set {
+//            self.participantsNumberLabel.text = newValue
+//        }
+//    }
 //}
 
 protocol CleaningsMapPresentDelegate {
-    func updateUI()
+    func didUpdateCleanings()
 //    func fillCleaningShortDetails(cleaning:CleaningView, index: Int)
 }
 
@@ -33,7 +60,6 @@ class CleaningsMapPresenter {
     
     private let locationManager = LocationManager()
     var delegate : CleaningsMapPresentDelegate!
-    var isObsereverOn : Bool
     
     private let cleaningsManager = CleaningsManager.defaultManager
     private let usersManager = UsersManager.defaultManager
@@ -48,8 +74,9 @@ class CleaningsMapPresenter {
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
         self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
         self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
-        self.isObsereverOn = false
+        addCleaningsObservers()
     }
+
     
     deinit {
         removeCleaningsObservers()
@@ -63,14 +90,11 @@ class CleaningsMapPresenter {
         if cleaningsArray.count > 0 {
             self.fillMemberDistrictArraysAndStreetViewUrl()
         }
-        if !self.isObsereverOn {
-            addCleaningsObservers()
-            isObsereverOn = true
+        if delegate != nil {
+            delegate.didUpdateCleanings()
         }
-        delegate.updateUI()
     }
-    
-    
+
     private func fillMemberDistrictArraysAndStreetViewUrl() {
         for (index, cleaning) in cleaningsArray.enumerated() {
             if cleaning.coordinatorsIds != nil {
@@ -92,7 +116,7 @@ class CleaningsMapPresenter {
         }
     }
     
-    func setStreetViewImageWith(coordinates: String, handler: @escaping (_: String) -> Void){
+    private func setStreetViewImageWith(coordinates: String, handler: @escaping (_: String) -> Void){
         let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
         let size = "300x300"
         let location = "\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
@@ -107,7 +131,7 @@ class CleaningsMapPresenter {
         let url = URL(string: "\(urlString)")
         let task = URLSession.shared.dataTask(with: url!) { (data, responce, error) in
             if error != nil{
-                print(error)
+                print(error!)
             }else {
                 do {
                     if data != nil{
@@ -130,9 +154,6 @@ class CleaningsMapPresenter {
                                 break
                             }
                         }
-                        
-                        
-                        
                         handler(districtName)
                     }
                 } catch {
@@ -141,7 +162,6 @@ class CleaningsMapPresenter {
             }
         }
         task.resume()
-        
     }
     
     private func addCleaningsObservers() {

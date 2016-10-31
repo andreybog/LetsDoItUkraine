@@ -9,18 +9,17 @@
 import UIKit
 import GoogleMaps
 
-class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, GMSMapViewDelegate {
+class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, GMSMapViewDelegate, RecyclePointMapPresentDelegate {
     
+    //MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var recyclePointsCollectionView: UICollectionView!
     
-    
+    //MARK: - Properties
     var searchMarker = GMSMarker()
-    
-    
     let presenter = RecyclePointMapPresenter()
     
-    
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.determineAutorizationStatus { (status) in
@@ -31,6 +30,9 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
                 print("Default")
             }
         }
+        presenter.delegate = self
+        presenter.loadPoints()
+        
         self.mapView.isMyLocationEnabled = true
         setCurrentLocationOnMap()
         mapView.settings.compassButton = true
@@ -43,12 +45,27 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setCurrentLocationOnMap()
+        self.recyclePointsCollectionView.isHidden = true
+        presenter.loadPoints()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
+    //MARK: - Methods
+    func setMarkers() {
+        mapView.clear()
+        if presenter.pointsArray.count != 0{
+            for point in presenter.pointsArray{
+                let marker = GMSMarker(position: point.coordinate)
+                marker.icon = GMSMarker.markerImage(with: UIColor.green)
+                marker.snippet = point.ID
+                marker.map = mapView
+            }
+        }
+    }
+    
     func setCurrentLocationOnMap(){
         if let mylocation = mapView.myLocation{
             self.mapView.moveCamera(GMSCameraUpdate.setTarget(mylocation.coordinate, zoom: 15))
@@ -77,14 +94,68 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         
         present(alert, animated: true, completion: nil)
     }
+    
+    //MARK: - RecyclePointMapPresentDelegate
+    func didUpdateRecyclePoints(){
+        setMarkers()
+        recyclePointsCollectionView.reloadData()
+    }
+    
+    //MARK: - GMSMapViewDelegate
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        mapView.padding = UIEdgeInsetsMake(0, 0, 110, 0)
+        
+        for (index, point) in presenter.pointsArray.enumerated() {
+            if marker.snippet == point.ID {
+                mapView.animate(toLocation: presenter.pointsArray[index].coordinate)
+                mapView.animate(toZoom: 15)
+                
+                self.recyclePointsCollectionView.reloadData()
+                self.recyclePointsCollectionView.scrollToItem(at:IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+                self.recyclePointsCollectionView.isHidden = false
+                
+                break
+            }
+        }
+        self.searchMarker.map = nil
+        return true
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0)
+        self.recyclePointsCollectionView.isHidden = true
+        self.searchMarker.map = nil
+    }
+    
+
+
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return presenter.pointsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recyclePointCell", for: indexPath) as! RecyclePointMapCollectionViewCell
+        cell.recyclePointTitleLabel.text = presenter.pointsArray[indexPath.row].title
+        cell.recycleTypeLabel.text = presenter.pointCategories[indexPath.row]
+        cell.recyclePointAddressLabel.text = presenter.pointsArray[indexPath.row].address
+        if presenter.pointsArray[indexPath.row].schedule != nil{
+            cell.RecyclePointWorkingHoursLabel.text = presenter.pointsArray[indexPath.row].schedule
+        }
+        let url = presenter.pointsURL[indexPath.row]
+        if url != nil{
+            cell.streetViewImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"))
+        } else {
+            cell.streetViewImage.image = #imageLiteral(resourceName: "Placeholder")
+        }
+        let distance = presenter.pointDistances[indexPath.row]
+        if distance != nil{
+            cell.recyclePointDistanceLabel.text = "\(String(describing: distance!)) km"
+        } else {
+            cell.recyclePointDistanceLabel.text = ""
+        }
         return cell
     }
     
@@ -110,9 +181,20 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         targetContentOffset.pointee = offset
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        mapView.animate(toLocation: presenter.pointsArray[self.recyclePointsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
+        mapView.animate(toZoom: 15)
+    }
     
-
+    //MARK: - Prepare For Segue 
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RecyclePointDetailsSegue", let cell = sender as?  RecyclePointMapCollectionViewCell{
+            let index = self.recyclePointsCollectionView.indexPath(for: cell)!.row
+            let point = presenter.pointsArray[index]
+            let recyclePointDetailsViewController = segue.destination as! RecyclePointViewController
+            recyclePointDetailsViewController.recyclePoint = point
+        }
+    }
     
-
 }

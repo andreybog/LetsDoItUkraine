@@ -11,7 +11,7 @@ import CoreLocation
 
 class LocationManager : NSObject, CLLocationManagerDelegate {
     
-    let manager = CLLocationManager()
+    private let manager = CLLocationManager()
     
     func determineAutorizationStatus(handler: @escaping (_:String) -> Void){
         switch CLLocationManager.authorizationStatus() {
@@ -32,6 +32,15 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         manager.delegate = self
         manager.startUpdatingLocation()
+    }
+    
+    func getDistanceFromLocationWith(coordinate: CLLocationCoordinate2D) -> Double? {
+        if manager.location != nil{
+            let destination = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                return manager.location!.distance(from: destination) / 1000
+        } else {
+            return nil
+        }
     }
     
     //MARK: - CLLocationManagerDelegate
