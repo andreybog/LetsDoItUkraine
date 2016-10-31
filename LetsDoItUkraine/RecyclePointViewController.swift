@@ -30,9 +30,6 @@ class RecyclePointViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
-        let image = UIImage(named: "NavigationBarBackground")! as UIImage
-        self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         
             // MARK: - getRecylcePoint
         //RecyclePointsManager.defaultManager.getRecylcePoint(withId: "1") { [unowned self] (recyclePoint) in

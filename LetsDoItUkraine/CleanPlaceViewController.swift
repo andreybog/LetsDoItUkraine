@@ -48,8 +48,6 @@ class CleanPlaceViewController: UIViewController {
         super.viewDidLoad()
         
             
-        let image = UIImage(named: "navBackground")! as UIImage
-        self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]

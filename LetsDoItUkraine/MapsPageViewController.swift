@@ -74,11 +74,13 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
     @IBAction func didTouchSegmentControl(_ sender: AnyObject) {
         if let segment = sender as? UISegmentedControl {
             if segment.selectedSegmentIndex == 0 {
-                    self.navigationItem.leftBarButtonItem?.isEnabled = true
-                    setViewControllers([orderedViewControllers.first!], direction: .reverse, animated: true, completion: nil)
+                self.navigationItem.leftBarButtonItem?.isEnabled = true
+                self.navigationItem.leftBarButtonItem?.image = UIImage(named: "Filter")
+                setViewControllers([orderedViewControllers.first!], direction: .reverse, animated: true, completion: nil)
             } else {
-                    self.navigationItem.leftBarButtonItem?.isEnabled = false
-                    setViewControllers([orderedViewControllers.last!], direction: .forward, animated: true, completion: nil)
+                self.navigationItem.leftBarButtonItem?.isEnabled = false
+                self.navigationItem.leftBarButtonItem?.image = nil
+                setViewControllers([orderedViewControllers.last!], direction: .forward, animated: true, completion: nil)
             }
         }
     }

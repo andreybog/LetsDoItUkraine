@@ -50,6 +50,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0)
         self.cleaningsCollectionView.isHidden = true
         setCurrentLocationOnMap()
     }
@@ -170,13 +171,14 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let index = indexPath.row
         let cleaning = presenter.cleaningsArray[index]
-        let coordinator = presenter.cleaningsCoordinators.first!.first!
+        if let coordinators = presenter.cleaningsCoordinators.first{
+            cell.coordinatorNameLabel.text = "Координатор: \(coordinators.first?.firstName ?? "") \(coordinators.first?.lastName ?? "")"
+        }
         let district = presenter.cleaningsDistricts[index]
         let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
         let url = presenter.streetViewImages[index]
         cell.districtLabel.text = district
         cell.participantsNumberLabel.text = "Пойдет: \(cleanersCount)"
-        cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"
         if url != nil {
             cell.image.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"))
         } else {
