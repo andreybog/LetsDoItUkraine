@@ -74,7 +74,6 @@ class CleaningsMapPresenter {
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
         self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
         self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
-        addCleaningsObservers()
     }
 
     
@@ -89,9 +88,9 @@ class CleaningsMapPresenter {
         self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
         if cleaningsArray.count > 0 {
             self.fillMemberDistrictArraysAndStreetViewUrl()
-        }
-        if delegate != nil {
-            delegate.didUpdateCleanings()
+            if delegate != nil {
+                delegate.didUpdateCleanings()
+            }
         }
     }
 
@@ -164,7 +163,7 @@ class CleaningsMapPresenter {
         task.resume()
     }
     
-    private func addCleaningsObservers() {
+    func addCleaningsObservers() {
         cleaningsManager.retainObserver()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateCleaningsWith),
@@ -172,7 +171,7 @@ class CleaningsMapPresenter {
                                                object: nil)
     }
     
-    private func removeCleaningsObservers() {
+    func removeCleaningsObservers() {
         cleaningsManager.releaseObserver()
         NotificationCenter.default.removeObserver(self, name: kCleaningsManagerCleaningModifyNotification, object: nil)
     }

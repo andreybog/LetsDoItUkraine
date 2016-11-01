@@ -36,7 +36,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
         
         presenter.delegate = self
-        presenter.loadCleanings()
         
         self.mapView.isMyLocationEnabled = true
         
@@ -51,9 +50,15 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.loadCleanings()
+        presenter.addCleaningsObservers()
         mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0)
         self.cleaningsCollectionView.isHidden = true
         self.setCurrentLocationOnMap()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        presenter.removeCleaningsObservers()
     }
     
     //MARK: - Methods
@@ -172,9 +177,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
         let index = indexPath.row
         let cleaning = presenter.cleaningsArray[index]
-        if let coordinators = presenter.cleaningsCoordinators.first{
-            cell.coordinatorNameLabel.text = "Координатор: \(coordinators.first?.firstName ?? "") \(coordinators.first?.lastName ?? "")"
-        }
+        let coordinators = presenter.cleaningsCoordinators[index]
+        cell.coordinatorNameLabel.text = "Координатор: \(coordinators.first?.firstName ?? "") \(coordinators.first?.lastName ?? "")"
         let district = presenter.cleaningsDistricts[index]
         let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
         let url = presenter.streetViewImages[index]
