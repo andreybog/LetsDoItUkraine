@@ -34,20 +34,20 @@ class AddNewsViewController: UIViewController, UIImagePickerControllerDelegate, 
         imagePicker.allowsEditing = true
         
         let alert = UIAlertController(title: "Please choose photo", message: nil, preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) {[unowned self] (action) in
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         
-        let libraryAction = UIAlertAction(title: "Library", style: .default) { (action) in
+        let libraryAction = UIAlertAction(title: "Library", style: .default) {[unowned self] (action) in
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { [weak weakSelf = self] (action) in
-            weakSelf?.newsImage.image = UIImage(named: "placeholder")
-            weakSelf?.isSelectedImage = false
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { [unowned self] (action) in
+            self.newsImage.image = UIImage(named: "placeholder")
+            self.isSelectedImage = false
         })
         
         if isSelectedImage {

@@ -35,9 +35,9 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
 //        }
         
         showLoadingState()
-        NewsManager.defaultManager.getNews(filter: .confirmed) { [weak weakSelf = self](news) in
-            weakSelf?.news = news
-            weakSelf?.showContent()
+        NewsManager.defaultManager.getNews(filter: .confirmed) { [unowned self](news) in
+            self.news = news
+            self.showContent()
         }
     }
     
@@ -136,7 +136,7 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         
         if let image = createNewsVC.newsImage.image, createNewsVC.isSelectedImage {
             if let uploadData = UIImagePNGRepresentation(image) {
-                storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
+                storageRef.put(uploadData, metadata: nil, completion: {[unowned self] (metadata, error) in
                     if error != nil {
                         self.showMessageToUser()
                         return
