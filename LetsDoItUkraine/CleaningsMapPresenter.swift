@@ -107,7 +107,7 @@ class CleaningsMapPresenter {
         let url = URL(string: "\(urlString)")
         let task = URLSession.shared.dataTask(with: url!) { (data, responce, error) in
             if error != nil{
-                print(error)
+                print(error!)
             }else {
                 do {
                     if data != nil{
@@ -145,7 +145,6 @@ class CleaningsMapPresenter {
     }
     
     private func addCleaningsObservers() {
-        cleaningsManager.retainObserver()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateCleaningsWith),
                                                name: kCleaningsManagerCleaningModifyNotification,
@@ -153,7 +152,6 @@ class CleaningsMapPresenter {
     }
     
     private func removeCleaningsObservers() {
-        cleaningsManager.releaseObserver()
         NotificationCenter.default.removeObserver(self, name: kCleaningsManagerCleaningModifyNotification, object: nil)
     }
     

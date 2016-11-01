@@ -9,14 +9,22 @@
 import Foundation
 import CoreLocation
 
+struct CleaningMetadata {
+    var ID: String!
+    var userRole: UserRole!
+    var startAt: Date!
+}
+
 struct Cleaning : CustomStringConvertible {
-    var ID: String
-    var address: String
+    var ID: String!
+    var address: String!
     var pictures: [URL]?
     var datetime: Date!
+    var createdAt: Date!
+    var startAt: Date!
     var summary: String?
     var isActive: Bool
-    var coordinate: CLLocationCoordinate2D
+    var coordinate: CLLocationCoordinate2D!
     var coordinatorsIds: [String]?
     var cleanersIds: [String]?
     
@@ -28,9 +36,12 @@ struct Cleaning : CustomStringConvertible {
     }
     
     init() {
-        ID = "[no id]"
-        coordinate = CLLocationCoordinate2D()
-        isActive = false
+        ID = ""
         address = "[no address]"
+        isActive = false
+        coordinate = CLLocationCoordinate2D()
+        datetime = Date(timeIntervalSince1970: 0)
+        createdAt = Date(timeIntervalSince1970: 0)
+        startAt = Date(timeIntervalSince1970: 0)
     }
 }
