@@ -127,23 +127,23 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func createNews(segue: UIStoryboardSegue) {
-        guard let addNewsVC = segue.source as? AddNewsViewController else { return }
+        guard let createNewsVC = segue.source as? AddNewsViewController else { return }
         
         let imageName = NSUUID().uuidString
         let storageRef = FIRStorage.storage().reference().child("News_images").child("\(imageName).png")
         
         var news = News()
         
-        if let image = addNewsVC.newsImage.image, image != UIImage(named: "placeholder") {
+        if let image = createNewsVC.newsImage.image, createNewsVC.isSelectedImage {
             if let uploadData = UIImagePNGRepresentation(image) {
                 storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
                     if error != nil {
                         self.showMessageToUser()
                         return
                     }
-                    guard let title = addNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
+                    guard let title = createNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
                     news.title = title
-                    news.body = addNewsVC.newsBodyLabel.text
+                    news.body = createNewsVC.newsBodyLabel.text
                     news.picture = metadata?.downloadURL()?.absoluteURL
                     let date = Date()
                     news.date = date
@@ -152,9 +152,9 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
                 })
             }
         } else {
-            guard let title = addNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
+            guard let title = createNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
             news.title = title
-            news.body = addNewsVC.newsBodyLabel.text
+            news.body = createNewsVC.newsBodyLabel.text
             let date = Date()
             news.date = date
             NewsManager.defaultManager.createNews(news)

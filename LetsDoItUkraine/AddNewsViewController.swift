@@ -19,13 +19,10 @@ class AddNewsViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var newsBodyLabel: UITextView!
     
+    var isSelectedImage = false 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        newsImage.kf.setImage(with: nil,
-                              placeholder: UIImage(named: "placeholder"),
-                              options: nil,
-                              progressBlock: nil,
-                              completionHandler: nil)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddNewsViewController.newsImageWasTapped))
         newsImage.addGestureRecognizer(tapGesture)
         newsImage.isUserInteractionEnabled = true
@@ -49,14 +46,11 @@ class AddNewsViewController: UIViewController, UIImagePickerControllerDelegate, 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { [weak weakSelf = self] (action) in
-            weakSelf?.newsImage.kf.setImage(with: nil,
-                                  placeholder: UIImage(named: "placeholder"),
-                                  options: nil,
-                                  progressBlock: nil,
-                                  completionHandler: nil)
+            weakSelf?.newsImage.image = UIImage(named: "placeholder")
+            weakSelf?.isSelectedImage = false
         })
         
-        if newsImage.image != UIImage(named: "placeholder") {
+        if isSelectedImage {
             alert.addAction(deleteAction)
         }
         alert.addAction(cameraAction)
@@ -87,8 +81,9 @@ class AddNewsViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard let selectedImage = selectedImageFromPicker else {return}
         newsImage.contentMode = .scaleAspectFill
         newsImage.image = selectedImage
+        isSelectedImage = true
         
-         dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
