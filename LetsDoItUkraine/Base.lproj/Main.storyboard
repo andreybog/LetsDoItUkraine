@@ -40,13 +40,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zft-48-YWj">
-                                                <rect key="frame" x="0.0" y="50" width="124" height="84"/>
+                                                <rect key="frame" x="0.0" y="50" width="124.33333333333333" height="84"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place3.png" translatesAutoresizingMaskIntoConstraints="NO" id="Apn-o7-ump">
-                                                <rect key="frame" x="251" y="50" width="124" height="84"/>
+                                                <rect key="frame" x="250.66666666666663" y="50" width="124.33333333333337" height="84"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place2.png" translatesAutoresizingMaskIntoConstraints="NO" id="NJz-6F-Gyn">
-                                                <rect key="frame" x="125" y="50" width="125" height="84"/>
+                                                <rect key="frame" x="125.33333333333334" y="50" width="124.33333333333334" height="84"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,7 +192,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Координатор" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfl-rY-Lwo">
-                                                <rect key="frame" x="20" y="27" width="98" height="13"/>
+                                                <rect key="frame" x="19.999999999999993" y="27" width="98.333333333333314" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13" id="8h7-jx-VLY"/>
                                                 </constraints>
@@ -201,7 +201,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Волонтер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCL-db-9Q9">
-                                                <rect key="frame" x="138" y="27" width="99" height="13"/>
+                                                <rect key="frame" x="138.33333333333334" y="27" width="98.333333333333314" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13" id="oAk-Ys-UWO"/>
                                                 </constraints>
@@ -210,7 +210,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Активность" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myJ-Xy-YOy">
-                                                <rect key="frame" x="257" y="27" width="98" height="13"/>
+                                                <rect key="frame" x="256.66666666666674" y="27" width="98.333333333333314" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13" id="VKO-D6-gfJ"/>
                                                 </constraints>
@@ -1602,7 +1602,7 @@
                                 <rect key="frame" x="0.0" y="691" width="414" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uuc-d8-CfA">
-                                        <rect key="frame" x="183" y="3" width="50" height="40"/>
+                                        <rect key="frame" x="182" y="3" width="50" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="F7f-CX-9oP"/>
                                             <constraint firstAttribute="height" constant="40" id="dBg-iE-e1Q"/>
@@ -2329,7 +2329,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HL1-Po-bAA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2369,7 +2369,7 @@
                     <tabBarItem key="tabBarItem" title="News" image="news_icon" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

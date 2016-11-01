@@ -44,10 +44,10 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        presenter.loadPoints()
         setCurrentLocationOnMap()
         mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0);
         self.recyclePointsCollectionView.isHidden = true
-        presenter.loadPoints()
     }
 
     override func didReceiveMemoryWarning() {

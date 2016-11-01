@@ -50,9 +50,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        presenter.loadCleanings()
         mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0)
         self.cleaningsCollectionView.isHidden = true
-        setCurrentLocationOnMap()
     }
     
     //MARK: - Methods

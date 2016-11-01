@@ -186,5 +186,4 @@ class CleaningsMapPresenter {
             handler(status)
         }
     }
-
 }

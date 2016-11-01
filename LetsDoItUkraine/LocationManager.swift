@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 
+
 class LocationManager : NSObject, CLLocationManagerDelegate {
     
     private let manager = CLLocationManager()

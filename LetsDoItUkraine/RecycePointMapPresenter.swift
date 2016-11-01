@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol RecyclePointMapPresentDelegate {
+protocol RecyclePointMapPresentDelegate{
     func didUpdateRecyclePoints()
     //    func fillRecyclePointShortDetails(point:PointView, index: Int)
 }
@@ -121,7 +121,6 @@ class RecyclePointMapPresenter {
             self.loadAllPoints()
         }
     }
-    
     
     func determineAutorizationStatus(handler: @escaping (_: String) -> Void) {
         self.locationManager.determineAutorizationStatus { (status) in
