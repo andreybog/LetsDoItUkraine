@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKShareKit
+import FirebaseStorage
 class NewsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
@@ -26,14 +27,18 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-
+        
+//        showLoadingState()
+//        NewsManager.defaultManager.getAllNews {[weak weakSelf = self] (news) in
+//            weakSelf?.news = news
+//            weakSelf?.showContent()
+//        }
         
         showLoadingState()
-        NewsManager.defaultManager.getAllNews {[weak weakSelf = self] (news) in
+        NewsManager.defaultManager.getNews(filter: .confirmed) { [weak weakSelf = self](news) in
             weakSelf?.news = news
             weakSelf?.showContent()
         }
-
     }
     
     
@@ -63,23 +68,49 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsTableViewCell
         let newsItem = news[indexPath.row]
-        cell.newsImage.kf.setImage(with: newsItem.url,
+        cell.newsImage.kf.setImage(with: newsItem.picture,
                                    placeholder: UIImage(named: "placeholder"),
                                    options: nil,
                                    progressBlock: nil,
                                    completionHandler: nil)
         cell.newsTitle.text = newsItem.title
         cell.newsBody.text = newsItem.body
-        
+        print(newsItem.picture)
         
         if let rowDate = newsItem.date {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
+            formatter.timeZone = TimeZone(abbreviation: "UTC + 2")
             cell.newsDate.text = formatter.string(from: rowDate)
         }
-        
+        cell.shareButton.tag = indexPath.row
+        cell.shareButton.addTarget(self, action: #selector(NewsListViewController.shareButtonWasTouched), for: .touchUpInside)
         return cell
         
+    }
+    
+    func shareButtonWasTouched(sender: UIButton) {
+        let newsItem = news[sender.tag]
+        
+        var activityItems = [Any]()
+        activityItems.append(newsItem.title)
+        
+        
+        if let url = newsItem.url {
+            activityItems.append(url)
+        }
+        if let newsBody = newsItem.body {
+            activityItems.append(newsBody)
+        }
+        if let picture = newsItem.picture {
+            activityItems.append(picture)
+        }
+
+        
+        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivityType.airDrop]
+        
+        present(activityVC, animated: true, completion: nil)
     }
     
     
@@ -97,15 +128,49 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func createNews(segue: UIStoryboardSegue) {
         guard let addNewsVC = segue.source as? AddNewsViewController else { return }
+        
+        let imageName = NSUUID().uuidString
+        let storageRef = FIRStorage.storage().reference().child("News_images").child("\(imageName).png")
+        
         var news = News()
-        guard let title = addNewsVC.newsTitleLabel.text else {return}
-        news.title = title
-        news.body = addNewsVC.newsBodyLabel.text
-        print(news.title, news.body)
+        
+        if let image = addNewsVC.newsImage.image, image != UIImage(named: "placeholder") {
+            if let uploadData = UIImagePNGRepresentation(image) {
+                storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
+                    if error != nil {
+                        self.showMessageToUser()
+                        return
+                    }
+                    guard let title = addNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
+                    news.title = title
+                    news.body = addNewsVC.newsBodyLabel.text
+                    news.picture = metadata?.downloadURL()?.absoluteURL
+                    let date = Date()
+                    news.date = date
+                    
+                    NewsManager.defaultManager.createNews(news)
+                })
+            }
+        } else {
+            guard let title = addNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
+            news.title = title
+            news.body = addNewsVC.newsBodyLabel.text
+            let date = Date()
+            news.date = date
+            NewsManager.defaultManager.createNews(news)
+        }
+        
     }
     
     @IBAction func cancelAddNewsViewController(segue: UIStoryboardSegue) {
         
+    }
+    
+    func showMessageToUser() {
+        let alert = UIAlertController(title:"Загрузка изображения" , message: "Не удалось загрузить изображение", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 
 }

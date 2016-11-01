@@ -17,6 +17,7 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var newsBody: UILabel!
     @IBOutlet weak var newsDate: UILabel!
     
+    @IBOutlet weak var shareButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
