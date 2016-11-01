@@ -2329,7 +2329,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="HL1-Po-bAA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2348,7 +2348,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Page View" image="Shape" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2369,7 +2369,7 @@
                     <tabBarItem key="tabBarItem" title="News" image="news_icon" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -95,14 +95,37 @@ class RecyclePointMapPresenter {
                 var pointCategory = ""
                 for (ind, category) in categories.enumerated(){
                     if ind == 0{
-                        pointCategory.append(category)
+                        pointCategory.append(self.convert(category: category))
                     } else{
-                        pointCategory.append(", \(category)")
+                        pointCategory.append(", \(self.convert(category: category))")
                     }
                 }
                 self.pointCategories[index] = pointCategory
             }
         }
+    }
+    
+    private func convert(category: String) -> String{
+        var convertedCategory = ""
+        switch category {
+        case "plastic":
+            convertedCategory = "Пластик"
+        case "paper":
+            convertedCategory = "Макулатура"
+        case "glass":
+            convertedCategory = "Стеклобой"
+        case "mercury":
+            convertedCategory = "Ртуть"
+        case "battery":
+            convertedCategory = "Батарейки"
+        case "oldStuff":
+            convertedCategory = "Старые вещи"
+        case "polyethylene":
+            convertedCategory = "Полиэтилен"
+        default:
+            convertedCategory = "Разное"
+        }
+        return convertedCategory
     }
     
     private func setStreetViewImageWith(coordinates: String, handler: @escaping (_: String) -> Void){

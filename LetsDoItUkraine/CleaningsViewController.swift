@@ -53,6 +53,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         presenter.loadCleanings()
         mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0)
         self.cleaningsCollectionView.isHidden = true
+        self.setCurrentLocationOnMap()
     }
     
     //MARK: - Methods
@@ -105,9 +106,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func setCurrentLocationOnMap(){
         if let myLocation = mapView.myLocation {
-            self.mapView.moveCamera(GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 15))
+            self.mapView.moveCamera(GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 11))
         }else {
-            self.mapView.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(50.425977, 30.534182), zoom: 12))
+            self.mapView.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(48.6997654,31.9802874), zoom: 4.3))
         }
     }
     
@@ -143,7 +144,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         for (index, cleaning) in presenter.cleaningsArray.enumerated() {
             if marker.snippet == cleaning.ID {
                 mapView.animate(toLocation: presenter.cleaningsArray[index].coordinate)
-                mapView.animate(toZoom: 15)
+                mapView.animate(toZoom: 14)
                 
                 self.cleaningsCollectionView.reloadData()
                 self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
@@ -223,6 +224,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         mapView.animate(toLocation: presenter.cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
-        mapView.animate(toZoom: 15)
+        mapView.animate(toZoom: 14)
     }
 }

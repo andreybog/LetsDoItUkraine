@@ -69,9 +69,9 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     func setCurrentLocationOnMap(){
         if let mylocation = mapView.myLocation{
-            self.mapView.moveCamera(GMSCameraUpdate.setTarget(mylocation.coordinate, zoom: 15))
+            self.mapView.moveCamera(GMSCameraUpdate.setTarget(mylocation.coordinate, zoom: 11))
         } else {
-            self.mapView.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(50.425977, 30.534182), zoom: 12.0))
+            self.mapView.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(48.6997654,31.9802874), zoom: 4.3))
         }
     }
     
@@ -110,7 +110,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         for (index, point) in presenter.pointsArray.enumerated() {
             if marker.snippet == point.ID {
                 mapView.animate(toLocation: presenter.pointsArray[index].coordinate)
-                mapView.animate(toZoom: 15)
+                mapView.animate(toZoom: 14)
                 
                 self.recyclePointsCollectionView.reloadData()
                 self.recyclePointsCollectionView.scrollToItem(at:IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
@@ -184,7 +184,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         mapView.animate(toLocation: presenter.pointsArray[self.recyclePointsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
-        mapView.animate(toZoom: 15)
+        mapView.animate(toZoom: 14)
     }
     
     //MARK: - Prepare For Segue 
