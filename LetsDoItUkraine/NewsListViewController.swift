@@ -11,11 +11,8 @@ import FBSDKShareKit
 import FirebaseStorage
 class NewsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     
     var news = [News]() {
         didSet {
@@ -75,7 +72,7 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
                                    completionHandler: nil)
         cell.newsTitle.text = newsItem.title
         cell.newsBody.text = newsItem.body
-        print(newsItem.picture)
+        print("\newsItem.picture")
         
         if let rowDate = newsItem.date {
             let formatter = DateFormatter()
@@ -95,7 +92,6 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         var activityItems = [Any]()
         activityItems.append(newsItem.title)
         
-        
         if let url = newsItem.url {
             activityItems.append(url)
         }
@@ -106,7 +102,6 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
             activityItems.append(picture)
         }
 
-        
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivityType.airDrop]
         
@@ -125,7 +120,7 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    
+    //Movo to NewsManager
     @IBAction func createNews(segue: UIStoryboardSegue) {
         guard let createNewsVC = segue.source as? AddNewsViewController else { return }
         
@@ -141,17 +136,18 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
                         self.showMessageToUser()
                         return
                     }
+                    //title should be checked before saving news
                     guard let title = createNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
                     news.title = title
                     news.body = createNewsVC.newsBodyLabel.text
                     news.picture = metadata?.downloadURL()?.absoluteURL
                     let date = Date()
                     news.date = date
-                    
                     NewsManager.defaultManager.createNews(news)
                 })
             }
         } else {
+            //Duplicated code: move to separate method
             guard let title = createNewsVC.newsTitleLabel.text, !title.isEmpty else { return }
             news.title = title
             news.body = createNewsVC.newsBodyLabel.text
@@ -161,7 +157,7 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
     }
-    
+    //?
     @IBAction func cancelAddNewsViewController(segue: UIStoryboardSegue) {
         
     }
