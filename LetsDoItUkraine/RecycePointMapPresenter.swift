@@ -7,10 +7,61 @@
 //
 
 import Foundation
+import CoreLocation
+
+protocol CollectionViewFillingProtocol {
+    var title: String! { get set }
+    var address: String! {get set}
+    var distance : String! {get set}
+    var workingHours : String! {get set}
+    var type : String! {get set}
+}
+
+extension RecyclePointMapCollectionViewCell : CollectionViewFillingProtocol{
+    var address : String! {
+        get{
+            return self.recyclePointAddressLabel.text
+        }
+        set{
+            self.recyclePointAddressLabel.text = newValue
+        }
+    }
+    var title: String! {
+        get{
+            return self.recyclePointTitleLabel.text
+        }
+        set {
+            self.recyclePointTitleLabel.text = newValue
+        }
+    }
+    var distance: String! {
+        get{
+            return self.recyclePointDistanceLabel.text
+        }
+        set{
+            self.recyclePointDistanceLabel.text = newValue
+        }
+    }
+    var workingHours: String! {
+        get{
+            return self.RecyclePointWorkingHoursLabel.text
+        }
+        set{
+            self.RecyclePointWorkingHoursLabel.text = newValue
+        }
+    }
+    var type: String! {
+        get{
+            return self.recycleTypeLabel.text
+        }
+        set{
+            self.recycleTypeLabel.text = newValue
+        }
+    }
+}
 
 protocol RecyclePointMapPresentDelegate{
     func didUpdateRecyclePoints()
-    //    func fillRecyclePointShortDetails(point:PointView, index: Int)
 }
 
 class RecyclePointMapPresenter {
@@ -19,11 +70,12 @@ class RecyclePointMapPresenter {
     var delegate : RecyclePointMapPresentDelegate!
     
     private let pointsManager = RecyclePointsManager.defaultManager
+    //Under Construction
     var pointsArray = [RecyclePoint]()
-    var pointsURL = [URL?]()
+    private var pointsURL = [URL?]()
     private var recyclePointCategories = Set<RecyclePointCategory>()
-    var pointCategories = [String]()
-    var pointDistances = [Double?]()
+    private var pointCategories = [String]()
+    private var pointDistances = [Double?]()
 
     init() {
         self.recyclePointCategories = FiltersModel.sharedModel.categories
@@ -33,6 +85,44 @@ class RecyclePointMapPresenter {
             self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
             self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
         }
+    }
+    
+    func pointsCount() -> Int{
+        return pointsArray.count
+    }
+    
+    func getPointBy(Index index: Int) -> RecyclePoint? {
+        return pointsArray[index]
+    }
+    
+    func fillRecyclePointShortDetailsIn(Cell cell: RecyclePointMapCollectionViewCell, byIndex index: Int){
+        cell.address = pointsArray[index].address
+        cell.distance = "\(String(describing: pointDistances[index] ?? 0)) КМ"
+        cell.title = pointsArray[index].title
+        cell.type = pointCategories[index]
+        cell.workingHours = pointsArray[index].schedule ?? ""
+    }
+    
+    func getPointsIdsAndCoordinates() -> [(String, CLLocationCoordinate2D)] {
+        var array = [(String,CLLocationCoordinate2D)]()
+        for point in pointsArray{
+            let tuple = (point.ID, point.coordinate)
+            array.append(tuple)
+        }
+        return array
+    }
+    
+    func getCoordinatesBy(ID number: String) -> (AnyObject?, Int?){
+        for (index,point) in pointsArray.enumerated(){
+            if point.ID == number{
+                return (point.coordinate as AnyObject?, index)
+            }
+        }
+        return (nil, nil)
+    }
+    
+    func getStreetImageURLViewForCellBy(Index index: Int) -> URL?{
+        return pointsURL[index]
     }
     
     private func loadAllPoints() {
@@ -92,40 +182,9 @@ class RecyclePointMapPresenter {
             self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
             for (index, point) in pointsArray.enumerated(){
                 let categories = point.categories
-                var pointCategory = ""
-                for (ind, category) in categories.enumerated(){
-                    if ind == 0{
-                        pointCategory.append(self.convert(category: category))
-                    } else{
-                        pointCategory.append(", \(self.convert(category: category))")
-                    }
-                }
-                self.pointCategories[index] = pointCategory
+                self.pointCategories[index] = categories.map { $0.literal }.joined(separator: ",")
             }
         }
-    }
-    
-    private func convert(category: String) -> String{
-        var convertedCategory = ""
-        switch category {
-        case "plastic":
-            convertedCategory = "Пластик"
-        case "paper":
-            convertedCategory = "Макулатура"
-        case "glass":
-            convertedCategory = "Стеклобой"
-        case "mercury":
-            convertedCategory = "Ртуть"
-        case "battery":
-            convertedCategory = "Батарейки"
-        case "oldStuff":
-            convertedCategory = "Старые вещи"
-        case "polyethylene":
-            convertedCategory = "Полиэтилен"
-        default:
-            convertedCategory = "Разное"
-        }
-        return convertedCategory
     }
     
     func loadPoints() {
@@ -141,5 +200,9 @@ class RecyclePointMapPresenter {
         self.locationManager.determineAutorizationStatus { (status) in
             handler(status)
         }
+    }
+    
+    deinit {
+        
     }
 }

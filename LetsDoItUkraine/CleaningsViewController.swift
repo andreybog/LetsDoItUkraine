@@ -79,7 +79,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     //MARK: - CleaningsMapPresentDelegate
     func didUpdateCleanings() {
-        mapManager.setMarkersWith(Array: presenter.cleaningsArray, onMap: mapView)
+        mapManager.setMarkersWith(Array: presenter.getCleaningsIdsAndCoordinates(), onMap: mapView)
         if !cleaningsCollectionView.isHidden {
             cleaningsCollectionView.reloadData()
         }
@@ -174,5 +174,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         mapView.animate(toLocation: presenter.cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
         mapView.animate(toZoom: 14)
+    }
+    
+    deinit {
+        
     }
 }

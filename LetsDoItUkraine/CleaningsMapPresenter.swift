@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 //protocol CleaningView {
 //    var district: String! { get set }
@@ -116,6 +117,15 @@ class CleaningsMapPresenter {
         }
     }
     
+    func getCleaningsIdsAndCoordinates() -> [(String, CLLocationCoordinate2D)] {
+        var array = [(String,CLLocationCoordinate2D)]()
+        for cleaning in cleaningsArray{
+            let tuple = (cleaning.ID, cleaning.coordinate)
+            array.append(tuple)
+        }
+        return array
+    }
+    
     func addCleaningsObservers() {
         cleaningsManager.retainObserver()
         NotificationCenter.default.addObserver(self,
@@ -134,7 +144,7 @@ class CleaningsMapPresenter {
     }
     
     func determineAutorizationStatus(handler: @escaping (_: String) -> Void) {
-        self.locationManager.determineAutorizationStatus { (status) in
+        LocationManager().determineAutorizationStatus { (status) in
             handler(status)
         }
     }

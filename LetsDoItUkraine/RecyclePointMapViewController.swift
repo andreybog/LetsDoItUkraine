@@ -23,6 +23,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         presenter.determineAutorizationStatus { (status) in
             switch status{
             case "Denied":
@@ -36,11 +37,12 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         mapManager.setup(map: mapView)
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
+        
+        presenter.loadPoints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        presenter.loadPoints()
         mapManager.setCurrentLocationOn(map: mapView)
         setCollectionViewVisible(isCollectionViewVisible: false)
     }
@@ -76,7 +78,8 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     //MARK: - RecyclePointMapPresentDelegate
     func didUpdateRecyclePoints(){
-        mapManager.setMarkersWith(Array: presenter.pointsArray, onMap: mapView)
+        //Under Construction
+        mapManager.setMarkersWith(Array: presenter.getPointsIdsAndCoordinates(), onMap: mapView)
         if !recyclePointsCollectionView.isHidden {
             recyclePointsCollectionView.reloadData()
         }
@@ -87,17 +90,12 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         setCollectionViewVisible(isCollectionViewVisible: true)
-        for (index, point) in presenter.pointsArray.enumerated() {
-            if marker.snippet == point.ID {
-                mapView.animate(toLocation: presenter.pointsArray[index].coordinate)
-                mapView.animate(toZoom: 14)
-                
-                self.recyclePointsCollectionView.reloadData()
-                self.recyclePointsCollectionView.scrollToItem(at:IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
-                
-                break
-            }
-        }
+        //Under Construction
+        let data = presenter.getCoordinatesBy(ID: marker.snippet!)
+        mapView.animate(toLocation: data.0 as! CLLocationCoordinate2D)
+        mapView.animate(toZoom: 14)
+        self.recyclePointsCollectionView.reloadData()
+        self.recyclePointsCollectionView.scrollToItem(at:IndexPath(row: data.1!, section: 0), at: .centeredHorizontally, animated: true)
         self.searchMarker.map = nil
         return true
     }
@@ -112,28 +110,17 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.pointsArray.count
+        return presenter.pointsCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recyclePointCell", for: indexPath) as! RecyclePointMapCollectionViewCell
-        cell.recyclePointTitleLabel.text = presenter.pointsArray[indexPath.row].title
-        cell.recycleTypeLabel.text = presenter.pointCategories[indexPath.row]
-        cell.recyclePointAddressLabel.text = presenter.pointsArray[indexPath.row].address
-        if presenter.pointsArray[indexPath.row].schedule != nil{
-            cell.RecyclePointWorkingHoursLabel.text = presenter.pointsArray[indexPath.row].schedule
-        }
-        let url = presenter.pointsURL[indexPath.row]
+        presenter.fillRecyclePointShortDetailsIn(Cell: cell, byIndex: indexPath.row)
+        let url = presenter.getStreetImageURLViewForCellBy(Index: indexPath.row)
         if url != nil{
             cell.streetViewImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"))
         } else {
             cell.streetViewImage.image = #imageLiteral(resourceName: "Placeholder")
-        }
-        let distance = presenter.pointDistances[indexPath.row]
-        if distance != nil{
-            cell.recyclePointDistanceLabel.text = "\(String(describing: distance!)) km"
-        } else {
-            cell.recyclePointDistanceLabel.text = ""
         }
         return cell
     }
@@ -161,7 +148,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        mapView.animate(toLocation: presenter.pointsArray[self.recyclePointsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
+        mapView.animate(toLocation: (presenter.getPointBy(Index: self.recyclePointsCollectionView.indexPathsForVisibleItems.first!.row)?.coordinate)!)
         mapView.animate(toZoom: 14)
     }
     
@@ -170,10 +157,14 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RecyclePointDetailsSegue", let cell = sender as?  RecyclePointMapCollectionViewCell{
             let index = self.recyclePointsCollectionView.indexPath(for: cell)!.row
-            let point = presenter.pointsArray[index]
+            let point = presenter.getPointBy(Index: index)!
             let recyclePointDetailsViewController = segue.destination as! RecyclePointViewController
             recyclePointDetailsViewController.recyclePoint = point
         }
+    }
+    
+    deinit {
+        
     }
     
 }

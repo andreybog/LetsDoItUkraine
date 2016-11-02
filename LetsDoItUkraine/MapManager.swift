@@ -56,13 +56,13 @@ class MapManager {
         }
     }
     
-    func setMarkersWith<T: MapMangerProtocol>(Array elements:[T], onMap map: GMSMapView) {
+    func setMarkersWith(Array elements: [(String, CLLocationCoordinate2D)], onMap map: GMSMapView) {
         map.clear()
         if elements.count != 0{
             for element in elements{
-                let marker = GMSMarker(position: element.elementCoordinate)
+                let marker = GMSMarker(position: element.1)
                 marker.icon = GMSMarker.markerImage(with: UIColor(colorLiteralRed: 0.168627450980392, green: 0.835294117647059, blue: 0.588235294117647, alpha: 1))
-                marker.snippet = element.elementID
+                marker.snippet = element.0
                 marker.appearAnimation = kGMSMarkerAnimationPop
                 marker.map = map
             }
