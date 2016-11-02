@@ -34,47 +34,23 @@ class RecyclePointViewController: UIViewController {
         let image = UIImage(named: "NavigationBarBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         
-            // MARK: - getRecylcePoint
-        //RecyclePointsManager.defaultManager.getRecylcePoint(withId: "1") { [unowned self] (recyclePoint) in
-            
-            self.recyclePointName.text = recyclePoint?.title
-        
-             guard let _ = recyclePoint?.phone else {
-                return self.recyclePointPhone.text = ""
-             }
-             self.recyclePointPhone.text = recyclePoint?.phone
-            
-             guard let _ = recyclePoint?.website else {
-                return self.recyclePointEmail.text = ""
-             }
-             self.recyclePointEmail.text = recyclePoint?.website
-            
-             guard let _ = recyclePoint?.schedule else {
-              return self.recyclePointSchedule.text = ""
-             }
-             self.recyclePointSchedule.text = recyclePoint?.schedule
-        
-             guard let _ = recyclePoint?.address else {
-               return self.recyclePointAddress.text = ""
-              }
-             self.recyclePointAddress.text = recyclePoint?.address
-        
-             guard let _ = recyclePoint?.summary else {
-               return self.recyclePointSummary.text = ""
-             }
-             self.recyclePointSummary.text = recyclePoint?.summary
+             self.recyclePointName.text = recyclePoint?.title ?? ""
+             self.recyclePointPhone.text = recyclePoint?.phone ?? ""
+             self.recyclePointEmail.text = recyclePoint?.website ?? ""
+             self.recyclePointSchedule.text = recyclePoint?.schedule ?? ""
+             self.recyclePointAddress.text = recyclePoint?.address ?? ""
+             self.recyclePointSummary.text = recyclePoint?.summary ?? ""
             
             if let _ = recyclePoint?.logo {
-              self.recyclePointLogo.kf.setImage(with: recyclePoint?.logo)
+              self.recyclePointLogo.kf.setImage(with: recyclePoint?.logo, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
             
             if let _ = recyclePoint?.picture {
-                self.recyclePointPicture.kf.setImage(with: recyclePoint?.picture)
+                self.recyclePointPicture.kf.setImage(with: recyclePoint?.picture, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
             //self.recyclePointData.text = recyclePoint?.
             //self.recyclePointCategories.text = recyclePoint?.categories
-            
-      //  }
+        
         
     }
 
