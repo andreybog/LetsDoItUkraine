@@ -207,8 +207,8 @@
 				06C20A521DA7AF34004E1B7E /* Data */,
 				55AD708C1DA1A67300FA1049 /* ViewControllers */,
 				55AD708D1DA1A68A00FA1049 /* Model */,
-				CE51C5761DA6DB25006397B3 /* SupportingFiles */,
 				552BF9021DA196D7008D5317 /* Main.storyboard */,
+				CE51C5761DA6DB25006397B3 /* SupportingFiles */,
 			);
 			path = LetsDoItUkraine;
 			sourceTree = "<group>";

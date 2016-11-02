@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+
 extension News : FirebaseInitable {
     init?(data: [String : Any]) {
         
@@ -23,6 +24,10 @@ extension News : FirebaseInitable {
             date = dateString.date()
         } else { date = nil }
         
+        if let isApproved = data["isConfirmed"] as? Bool {
+            isConfirmed = isApproved
+        } else { isConfirmed = nil }
+        
         if let urlString = data["url"] as? String {
             url = URL(string: urlString)
         } else { url = nil }
@@ -35,7 +40,7 @@ extension News : FirebaseInitable {
     var toJSON: [String : Any]  {
         var data = ["id"    : ID,
                     "title" : title]
-        
+        if let isApproved = isConfirmed { data["isConfirmed"] = isApproved.description }
         if let body = body { data["body"] = body }
         if let date = date { data["datetime"] = date.string() }
         if let url = url { data["url"] = url.absoluteString }
@@ -49,6 +54,11 @@ extension News : FirebaseInitable {
     }
     
     static var rootDatabasePath = "news"
+    
+}
+
+enum NewsFilter {
+    case confirmed, unconfirmed
 }
 
 class NewsManager {
@@ -61,6 +71,19 @@ class NewsManager {
     func getNews(withId newsId:String, handler: @escaping (_:News?) -> Void) {
         let refNews = dataManager.rootRef.child("\(News.rootDatabasePath)/\(newsId)")
         dataManager.getObject(fromReference: refNews, handler: handler)
+    }
+    
+    func getNews(filter: NewsFilter, handler: @escaping (_:[News]) -> Void) {
+        var refNews:FIRDatabaseQuery = dataManager.rootRef.child(News.rootDatabasePath)
+        
+        switch filter {
+        case .confirmed:
+            refNews = refNews.queryOrdered(byChild: "isConfirmed").queryEqual(toValue: true)
+        case .unconfirmed:
+            refNews = refNews.queryOrdered(byChild: "isConfirmed").queryEqual(toValue: false)
+        }
+        
+        dataManager.getObjects(fromReference: refNews, handler: handler)
     }
     
     func getAllNews(with handler: @escaping (_:[News]) -> Void) {
@@ -76,6 +99,13 @@ class NewsManager {
         var news = news
         
         news.ID = newsId
+        news.isConfirmed = false
         dataManager.createObject(news)
     }
+    
 }
+
+
+
+
+
