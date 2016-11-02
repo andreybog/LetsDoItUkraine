@@ -18,7 +18,6 @@ extension Date {
     }
 }
 
-
 class CleanPlaceViewController: UIViewController {
     
     
@@ -44,15 +43,15 @@ class CleanPlaceViewController: UIViewController {
     var phoneMember = [String]()
     var photoMember = [URL]()
     var idUser:[String] = [""]
-////   var members: [User]!
-
-
+    ////   var members: [User]!
+    
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-            
+        
         let image = UIImage(named: "navBackground")! as UIImage
         self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -61,13 +60,13 @@ class CleanPlaceViewController: UIViewController {
         
         // getCleaningMembers
         if let user = coordiantors.first {
-
-            self.cleaningPhone.text = user.phone ?? ""
-            self.cleaningEmail.text = user.email ?? ""
+            
+            self.cleaningPhone.text = user.phone ?? "Не укзаан"
+            self.cleaningEmail.text = user.email ?? "Не указан"
             self.cleaningNameCoordinator.text = user.firstName + " " + (user.lastName ?? "")
             
-            if let _ = user.photo {
-                self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!, placeholder: #imageLiteral(resourceName: "placeholder"))
+            if let photo = user.photo {
+                self.cleaningCoordinatorPhoto.kf.setImage(with: photo, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
         }
         
@@ -77,10 +76,11 @@ class CleanPlaceViewController: UIViewController {
             self.cleaningPlace.text = cleaning.address
             self.cleaningName.text = cleaning.address
             self.cleaningDescription.text = cleaning.summary ?? ""
-
+            
             
             if cleaning.pictures != nil {
-                for i in 0..<cleaning.pictures!.count {
+                let minValue = min(self.cleaningPlaces.count, cleaning.pictures!.count)
+                for i in 0..<minValue {
                     self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
                 }
             }
@@ -89,29 +89,22 @@ class CleanPlaceViewController: UIViewController {
             self.coordinators.text = String(cleaning.coordinatorsIds!.count)
             self.volunteers.text = String(cleaning.cleanersIds!.count)
             
-            for id in self.cleaning.cleanersIds! {
-               UsersManager.defaultManager.getUser(withId: id, handler: { (mem) in
-                
-                })
-           }
-            
-
-             if let _ = cleaning.datetime {
+            if let _ = cleaning.datetime {
                 self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
-             } else {
+            } else {
                 self.cleaningDate.text = ""
-             }
-
+            }
             
-                 } else {
+            
+        } else {
             self.numberOfMembers.text = "0"
             self.coordinators.text = "0"
             self.volunteers.text = "0"
         }
-
+        
         
     }
-
+    
     
     @IBAction func goToWebSite(_ sender: AnyObject) {
         
@@ -124,7 +117,7 @@ class CleanPlaceViewController: UIViewController {
     }
     
     @IBAction func shareDialog(_ sender: AnyObject) {
-         let objectsToShare = ["", UIActivityType.mail, UIActivityType.postToTwitter, UIActivityType.postToFacebook] as [Any]
+        let objectsToShare = ["", UIActivityType.mail, UIActivityType.postToTwitter, UIActivityType.postToFacebook] as [Any]
         let vc = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
         self.present(vc, animated: true, completion: nil)
         
@@ -132,75 +125,62 @@ class CleanPlaceViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-       
     }
     
     @IBAction func openListOfMembers(_ sender: AnyObject) {
-        ///temporary
+        //For test
+        self.performSegue(withIdentifier: "toListMembers", sender: self)
         
-        //UsersManager.defaultManager.getCurrentUser { (cUsers) in
-        //}
-        var curUser1 = User()
-        curUser1.ID = "i37"
-        curUser1.firstName = "Паша"
-        curUser1.lastName = "Коленвал"
-        curUser1.asCoordinatorIds = ["i08"]
-        ///
-        if (curUser1.asCoordinatorIds?.contains(self.cleaning.ID))! {
-             self.performSegue(withIdentifier: "toListMembers", sender: self)
-        } 
+        //Not for test
+        /*
+        UsersManager.defaultManager.getCurrentUser { (cUsers) in
+            if let user = cUsers, let coordinatorIds = user.asCoordinatorIds, coordinatorIds.contains(self.cleaning.ID) {
+                self.performSegue(withIdentifier: "toListMembers", sender: self)
+            }
+        }
+        */
 
     }
-   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        ///temporary
-        
-        //UsersManager.defaultManager.getCurrentUser { (cUsers) in
-        //}      
-        var curUser1 = User()
-        curUser1.ID = "i37"
-        curUser1.firstName = "Паша"
-        curUser1.lastName = "Коленвал"
-        curUser1.asCoordinatorIds = ["i08"]
-        ///
-        
+        //REMOVE
         if segue.identifier == "toListMembers" {
-          let listMembersVC = segue.destination as! ListOfMembers
-          firstNameMember = []
-          lastNameMember = []
-          phoneMember = []
-          photoMember = []
-          if let _ = self.cleaning {
-                   for idd in self.cleaning.cleanersIds! {
-                        UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
-                            if mem != nil {
-                                let firstN = mem?.firstName ?? ""
-                                let lastN = mem?.lastName ?? ""
-                                let phoneN = mem?.phone ?? ""
-                                
-                                self.idUser.append((mem?.ID)!)
-                                self.firstNameMember.append(firstN)
-                                self.phoneMember.append(phoneN)
-                                self.lastNameMember.append(lastN)
-                                self.photoMember.append((mem?.photo)! as URL)
-                            }
-                       })
-                    }
+            let listMembersVC = segue.destination as! ListOfMembers
+            firstNameMember = []
+            lastNameMember = []
+            phoneMember = []
+            photoMember = []
+            if let _ = self.cleaning {
+                for idd in self.cleaning.cleanersIds! {
+                    UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
+
+                        if mem != nil {
+                            let firstN = mem?.firstName ?? ""
+                            let lastN = mem?.lastName ?? ""
+                            let phoneN = mem?.phone ?? ""
+                            
+                            self.idUser.append((mem?.ID)!)
+                            self.firstNameMember.append(firstN)
+                            self.phoneMember.append(phoneN)
+                            self.lastNameMember.append(lastN)
+                            self.photoMember.append((mem?.photo)! as URL)
+                        }
+                    })
+                }
             }
-    
-          listMembersVC.firstNameMember = self.firstNameMember
-          listMembersVC.lastNameMember = self.lastNameMember
-          listMembersVC.phoneMember = self.phoneMember
-          listMembersVC.photoMember = self.photoMember
-          listMembersVC.idUser = self.idUser
-        }
             
+            listMembersVC.firstNameMember = self.firstNameMember
+            listMembersVC.lastNameMember = self.lastNameMember
+            listMembersVC.phoneMember = self.phoneMember
+            listMembersVC.photoMember = self.photoMember
+            listMembersVC.idUser = self.idUser
+        }
+        
     }
     
-
-     @IBAction func goToCleaning(_ sender: AnyObject) {
-
+    
+    @IBAction func goToCleaning(_ sender: AnyObject) {
+        
         //UsersManager.defaultManager.getCurrentUser { (cUsers) in
         //    print(cUsers)
         //}
@@ -213,27 +193,27 @@ class CleanPlaceViewController: UIViewController {
         curUser.asCleanerIds = ["i08"]
         // let curUser: User? = nil
         //
-
+        
         if curUser != nil {
             CleaningsManager.defaultManager.addMember(curUser, toCleaning: self.cleaning, as: .cleaner)
             self.goToCleaning.isEnabled = false
             self.goToCleaning.setTitleColor(UIColor.gray, for: UIControlState.normal)
         } else {
             print("need registration")
-             self.performSegue(withIdentifier: "authorizationMember", sender: self)
+            self.performSegue(withIdentifier: "authorizationMember", sender: self)
         }
+        
+    }
     
-    }
-
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

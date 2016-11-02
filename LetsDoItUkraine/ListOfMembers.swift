@@ -36,6 +36,7 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = self.tableViewMembers.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCellCleanMember
+        
         if lastNameMember.count > indexPath.row {
           cell.nameMember.text = firstNameMember[indexPath.row] + " " + lastNameMember[indexPath.row]
         } else {
