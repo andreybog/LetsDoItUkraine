@@ -60,6 +60,7 @@ class CleaningsMapPresenter {
     
     private let locationManager = LocationManager()
     var delegate : CleaningsMapPresentDelegate!
+    private let localityManager = LocalityManager()
     
     private let cleaningsManager = CleaningsManager.defaultManager
     private let usersManager = UsersManager.defaultManager
@@ -101,66 +102,18 @@ class CleaningsMapPresenter {
                     self.cleaningsCoordinators[index] = users
                 })
             }
-            searchForSublocalityWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)", handler: { (districtName) in
-                self.cleaningsDistricts[index] = districtName
+            localityManager.searchForSublocalityWith(coordinates: cleaning.coordinate, handler: { (localityName) in
+                self.cleaningsDistricts[index] = localityName
             })
-            setStreetViewImageWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)", handler: { (urlString) in
-                let url = URL(string: urlString)
-                if url != nil {
-                    self.streetViewImages[index] = url!
-                } else {
-                    self.streetViewImages[index] = nil
-                }
-            })
-        }
-    }
-    
-    private func setStreetViewImageWith(coordinates: String, handler: @escaping (_: String) -> Void){
-        let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
-        let size = "300x300"
-        let location = "\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
-        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
-        handler(urlString)
-    }
-
-    
-    private func searchForSublocalityWith(coordinates: String, handler: @escaping (_:String) -> Void){
-        
-        let urlString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&language=ru&key=\(kGoogleMapsGeocodingAPIKey)"
-        let url = URL(string: "\(urlString)")
-        let task = URLSession.shared.dataTask(with: url!) { (data, responce, error) in
-            if error != nil{
-                print(error!)
-            }else {
-                do {
-                    if data != nil{
-                        var districtName = ""
-                        let dic = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves) as! NSDictionary
-                        let dictionaryResults = dic["results"] as! [[String:AnyObject]]
-                        let addressComponents = dictionaryResults.first?["address_components"] as! [[String:AnyObject]]
-                        var isComponentTypeAvailable = false
-                        let arrayOfLocalities = ["sublocality", "locality", "administrative_area_level_2", "administrative_area_level_1"]
-                        for locality in arrayOfLocalities {
-                            for component in addressComponents {
-                                let componentTypes = component["types"] as! [String]
-                                if componentTypes.contains(locality){
-                                    districtName = component["long_name"] as! String
-                                    isComponentTypeAvailable = true
-                                    break
-                                }
-                            }
-                            if isComponentTypeAvailable{
-                                break
-                            }
-                        }
-                        handler(districtName)
-                    }
-                } catch {
-                    print("Error")
-                }
+            let streetViewFormatter = StreetViewFormatter()
+            let urlString = streetViewFormatter.setStreetViewImageWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)")
+            let url = URL(string: urlString)
+            if url != nil {
+                self.streetViewImages[index] = url!
+            } else {
+                self.streetViewImages[index] = nil
             }
         }
-        task.resume()
     }
     
     func addCleaningsObservers() {

@@ -63,7 +63,7 @@ class SearchResultsController: UITableViewController {
         let url = URL(string: "\(urlString)")
         let task = URLSession.shared.dataTask(with: url!) { (data, responce, error) in
             if error != nil{
-                print(error)
+                print(error!)
             }else {
                 do {
                     if data != nil{

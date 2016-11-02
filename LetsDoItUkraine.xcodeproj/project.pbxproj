@@ -43,6 +43,9 @@
 		7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */; };
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
 		7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F362AFD1DB20D0A0066BBFA /* Constants.swift */; };
+		7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */; };
+		7F5BFEBE1DC9EDA500A5EEF5 /* LocalityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */; };
+		7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */; };
 		7FB90CC71DC7AFCE006B6D86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FB90CC61DC7AFCE006B6D86 /* Assets.xcassets */; };
 		7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */; };
 		7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */; };
@@ -106,6 +109,9 @@
 		7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsViewController.swift; sourceTree = "<group>"; };
 		7F362AFD1DB20D0A0066BBFA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewFormatter.swift; sourceTree = "<group>"; };
+		7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalityManager.swift; sourceTree = "<group>"; };
+		7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		7FB90CC61DC7AFCE006B6D86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsPageViewController.swift; sourceTree = "<group>"; };
 		7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycePointMapPresenter.swift; sourceTree = "<group>"; };
@@ -247,6 +253,9 @@
 				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
 				7FF46FA71DC1E364007F62E6 /* LocationManager.swift */,
 				55AD708E1DA1A6A700FA1049 /* VO */,
+				7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */,
+				7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */,
+				7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -457,6 +466,8 @@
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
 				7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */,
 				CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */,
+				7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */,
+				7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */,
 				7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */,
 				7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */,
 				7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */,
@@ -465,6 +476,7 @@
 				7FF46FAA1DC2223A007F62E6 /* CleaningsMapPresenter.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
 				0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */,
+				7F5BFEBE1DC9EDA500A5EEF5 /* LocalityManager.swift in Sources */,
 				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
 				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,

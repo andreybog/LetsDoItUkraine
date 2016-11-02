@@ -76,12 +76,12 @@ class RecyclePointMapPresenter {
             pointsURL = [URL?](repeatElement(nil, count: pointsArray.count))
             for (index,point) in pointsArray.enumerated(){
                 let coordinate = "\(point.coordinate.latitude), \(point.coordinate.longitude)"
-                setStreetViewImageWith(coordinates: coordinate, handler: { (urlString) in
-                    let url = URL(string: urlString)
-                    if url != nil{
-                        self.pointsURL[index] = url
-                    }
-                })
+                let streetViewFormatter = StreetViewFormatter()
+                let urlString = streetViewFormatter.setStreetViewImageWith(coordinates: coordinate)
+                let url = URL(string: urlString)
+                if url != nil{
+                    self.pointsURL[index] = url
+                }
             }
         }
     }
@@ -126,14 +126,6 @@ class RecyclePointMapPresenter {
             convertedCategory = "Разное"
         }
         return convertedCategory
-    }
-    
-    private func setStreetViewImageWith(coordinates: String, handler: @escaping (_: String) -> Void){
-        let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
-        let size = "300x300"
-        let location = "\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
-        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
-        handler(urlString)
     }
     
     func loadPoints() {

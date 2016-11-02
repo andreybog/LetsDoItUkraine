@@ -49,7 +49,7 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
             vc.locateOnMapWith(longtitude: lon, andLatitude: lat, andTitle: title)
         }else {
             let vc = orderedViewControllers.last as! CleaningsViewController
-            vc.locateWith(longtitude: lon, andLatitude: lat, andTitle: title)
+            vc.locateOnMapWith(longtitude: lon, andLatitude: lat, andTitle: title)
         }
     }
     
