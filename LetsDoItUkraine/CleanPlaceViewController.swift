@@ -21,8 +21,12 @@ extension Date {
 
 class CleanPlaceViewController: UIViewController {
     
+    
+    
     @IBOutlet weak var goToCleaning: UIButton!
     
+    @IBOutlet weak var volunteers: UILabel!
+    @IBOutlet weak var coordinators: UILabel!
     @IBOutlet var cleaningPlaces: [UIImageView]!
     @IBOutlet weak var cleaningCoordinatorPhoto: UIImageView!
     @IBOutlet weak var numberOfMembers: UILabel!
@@ -35,10 +39,11 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
     var coordiantors: [User]!
-    var firstNameMember:[String] = []
-    var lastNameMember:[String] = []
-    var phoneMember:[String] = []
+    var firstNameMember = [String]()
+    var lastNameMember = [String]()
+    var phoneMember = [String]()
     var photoMember = [URL]()
+    var idUser:[String] = [""]
 ////   var members: [User]!
 
 
@@ -62,7 +67,7 @@ class CleanPlaceViewController: UIViewController {
             self.cleaningNameCoordinator.text = user.firstName + " " + (user.lastName ?? "")
             
             if let _ = user.photo {
-                self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!)
+                self.cleaningCoordinatorPhoto.kf.setImage(with: (user.photo)!, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
         }
         
@@ -76,27 +81,32 @@ class CleanPlaceViewController: UIViewController {
             
             if cleaning.pictures != nil {
                 for i in 0..<cleaning.pictures!.count {
-                    self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i])
+                    self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
                 }
             }
             
             self.numberOfMembers.text = String(cleaning.cleanersIds!.count)
+            self.coordinators.text = String(cleaning.coordinatorsIds!.count)
+            self.volunteers.text = String(cleaning.cleanersIds!.count)
             
             for id in self.cleaning.cleanersIds! {
                UsersManager.defaultManager.getUser(withId: id, handler: { (mem) in
-                   print(mem?.firstName)
+                
                 })
            }
             
-            guard let _ = cleaning.datetime else {
-              self.cleaningDate.text = ""
-                return
-            }
-            self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+
+             if let _ = cleaning.datetime {
+                self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+             } else {
+                self.cleaningDate.text = ""
+             }
 
             
                  } else {
             self.numberOfMembers.text = "0"
+            self.coordinators.text = "0"
+            self.volunteers.text = "0"
         }
 
         
@@ -125,9 +135,43 @@ class CleanPlaceViewController: UIViewController {
        
     }
     
+    @IBAction func openListOfMembers(_ sender: AnyObject) {
+        ///temporary
+        
+        //UsersManager.defaultManager.getCurrentUser { (cUsers) in
+        //}
+        var curUser1 = User()
+        curUser1.ID = "i37"
+        curUser1.firstName = "Паша"
+        curUser1.lastName = "Коленвал"
+        curUser1.asCoordinatorIds = ["i08"]
+        ///
+        if (curUser1.asCoordinatorIds?.contains(self.cleaning.ID))! {
+             self.performSegue(withIdentifier: "toListMembers", sender: self)
+        } 
+
+    }
+   
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let listMembersVC = segue.destination as! ListOfMembers
-        if let _ = self.cleaning {
+        ///temporary
+        
+        //UsersManager.defaultManager.getCurrentUser { (cUsers) in
+        //}      
+        var curUser1 = User()
+        curUser1.ID = "i37"
+        curUser1.firstName = "Паша"
+        curUser1.lastName = "Коленвал"
+        curUser1.asCoordinatorIds = ["i08"]
+        ///
+        
+        if segue.identifier == "toListMembers" {
+          let listMembersVC = segue.destination as! ListOfMembers
+          firstNameMember = []
+          lastNameMember = []
+          phoneMember = []
+          photoMember = []
+          if let _ = self.cleaning {
                    for idd in self.cleaning.cleanersIds! {
                         UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
                             if mem != nil {
@@ -135,6 +179,7 @@ class CleanPlaceViewController: UIViewController {
                                 let lastN = mem?.lastName ?? ""
                                 let phoneN = mem?.phone ?? ""
                                 
+                                self.idUser.append((mem?.ID)!)
                                 self.firstNameMember.append(firstN)
                                 self.phoneMember.append(phoneN)
                                 self.lastNameMember.append(lastN)
@@ -142,20 +187,42 @@ class CleanPlaceViewController: UIViewController {
                             }
                        })
                     }
-          }
+            }
     
-        listMembersVC.firstNameMember = self.firstNameMember
-        listMembersVC.lastNameMember = self.lastNameMember
-        listMembersVC.phoneMember = self.phoneMember
-        listMembersVC.photoMember = self.photoMember
-        
+          listMembersVC.firstNameMember = self.firstNameMember
+          listMembersVC.lastNameMember = self.lastNameMember
+          listMembersVC.phoneMember = self.phoneMember
+          listMembersVC.photoMember = self.photoMember
+          listMembersVC.idUser = self.idUser
+        }
+            
     }
     
 
      @IBAction func goToCleaning(_ sender: AnyObject) {
 
-        //CleaningsManager.defaultManager.addMember(<#T##user: User##User#>, toCleaning: self.cleaning, as: .cleaner)
-        self.goToCleaning.isEnabled = false
+        //UsersManager.defaultManager.getCurrentUser { (cUsers) in
+        //    print(cUsers)
+        //}
+        
+        // no need
+        var curUser = User()
+        curUser.ID = "i25"
+        curUser.firstName = "Анна"
+        curUser.lastName = "Фугас"
+        curUser.asCleanerIds = ["i08"]
+        // let curUser: User? = nil
+        //
+
+        if curUser != nil {
+            CleaningsManager.defaultManager.addMember(curUser, toCleaning: self.cleaning, as: .cleaner)
+            self.goToCleaning.isEnabled = false
+            self.goToCleaning.setTitleColor(UIColor.gray, for: UIControlState.normal)
+        } else {
+            print("need registration")
+             self.performSegue(withIdentifier: "authorizationMember", sender: self)
+        }
+    
     }
 
 

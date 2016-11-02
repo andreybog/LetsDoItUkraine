@@ -17,6 +17,7 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
     var lastNameMember:[String] = [""]
     var phoneMember:[String] = [""]
     var photoMember = [URL]()
+    var idUser:[String] = [""]
     
     
     override func viewDidLoad() {
@@ -35,12 +36,20 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = self.tableViewMembers.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCellCleanMember
-        if firstNameMember.count > 0 {
+        if lastNameMember.count > indexPath.row {
           cell.nameMember.text = firstNameMember[indexPath.row] + " " + lastNameMember[indexPath.row]
-          cell.phoneMember.text = phoneMember[indexPath.row]
-          cell.photoMember.kf.setImage(with: photoMember[indexPath.row])
-            
+        } else {
+          cell.nameMember.text = firstNameMember[indexPath.row]
         }
+        
+        if phoneMember.count > indexPath.row {
+          cell.phoneMember.text = phoneMember[indexPath.row]
+        }
+        
+        if photoMember.count > indexPath.row {
+          cell.photoMember.kf.setImage(with: photoMember[indexPath.row], placeholder: #imageLiteral(resourceName: "placeholder"))
+        }
+        
         return cell
         
     }
