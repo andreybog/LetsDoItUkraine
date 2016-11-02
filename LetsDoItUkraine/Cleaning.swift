@@ -16,15 +16,15 @@ struct CleaningMetadata {
 }
 
 struct Cleaning : CustomStringConvertible {
-    var ID: String!
-    var address: String!
+    var ID: String
+    var address: String
     var pictures: [URL]?
     var datetime: Date!
     var createdAt: Date!
     var startAt: Date!
     var summary: String?
     var isActive: Bool
-    var coordinate: CLLocationCoordinate2D!
+    var coordinate: CLLocationCoordinate2D
     var coordinatorsIds: [String]?
     var cleanersIds: [String]?
     

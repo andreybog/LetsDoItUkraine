@@ -7,9 +7,13 @@
 //
 
 import Foundation
+import CoreLocation
 
 //protocol CleaningView {
 //    var district: String! { get set }
+//    var address: String! {get set}
+//    var coordinator : String! {get set}
+//    var participants : String! {get set}
 //}
 //
 //extension CleaningsMapCollectionViewCell: CleaningView {
@@ -22,10 +26,34 @@ import Foundation
 //            self.districtLabel.text = newValue
 //        }
 //    }
+//    var address: String! {
+//        get{
+//            return self.addressLabel.text ?? ""
+//        }
+//        set {
+//            self.districtLabel.text = newValue
+//        }
+//    }
+//    var coordinator : String! {
+//        get{
+//            return self.coordinatorNameLabel.text ?? ""
+//        }
+//        set {
+//            self.coordinatorNameLabel.text = newValue
+//        }
+//    }
+//    var participants : String! {
+//        get{
+//            return self.participantsNumberLabel.text ?? ""
+//        }
+//        set {
+//            self.participantsNumberLabel.text = newValue
+//        }
+//    }
 //}
 
 protocol CleaningsMapPresentDelegate {
-    func updateUI()
+    func didUpdateCleanings()
 //    func fillCleaningShortDetails(cleaning:CleaningView, index: Int)
 }
 
@@ -33,7 +61,7 @@ class CleaningsMapPresenter {
     
     private let locationManager = LocationManager()
     var delegate : CleaningsMapPresentDelegate!
-    var isObsereverOn : Bool
+    private let localityManager = LocalityManager()
     
     private let cleaningsManager = CleaningsManager.defaultManager
     private let usersManager = UsersManager.defaultManager
@@ -48,7 +76,6 @@ class CleaningsMapPresenter {
         self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
         self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
         self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
-        self.isObsereverOn = false
     }
     
     deinit {
@@ -62,15 +89,12 @@ class CleaningsMapPresenter {
         self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
         if cleaningsArray.count > 0 {
             self.fillMemberDistrictArraysAndStreetViewUrl()
+            if delegate != nil {
+                delegate.didUpdateCleanings()
+            }
         }
-        if !self.isObsereverOn {
-            addCleaningsObservers()
-            isObsereverOn = true
-        }
-        delegate.updateUI()
     }
-    
-    
+
     private func fillMemberDistrictArraysAndStreetViewUrl() {
         for (index, cleaning) in cleaningsArray.enumerated() {
             if cleaning.coordinatorsIds != nil {
@@ -78,80 +102,37 @@ class CleaningsMapPresenter {
                     self.cleaningsCoordinators[index] = users
                 })
             }
-            searchForSublocalityWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)", handler: { (districtName) in
-                self.cleaningsDistricts[index] = districtName
+            localityManager.searchForSublocalityWith(coordinates: cleaning.coordinate, handler: { (localityName) in
+                self.cleaningsDistricts[index] = localityName
             })
-            setStreetViewImageWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)", handler: { (urlString) in
-                let url = URL(string: urlString)
-                if url != nil {
-                    self.streetViewImages[index] = url!
-                } else {
-                    self.streetViewImages[index] = nil
-                }
-            })
-        }
-    }
-    
-    func setStreetViewImageWith(coordinates: String, handler: @escaping (_: String) -> Void){
-        let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
-        let size = "300x300"
-        let location = "\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
-        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
-        handler(urlString)
-    }
-
-    
-    private func searchForSublocalityWith(coordinates: String, handler: @escaping (_:String) -> Void){
-        
-        let urlString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&language=ru&key=\(kGoogleMapsGeocodingAPIKey)"
-        let url = URL(string: "\(urlString)")
-        let task = URLSession.shared.dataTask(with: url!) { (data, responce, error) in
-            if error != nil{
-                print(error!)
-            }else {
-                do {
-                    if data != nil{
-                        var districtName = ""
-                        let dic = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves) as! NSDictionary
-                        let dictionaryResults = dic["results"] as! [[String:AnyObject]]
-                        let addressComponents = dictionaryResults.first?["address_components"] as! [[String:AnyObject]]
-                        var isComponentTypeAvailable = false
-                        let arrayOfLocalities = ["sublocality", "locality", "administrative_area_level_2", "administrative_area_level_1"]
-                        for locality in arrayOfLocalities {
-                            for component in addressComponents {
-                                let componentTypes = component["types"] as! [String]
-                                if componentTypes.contains(locality){
-                                    districtName = component["long_name"] as! String
-                                    isComponentTypeAvailable = true
-                                    break
-                                }
-                            }
-                            if isComponentTypeAvailable{
-                                break
-                            }
-                        }
-                        
-                        
-                        
-                        handler(districtName)
-                    }
-                } catch {
-                    print("Error")
-                }
+            let streetViewFormatter = StreetViewFormatter()
+            let urlString = streetViewFormatter.setStreetViewImageWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)")
+            let url = URL(string: urlString)
+            if url != nil {
+                self.streetViewImages[index] = url!
+            } else {
+                self.streetViewImages[index] = nil
             }
         }
-        task.resume()
-        
     }
     
-    private func addCleaningsObservers() {
+    func getCleaningsIdsAndCoordinates() -> [(String, CLLocationCoordinate2D)] {
+        var array = [(String,CLLocationCoordinate2D)]()
+        for cleaning in cleaningsArray{
+            let tuple = (cleaning.ID, cleaning.coordinate)
+            array.append(tuple)
+        }
+        return array
+    }
+    
+    func addCleaningsObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateCleaningsWith),
                                                name: kCleaningsManagerCleaningModifyNotification,
                                                object: nil)
     }
     
-    private func removeCleaningsObservers() {
+    func removeCleaningsObservers() {
         NotificationCenter.default.removeObserver(self, name: kCleaningsManagerCleaningModifyNotification, object: nil)
     }
     
@@ -160,9 +141,8 @@ class CleaningsMapPresenter {
     }
     
     func determineAutorizationStatus(handler: @escaping (_: String) -> Void) {
-        self.locationManager.determineAutorizationStatus { (status) in
+        LocationManager().determineAutorizationStatus { (status) in
             handler(status)
         }
     }
-
 }

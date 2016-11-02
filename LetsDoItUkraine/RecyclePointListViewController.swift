@@ -45,7 +45,6 @@ class RecyclePointListViewController: UIViewController {
                 selectedCategories.insert(category)
             }
         }
-        
     }
     
 }

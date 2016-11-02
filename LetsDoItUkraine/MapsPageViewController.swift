@@ -49,7 +49,7 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
             vc.locateOnMapWith(longtitude: lon, andLatitude: lat, andTitle: title)
         }else {
             let vc = orderedViewControllers.last as! CleaningsViewController
-            vc.locateWith(longtitude: lon, andLatitude: lat, andTitle: title)
+            vc.locateOnMapWith(longtitude: lon, andLatitude: lat, andTitle: title)
         }
     }
     
@@ -74,15 +74,13 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
     @IBAction func didTouchSegmentControl(_ sender: AnyObject) {
         if let segment = sender as? UISegmentedControl {
             if segment.selectedSegmentIndex == 0 {
-                if let firstViewController = orderedViewControllers.first {
-                    self.navigationItem.leftBarButtonItem?.isEnabled = true
-                    setViewControllers([firstViewController], direction: .reverse, animated: true, completion: nil)
-                }
+                self.navigationItem.leftBarButtonItem?.isEnabled = true
+                self.navigationItem.leftBarButtonItem?.image = UIImage(named: "Filter")
+                setViewControllers([orderedViewControllers.first!], direction: .reverse, animated: true, completion: nil)
             } else {
-                if let secondViewController = orderedViewControllers.last {
-                    self.navigationItem.leftBarButtonItem?.isEnabled = false
-                    setViewControllers([secondViewController], direction: .forward, animated: true, completion: nil)
-                }
+                self.navigationItem.leftBarButtonItem?.isEnabled = false
+                self.navigationItem.leftBarButtonItem?.image = nil
+                setViewControllers([orderedViewControllers.last!], direction: .forward, animated: true, completion: nil)
             }
         }
     }
@@ -112,10 +110,6 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
         if let filterVC = vc as? RecyclePointListViewController {
             recyclePointCategories = Set(filterVC.selectedCategories)
             FiltersModel.sharedModel.categories = recyclePointCategories
-            
-            RecyclePointsManager.defaultManager.getSelectedRecyclePoints(categories: recyclePointCategories) { (recyclePoints) in
-                print(recyclePoints)
-            }
         }
     }
 

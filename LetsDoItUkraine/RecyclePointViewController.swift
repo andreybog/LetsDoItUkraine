@@ -30,9 +30,6 @@ class RecyclePointViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
-        let image = UIImage(named: "NavigationBarBackground")! as UIImage
-        self.navigationController?.navigationBar.setBackgroundImage(image , for: UIBarMetrics.default)
         
              self.recyclePointName.text = recyclePoint?.title ?? ""
              self.recyclePointPhone.text = recyclePoint?.phone ?? ""

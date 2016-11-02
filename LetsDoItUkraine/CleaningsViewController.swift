@@ -21,11 +21,11 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     //MARK: - Properties
     var searchMarker = GMSMarker()
     var presenter = CleaningsMapPresenter()
+    let mapManager = MapManager()
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter.determineAutorizationStatus { (status) in
             switch status{
             case "Denied":
@@ -34,62 +34,38 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                 print("Default")
             }
         }
-        
         presenter.delegate = self
-        presenter.loadCleanings()
-        
-        self.mapView.isMyLocationEnabled = true
-        setCurrentLocationOnMap()
-        
-        mapView.settings.compassButton = true
-        mapView.settings.myLocationButton = true
+        mapManager.setup(map: mapView)
         mapView.delegate = self
-        
-        let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: self.view.frame.width - 20.0, height: 100)
+        self.setUpCollectionViewCellWidth()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.cleaningsCollectionView.isHidden = true
-        setCurrentLocationOnMap()
+        presenter.loadCleanings()
+        presenter.addCleaningsObservers()
+        mapManager.setCurrentLocationOn(map: mapView)
+        self.setCollectionViewVisible(isCollectionViewVisible: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        presenter.removeCleaningsObservers()
     }
     
     //MARK: - Methods
-    private func setMarkers() {
-        mapView.clear()
-        for cleaning in presenter.cleaningsArray{
-            let marker = GMSMarker(position: cleaning.coordinate)
-            marker.icon = GMSMarker.markerImage(with: UIColor.green)
-            marker.snippet = cleaning.ID
-            marker.map = mapView
-        }
+    private func setUpCollectionViewCellWidth(){
+        let layout = self.cleaningsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: self.view.frame.width - 20, height: 100)
     }
     
-    private func setStreetViewImageWith(coordinates: CLLocationCoordinate2D) -> UIImage?{
-        let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
-        let size = "300x300"
-        let location = "\(coordinates.latitude),%20\(coordinates.longitude)"
-        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
-        guard let url = URL(string: "\(urlString)") else {
-            print(urlString)
-            print("URL cannot be formed with the string")
-            return nil
-        }
-        let imageData : Data
-        do {
-            imageData = try Data(contentsOf: url)
-        } catch {
-            print("No Data by URL")
-            return nil
-        }
-        
-        if let image = UIImage(data: imageData) {
-            return image
-        } else {
-            print("No image while by url data")
-            return nil
-        }
+    private func setCollectionViewVisible(isCollectionViewVisible: Bool){
+        self.cleaningsCollectionView.isHidden = !isCollectionViewVisible
+        mapManager.setPudding(on: isCollectionViewVisible, onMapView: mapView)
+    }
+    
+    func locateOnMapWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String){
+        mapManager.locate(searchMarker: self.searchMarker,onMap: mapView, withLongtitude: lon, andLatitude: lat, andTitle: title)
     }
     
     private func showEnableLocationServicesAlert(){
@@ -98,61 +74,42 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         alert.addAction(UIAlertAction(title: "Открыть настройки", style: .default) { (action) in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
         })
-        
         present(alert, animated: true, completion: nil)
-        
-    }
-    
-    func setCurrentLocationOnMap(){
-        if let myLocation = mapView.myLocation {
-            self.mapView.moveCamera(GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 15))
-        }else {
-            self.mapView.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(50.425977, 30.534182), zoom: 12))
-        }
-    }
-    
-    func locateWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
-        DispatchQueue.main.async {
-            let position = CLLocationCoordinate2DMake(lat, lon)
-            self.searchMarker = GMSMarker(position: position)
-            let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 15)
-            self.mapView.camera = camera
-            self.searchMarker.title = title
-            self.searchMarker.map = self.mapView
-        }
     }
     
     //MARK: - CleaningsMapPresentDelegate
-    func updateUI() {
-        setMarkers()
+    func didUpdateCleanings() {
+        mapManager.setMarkersWith(Array: presenter.getCleaningsIdsAndCoordinates(), onMap: mapView)
         if !cleaningsCollectionView.isHidden {
             cleaningsCollectionView.reloadData()
         }
     }
     
+//    func fillCleaningShortDetails(cleaning:CleaningView, index: Int) {
+//        cleaning.address = presenter.cleaningsArray[index].address
+//        cleaning.coordinator = "Координатор: \(presenter.cleaningsCoordinators.first?.first?.firstName) \(presenter.cleaningsCoordinators.first?.first?.lastName ?? "")"
+//    }
+    
     //MARK: - GMSMapViewDelegate
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        mapView.padding = UIEdgeInsetsMake(0, 0, 110, 0)
-        
+        self.setCollectionViewVisible(isCollectionViewVisible: true)
         for (index, cleaning) in presenter.cleaningsArray.enumerated() {
             if marker.snippet == cleaning.ID {
                 mapView.animate(toLocation: presenter.cleaningsArray[index].coordinate)
-                mapView.animate(toZoom: 15)
+                mapView.animate(toZoom: 14)
                 
                 self.cleaningsCollectionView.reloadData()
                 self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
-                self.cleaningsCollectionView.isHidden = false
-                
                 break
             }
         }
+        self.searchMarker.map = nil
         return true
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0)
-        self.cleaningsCollectionView.isHidden = true
+        self.setCollectionViewVisible(isCollectionViewVisible: false)
         self.searchMarker.map = nil
     }
     
@@ -218,6 +175,10 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         mapView.animate(toLocation: presenter.cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
-        mapView.animate(toZoom: 15)
+        mapView.animate(toZoom: 14)
+    }
+    
+    deinit {
+        
     }
 }

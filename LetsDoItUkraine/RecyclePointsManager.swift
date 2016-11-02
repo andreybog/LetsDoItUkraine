@@ -73,7 +73,9 @@ extension RecyclePoint : FirebaseInitable {
             picture = nil
         }
         
-        categories = Set(data["categories"] as! [String])
+        categories = Set<RecyclePointCategory>((data["categories"] as! [String]).map {
+            return RecyclePointCategory(rawValue: $0)!
+        })
     }
     
     var toJSON : [String : Any] {
@@ -97,20 +99,8 @@ extension RecyclePoint : FirebaseInitable {
     var ref:FIRDatabaseReference {
         return RecyclePointsManager.defaultManager.dataManager.rootRef.child("\(RecyclePoint.rootDatabasePath)/\(ID)")
     }
-    
+   
     static var rootDatabasePath = "recyclePoints"
-}
-
-enum RecyclePointCategory: String {
-    case Plastic = "plastic"
-    case WastePaper = "paper"
-    case Glass = "glass"
-    case Mercury = "mercury"
-    case Battery = "battery"
-    case OldThings = "oldStuff"
-    case Polythene = "polyethylene"
-    case Different = "other"
-    case All = "all"
 }
 
 class RecyclePointsManager {
@@ -130,7 +120,7 @@ class RecyclePointsManager {
     let refPoints = dataManager.rootRef.child(RecyclePoint.rootDatabasePath)
     dataManager.getObjects(fromReference: refPoints, handler: handler)
   }
-  
+    
   func getRecylceCategory(withId categoryId:String, handler: @escaping (_:RecycleCategory?) -> Void) {
     let refCategory = dataManager.rootRef.child("\(RecycleCategory.rootDatabasePath)/\(categoryId)")
     dataManager.getObject(fromReference: refCategory, handler: handler)
@@ -143,8 +133,7 @@ class RecyclePointsManager {
 
     func getSelectedRecyclePoints(categories: Set<RecyclePointCategory>, handler: @escaping (_: [RecyclePoint]) -> Void) {
         getAllRecyclePoints { (points) in
-            let categoryValues = Set(categories.map({c in c.rawValue}))
-            let filteredPoints = points.filter({point in !categoryValues.intersection(point.categories).isEmpty })
+            let filteredPoints = points.filter({point in !categories.intersection(point.categories).isEmpty })
             handler(filteredPoints)
         }
     }
