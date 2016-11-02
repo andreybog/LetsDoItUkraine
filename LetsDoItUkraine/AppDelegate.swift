@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    UINavigationBar.appearance().setBackgroundImage(#imageLiteral(resourceName: "navbar"), for: .default)
+    let image = #imageLiteral(resourceName: "navbar").stretchableImage(withLeftCapWidth: 0, topCapHeight: 0)
+    UINavigationBar.appearance().setBackgroundImage(image, for: .default)
     
     
     FIRApp.configure()
