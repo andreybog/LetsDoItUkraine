@@ -6,19 +6,13 @@
          contextName = "CleanPlaceViewController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "members1?.firstName">
+               value = "curUser1.asCoordinatorIds?.contains(self.cleaning.ID)">
             </PersistentString>
             <PersistentString
-               value = "self.nameMember">
+               value = "firstNameMember">
             </PersistentString>
             <PersistentString
-               value = "self.cleaning.cleanersIds">
-            </PersistentString>
-            <PersistentString
-               value = "self.firstNameMember">
-            </PersistentString>
-            <PersistentString
-               value = "self.phoneMember">
+               value = "segue.identifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -37,31 +31,16 @@
          contextName = "CleanPlaceViewController.viewDidLoad() -&gt; ():CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "user.photo">
-            </PersistentString>
-            <PersistentString
-               value = "self.cleaning.cleanersIds">
-            </PersistentString>
-            <PersistentString
                value = "clean">
-            </PersistentString>
-            <PersistentString
-               value = "datetime">
             </PersistentString>
             <PersistentString
                value = "CleaningsManager.defaultManager">
             </PersistentString>
             <PersistentString
-               value = "cleaning.datetime!">
+               value = "self.cleaningPhone.text">
             </PersistentString>
             <PersistentString
-               value = "imageOrganizator.height">
-            </PersistentString>
-            <PersistentString
-               value = "cleaning.address">
-            </PersistentString>
-            <PersistentString
-               value = "cleaning.pictures?[i]">
+               value = "user.phone">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -74,10 +53,36 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CleanPlaceViewController.(prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ()).(closure #1):CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "firstNameMember">
+            </PersistentString>
+            <PersistentString
+               value = "mem.ID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ListOfMembers.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ListOfMembers.swift">
          <PersistentStrings>
             <PersistentString
-               value = "photoMember[indexPath.row]">
+               value = "phoneMember[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "photoMember.count">
+            </PersistentString>
+            <PersistentString
+               value = "firstNameMember.count">
+            </PersistentString>
+            <PersistentString
+               value = "firstNameMember[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+            <PersistentString
+               value = "lastNameMember.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -85,10 +90,10 @@
          contextName = "UsersManager.getUser(withId : String, handler : (User?) -&gt; ()) -&gt; ():UsersManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "user">
+               value = "userId">
             </PersistentString>
             <PersistentString
-               value = "userId">
+               value = "user">
             </PersistentString>
             <PersistentString
                value = "allUsers[userId]">
@@ -96,16 +101,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CleanPlaceViewController.(goToCleaning(AnyObject) -&gt; ()).(closure #1):CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cUsers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #1):CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "NSURL(string:&quot;http://m.io.ua/img_aa/medium/0644/08/06440810.jpg&quot;)">
+               value = "resource">
             </PersistentString>
             <PersistentString
                value = "NSData(contentsOf: item)">
             </PersistentString>
             <PersistentString
-               value = "cleaning?.datetime as! String?">
+               value = "NSURL(string:&quot;http://m.io.ua/img_aa/medium/0644/08/06440810.jpg&quot;)">
             </PersistentString>
             <PersistentString
                value = "cleaning?.pictures?[0]">
@@ -114,7 +127,7 @@
                value = "self.cleaningPlace.text">
             </PersistentString>
             <PersistentString
-               value = "resource">
+               value = "cleaning?.datetime as! String?">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

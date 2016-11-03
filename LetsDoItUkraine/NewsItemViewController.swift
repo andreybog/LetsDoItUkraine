@@ -36,10 +36,11 @@ class NewsItemViewController: UIViewController {
         if let rowDate = newsItem?.date {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
+            formatter.timeZone = TimeZone(abbreviation: "UTC + 2")
             NewsItemDate.text = formatter.string(from: rowDate)
         }
         
-        newsItemPhoto.kf.setImage(with: newsItem?.url,
+        newsItemPhoto.kf.setImage(with: newsItem?.picture,
                                   placeholder: UIImage(named: "placeholder"),
                                   options: nil,
                                   progressBlock: nil,

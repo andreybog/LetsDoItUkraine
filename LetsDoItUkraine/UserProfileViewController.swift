@@ -25,7 +25,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kCleaningPlaceSegue = "cleaningPlaceSegue"
     let kAddCleaningSegue = "addCleaningSegue"
     let kSearchCleaningSegue = "searchCleaningSegue"
-    let userID = "1"
+    let userID = "i01"
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -36,10 +36,9 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         self.cleaningsTableView.estimatedRowHeight = 44
         self.cleaningsTableView.rowHeight = UITableViewAutomaticDimension
         
-        UsersManager.defaultManager.getUser(withId: userID) { [unowned self] (user) in
+        UsersManager.defaultManager.getCurrentUser { [unowned self] (user) in
             if let currentUser = user {
                 self.user = currentUser
-                print(self.user.pastCleaningsIds)
                 self.updateUserInformation()
             } else {
                 let alertController = UIAlertController(title: "Unable to get user", message: "User is not found", preferredStyle: .alert)
@@ -48,8 +47,19 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
+//        UsersManager.defaultManager.getUser(withId: userID) { [unowned self] (user) in
+//            if let currentUser = user {
+//                self.user = currentUser
+//                self.updateUserInformation()
+//            } else {
+//                let alertController = UIAlertController(title: "Unable to get user", message: "User is not found", preferredStyle: .alert)
+//                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                alertController.addAction(okAction)
+//            }
+//        }
+//        
 }
-        
+    
     func updateUserInformation() {
         let lastName = self.user.lastName ?? ""
         let userCountry = self.user.country ?? ""

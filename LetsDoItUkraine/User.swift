@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum UserRole : Int {
+    case coordinator = 0
+    case cleaner     = 1
+}
 
 struct User : CustomStringConvertible {
     var ID: String
@@ -18,9 +22,7 @@ struct User : CustomStringConvertible {
     var photo: URL?
     var country: String?
     var city: String?
-    var asCleanerIds: [String]?
-    var asCoordinatorIds: [String]?
-    var pastCleaningsIds: [String]?
+    var cleaningsMetadata: [CleaningMetadata]?
   
   var description: String {
     let lastName = self.lastName ?? ""

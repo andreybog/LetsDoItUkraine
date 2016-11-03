@@ -42,7 +42,6 @@
 		55033E761DAD867600A04685 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E751DAD867600A04685 /* NewsManager.swift */; };
 		552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FC1DA196D7008D5317 /* AppDelegate.swift */; };
 		552BF9041DA196D7008D5317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9021DA196D7008D5317 /* Main.storyboard */; };
-		552BF9061DA196D7008D5317 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9051DA196D7008D5317 /* Assets.xcassets */; };
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
 		552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9121DA19916008D5317 /* GoogleService-Info.plist */; };
 		55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BA1DA9238B00441EBE /* DataManager.swift */; };
@@ -50,6 +49,12 @@
 		7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */; };
 		7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */; };
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
+		7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F362AFD1DB20D0A0066BBFA /* Constants.swift */; };
+		7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */; };
+		7F5BFEBE1DC9EDA500A5EEF5 /* LocalityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */; };
+		7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */; };
+		7FB90CC71DC7AFCE006B6D86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FB90CC61DC7AFCE006B6D86 /* Assets.xcassets */; };
+		7FC2CA3D1DCA62E20017A095 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2CA3C1DCA62E20017A095 /* RecycleCategory.swift */; };
 		7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */; };
 		7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */; };
 		7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA71DC1E364007F62E6 /* LocationManager.swift */; };
@@ -61,7 +66,6 @@
 		CE425A291DBFE36900F9650A /* AddNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE425A281DBFE36900F9650A /* AddNewsViewController.swift */; };
 		CE51C57C1DA6DB4C006397B3 /* Cleaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5771DA6DB4C006397B3 /* Cleaning.swift */; };
 		CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5781DA6DB4C006397B3 /* News.swift */; };
-		CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */; };
 		CE51C57F1DA6DB4C006397B3 /* RecyclePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */; };
 		CE51C5801DA6DB4C006397B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51C57B1DA6DB4C006397B3 /* User.swift */; };
 		CE6EC3831DBDF56000449440 /* FiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EC3821DBDF56000449440 /* FiltersModel.swift */; };
@@ -110,7 +114,6 @@
 		552BF8F91DA196D7008D5317 /* LetsDoItUkraine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsDoItUkraine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		552BF8FC1DA196D7008D5317 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		552BF9031DA196D7008D5317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		552BF9051DA196D7008D5317 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		552BF9081DA196D7008D5317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		552BF90A1DA196D7008D5317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552BF9121DA19916008D5317 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -119,6 +122,12 @@
 		7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsViewController.swift; sourceTree = "<group>"; };
+		7F362AFD1DB20D0A0066BBFA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewFormatter.swift; sourceTree = "<group>"; };
+		7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalityManager.swift; sourceTree = "<group>"; };
+		7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		7FB90CC61DC7AFCE006B6D86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7FC2CA3C1DCA62E20017A095 /* RecycleCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleCategory.swift; sourceTree = "<group>"; };
 		7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsPageViewController.swift; sourceTree = "<group>"; };
 		7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycePointMapPresenter.swift; sourceTree = "<group>"; };
 		7FF46FA71DC1E364007F62E6 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -131,7 +140,6 @@
 		CE425A281DBFE36900F9650A /* AddNewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewsViewController.swift; sourceTree = "<group>"; };
 		CE51C5771DA6DB4C006397B3 /* Cleaning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cleaning.swift; sourceTree = "<group>"; };
 		CE51C5781DA6DB4C006397B3 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleCategory.swift; sourceTree = "<group>"; };
 		CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePoint.swift; sourceTree = "<group>"; };
 		CE51C57B1DA6DB4C006397B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE6EC3821DBDF56000449440 /* FiltersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersModel.swift; sourceTree = "<group>"; };
@@ -228,8 +236,8 @@
 				7FF46FA41DC1E18C007F62E6 /* Presenters */,
 				55AD708C1DA1A67300FA1049 /* ViewControllers */,
 				55AD708D1DA1A68A00FA1049 /* Model */,
-				CE51C5761DA6DB25006397B3 /* SupportingFiles */,
 				552BF9021DA196D7008D5317 /* Main.storyboard */,
+				CE51C5761DA6DB25006397B3 /* SupportingFiles */,
 			);
 			path = LetsDoItUkraine;
 			sourceTree = "<group>";
@@ -261,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				16803D261DBD529C00FB2C8F /* Extensions */,
+				7FC2CA3C1DCA62E20017A095 /* RecycleCategory.swift */,
 				55F658BE1DAAB61E00441EBE /* Protocols */,
 				55F658BA1DA9238B00441EBE /* DataManager.swift */,
 				55033E6F1DAD7FA000A04685 /* UsersManager.swift */,
@@ -271,6 +280,9 @@
 				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
 				7FF46FA71DC1E364007F62E6 /* LocationManager.swift */,
 				55AD708E1DA1A6A700FA1049 /* VO */,
+				7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */,
+				7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */,
+				7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -281,7 +293,6 @@
 				CE51C57B1DA6DB4C006397B3 /* User.swift */,
 				CE51C5771DA6DB4C006397B3 /* Cleaning.swift */,
 				CE51C5781DA6DB4C006397B3 /* News.swift */,
-				CE51C5791DA6DB4C006397B3 /* RecycleCategory.swift */,
 				CE51C57A1DA6DB4C006397B3 /* RecyclePoint.swift */,
 			);
 			name = VO;
@@ -329,9 +340,9 @@
 			children = (
 				166166FC1DBE9047006FED9A /* Constants.swift */,
 				552BF8FC1DA196D7008D5317 /* AppDelegate.swift */,
-				552BF9051DA196D7008D5317 /* Assets.xcassets */,
 				552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */,
 				552BF9121DA19916008D5317 /* GoogleService-Info.plist */,
+				7FB90CC61DC7AFCE006B6D86 /* Assets.xcassets */,
 				552BF90A1DA196D7008D5317 /* Info.plist */,
 			);
 			name = SupportingFiles;
@@ -372,7 +383,7 @@
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 5KX3Y2CU6T;
+						DevelopmentTeam = S6L573JZYJ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -402,6 +413,7 @@
 			files = (
 				06C20ACA1DAABC55004E1B7E /* cl_place3@2x.png in Resources */,
 				06C20AC61DAABC55004E1B7E /* cl_place2.png in Resources */,
+				7FB90CC71DC7AFCE006B6D86 /* Assets.xcassets in Resources */,
 				06C20ACB1DAABC55004E1B7E /* cl_place3@3x.png in Resources */,
 				06C20AC41DAABC55004E1B7E /* cl_place1@2x.png in Resources */,
 				06C20AC71DAABC55004E1B7E /* cl_place2@2x.png in Resources */,
@@ -411,7 +423,6 @@
 				552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */,
 				06C20ACD1DAABC55004E1B7E /* photo_example@2x.png in Resources */,
 				062469041DB4353E00D2BC3A /* logoRecyclePoint@2x.png in Resources */,
-				552BF9061DA196D7008D5317 /* Assets.xcassets in Resources */,
 				06C20ACE1DAABC55004E1B7E /* photo_example@3x.png in Resources */,
 				062468FE1DB4334400D2BC3A /* photo@2x.png in Resources */,
 				06C20AC51DAABC55004E1B7E /* cl_place1@3x.png in Resources */,
@@ -488,15 +499,18 @@
 				16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */,
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
 				7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */,
-				CE51C57E1DA6DB4C006397B3 /* RecycleCategory.swift in Sources */,
+				7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */,
+				7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */,
 				7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */,
 				7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */,
 				7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */,
 				552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */,
+				7FC2CA3D1DCA62E20017A095 /* RecycleCategory.swift in Sources */,
 				7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */,
 				7FF46FAA1DC2223A007F62E6 /* CleaningsMapPresenter.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
 				0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */,
+				7F5BFEBE1DC9EDA500A5EEF5 /* LocalityManager.swift in Sources */,
 				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
 				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
@@ -646,7 +660,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5KX3Y2CU6T;
+				DEVELOPMENT_TEAM = S6L573JZYJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -654,7 +668,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.antonGutkin;
+				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -668,7 +682,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5KX3Y2CU6T;
+				DEVELOPMENT_TEAM = S6L573JZYJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -676,7 +690,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.antonGutkin;
+				PRODUCT_BUNDLE_IDENTIFIER = goiOS.LetsDoItUkraine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;

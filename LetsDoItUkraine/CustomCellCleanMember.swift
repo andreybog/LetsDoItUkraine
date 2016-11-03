@@ -10,8 +10,8 @@ import UIKit
 
 class CustomCellCleanMember: UITableViewCell {
 
+    @IBOutlet weak var phoneMember: UITextView!
     @IBOutlet weak var logoPhoneMember: UIImageView!
-    @IBOutlet weak var phoneMember: UILabel!
     @IBOutlet weak var nameMember: UILabel!
     @IBOutlet weak var photoMember: UIImageView!
     override func awakeFromNib() {
