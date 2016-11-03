@@ -34,6 +34,7 @@
 		16803D281DBD52FD00FB2C8F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16803D271DBD52FD00FB2C8F /* DateExtension.swift */; };
 		16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D501DA440AB004EABD6 /* UserProfileViewController.swift */; };
 		16852D941DAAEB86004EABD6 /* NoCleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */; };
+		168BC3931DC6AB0300BF8345 /* CreateCleaningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */; };
 		16D7D8A81DAD7A9E0034528E /* CleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */; };
 		55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E6F1DAD7FA000A04685 /* UsersManager.swift */; };
 		55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E711DAD82BB00A04685 /* CleaningsManager.swift */; };
@@ -100,6 +101,7 @@
 		16803D271DBD52FD00FB2C8F /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateExtension.swift; path = Extensions/DateExtension.swift; sourceTree = "<group>"; };
 		16852D501DA440AB004EABD6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoCleaningCell.swift; sourceTree = "<group>"; };
+		168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCleaningViewController.swift; sourceTree = "<group>"; };
 		16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningCell.swift; sourceTree = "<group>"; };
 		55033E6F1DAD7FA000A04685 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		55033E711DAD82BB00A04685 /* CleaningsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsManager.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
 				0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */,
 				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
+				168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 			);
 			name = ViewControllers;
@@ -364,7 +367,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = goit;
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
@@ -481,6 +484,7 @@
 				16D7D8A81DAD7A9E0034528E /* CleaningCell.swift in Sources */,
 				16803D281DBD52FD00FB2C8F /* DateExtension.swift in Sources */,
 				16852D941DAAEB86004EABD6 /* NoCleaningCell.swift in Sources */,
+				168BC3931DC6AB0300BF8345 /* CreateCleaningViewController.swift in Sources */,
 				16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */,
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
 				7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */,

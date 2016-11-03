@@ -22,7 +22,10 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kNoCleaningCellIdetefier = "noCleaningCell"
     let kCleaningCellIdentifier = "cleningCell"
     let kHistoryCleaningIdentifier = "HistoryCleaning"
-    let userID = "i02"
+    let kCleaningPlaceSegue = "cleaningPlaceSegue"
+    let kAddCleaningSegue = "addCleaningSegue"
+    let kSearchCleaningSegue = "searchCleaningSegue"
+    let userID = "1"
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -36,7 +39,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         UsersManager.defaultManager.getUser(withId: userID) { [unowned self] (user) in
             if let currentUser = user {
                 self.user = currentUser
-                self.updateUserInformationUI()
+                print(self.user.pastCleaningsIds)
+                self.updateUserInformation()
             } else {
                 let alertController = UIAlertController(title: "Unable to get user", message: "User is not found", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -44,49 +48,59 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
-        if let userCleaningsAsCleanerIDs = user.pastCleaningsIds {
-            CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsAsCleanerIDs, handler: { [unowned self] (cleanings) in
+}
+        
+    func updateUserInformation() {
+        let lastName = self.user.lastName ?? ""
+        let userCountry = self.user.country ?? ""
+        let userCity = self.user.city ?? ""
+        let asVolunteerIDsCounter = self.user.asCleanerIds?.count ?? 0
+        let asCoordinatorIDsCounter = self.user.asCoordinatorIds?.count ?? 0
+        self.userNameTextLabel.text = self.user.firstName + " " + lastName
+        self.userLocationTextLabel.text = userCountry + " " + userCity
+        self.coordinatorCounterTextLabel.text = String(asCoordinatorIDsCounter)
+        self.volunteerCounterTextLabel.text = String(asVolunteerIDsCounter)
+        if let userPhoto = self.user.photo {
+            self.userPhotoImageView.kf.setImage(with: userPhoto)
+            self.userPhotoImageView.contentMode = UIViewContentMode.scaleAspectFit
+        } else {
+            self.userPhotoImageView.image = #imageLiteral(resourceName: "placeholderUser")
+        }
+        if asVolunteerIDsCounter > 0 {
+            CleaningsManager.defaultManager.getCleanings(withIds: user.asCleanerIds!, handler: { [unowned self] (cleanings) in
                 self.userCleaningsAsCleaner = cleanings
+                self.cleaningsTableView.reloadData()
+            })
+        } else if asCoordinatorIDsCounter > 0 {
+            CleaningsManager.defaultManager.getCleanings(withIds: user.asCoordinatorIds!, handler: { [unowned self] (cleaning) in
+                self.userCleaningsAsModerator = cleaning
                 self.cleaningsTableView.reloadData()
             })
         }
         
-        if let userCleaningsAsModeratorIDs = user.asCoordinatorIds {
-            CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsAsModeratorIDs, handler: { [unowned self] (cleanings) in
-                self.userCleaningsAsModerator = cleanings
-                self.cleaningsTableView.reloadData()
-                })
-        }
-        
-        if let userCleaningsPastIDs = user.pastCleaningsIds {
-            CleaningsManager.defaultManager.getCleanings(withIds: userCleaningsPastIDs, handler: { [unowned self] (cleanings) in
+        if let pastCleaningsIDs = user.pastCleaningsIds {
+            CleaningsManager.defaultManager.getCleanings(withIds: pastCleaningsIDs, handler: { [unowned self] (cleanings) in
                 self.userCleaningsPast = cleanings
                 self.cleaningsTableView.reloadData()
-                })
+            })
         }
     }
-        
-    func updateUserInformationUI() {
-        let lastName = self.user.lastName ?? ""
-        let userCountry = self.user.country ?? ""
-        let userCity = self.user.city ?? ""
-        self.userNameTextLabel.text = self.user.firstName + "" + lastName
-        self.userLocationTextLabel.text = userCountry + userCity
-    }
     
+
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: -UITableViewDelegate
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-        //let cleaning = userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row]
-        //performSegue(withIdentifier: "cleanPlaceSegue", sender: cleaning)
-        }
-    }
+//    // MARK: -UITableViewDelegate
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.section == 0 {
+//        let cleaning = userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row]
+//        performSegue(withIdentifier:kCleaningPlaceSegue, sender:cleaning)
+//        }
+//    }
     
 
     // MARK: -UITableViewDataSource
@@ -114,7 +128,13 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         if indexPath.section == 0 {
             if (!userCleaningsAsCleaner.isEmpty || !userCleaningsAsModerator.isEmpty) {
                 if let cell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as? CleaningCell {
-                    cell.configureWithCleaning(cleaning: userCleaningsAsCleaner.count > 0 ? userCleaningsAsCleaner[indexPath.row] : userCleaningsAsModerator[indexPath.row])
+                    var cleaning: Cleaning
+                    if !userCleaningsAsModerator.isEmpty {
+                        cleaning = userCleaningsAsModerator[indexPath.row]
+                    } else {
+                        cleaning = userCleaningsAsCleaner[indexPath.row]
+                    }
+                    cell.configureWithCleaning(cleaning:cleaning)
                     return cell
                 }
                 return UITableViewCell()
@@ -135,30 +155,38 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: -Segue
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        switch segue.identifier {
-//        case segue.identifier == "cleanPlaceSegue":
-//            let nextScene = segue.destination as? CleanPlaceViewController
-//        case segue.identifier == "addCleaning":
-//            let nextScene = segue.destination as? CleanPlaceViewController
-//        case segue.identifier == "searchCleaning":
-//            let nextScene = segue.destination as? CleaningsViewController
-//        default:
-//            break
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier! {
+        case kCleaningPlaceSegue:
+            let nextScene = segue.destination as? CleanPlaceViewController
+            if let indexPath = cleaningsTableView.indexPathForSelectedRow {
+                var cleaning: Cleaning
+                if !userCleaningsAsModerator.isEmpty {
+                    cleaning = userCleaningsAsModerator[indexPath.row]
+                } else {
+                    cleaning = userCleaningsAsCleaner[indexPath.row]
+                }
+                nextScene?.cleaning = cleaning
+            }
+        case kAddCleaningSegue:
+            _ = segue.destination as? CleaningsViewController
+        case kSearchCleaningSegue:
+            _ = segue.destination as? CleaningsViewController
+        default:
+            break
+        }
+    }
     
     
     // MARK: -Actions
 
     @IBAction func searchCleaningsButtonDidTapped(_ sender: AnyObject) {
-         print("search button tapped")
-        //performSegue(withIdentifier: "searchCleaning", sender: self)
+        performSegue(withIdentifier:kSearchCleaningSegue, sender: self)
     }
     
     @IBAction func addCleaningDidTapped(_ sender: AnyObject) {
         print("add button tapped")
-        //performSegue(withIdentifier: "addCleaning", sender: self)
+        performSegue(withIdentifier:kAddCleaningSegue, sender: self)
     }
 
     @IBAction func settingsButtonDidTapped(_ sender: AnyObject) {
