@@ -156,6 +156,10 @@ class CleaningsManager {
     private var timer:Timer?
     
     private init() {
+        if let pivotDate = dataManager.pivotDate {
+            activeCleaningsRef = dataManager.rootRef.child(Cleaning.rootDatabasePath).queryOrdered(byChild: "startAt").queryStarting(atValue: pivotDate.timeIntervalSince1970)
+            addObservers()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(self.pivotDateChangeHandler),
                                                name: kDataManagerPivotDateChangedNotification,
                                                object: nil)

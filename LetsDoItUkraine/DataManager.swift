@@ -54,6 +54,7 @@ class DataManager {
     }
     
     var pivotDateHandler:FIRDatabaseHandle?
+    var pivotDateAddHandler:FIRDatabaseHandle?
     
     lazy var rootRef:FIRDatabaseReference = {
         FIRDatabase.database().persistenceEnabled = true
@@ -88,7 +89,7 @@ class DataManager {
                 print("DATABASE ERROR: Can't get pivot date")
             }
         })
-        pivotDateHandler = pivotDateRef.parent?.observe(.childChanged, with: { [weak self] (snap) in
+        pivotDateHandler = pivotDateRef.observe(.value, with: { [weak self] (snap) in
             if let val = snap.value as? Double {
                 self?.pivotDate = Date(timeIntervalSince1970: val)
             } else {
