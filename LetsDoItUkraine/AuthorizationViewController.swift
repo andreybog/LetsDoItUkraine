@@ -98,7 +98,9 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
         showLoadingState()
         
         if error != nil || FBSDKAccessToken.current() == nil {
-            print(error)
+            if error != nil {
+                print(error!)
+            }
             self.showMessageToUser()
             showContent()
             return
@@ -107,7 +109,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         FIRAuth.auth()?.signIn(with: credential) {[unowned self] (user, error) in
             if error != nil {
-                print(error)
+                print(error!)
                 self.showMessageToUser()
                 self.showContent()
                 return
@@ -115,7 +117,6 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
             if let user = user {
                 self.fetchFacebookUserForID(ID: user.uid)
             }
-            
         }
     }
     
