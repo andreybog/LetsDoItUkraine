@@ -25,12 +25,6 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         
-//        showLoadingState()
-//        NewsManager.defaultManager.getAllNews {[weak weakSelf = self] (news) in
-//            weakSelf?.news = news
-//            weakSelf?.showContent()
-//        }
-        
         showLoadingState()
         NewsManager.defaultManager.getNews(filter: .confirmed) { [unowned self](news) in
             self.news = news

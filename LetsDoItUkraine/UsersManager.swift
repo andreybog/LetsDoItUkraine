@@ -148,6 +148,9 @@ class UsersManager {
   
   //MARK: - GET USERS
     
+    
+    
+    
     func getCurrentUser(handler: @escaping (_:User?)->Void) {
         
         guard let currentUser = FIRAuth.auth()?.currentUser else {
@@ -174,12 +177,17 @@ class UsersManager {
         handler(user)
     } as (_:User?) -> Void)
   }
-  
+
   func getAllUsers(handler: @escaping (_: [User]) -> Void) {
     let reference =  dataManager.rootRef.child(User.rootDatabasePath)
     dataManager.getObjects(fromReference: reference, handler: handler)
   }
-
+    
+    func auth(successHandler: @escaping (_ user: User) -> Void, failHandler: @escaping (_ error: Error) -> Void) {
+        if let user = currentUser {
+            successHandler(user)
+        }
+    }
     func getUsers(withIds ids: [String], handler: @escaping (_:[User]) -> Void) {
         var users = [User]()
         
