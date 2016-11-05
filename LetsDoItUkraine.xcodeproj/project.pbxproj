@@ -29,6 +29,13 @@
 		06C20ACC1DAABC55004E1B7E /* photo_example.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AC01DAABC55004E1B7E /* photo_example.png */; };
 		06C20ACD1DAABC55004E1B7E /* photo_example@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AC11DAABC55004E1B7E /* photo_example@2x.png */; };
 		06C20ACE1DAABC55004E1B7E /* photo_example@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06C20AC21DAABC55004E1B7E /* photo_example@3x.png */; };
+		1612CD0F1DB3987700877C4D /* HistoryCleningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */; };
+		166166FD1DBE9047006FED9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166166FC1DBE9047006FED9A /* Constants.swift */; };
+		16803D281DBD52FD00FB2C8F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16803D271DBD52FD00FB2C8F /* DateExtension.swift */; };
+		16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D501DA440AB004EABD6 /* UserProfileViewController.swift */; };
+		16852D941DAAEB86004EABD6 /* NoCleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */; };
+		168BC3931DC6AB0300BF8345 /* CreateCleaningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */; };
+		16D7D8A81DAD7A9E0034528E /* CleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */; };
 		55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E6F1DAD7FA000A04685 /* UsersManager.swift */; };
 		55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E711DAD82BB00A04685 /* CleaningsManager.swift */; };
 		55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E731DAD85E300A04685 /* RecyclePointsManager.swift */; };
@@ -43,7 +50,6 @@
 		7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */; };
 		7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */; };
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
-		7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F362AFD1DB20D0A0066BBFA /* Constants.swift */; };
 		7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */; };
 		7F5BFEBE1DC9EDA500A5EEF5 /* LocalityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */; };
 		7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */; };
@@ -94,6 +100,13 @@
 		06C20AC11DAABC55004E1B7E /* photo_example@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_example@2x.png"; sourceTree = "<group>"; };
 		06C20AC21DAABC55004E1B7E /* photo_example@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_example@3x.png"; sourceTree = "<group>"; };
 		144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.debug.xcconfig"; sourceTree = "<group>"; };
+		1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCleningCell.swift; sourceTree = "<group>"; };
+		166166FC1DBE9047006FED9A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		16803D271DBD52FD00FB2C8F /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateExtension.swift; path = Extensions/DateExtension.swift; sourceTree = "<group>"; };
+		16852D501DA440AB004EABD6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoCleaningCell.swift; sourceTree = "<group>"; };
+		168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCleaningViewController.swift; sourceTree = "<group>"; };
+		16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningCell.swift; sourceTree = "<group>"; };
 		55033E6F1DAD7FA000A04685 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		55033E711DAD82BB00A04685 /* CleaningsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsManager.swift; sourceTree = "<group>"; };
 		55033E731DAD85E300A04685 /* RecyclePointsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointsManager.swift; sourceTree = "<group>"; };
@@ -110,7 +123,6 @@
 		7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsViewController.swift; sourceTree = "<group>"; };
-		7F362AFD1DB20D0A0066BBFA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewFormatter.swift; sourceTree = "<group>"; };
 		7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalityManager.swift; sourceTree = "<group>"; };
 		7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
@@ -148,14 +160,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		06C20A521DA7AF34004E1B7E /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				06C20AB61DAABC42004E1B7E /* TemporaryImage */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		06C20AB61DAABC42004E1B7E /* TemporaryImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,7 +182,24 @@
 				06C20AC11DAABC55004E1B7E /* photo_example@2x.png */,
 				06C20AC21DAABC55004E1B7E /* photo_example@3x.png */,
 			);
-			path = TemporaryImage;
+			name = TemporaryImage;
+			path = Data/TemporaryImage;
+			sourceTree = "<group>";
+		};
+		16803D261DBD529C00FB2C8F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				16803D271DBD52FD00FB2C8F /* DateExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		16852D471DA43B7A004EABD6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				06C20AB61DAABC42004E1B7E /* TemporaryImage */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 		256BA0641F3F63FEA67EC2E1 /* Pods */ = {
@@ -211,8 +232,8 @@
 		552BF8FB1DA196D7008D5317 /* LetsDoItUkraine */ = {
 			isa = PBXGroup;
 			children = (
+				16852D471DA43B7A004EABD6 /* Data */,
 				7FF46FA41DC1E18C007F62E6 /* Presenters */,
-				06C20A521DA7AF34004E1B7E /* Data */,
 				55AD708C1DA1A67300FA1049 /* ViewControllers */,
 				55AD708D1DA1A68A00FA1049 /* Model */,
 				552BF9021DA196D7008D5317 /* Main.storyboard */,
@@ -224,6 +245,7 @@
 		55AD708C1DA1A67300FA1049 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				16852D501DA440AB004EABD6 /* UserProfileViewController.swift */,
 				7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */,
 				7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */,
 				7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */,
@@ -238,6 +260,7 @@
 				CEF58EDB1DCD1C900084FDD0 /* CompletionAuthViewController.swift */,
 				0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */,
 				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
+				168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 				55CA866A1DCDED030009A95B /* MainTabBarController.swift */,
 			);
@@ -247,6 +270,7 @@
 		55AD708D1DA1A68A00FA1049 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				16803D261DBD529C00FB2C8F /* Extensions */,
 				7FC2CA3C1DCA62E20017A095 /* RecycleCategory.swift */,
 				55F658BE1DAAB61E00441EBE /* Protocols */,
 				55F658BA1DA9238B00441EBE /* DataManager.swift */,
@@ -278,7 +302,10 @@
 		55AD708F1DA1A6C800FA1049 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */,
+				16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */,
 				7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */,
+				1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */,
 				7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */,
 				CE425A261DBFD0D200F9650A /* NewsTableViewCell.swift */,
 			);
@@ -312,12 +339,12 @@
 		CE51C5761DA6DB25006397B3 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				166166FC1DBE9047006FED9A /* Constants.swift */,
 				552BF8FC1DA196D7008D5317 /* AppDelegate.swift */,
 				552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */,
 				552BF9121DA19916008D5317 /* GoogleService-Info.plist */,
-				7FB90CC61DC7AFCE006B6D86 /* Assets.xcassets */,
 				552BF90A1DA196D7008D5317 /* Info.plist */,
-				7F362AFD1DB20D0A0066BBFA /* Constants.swift */,
+				7FB90CC61DC7AFCE006B6D86 /* Assets.xcassets */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -464,7 +491,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */,
+				166166FD1DBE9047006FED9A /* Constants.swift in Sources */,
+				16D7D8A81DAD7A9E0034528E /* CleaningCell.swift in Sources */,
+				16803D281DBD52FD00FB2C8F /* DateExtension.swift in Sources */,
+				16852D941DAAEB86004EABD6 /* NoCleaningCell.swift in Sources */,
+				168BC3931DC6AB0300BF8345 /* CreateCleaningViewController.swift in Sources */,
+				16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */,
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
 				7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */,
 				7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */,
@@ -498,6 +530,7 @@
 				CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */,
 				55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */,
 				55033E761DAD867600A04685 /* NewsManager.swift in Sources */,
+				1612CD0F1DB3987700877C4D /* HistoryCleningCell.swift in Sources */,
 				CE266C9C1DC10C0E00732D5B /* NewsItemViewController.swift in Sources */,
 				7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */,
 				062468F91DB4319F00D2BC3A /* RecyclePointViewController.swift in Sources */,

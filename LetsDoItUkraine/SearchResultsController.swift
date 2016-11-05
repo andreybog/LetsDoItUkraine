@@ -13,7 +13,7 @@ protocol SearchResultsDelegate {
     func pass(longtitude lon:Double, andLatitude lat: Double, andTitle title: String)
 }
 
-class SearchResultsController: UITableViewController {
+class SearchResultsController: UITableViewController, UISearchControllerDelegate {
 
     var searchResults : [String]!
     var delegate : SearchResultsDelegate!
@@ -73,7 +73,9 @@ class SearchResultsController: UITableViewController {
                         let location = resultsGeometry["location"] as! [String:AnyObject]
                         let lat = location["lat"] as! Double
                         let lon = location["lng"] as! Double
-                        self.delegate.pass(longtitude: lon, andLatitude: lat, andTitle: self.searchResults[indexPath.row])
+                        DispatchQueue.main.async {
+                            self.delegate.pass(longtitude: lon, andLatitude: lat, andTitle: self.searchResults[indexPath.row])
+                        }
                     }
                 } catch {
                     print("Error")
