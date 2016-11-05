@@ -130,16 +130,10 @@ let kCleaningsManagerCleaningModifyNotification = NSNotification.Name("kCleaning
 let kCleaningsManagerCleaningKey = "kCleaningsManagerCleaningKey"
 
 class CleaningsManager {
-
-    static private(set) var defaultManager: CleaningsManager = {
-        let manager = CleaningsManager()
-        print("Cleanings manager: \(manager)")
-        return manager
-    }()
     
-    var pivotDate:Date? {
-        return dataManager.pivotDate
-    }
+    static private(set) var defaultManager: CleaningsManager = {        
+        return CleaningsManager()
+    }()
     
     fileprivate var dataManager = DataManager.sharedManager
     
@@ -147,11 +141,12 @@ class CleaningsManager {
     private var pastCleanings = [String:Cleaning]()
     
     private var activeCleaningsRef: FIRDatabaseQuery? {
-
-        if pivotDate == nil {
-            return nil
+        willSet {
+            removeObservers()
         }
-        return dataManager.rootRef.child(Cleaning.rootDatabasePath).queryOrdered(byChild: "startAt").queryStarting(atValue: pivotDate!.timeIntervalSince1970)
+        didSet {
+            addObservers()
+        }
     }
     
     private var addHandler: FIRDatabaseHandle?
@@ -161,17 +156,16 @@ class CleaningsManager {
     private var timer:Timer?
     
     private init() {
-        addObservers()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pivotDateChangeHandler),
+                                               name: kDataManagerPivotDateChangedNotification,
+                                               object: nil)
     }
     
     deinit {
         removeObservers()
         NotificationCenter.default.removeObserver(self)
     }
-    
-    
-    
-   
+
     
     // MARK: - GET METHODS
     
@@ -187,7 +181,7 @@ class CleaningsManager {
         let reference = dataManager.rootRef.child("\(Cleaning.rootDatabasePath)/\(cleaningId)")
         dataManager.getObject(fromReference: reference, handler: { [unowned self] (cleaning) in
             if cleaning != nil {
-                if cleaning!.startAt > self.pivotDate! {
+                if cleaning!.startAt > self.dataManager.pivotDate! {
                     self.activeCleanings[cleaning!.ID] = cleaning!
                 } else {
                     self.pastCleanings[cleaning!.ID] = cleaning!
@@ -202,9 +196,9 @@ class CleaningsManager {
         
         switch filter {
         case .active:
-            refCleanings = refCleanings.queryOrdered(byChild: "startAt").queryStarting(atValue: pivotDate!.timeIntervalSince1970)
+            refCleanings = refCleanings.queryOrdered(byChild: "startAt").queryStarting(atValue: dataManager.pivotDate!.timeIntervalSince1970)
         case .past:
-            refCleanings = refCleanings.queryOrdered(byChild: "startAt").queryEnding(atValue: pivotDate!.timeIntervalSince1970)
+            refCleanings = refCleanings.queryOrdered(byChild: "startAt").queryEnding(atValue: dataManager.pivotDate!.timeIntervalSince1970)
         default:
             break
         }
@@ -215,17 +209,16 @@ class CleaningsManager {
     func getCleanings(withIds ids: [String], handler: @escaping (_:[Cleaning]) -> Void) {
         var cleanings = [Cleaning]()
         
-        var cleaningsCount = ids.count
+        let cleaningsCount = ids.count
         var currentCleaningsCount = 0
         
         for id in ids {
             getCleaning(withId: id, handler: { (cleaning) in
                 if cleaning != nil {
                     cleanings.append(cleaning!)
-                    currentCleaningsCount += 1
-                } else {
-                    cleaningsCount -= 1
                 }
+                
+                currentCleaningsCount += 1
                 if currentCleaningsCount == cleaningsCount {
                     handler(cleanings)
                 }
@@ -248,7 +241,6 @@ class CleaningsManager {
     func addMember(_ user:User, toCleaning cleaning: Cleaning, as memberType: UserRole) {
         updateMember(user, withCleaning: cleaning, as: memberType, add: true)
     }
-    
     
     func removeMember(_ user:User, fromCleaning cleaning: Cleaning, as memberType: UserRole) {
         updateMember(user, withCleaning: cleaning, as: memberType, add: false)
@@ -280,40 +272,14 @@ class CleaningsManager {
     // MARK: - OBSERVER METHODS
     
     private func addObservers() {
-        
-        if activeCleaningsRef == nil {
-            dataManager.setPivotDate(completion: { [unowned self] (date) in
-                if date == nil {
-                    return
-                }
-                self.addObservers()
-                
-                NotificationCenter.default.addObserver(self, selector: #selector(self.pivotDateChangeHandler),
-                                                       name: kDataManagerPivotDateChangedNotification,
-                                                       object: nil)
-                
-            })
+        guard let activeCleaningsReference = activeCleaningsRef else {
+            print("FUNC: addObserver: pivotDate == nil")
             return
         }
+
         print("CleaningsManager: add observers")
         
-        if UsersManager.defaultManager.currentUser == nil {
-            UsersManager.defaultManager.getCurrentUser(handler: { (user) in
-                if user != nil {
-                    print(user!)
-                }
-            })
-        }
-        if let cleanings = UsersManager.defaultManager.currentUserPastCleanings {
-            print("USER cleanings: \(cleanings)")
-        }
-        
-        
-//        let addHandler1 = dataManager.addObserver<Cleaning>(toReference: activeCleaningsRef!, onEvent: FIRDataEventType.childAdded, handler: { (cleaning) in
-//            
-//        })
-        
-        addHandler = activeCleaningsRef!.observe(.childAdded, with: { [unowned self] (snapshot) in
+        addHandler = activeCleaningsReference.observe(.childAdded, with: { [unowned self] (snapshot) in
             if let data = snapshot.value as? [String : Any], let cleaning = Cleaning(data: data) {
                 self.activeCleanings[cleaning.ID] = cleaning
                 
@@ -328,7 +294,7 @@ class CleaningsManager {
             }
         })
         
-        removeHandler = activeCleaningsRef!.observe(.childRemoved, with: { [unowned self] (snapshot) in
+        removeHandler = activeCleaningsReference.observe(.childRemoved, with: { [unowned self] (snapshot) in
             if let data = snapshot.value as? [String : Any], let cleaning = Cleaning(data: data) {
                 self.activeCleanings.removeValue(forKey: cleaning.ID)
                 
@@ -343,7 +309,7 @@ class CleaningsManager {
             }
         })
         
-        changeHandler = activeCleaningsRef!.observe(.childChanged, with: { [unowned self] (snapshot) in
+        changeHandler = activeCleaningsReference.observe(.childChanged, with: { [unowned self] (snapshot) in
             if let data = snapshot.value as? [String : Any], let cleaning = Cleaning(data: data) {
                 self.activeCleanings.updateValue(cleaning, forKey: cleaning.ID)
                 
@@ -357,8 +323,6 @@ class CleaningsManager {
                 self.postDelayedNotification(modifyNotification)
             }
         })
-        
-        
     }
     
     private func removeObservers() {
@@ -367,25 +331,22 @@ class CleaningsManager {
         if removeHandler != nil { activeCleaningsRef?.removeObserver(withHandle: removeHandler!) }
     }
 
+    private func updateObservers() {
+        removeObservers()
+        addObservers()
+    }
     
     // MARK: - NOTIFICATIONS
     
     private func postDelayedNotification(_ notification: Notification) {
         let timeInterval = 0.3
-        if let timer = self.timer {
-            timer.invalidate()
-        }
-        if #available(iOS 10.0, *) {
-            self.timer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false, block: { (timer) in
-                NotificationCenter.default.post(notification)
-            })
-        } else {
-            self.timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self,
+        
+        self.timer?.invalidate()
+        
+        self.timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self,
                                               selector: #selector(self.rawPostNotification),
                                               userInfo: notification,
                                               repeats: false)
-            
-        }
     }
     
     @objc private func rawPostNotification(_ timer:Timer) {
@@ -396,9 +357,9 @@ class CleaningsManager {
     
     @objc private func pivotDateChangeHandler(notification: Notification) {
         activeCleanings.removeAll()
-        removeObservers()
         let modifyNotification = Notification(name: kCleaningsManagerCleaningModifyNotification)
         self.postDelayedNotification(modifyNotification)
-        addObservers()
+
+        activeCleaningsRef = dataManager.rootRef.child(Cleaning.rootDatabasePath).queryOrdered(byChild: "startAt").queryStarting(atValue: dataManager.pivotDate!.timeIntervalSince1970)
     }
 }

@@ -37,7 +37,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             }
         }
         presenter.delegate = self
-        presenter.addCleaningsObservers()
+        presenter.loadCleanings()
         mapManager.setup(map: mapView)
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
@@ -49,10 +49,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         self.setCollectionViewVisible(isCollectionViewVisible: false)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        presenter.removeCleaningsObservers()
-    }
     
     //MARK: - Methods
     private func setUpCollectionViewCellWidth(){

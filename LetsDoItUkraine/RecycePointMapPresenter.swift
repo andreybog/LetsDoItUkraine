@@ -80,9 +80,9 @@ class RecyclePointMapPresenter {
         self.recyclePointCategories = FiltersModel.sharedModel.categories
         pointsManager.getAllRecyclePoints { (points) in
             self.pointsArray = points
-//            self.pointsURL = [URL?](repeatElement(nil, count: self.pointsArray.count))
-//            self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
-//            self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
+            self.pointsURL = [URL?](repeatElement(nil, count: self.pointsArray.count))
+            self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
+            self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
         }
     }
     
@@ -127,39 +127,35 @@ class RecyclePointMapPresenter {
     
     private func loadAllPoints() {
         pointsManager.getAllRecyclePoints { (recyclePoints) in
-            DispatchQueue.global().async {
-                self.pointsArray = recyclePoints
-                self.loadImageURLs()
-                self.loadRecyclePointCategories()
-                self.loadDistanceToPoints()
-                if self.delegate != nil{
-                    self.delegate.didUpdateRecyclePoints()
-                }
-            }
+            self.pointsArray = recyclePoints
+            self.loadImageURLs()
+            self.loadRecyclePointCategories()
+            self.loadDistanceToPoints()
+            self.delegate?.didUpdateRecyclePoints()
+            
         }
+
     }
     
     private func loadPointsWith(categories: Set<RecyclePointCategory>) {
         pointsManager.getSelectedRecyclePoints(categories: categories, handler:{ (points) in
-            DispatchQueue.global().async {
-                self.pointsArray = points
-                self.loadImageURLs()
-                self.loadRecyclePointCategories()
-                self.loadDistanceToPoints()
-                if self.delegate != nil{
-                    self.delegate.didUpdateRecyclePoints()
-                }
+            self.pointsArray = points
+            self.loadImageURLs()
+            self.loadRecyclePointCategories()
+            self.loadDistanceToPoints()
+            if self.delegate != nil{
+                self.delegate.didUpdateRecyclePoints()
             }
         })
     }
     
-    private func loadDistanceToPoints(){
-        if pointsArray.count != 0{
+    private func loadDistanceToPoints() {
+        if !pointsArray.isEmpty {
             pointDistances.removeAll()
             self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
-            for (index, point) in pointsArray.enumerated(){
+            for (index, point) in pointsArray.enumerated() {
                 let distance : Double?
-                if CLLocationManager().location != nil{
+                if CLLocationManager().location != nil {
                     let destination = CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)
                     distance = CLLocationManager().location!.distance(from: destination) / 1000
                 } else {
@@ -171,15 +167,15 @@ class RecyclePointMapPresenter {
     }
     
     private func loadImageURLs() {
-        if pointsArray.count != 0{
+        if !pointsArray.isEmpty {
             pointsURL.removeAll()
             pointsURL = [URL?](repeatElement(nil, count: pointsArray.count))
             for (index,point) in pointsArray.enumerated(){
                 let coordinate = "\(point.coordinate.latitude), \(point.coordinate.longitude)"
                 let streetViewFormatter = StreetViewFormatter()
                 let urlString = streetViewFormatter.setStreetViewImageWith(coordinates: coordinate)
-                let url = URL(string: urlString)
-                if url != nil{
+                
+                if let url = URL(string: urlString) {
                     self.pointsURL[index] = url
                 }
             }
@@ -187,10 +183,10 @@ class RecyclePointMapPresenter {
     }
     
     private func loadRecyclePointCategories() {
-        if pointsArray.count != 0{
+        if !pointsArray.isEmpty {
             pointCategories.removeAll()
             self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
-            for (index, point) in pointsArray.enumerated(){
+            for (index, point) in pointsArray.enumerated() {
                 let categories = point.categories
                 self.pointCategories[index] = categories.map { $0.literal }.joined(separator: ",")
             }

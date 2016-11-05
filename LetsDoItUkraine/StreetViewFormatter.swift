@@ -10,7 +10,7 @@ import Foundation
 
 class StreetViewFormatter{
     
-    func setStreetViewImageWith(coordinates: String) -> String{
+    func setStreetViewImageWith(coordinates: String) -> String {
         let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
         let size = "300x300"
         let location = "\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"

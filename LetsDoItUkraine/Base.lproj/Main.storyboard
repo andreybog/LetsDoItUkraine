@@ -40,13 +40,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zft-48-YWj">
-                                                <rect key="frame" x="0.0" y="50" width="125" height="84"/>
+                                                <rect key="frame" x="0.0" y="50" width="124.5" height="84"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place3.png" translatesAutoresizingMaskIntoConstraints="NO" id="Apn-o7-ump">
-                                                <rect key="frame" x="251" y="50" width="124" height="84"/>
+                                                <rect key="frame" x="250.5" y="50" width="124.5" height="84"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place2.png" translatesAutoresizingMaskIntoConstraints="NO" id="NJz-6F-Gyn">
-                                                <rect key="frame" x="126" y="50" width="124" height="84"/>
+                                                <rect key="frame" x="125.5" y="50" width="124" height="84"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -194,7 +194,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Координатор" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfl-rY-Lwo">
-                                                <rect key="frame" x="20" y="27" width="99" height="13"/>
+                                                <rect key="frame" x="20" y="27" width="98.5" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13" id="8h7-jx-VLY"/>
                                                 </constraints>
@@ -203,7 +203,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Волонтер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCL-db-9Q9">
-                                                <rect key="frame" x="139" y="27" width="98" height="13"/>
+                                                <rect key="frame" x="138.5" y="27" width="98" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13" id="oAk-Ys-UWO"/>
                                                 </constraints>
@@ -212,7 +212,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Активность" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myJ-Xy-YOy">
-                                                <rect key="frame" x="257" y="27" width="98" height="13"/>
+                                                <rect key="frame" x="256.5" y="27" width="98.5" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13" id="VKO-D6-gfJ"/>
                                                 </constraints>
@@ -1866,7 +1866,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Body" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAq-0P-aHs">
-                                                    <rect key="frame" x="20" y="266" width="335" height="140"/>
+                                                    <rect key="frame" x="20" y="266" width="335" height="139"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1875,7 +1875,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="228"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbk-tg-uI5">
-                                                    <rect key="frame" x="20" y="411" width="150" height="25"/>
+                                                    <rect key="frame" x="20" y="410" width="150" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="8wq-Z5-3tq"/>
                                                     </constraints>
@@ -1884,7 +1884,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0VA-Vr-Cn2">
-                                                    <rect key="frame" x="305" y="411" width="50" height="25"/>
+                                                    <rect key="frame" x="305" y="410" width="50" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="KBz-NA-aE7"/>
                                                         <constraint firstAttribute="height" constant="25" id="owG-pX-afp"/>
@@ -2148,10 +2148,10 @@
             </objects>
             <point key="canvasLocation" x="1288.8" y="2239.4302848575712"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="MainTabBarController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -2166,7 +2166,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2183" y="-203"/>
+            <point key="canvasLocation" x="1949" y="-218"/>
         </scene>
         <!--Completion Auth View Controller-->
         <scene sceneID="70y-t7-R1m">
@@ -2176,7 +2176,7 @@
                         <viewControllerLayoutGuide type="top" id="J6B-7d-jLK"/>
                         <viewControllerLayoutGuide type="bottom" id="0zJ-by-REu"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Zqp-ol-MDn">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="Zqp-ol-MDn">
                         <rect key="frame" x="0.0" y="64" width="375" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2401,7 +2401,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvI-Ym-905" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="HL1-Po-bAA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="HL1-Po-bAA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2420,7 +2420,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Page View" image="Shape" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2441,7 +2441,7 @@
                     <tabBarItem key="tabBarItem" title="News" image="news_icon" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

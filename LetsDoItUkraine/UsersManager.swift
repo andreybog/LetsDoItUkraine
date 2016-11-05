@@ -105,14 +105,12 @@ class UsersManager {
     private(set) var currentUser:User? {
         willSet {
             if newValue == nil {
-                print("CURRENT USER: Remove observers")
                 currentUserCleanings = nil
                 removeObservers()
             }
         }
         didSet {
             if oldValue == nil && currentUser != nil {
-                print("CURRENT USER: Add observers")
                 currentUserCleanings = [Cleaning]()
                 addObservers()
             }
@@ -122,21 +120,21 @@ class UsersManager {
     var currentUserCleanings: [Cleaning]?
     
     var currentUserAsCoordinator: [Cleaning]? {
-        guard let cleanings = currentUserCleanings, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+        guard let cleanings = currentUserCleanings, let pivotDate = dataManager.pivotDate else {
             return nil
         }
         return cleanings.filter { $0.startAt >= pivotDate && ($0.coordinatorsIds?.contains(currentUser!.ID) ?? false) }
     }
     
     var currentUserAsCleaner: [Cleaning]? {
-        guard let cleanings = currentUserCleanings, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+        guard let cleanings = currentUserCleanings, let pivotDate = dataManager.pivotDate else {
             return nil
         }
         return cleanings.filter { $0.startAt >= pivotDate && ($0.cleanersIds?.contains(currentUser!.ID) ?? false) }
     }
     
     var currentUserPastCleanings: [Cleaning]? {
-        guard let cleanings = currentUserCleanings, let pivotDate = UsersManager.defaultManager.dataManager.pivotDate else {
+        guard let cleanings = currentUserCleanings, let pivotDate = dataManager.pivotDate else {
             return nil
         }
         return cleanings.filter { $0.startAt < pivotDate }
@@ -148,59 +146,49 @@ class UsersManager {
   
   //MARK: - GET USERS
     
-    
-    
-    
     func getCurrentUser(handler: @escaping (_:User?)->Void) {
         
         guard let currentUser = FIRAuth.auth()?.currentUser else {
             return handler(nil)
         }
         
-        UsersManager.defaultManager.getUser(withId: currentUser.uid, handler: { [unowned self] (user) in
+        getUser(withId: currentUser.uid, handler: { [unowned self] (user) in
             self.currentUser = user
             handler(user)
         })
     }
   
-  func getUser(withId userId:String, handler: @escaping (_: User?) -> Void) {
-    if let user = allUsers[userId] {
-        handler(user)
-        return
-    }
-    
-    let reference =  dataManager.rootRef.child("\(User.rootDatabasePath)/\(userId)")
-    dataManager.getObject(fromReference: reference, handler: { [unowned self] (user) in
-        if user != nil {
-           self.allUsers[user!.ID] = user!
+    func getUser(withId userId:String, handler: @escaping (_: User?) -> Void) {
+        if let user = allUsers[userId] {
+            handler(user)
+            return
         }
-        handler(user)
-    } as (_:User?) -> Void)
-  }
+        
+        let reference =  dataManager.rootRef.child("\(User.rootDatabasePath)/\(userId)")
+        dataManager.getObject(fromReference: reference, handler: { [unowned self] (user) in
+            if user != nil {
+                self.allUsers[user!.ID] = user!
+            }
+            handler(user)
+            } as (_:User?) -> Void)
+    }
+  
+    func getAllUsers(handler: @escaping (_: [User]) -> Void) {
+        let reference =  dataManager.rootRef.child(User.rootDatabasePath)
+        dataManager.getObjects(fromReference: reference, handler: handler)
+    }
 
-  func getAllUsers(handler: @escaping (_: [User]) -> Void) {
-    let reference =  dataManager.rootRef.child(User.rootDatabasePath)
-    dataManager.getObjects(fromReference: reference, handler: handler)
-  }
-    
-    func auth(successHandler: @escaping (_ user: User) -> Void, failHandler: @escaping (_ error: Error) -> Void) {
-        if let user = currentUser {
-            successHandler(user)
-        }
-    }
     func getUsers(withIds ids: [String], handler: @escaping (_:[User]) -> Void) {
         var users = [User]()
         
-        var usersCount = ids.count
+        let usersCount = ids.count
         var currentUsersCount = 0
         for id in ids {
             getUser(withId: id, handler: { (user) in
                 if user != nil {
                     users.append(user!)
-                    currentUsersCount += 1
-                } else {
-                    usersCount -= 1
                 }
+                currentUsersCount += 1
                 if currentUsersCount == usersCount {
                     handler(users)
                 }

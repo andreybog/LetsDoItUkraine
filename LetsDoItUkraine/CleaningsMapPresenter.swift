@@ -79,28 +79,22 @@ class CleaningsMapPresenter {
     private var cleaningDistances = [Double?]()
     
     init() {
-        self.cleaningsArray = [Cleaning](cleaningsManager.activeCleanings.values)
-        self.cleaningsCoordinators = [[User]](repeatElement([], count: cleaningsArray.count))
-        self.cleaningsDistricts = [String](repeatElement("", count: cleaningsArray.count))
-        self.streetViewImages = [URL?](repeatElement(nil, count: cleaningsArray.count))
-        self.cleaningDistances = [Double?](repeatElement(nil, count: cleaningsArray.count))
+        addCleaningsObservers()
     }
     
     deinit {
         removeCleaningsObservers()
     }
     
-    private func loadCleanings() {
-        DispatchQueue.global().async {
-            self.cleaningsArray = [Cleaning](self.cleaningsManager.activeCleanings.values)
-            self.cleaningsCoordinators = [[User]](repeatElement([], count: self.cleaningsArray.count))
-            self.cleaningsDistricts = [String](repeatElement("", count: self.cleaningsArray.count))
-            self.streetViewImages = [URL?](repeatElement(nil, count: self.cleaningsArray.count))
-            self.fillMemberDistrictArraysAndStreetViewUrl()
-            if self.delegate != nil {
-                self.delegate.didUpdateCleanings()
-            }
-        }
+    func loadCleanings() {
+        self.cleaningsArray = [Cleaning](self.cleaningsManager.activeCleanings.values)
+        self.cleaningsCoordinators = [[User]](repeatElement([], count: self.cleaningsArray.count))
+        self.cleaningsDistricts = [String](repeatElement("", count: self.cleaningsArray.count))
+        self.streetViewImages = [URL?](repeatElement(nil, count: self.cleaningsArray.count))
+        self.fillMemberDistrictArraysAndStreetViewUrl()
+        self.loadDistanceToCleanings()
+        
+        self.delegate?.didUpdateCleanings()
     }
     
     func getCoordinatesBy(ID number: String) -> (CLLocationCoordinate2D?, Int?){
@@ -140,8 +134,8 @@ class CleaningsMapPresenter {
         return cleaningsCoordinators[index]
     }
 
-    private func loadDistanceToCleanings(){
-        if cleaningsArray.count != 0{
+    private func loadDistanceToCleanings() {
+        if cleaningsArray.count != 0 {
             self.cleaningDistances.removeAll()
             self.cleaningDistances = [Double?](repeatElement(nil, count: self.cleaningsArray.count))
             for (index, cleaning) in cleaningsArray.enumerated(){
@@ -200,6 +194,5 @@ class CleaningsMapPresenter {
     
     @objc func updateCleaningsWith(notification:Notification) {
         loadCleanings()
-        
     }
 }
