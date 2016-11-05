@@ -37,6 +37,7 @@
 		552BF9041DA196D7008D5317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9021DA196D7008D5317 /* Main.storyboard */; };
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
 		552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9121DA19916008D5317 /* GoogleService-Info.plist */; };
+		55CA866B1DCDED030009A95B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CA866A1DCDED030009A95B /* MainTabBarController.swift */; };
 		55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BA1DA9238B00441EBE /* DataManager.swift */; };
 		7F1EC6DE1DBFD26B00235EDA /* RecyclePointMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */; };
 		7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */; };
@@ -103,6 +104,7 @@
 		552BF9081DA196D7008D5317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		552BF90A1DA196D7008D5317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		552BF9121DA19916008D5317 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		55CA866A1DCDED030009A95B /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		55F658BA1DA9238B00441EBE /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapViewController.swift; sourceTree = "<group>"; };
 		7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */,
 				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
+				55CA866A1DCDED030009A95B /* MainTabBarController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */,
 				7FC2CA3D1DCA62E20017A095 /* RecycleCategory.swift in Sources */,
 				7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */,
+				55CA866B1DCDED030009A95B /* MainTabBarController.swift in Sources */,
 				7FF46FAA1DC2223A007F62E6 /* CleaningsMapPresenter.swift in Sources */,
 				CE51C57D1DA6DB4C006397B3 /* News.swift in Sources */,
 				0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */,

@@ -42,26 +42,35 @@ protocol FirebaseInitable {
 let kDataManagerPivotDateChangedNotification = Notification.Name("kDataManagerPivotDateChangedNotification")
 
 class DataManager {
-    static let sharedManager = DataManager()
+//    static let sharedManager = DataManager()
+    static private(set) var sharedManager: DataManager = {
+        return DataManager()
+    }()
     
     private(set)var pivotDate: Date? {
         didSet {
             NotificationCenter.default.post(Notification(name: kDataManagerPivotDateChangedNotification))
         }
     }
+    
     var pivotDateHandler:FIRDatabaseHandle?
     
     lazy var rootRef:FIRDatabaseReference = {
-        //    FIRDatabase.database().persistenceEnabled = true
-        
+        FIRDatabase.database().persistenceEnabled = true
         let ref = FIRDatabase.database().reference()
         
         return ref
     }()
   
+    init () {
+        setPivotDate { date in }
+    }
+    
     deinit {
         if pivotDateHandler != nil { rootRef.child("date/pivotDate").removeObserver(withHandle: pivotDateHandler!) }
     }
+    
+    // MARK: - Pivot date configuration
     
     func setPivotDate(completion: @escaping (_:Date?)->Void) {
         if pivotDate != nil {

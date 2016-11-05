@@ -104,50 +104,50 @@ extension RecyclePoint : FirebaseInitable {
 }
 
 class RecyclePointsManager {
-  
-  static let defaultManager = RecyclePointsManager()
-  fileprivate var dataManager = DataManager.sharedManager
     
-  
-  // MARK: - GET METHODS
-  
-  func getRecylcePoint(withId pointId:String, handler: @escaping (_:RecyclePoint?) -> Void) {
-    let refPoint = dataManager.rootRef.child("\(RecyclePoint.rootDatabasePath)/\(pointId)")
-    dataManager.getObject(fromReference: refPoint, handler: handler)
-  }
-  
-  func getAllRecyclePoints(with handler: @escaping (_:[RecyclePoint]) -> Void) {
-    let refPoints = dataManager.rootRef.child(RecyclePoint.rootDatabasePath)
-    dataManager.getObjects(fromReference: refPoints, handler: handler)
-  }
+    static let defaultManager = RecyclePointsManager()
+    fileprivate var dataManager = DataManager.sharedManager
     
-  func getRecylceCategory(withId categoryId:String, handler: @escaping (_:RecycleCategory?) -> Void) {
-    let refCategory = dataManager.rootRef.child("\(RecycleCategory.rootDatabasePath)/\(categoryId)")
-    dataManager.getObject(fromReference: refCategory, handler: handler)
-  }
-  
-  func getAllRecycleCategories(with handler: @escaping (_:[RecycleCategory]) -> Void) {
-    let refCategories = dataManager.rootRef.child(RecycleCategory.rootDatabasePath)
-    dataManager.getObjects(fromReference: refCategories, handler: handler)
-  }
-
+    
+    // MARK: - GET METHODS
+    
+    func getRecylcePoint(withId pointId:String, handler: @escaping (_:RecyclePoint?) -> Void) {
+        let refPoint = dataManager.rootRef.child("\(RecyclePoint.rootDatabasePath)/\(pointId)")
+        dataManager.getObject(fromReference: refPoint, handler: handler)
+    }
+    
+    func getAllRecyclePoints(with handler: @escaping (_:[RecyclePoint]) -> Void) {
+        let refPoints = dataManager.rootRef.child(RecyclePoint.rootDatabasePath)
+        dataManager.getObjects(fromReference: refPoints, handler: handler)
+    }
+    
+    func getRecylceCategory(withId categoryId:String, handler: @escaping (_:RecycleCategory?) -> Void) {
+        let refCategory = dataManager.rootRef.child("\(RecycleCategory.rootDatabasePath)/\(categoryId)")
+        dataManager.getObject(fromReference: refCategory, handler: handler)
+    }
+    
+    func getAllRecycleCategories(with handler: @escaping (_:[RecycleCategory]) -> Void) {
+        let refCategories = dataManager.rootRef.child(RecycleCategory.rootDatabasePath)
+        dataManager.getObjects(fromReference: refCategories, handler: handler)
+    }
+    
     func getSelectedRecyclePoints(categories: Set<RecyclePointCategory>, handler: @escaping (_: [RecyclePoint]) -> Void) {
         getAllRecyclePoints { (points) in
             let filteredPoints = points.filter({point in !categories.intersection(point.categories).isEmpty })
             handler(filteredPoints)
         }
     }
-  
-  // MARK: - MODIFY METHODS
-  
-  func createRecylePoint(_ recyclePoint: RecyclePoint) {
-    let recyclePointsRootRef = dataManager.rootRef.child(RecyclePoint.rootDatabasePath)
-    let recyclePointId = recyclePointsRootRef.childByAutoId().key
-    var recyclePoint = recyclePoint
     
-    recyclePoint.ID = recyclePointId
-    dataManager.createObject(recyclePoint)
-  }
+    // MARK: - MODIFY METHODS
+    
+    func createRecylePoint(_ recyclePoint: RecyclePoint) {
+        let recyclePointsRootRef = dataManager.rootRef.child(RecyclePoint.rootDatabasePath)
+        let recyclePointId = recyclePointsRootRef.childByAutoId().key
+        var recyclePoint = recyclePoint
+        
+        recyclePoint.ID = recyclePointId
+        dataManager.createObject(recyclePoint)
+    }
 }
 
 
