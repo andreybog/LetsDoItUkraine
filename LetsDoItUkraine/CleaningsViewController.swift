@@ -26,15 +26,18 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.determineAutorizationStatus { (status) in
-            switch status{
-            case "Denied":
+        DispatchQueue.main.async {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined:
+                CLLocationManager().requestWhenInUseAuthorization()
+            case .denied:
                 self.showEnableLocationServicesAlert()
             default:
                 print("Default")
             }
         }
         presenter.delegate = self
+        presenter.addCleaningsObservers()
         mapManager.setup(map: mapView)
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
@@ -42,8 +45,6 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.loadCleanings()
-        presenter.addCleaningsObservers()
         mapManager.setCurrentLocationOn(map: mapView)
         self.setCollectionViewVisible(isCollectionViewVisible: false)
     }
@@ -85,25 +86,15 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
-//    func fillCleaningShortDetails(cleaning:CleaningView, index: Int) {
-//        cleaning.address = presenter.cleaningsArray[index].address
-//        cleaning.coordinator = "Координатор: \(presenter.cleaningsCoordinators.first?.first?.firstName) \(presenter.cleaningsCoordinators.first?.first?.lastName ?? "")"
-//    }
-    
     //MARK: - GMSMapViewDelegate
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         self.setCollectionViewVisible(isCollectionViewVisible: true)
-        for (index, cleaning) in presenter.cleaningsArray.enumerated() {
-            if marker.snippet == cleaning.ID {
-                mapView.animate(toLocation: presenter.cleaningsArray[index].coordinate)
-                mapView.animate(toZoom: 14)
-                
-                self.cleaningsCollectionView.reloadData()
-                self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
-                break
-            }
-        }
+        let data = presenter.getCoordinatesBy(ID: marker.snippet!)
+        mapView.animate(toLocation: data.0!)
+        mapView.animate(toZoom: 14)
+        self.cleaningsCollectionView.reloadData()
+        self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: data.1!, section: 0), at: .centeredHorizontally, animated: true)
         self.searchMarker.map = nil
         return true
     }
@@ -115,40 +106,30 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     //MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.cleaningsArray.count
+        return presenter.cleaningsCount()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CleaningsMapCollectionViewCell
-        let index = indexPath.row
-        let cleaning = presenter.cleaningsArray[index]
-        
-        let district = presenter.cleaningsDistricts[index]
-        let cleanersCount = cleaning.cleanersIds != nil ? cleaning.cleanersIds!.count : 0
-        let url = presenter.streetViewImages[index]
-        cell.districtLabel.text = district
-        cell.participantsNumberLabel.text = "Пойдет: \(cleanersCount)"
-        if let coordinator = presenter.cleaningsCoordinators[index].first {
-            cell.coordinatorNameLabel.text = "Координатор: \(coordinator.firstName) \(coordinator.lastName!)"
-        }
+        presenter.fillCleaningsShortDetailsIn(Cell: cell, byIndex: indexPath.row)
+        let url = presenter.getStreetImageURLViewForCellBy(Index: indexPath.row)
         if url != nil {
             cell.image.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"))
         } else {
             cell.image.image = #imageLiteral(resourceName: "Placeholder")
         }
-        cell.addressLabel.text = cleaning.address
         return cell
     }
     
     //MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "cleaningDetailsSegue", let cell = sender as? CleaningsMapCollectionViewCell {
-            let row = self.cleaningsCollectionView.indexPath(for: cell)!.row
-            let cleaning = presenter.cleaningsArray[row]
-            let coordinators = presenter.cleaningsCoordinators[row]
-            let cleaningDetailsViewController = segue.destination as! CleanPlaceViewController
-            cleaningDetailsViewController.cleaning = cleaning
-            cleaningDetailsViewController.coordiantors = coordinators
+            let index = self.cleaningsCollectionView.indexPath(for: cell)!.row
+            let cleaning = presenter.getCleaningBy(Index: index)
+            let coordinators = presenter.getCoordinatorsBy(Index: index)
+            let cleanPlaceViewController = segue.destination as! CleanPlaceViewController
+            cleanPlaceViewController.cleaning = cleaning!
+            cleanPlaceViewController.coordiantors = coordinators
         } 
     }
     
@@ -174,11 +155,11 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        mapView.animate(toLocation: presenter.cleaningsArray[self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row].coordinate)
+        mapView.animate(toLocation: presenter.getCleaningBy(Index: self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row)!.coordinate)
         mapView.animate(toZoom: 14)
     }
     
     deinit {
-        
+        presenter.removeCleaningsObservers()
     }
 }

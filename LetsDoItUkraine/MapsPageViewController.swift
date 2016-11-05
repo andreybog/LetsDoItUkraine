@@ -86,7 +86,9 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
     }
     @IBAction func didTouchSearchAddressButton(_ sender: AnyObject) {
         let controller = UISearchController(searchResultsController: self.searchController)
+        
         controller.searchBar.delegate = self
+        controller.searchBar.placeholder = "Введите адрес..."
         present(controller, animated: true)
     }
     

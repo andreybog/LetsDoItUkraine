@@ -23,10 +23,11 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presenter.determineAutorizationStatus { (status) in
-            switch status{
-            case "Denied":
+        DispatchQueue.main.async {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined:
+                CLLocationManager().requestWhenInUseAuthorization()
+            case .denied:
                 self.showEnableLocationServicesAlert()
             default:
                 print("Default")
@@ -37,12 +38,10 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         mapManager.setup(map: mapView)
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
-        
-        presenter.loadPoints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         mapManager.setCurrentLocationOn(map: mapView)
         setCollectionViewVisible(isCollectionViewVisible: false)
     }
@@ -78,7 +77,6 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     //MARK: - RecyclePointMapPresentDelegate
     func didUpdateRecyclePoints(){
-        //Under Construction
         mapManager.setMarkersWith(Array: presenter.getPointsIdsAndCoordinates(), onMap: mapView)
         if !recyclePointsCollectionView.isHidden {
             recyclePointsCollectionView.reloadData()
@@ -89,13 +87,12 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        setCollectionViewVisible(isCollectionViewVisible: true)
-        //Under Construction
         let data = presenter.getCoordinatesBy(ID: marker.snippet!)
-        mapView.animate(toLocation: data.0 as! CLLocationCoordinate2D)
+        mapView.animate(toLocation: data.0!)
         mapView.animate(toZoom: 14)
         self.recyclePointsCollectionView.reloadData()
         self.recyclePointsCollectionView.scrollToItem(at:IndexPath(row: data.1!, section: 0), at: .centeredHorizontally, animated: true)
+        setCollectionViewVisible(isCollectionViewVisible: true)
         self.searchMarker.map = nil
         return true
     }
@@ -162,9 +159,4 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
             recyclePointDetailsViewController.recyclePoint = point
         }
     }
-    
-    deinit {
-        
-    }
-    
 }

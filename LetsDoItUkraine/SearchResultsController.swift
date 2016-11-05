@@ -68,7 +68,6 @@ class SearchResultsController: UITableViewController {
                 do {
                     if data != nil{
                         let dic = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves) as! NSDictionary
-                        print(dic)
                         let dictionaryResults = dic["results"] as! [[String:AnyObject]]
                         let resultsGeometry = dictionaryResults.first?["geometry"] as! [String:AnyObject]
                         let location = resultsGeometry["location"] as! [String:AnyObject]

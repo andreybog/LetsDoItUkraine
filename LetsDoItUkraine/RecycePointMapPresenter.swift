@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-protocol CollectionViewFillingProtocol {
+protocol RecyclePointsCollectionViewFillingProtocol {
     var title: String! { get set }
     var address: String! {get set}
     var distance : String! {get set}
@@ -17,7 +17,7 @@ protocol CollectionViewFillingProtocol {
     var type : String! {get set}
 }
 
-extension RecyclePointMapCollectionViewCell : CollectionViewFillingProtocol{
+extension RecyclePointMapCollectionViewCell : RecyclePointsCollectionViewFillingProtocol{
     var address : String! {
         get{
             return self.recyclePointAddressLabel.text
@@ -66,12 +66,11 @@ protocol RecyclePointMapPresentDelegate{
 
 class RecyclePointMapPresenter {
     
-    private let locationManager = LocationManager()
     var delegate : RecyclePointMapPresentDelegate!
     
     private let pointsManager = RecyclePointsManager.defaultManager
-    //Under Construction
-    var pointsArray = [RecyclePoint]()
+    private var pointsArray = [RecyclePoint]()
+    private var currentPointsArray = [RecyclePoint]()
     private var pointsURL = [URL?]()
     private var recyclePointCategories = Set<RecyclePointCategory>()
     private var pointCategories = [String]()
@@ -81,9 +80,9 @@ class RecyclePointMapPresenter {
         self.recyclePointCategories = FiltersModel.sharedModel.categories
         pointsManager.getAllRecyclePoints { (points) in
             self.pointsArray = points
-            self.pointsURL = [URL?](repeatElement(nil, count: self.pointsArray.count))
-            self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
-            self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
+//            self.pointsURL = [URL?](repeatElement(nil, count: self.pointsArray.count))
+//            self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
+//            self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
         }
     }
     
@@ -112,10 +111,11 @@ class RecyclePointMapPresenter {
         return array
     }
     
-    func getCoordinatesBy(ID number: String) -> (AnyObject?, Int?){
+    func getCoordinatesBy(ID number: String) -> (CLLocationCoordinate2D?, Int?){
         for (index,point) in pointsArray.enumerated(){
             if point.ID == number{
-                return (point.coordinate as AnyObject?, index)
+                self.currentPointsArray.append(point)
+                return (point.coordinate, index)
             }
         }
         return (nil, nil)
@@ -127,24 +127,28 @@ class RecyclePointMapPresenter {
     
     private func loadAllPoints() {
         pointsManager.getAllRecyclePoints { (recyclePoints) in
-            self.pointsArray = recyclePoints
-            self.loadImageURLs()
-            self.loadRecyclePointCategories()
-            self.loadDistanceToPoints()
-            if self.delegate != nil{
-                self.delegate.didUpdateRecyclePoints()
+            DispatchQueue.global().async {
+                self.pointsArray = recyclePoints
+                self.loadImageURLs()
+                self.loadRecyclePointCategories()
+                self.loadDistanceToPoints()
+                if self.delegate != nil{
+                    self.delegate.didUpdateRecyclePoints()
+                }
             }
         }
     }
     
     private func loadPointsWith(categories: Set<RecyclePointCategory>) {
         pointsManager.getSelectedRecyclePoints(categories: categories, handler:{ (points) in
-            self.pointsArray = points
-            self.loadImageURLs()
-            self.loadRecyclePointCategories()
-            self.loadDistanceToPoints()
-            if self.delegate != nil{
-                self.delegate.didUpdateRecyclePoints()
+            DispatchQueue.global().async {
+                self.pointsArray = points
+                self.loadImageURLs()
+                self.loadRecyclePointCategories()
+                self.loadDistanceToPoints()
+                if self.delegate != nil{
+                    self.delegate.didUpdateRecyclePoints()
+                }
             }
         })
     }
@@ -154,7 +158,13 @@ class RecyclePointMapPresenter {
             pointDistances.removeAll()
             self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
             for (index, point) in pointsArray.enumerated(){
-                let distance = locationManager.getDistanceFromLocationWith(coordinate: point.coordinate)
+                let distance : Double?
+                if CLLocationManager().location != nil{
+                    let destination = CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)
+                    distance = CLLocationManager().location!.distance(from: destination) / 1000
+                } else {
+                    distance = nil
+                }
                 self.pointDistances[index] = distance?.rounded()
             }
         }
@@ -194,15 +204,5 @@ class RecyclePointMapPresenter {
         } else {
             self.loadAllPoints()
         }
-    }
-    
-    func determineAutorizationStatus(handler: @escaping (_: String) -> Void) {
-        self.locationManager.determineAutorizationStatus { (status) in
-            handler(status)
-        }
-    }
-    
-    deinit {
-        
     }
 }
