@@ -16,4 +16,5 @@ class CleaningsMapCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var coordinatorNameLabel: UILabel!
     @IBOutlet weak var participantsNumberLabel: UILabel!
     
+    @IBOutlet weak var distanceLabel: UILabel!
 }

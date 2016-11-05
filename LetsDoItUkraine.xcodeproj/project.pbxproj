@@ -50,7 +50,6 @@
 		7FC2CA3D1DCA62E20017A095 /* RecycleCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2CA3C1DCA62E20017A095 /* RecycleCategory.swift */; };
 		7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */; };
 		7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */; };
-		7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA71DC1E364007F62E6 /* LocationManager.swift */; };
 		7FF46FAA1DC2223A007F62E6 /* CleaningsMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF46FA91DC2223A007F62E6 /* CleaningsMapPresenter.swift */; };
 		7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */; };
 		CE266C9C1DC10C0E00732D5B /* NewsItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE266C9B1DC10C0E00732D5B /* NewsItemViewController.swift */; };
@@ -116,7 +115,6 @@
 		7FC2CA3C1DCA62E20017A095 /* RecycleCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleCategory.swift; sourceTree = "<group>"; };
 		7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsPageViewController.swift; sourceTree = "<group>"; };
 		7FF46FA51DC1E1C1007F62E6 /* RecycePointMapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycePointMapPresenter.swift; sourceTree = "<group>"; };
-		7FF46FA71DC1E364007F62E6 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		7FF46FA91DC2223A007F62E6 /* CleaningsMapPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapPresenter.swift; sourceTree = "<group>"; };
 		7FFD270D1DB6662800D083F0 /* SearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsController.swift; sourceTree = "<group>"; };
 		ACF6DE155D0EE0A646F3CBE8 /* Pods-LetsDoItUkraine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 				55033E751DAD867600A04685 /* NewsManager.swift */,
 				CE6EC3821DBDF56000449440 /* FiltersModel.swift */,
 				CEAEB4751DB6772400730B8F /* Checkbox.swift */,
-				7FF46FA71DC1E364007F62E6 /* LocationManager.swift */,
 				55AD708E1DA1A6A700FA1049 /* VO */,
 				7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */,
 				7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */,
@@ -354,7 +351,7 @@
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = S6L573JZYJ;
+						DevelopmentTeam = 8Z4963745C;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -464,7 +461,6 @@
 			files = (
 				7F362AFE1DB20D0A0066BBFA /* Constants.swift in Sources */,
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
-				7FF46FA81DC1E364007F62E6 /* LocationManager.swift in Sources */,
 				7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */,
 				7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */,
 				7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */,
@@ -625,7 +621,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = 8Z4963745C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -647,7 +643,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = 8Z4963745C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
