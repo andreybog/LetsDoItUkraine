@@ -2952,7 +2952,7 @@
         <scene sceneID="Ma5-Cm-reg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="LZS-gf-utt"/>
+                    <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -3057,9 +3057,9 @@
         <image name="webSite.png" width="106" height="84"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ez7-rV-Cmg"/>
-        <segue reference="9ho-nQ-ISv"/>
-        <segue reference="OkL-o9-pom"/>
+        <segue reference="BIk-6k-Wz3"/>
+        <segue reference="Hvm-St-pWv"/>
+        <segue reference="tcg-Vz-Mji"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
 </document>
