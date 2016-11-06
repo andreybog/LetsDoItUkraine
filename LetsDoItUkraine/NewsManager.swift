@@ -91,7 +91,7 @@ class NewsManager {
         dataManager.getObjects(fromReference: refNews, handler: handler)
     }
     
-    // MARK: - GET METHODS
+    // MARK: - MODIFY METHODS
     
     func createNews(_ news: News) {
         let newsRootRef = dataManager.rootRef.child(News.rootDatabasePath)

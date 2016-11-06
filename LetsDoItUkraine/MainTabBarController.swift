@@ -15,6 +15,9 @@ class MainTabBarController: UITabBarController {
 //     MARK: - Navigation
 
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("tabBardidSelect")
+        if let index = tabBar.items?.index(of: item), index == 1  {
+            print("In contacts")
+            
+        }
     }
 }
