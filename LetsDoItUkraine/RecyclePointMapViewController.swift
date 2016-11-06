@@ -34,7 +34,6 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
             }
         }
         presenter.delegate = self
-        presenter.loadPoints()
         mapManager.setup(map: mapView)
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
@@ -42,6 +41,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        presenter.loadPoints()
         mapManager.setCurrentLocationOn(map: mapView)
         setCollectionViewVisible(isCollectionViewVisible: false)
     }

@@ -132,24 +132,28 @@ class RecyclePointMapPresenter {
                 selectedPoint = point
             }
         }
-        var distanceArray = [(Int, Double)]()
-        let selectedLocation = CLLocation(latitude: selectedPoint.coordinate.latitude, longitude: selectedPoint.coordinate.longitude)
-        for (index,point) in pointsArray.enumerated(){
-            if point.ID == selectedPoint.ID{
-                continue
+        if pointsArray.count > 1{
+            var distanceArray = [(Int, Double)]()
+            let selectedLocation = CLLocation(latitude: selectedPoint.coordinate.latitude, longitude: selectedPoint.coordinate.longitude)
+            for (index,point) in pointsArray.enumerated(){
+                if point.ID == selectedPoint.ID{
+                    continue
+                }
+                let distance = selectedLocation.distance(from: CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)) / 1000
+                distanceArray.append((index, distance.rounded()))
             }
-            let distance = selectedLocation.distance(from: CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)) / 1000
-            distanceArray.append((index, distance.rounded()))
-        }
-        distanceArray = distanceArray.sorted { $0.1 < $1.1 }
-        self.currentPointsArray.removeAll()
-        currentPointsArray.insert(selectedPoint, at: 0)
-        var cellsCount = 20
-        if cellsCount > currentPointsArray.count{
-            cellsCount = currentPointsArray.count
-        }
-        for i in 1..<20 {
-            self.currentPointsArray.insert(pointsArray[distanceArray[i-1].0], at: i)
+            distanceArray = distanceArray.sorted { $0.1 < $1.1 }
+            self.currentPointsArray.removeAll()
+            currentPointsArray.insert(selectedPoint, at: 0)
+            var cellsCount = 20
+            if cellsCount > currentPointsArray.count{
+                cellsCount = currentPointsArray.count
+            }
+            for i in 1..<20 {
+                self.currentPointsArray.insert(pointsArray[distanceArray[i-1].0], at: i)
+            }
+        } else {
+            self.currentPointsArray.insert(selectedPoint, at: 0)
         }
         self.loadImageURLs()
         self.loadRecyclePointCategories()
