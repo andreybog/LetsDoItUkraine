@@ -60,10 +60,7 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsTableViewCell
         let newsItem = news[indexPath.row]
         cell.newsImage.kf.setImage(with: newsItem.picture,
-                                   placeholder: UIImage(named: "placeholder"),
-                                   options: nil,
-                                   progressBlock: nil,
-                                   completionHandler: nil)
+                                   placeholder: UIImage(named: "placeholder"))
         cell.newsTitle.text = newsItem.title
         cell.newsBody.text = newsItem.body
         print("\newsItem.picture")
@@ -119,7 +116,7 @@ class NewsListViewController: UIViewController, UITableViewDelegate, UITableView
         guard let createNewsVC = segue.source as? AddNewsViewController else { return }
         
         let imageName = NSUUID().uuidString
-        let storageRef = FIRStorage.storage().reference().child("News_images").child("\(imageName).png")
+        let storageRef = FIRStorage.storage().reference().child(ImageStoragePath.news.path).child("\(imageName).png")
         
         var news = News()
         

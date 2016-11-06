@@ -35,7 +35,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
         let params = ["fields": "email, first_name, last_name, picture.type(large)"]
         FBSDKGraphRequest(graphPath: "me", parameters: params).start { [unowned self](connection, result, error) in
             if error != nil {
-                print(error)
+                print(error!)
                 self.showMessageToUser()
                 return
             }
