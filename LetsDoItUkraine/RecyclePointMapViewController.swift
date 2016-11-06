@@ -90,31 +90,36 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     //MARK: - GMSMapViewDelegate
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        let coordinate = presenter.prepareCollectionViewAndGetCoordinatesWith(ID: marker.snippet!)
-        mapView.animate(toLocation: coordinate)
-        mapView.animate(toZoom: 14)
-        self.recyclePointsCollectionView.reloadData()
-        self.recyclePointsCollectionView.scrollToItem(at:IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
-        setCollectionViewVisible(isCollectionViewVisible: true)
-        self.searchMarker.map = nil
+        if marker.snippet != nil {
+            let coordinate = presenter.prepareCollectionViewAndGetCoordinatesWith(ID: marker.snippet!)
+            mapView.animate(toLocation: coordinate)
+            mapView.animate(toZoom: 14)
+            self.recyclePointsCollectionView.reloadData()
+            self.recyclePointsCollectionView.scrollToItem(at:IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
+            setCollectionViewVisible(isCollectionViewVisible: true)
+            self.searchMarker.map = nil
+        }
         return true
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        if self.searchMarker.map != nil{
-            self.searchMarker.map = nil
-            setCollectionViewVisible(isCollectionViewVisible: false)
+        if recyclePointsCollectionView.isHidden{
+            if self.searchMarker.map != nil{
+                self.searchMarker.map = nil
+                setCollectionViewVisible(isCollectionViewVisible: false)
+            } else {
+                self.searchMarker.position = coordinate
+                self.searchMarker.map = mapView
+                mapView.animate(toLocation: coordinate)
+                mapView.animate(toZoom: 14)
+                self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
+                self.recyclePointsCollectionView.reloadData()
+                setCollectionViewVisible(isCollectionViewVisible: true)
+            }
         } else {
-            self.searchMarker.position = coordinate
-            self.searchMarker.map = mapView
-            mapView.animate(toLocation: coordinate)
-            mapView.animate(toZoom: 14)
-            self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
-            self.recyclePointsCollectionView.reloadData()
-            setCollectionViewVisible(isCollectionViewVisible: true)
+            setCollectionViewVisible(isCollectionViewVisible: false)
         }
-
+        
     }
     
 

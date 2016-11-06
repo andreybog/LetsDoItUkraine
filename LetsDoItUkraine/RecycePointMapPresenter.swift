@@ -144,6 +144,10 @@ class RecyclePointMapPresenter {
         distanceArray = distanceArray.sorted { $0.1 < $1.1 }
         self.currentPointsArray.removeAll()
         currentPointsArray.insert(selectedPoint, at: 0)
+        var cellsCount = 20
+        if cellsCount > currentPointsArray.count{
+            cellsCount = currentPointsArray.count
+        }
         for i in 1..<20 {
             self.currentPointsArray.insert(pointsArray[distanceArray[i-1].0], at: i)
         }
