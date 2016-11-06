@@ -50,9 +50,11 @@ class MapManager {
     
     func setCurrentLocationOn(map: GMSMapView){
         if let mylocation = map.myLocation{
-            map.moveCamera(GMSCameraUpdate.setTarget(mylocation.coordinate, zoom: 11))
+            map.animate(toLocation: mylocation.coordinate)
+            map.animate(toZoom: 11)
         } else {
-            map.moveCamera(GMSCameraUpdate.setTarget(CLLocationCoordinate2DMake(48.6997654,31.9802874), zoom: 4.3))
+            map.animate(toLocation: (CLLocationCoordinate2DMake(48.6997654,31.9802874)))
+            map.animate(toZoom: 4.3)
         }
     }
     
