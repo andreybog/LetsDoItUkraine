@@ -62,6 +62,7 @@ extension CleaningsMapCollectionViewCell : CleaningsCollectionViewFillingProtoco
 
 protocol CleaningsMapPresentDelegate {
     func didUpdateCleanings()
+    func didUpdateCurrentCleanings()
 }
 
 class CleaningsMapPresenter {
@@ -73,7 +74,8 @@ class CleaningsMapPresenter {
     private let usersManager = UsersManager.defaultManager
     
     private var cleaningsArray = [Cleaning]()
-    private var cleaningsCoordinators:[[User]]!
+    private var currentCleaningsArray = [Cleaning]()
+    private var cleaningsCoordinators = [[User]?]()
     private var cleaningsDistricts = [String]()
     private var streetViewImages = [URL?]()
     private var cleaningDistances = [Double?]()
@@ -88,38 +90,84 @@ class CleaningsMapPresenter {
     
     func loadCleanings() {
         self.cleaningsArray = [Cleaning](self.cleaningsManager.activeCleanings.values)
-        self.cleaningsCoordinators = [[User]](repeatElement([], count: self.cleaningsArray.count))
-        self.cleaningsDistricts = [String](repeatElement("", count: self.cleaningsArray.count))
-        self.streetViewImages = [URL?](repeatElement(nil, count: self.cleaningsArray.count))
-        self.fillMemberDistrictArraysAndStreetViewUrl()
-        self.loadDistanceToCleanings()
-        
         self.delegate?.didUpdateCleanings()
     }
     
-    func getCoordinatesBy(ID number: String) -> (CLLocationCoordinate2D?, Int?){
-        for (index,point) in cleaningsArray.enumerated(){
-            if point.ID == number{
-                return (point.coordinate, index)
+    func prepareCollectionViewWith(Coordinates coordinate: CLLocationCoordinate2D){
+        var distanceArray = [(Int, Double)]()
+        let selectedLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        for (index,cleaning) in cleaningsArray.enumerated(){
+            let distance = selectedLocation.distance(from: CLLocation(latitude: cleaning.coordinate.latitude, longitude: cleaning.coordinate.longitude)) / 1000
+            distanceArray.append((index, distance.rounded()))
+        }
+        distanceArray = distanceArray.sorted { $0.1 < $1.1 }
+        self.currentCleaningsArray.removeAll()
+        var cellsCount = 20
+        if cellsCount > cleaningsArray.count{
+            cellsCount = cleaningsArray.count
+        }
+        for i in 0..<cellsCount {
+            self.currentCleaningsArray.insert(cleaningsArray[distanceArray[i].0], at: i)
+        }
+        self.loadDistanceToCleanings()
+        self.fillMemberDistrictArraysAndStreetViewUrl()
+    }
+    
+    func prepareCollectionViewAndGetCoordinatesWith(ID number: String) -> (CLLocationCoordinate2D){
+        var selectedCleaning = Cleaning()
+        for cleaning in cleaningsArray{
+            if cleaning.ID == number{
+                selectedCleaning = cleaning
             }
         }
-        return (nil, nil)
+        var distanceArray = [(Int, Double)]()
+        let selectedLocation = CLLocation(latitude: selectedCleaning.coordinate.latitude, longitude: selectedCleaning.coordinate.longitude)
+        for (index,cleaning) in cleaningsArray.enumerated(){
+            if cleaning.ID == selectedCleaning.ID{
+                continue
+            }
+            let distance = selectedLocation.distance(from: CLLocation(latitude: cleaning.coordinate.latitude, longitude: cleaning.coordinate.longitude)) / 1000
+            distanceArray.append((index, distance.rounded()))
+        }
+        distanceArray = distanceArray.sorted { $0.1 < $1.1 }
+        self.currentCleaningsArray.removeAll()
+        currentCleaningsArray.insert(selectedCleaning, at: 0)
+        var cellsCount = 20
+        if cellsCount > cleaningsArray.count{
+            cellsCount = cleaningsArray.count
+        }
+        for i in 1..<cellsCount {
+            self.currentCleaningsArray.insert(cleaningsArray[distanceArray[i-1].0], at: i)
+        }
+        self.loadDistanceToCleanings()
+        self.fillMemberDistrictArraysAndStreetViewUrl()
+        return (selectedCleaning.coordinate)
     }
     
     func cleaningsCount() -> Int {
-        return cleaningsArray.count
+        return currentCleaningsArray.count
     }
     
     func fillCleaningsShortDetailsIn(Cell cell: CleaningsMapCollectionViewCell, byIndex index: Int){
-        cell.district = cleaningsDistricts[index]
-        cell.address = cleaningsArray[index].address
-        if let coordinator = cleaningsCoordinators[index].first {
-            cell.coordinator = "Координатор: \(coordinator.firstName) \(coordinator.lastName ?? "")"
-        } else {
-            cell.coordinator = ""
+        if !currentCleaningsArray.isEmpty{
+            if !cleaningsDistricts.isEmpty{
+                cell.district = cleaningsDistricts[index]
+            } else {
+                cell.district = "Район загружается..."
+            }
+            cell.address = currentCleaningsArray[index].address
+            if !cleaningsCoordinators.isEmpty{
+                if let coordinator = cleaningsCoordinators[index]?.first {
+                cell.coordinator = "Координатор: \(coordinator.firstName) \(coordinator.lastName ?? "")"
+                } else {
+                    cell.coordinator = "Координатор: Загружается..."
+                }
+            } else {
+                cell.coordinator = "Координатор: Загружается..."
+            }
+            cell.participants = "Пойдет: \(currentCleaningsArray[index].cleanersIds!.count)"
+            cell.distance = "\(String(describing: cleaningDistances[index] ?? 0)) КМ"
         }
-        cell.participants = "Пойдет: \(cleaningsArray[index].cleanersIds?.count)"
-        cell.distance = "\(String(describing: cleaningDistances[index] ?? 0)) КМ"
     }
     
     func getStreetImageURLViewForCellBy(Index index: Int) -> URL?{
@@ -127,7 +175,7 @@ class CleaningsMapPresenter {
     }
     
     func getCleaningBy(Index index: Int) -> Cleaning?{
-        return cleaningsArray[index]
+        return currentCleaningsArray[index]
     }
     
     func getCoordinatorsBy(Index index: Int) -> [User]?{
@@ -135,10 +183,10 @@ class CleaningsMapPresenter {
     }
 
     private func loadDistanceToCleanings() {
-        if cleaningsArray.count != 0 {
+        if currentCleaningsArray.count != 0 {
             self.cleaningDistances.removeAll()
-            self.cleaningDistances = [Double?](repeatElement(nil, count: self.cleaningsArray.count))
-            for (index, cleaning) in cleaningsArray.enumerated(){
+            self.cleaningDistances = [Double?](repeatElement(nil, count: self.currentCleaningsArray.count))
+            for (index, cleaning) in currentCleaningsArray.enumerated(){
                 let distance : Double?
                 if CLLocationManager().location != nil{
                     let destination = CLLocation(latitude: cleaning.coordinate.latitude, longitude: cleaning.coordinate.longitude)
@@ -152,23 +200,26 @@ class CleaningsMapPresenter {
     }
     
     private func fillMemberDistrictArraysAndStreetViewUrl() {
-        for (index, cleaning) in cleaningsArray.enumerated() {
+        self.cleaningsCoordinators = [[User]?](repeatElement(nil, count: currentCleaningsArray.count))
+        for (index, cleaning) in currentCleaningsArray.enumerated() {
+            
             if cleaning.coordinatorsIds != nil {
-                usersManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { users in
-                    self.cleaningsCoordinators[index] = users
+                usersManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { [unowned self] users in
+                    self.cleaningsCoordinators.insert(users, at: index)
+                    self.delegate?.didUpdateCurrentCleanings()
                 })
             }
-            localityManager.searchForSublocalityWith(coordinates: cleaning.coordinate, handler: { (localityName) in
-                self.cleaningsDistricts[index] = localityName
+            
+            self.cleaningsDistricts.insert("", at: index)
+            localityManager.searchForSublocalityWith(coordinates: cleaning.coordinate, handler: { [unowned self] (localityName) in
+                self.cleaningsDistricts.insert(localityName, at: index)
+                self.delegate?.didUpdateCurrentCleanings()
             })
+            
             let streetViewFormatter = StreetViewFormatter()
             let urlString = streetViewFormatter.setStreetViewImageWith(coordinates: "\(cleaning.coordinate.latitude), \(cleaning.coordinate.longitude)")
             let url = URL(string: urlString)
-            if url != nil {
-                self.streetViewImages[index] = url!
-            } else {
-                self.streetViewImages[index] = nil
-            }
+            self.streetViewImages.insert(url, at: index)
         }
     }
     

@@ -54,6 +54,7 @@ class DataManager {
     }
     
     var pivotDateHandler:FIRDatabaseHandle?
+    var pivotDateAddHandler:FIRDatabaseHandle?
     
     lazy var rootRef:FIRDatabaseReference = {
         FIRDatabase.database().persistenceEnabled = true
@@ -88,7 +89,7 @@ class DataManager {
                 print("DATABASE ERROR: Can't get pivot date")
             }
         })
-        pivotDateHandler = pivotDateRef.parent?.observe(.childChanged, with: { [weak self] (snap) in
+        pivotDateHandler = pivotDateRef.observe(.value, with: { [weak self] (snap) in
             if let val = snap.value as? Double {
                 self?.pivotDate = Date(timeIntervalSince1970: val)
             } else {
@@ -119,13 +120,17 @@ class DataManager {
             var childrensCount = snapshots.childrenCount
             var currentObjectsCount: UInt = 0
             
+            if childrensCount == 0 {
+                return handler(objects)
+            }
+            
             // get objects ids
             for snapshot in snapshots.children {
                 guard let snap = snapshot as? FIRDataSnapshot else {
                     childrensCount -= 1
                     continue
                 }
-                
+            
                 let objectRef = self.rootRef.child("\(T.rootDatabasePath)/\(snap.key)")
                 
                 // get objects from ids
@@ -157,6 +162,10 @@ class DataManager {
         var objectsCount = ids.count
         var currentObjectsCount: Int = 0
         
+        if objectsCount == 0 {
+            return handler(objects)
+        }
+        
         for id in ids {
             let objectRef = self.rootRef.child("\(objectsRootPath)/\(id)")
             
@@ -173,7 +182,6 @@ class DataManager {
                 }
                 
                 } as (_:T?)->Void )
-            
         }
         
     }

@@ -25,7 +25,6 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kCleaningPlaceSegue = "cleaningPlaceSegue"
     let kAddCleaningSegue = "addCleaningSegue"
     let kSearchCleaningSegue = "searchCleaningSegue"
-    let userID = "i01"
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -33,41 +32,19 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.cleaningsTableView.estimatedRowHeight = 44
-        self.cleaningsTableView.rowHeight = UITableViewAutomaticDimension
-//        
-//        UsersManager.defaultManager.getCurrentUser { [unowned self] (user) in
-//            if let currentUser = user {
-//                self.user = currentUser
-//                self.updateUserInformation()
-//            } else {
-//                let alertController = UIAlertController(title: "Unable to get user", message: "User is not found", preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alertController.addAction(okAction)
-//                
-//                self.present(alertController, animated: true, completion: nil)
-//            }
-//        }
-        
-//        UsersManager.defaultManager.getUser(withId: userID) { [unowned self] (user) in
-//            if let currentUser = user {
-//                self.user = currentUser
-//                self.updateUserInformation()
-//            } else {
-//                let alertController = UIAlertController(title: "Unable to get user", message: "User is not found", preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alertController.addAction(okAction)
-//            }
-//        }
-//        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.cleaningsTableView.estimatedRowHeight = 44
         self.cleaningsTableView.rowHeight = UITableViewAutomaticDimension
+             
+        if let currentUser = UsersManager.defaultManager.currentUser {
+            self.user = currentUser
+            self.updateUserInformation()
+            return
+        }
         
         UsersManager.defaultManager.getCurrentUser { [unowned self] (user) in
             if let currentUser = user {
@@ -81,6 +58,13 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 self.present(alertController, animated: true, completion: nil)
             }
         }
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handlerCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func updateUserInformation() {
@@ -99,24 +83,18 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         } else {
             self.userPhotoImageView.image = #imageLiteral(resourceName: "placeholderUser")
         }
-        if asVolunteerIDsCounter > 0 {
-            CleaningsManager.defaultManager.getCleanings(withIds: user.asCleanerIds!, handler: { [unowned self] (cleanings) in
-                self.userCleaningsAsCleaner = cleanings
-                self.cleaningsTableView.reloadData()
-            })
-        } else if asCoordinatorIDsCounter > 0 {
-            CleaningsManager.defaultManager.getCleanings(withIds: user.asCoordinatorIds!, handler: { [unowned self] (cleaning) in
-                self.userCleaningsAsModerator = cleaning
-                self.cleaningsTableView.reloadData()
-            })
+        
+        if let asCleanerCleanings = UsersManager.defaultManager.currentUserAsCleaner {
+            self.userCleaningsAsCleaner = asCleanerCleanings
+        }
+        if let asCoordinatorCleanings = UsersManager.defaultManager.currentUserAsCoordinator {
+            self.userCleaningsAsModerator = asCoordinatorCleanings
+        }
+        if let pastCleanings = UsersManager.defaultManager.currentUserPastCleanings {
+            self.userCleaningsPast = pastCleanings
         }
         
-        if let pastCleaningsIDs = user.pastCleaningsIds {
-            CleaningsManager.defaultManager.getCleanings(withIds: pastCleaningsIDs, handler: { [unowned self] (cleanings) in
-                self.userCleaningsPast = cleanings
-                self.cleaningsTableView.reloadData()
-            })
-        }
+        self.cleaningsTableView.reloadData()
     }
     
 
@@ -211,6 +189,15 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func settingsButtonDidTapped(_ sender: AnyObject) {
     }
     
+    
+    //MARK: - Notifications
+    
+    func handlerCurrentUserProfileChanged(_ notification: Notification) {
+        if let currentUser = UsersManager.defaultManager.currentUser {
+            self.user = currentUser
+            self.updateUserInformation()
+        }
+    }
 }
 
 

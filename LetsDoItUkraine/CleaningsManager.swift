@@ -25,7 +25,7 @@ extension CleaningMetadata : FirebaseInitable {
     
     var toJSON: [String : Any] {
         return ["id" : ID,
-                "userRole" : userRole,
+                "userRole" : userRole.rawValue,
                 "startAt" : startAt.timeIntervalSince1970]
     }
     
@@ -156,6 +156,10 @@ class CleaningsManager {
     private var timer:Timer?
     
     private init() {
+        if let pivotDate = dataManager.pivotDate {
+            activeCleaningsRef = dataManager.rootRef.child(Cleaning.rootDatabasePath).queryOrdered(byChild: "startAt").queryStarting(atValue: pivotDate.timeIntervalSince1970)
+            addObservers()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(self.pivotDateChangeHandler),
                                                name: kDataManagerPivotDateChangedNotification,
                                                object: nil)
@@ -209,6 +213,10 @@ class CleaningsManager {
     func getCleanings(withIds ids: [String], handler: @escaping (_:[Cleaning]) -> Void) {
         var cleanings = [Cleaning]()
         
+        guard !ids.isEmpty else {
+            return handler(cleanings)
+        }
+        
         let cleaningsCount = ids.count
         var currentCleaningsCount = 0
         
@@ -239,32 +247,33 @@ class CleaningsManager {
     }
     
     func addMember(_ user:User, toCleaning cleaning: Cleaning, as memberType: UserRole) {
-        updateMember(user, withCleaning: cleaning, as: memberType, add: true)
+        updateMember(user, withCleaning: cleaning, as: memberType, addMember: true)
     }
     
     func removeMember(_ user:User, fromCleaning cleaning: Cleaning, as memberType: UserRole) {
-        updateMember(user, withCleaning: cleaning, as: memberType, add: false)
+        updateMember(user, withCleaning: cleaning, as: memberType, addMember: false)
     }
     
-    private func updateMember(_ user:User, withCleaning cleaning: Cleaning, as memberType: UserRole, add: Bool) {
-        var userPath: String
-        var cleaningPath: String
+    private func updateMember(_ user: User, withCleaning cleaning: Cleaning, as memberType: UserRole, addMember: Bool) {
         
-        switch memberType {
-        case .coordinator:
-            userPath = "asCoordinator"
-            cleaningPath = "coordinators"
-        case .cleaner:
-            userPath = "asCleaner"
-            cleaningPath = "cleaners"
+        var metadata = CleaningMetadata()
+        
+        if addMember {
+            metadata.ID = cleaning.ID
+            metadata.userRole = memberType
+            metadata.startAt = cleaning.startAt
         }
         
-        let userUpdatePath = "\(User.rootDatabasePath)/\(user.ID)/\(userPath)/\(cleaning.ID)"
+        let cleaningPath = memberType == .cleaner ? "cleaners" : "coordinators"
+        
+        let userUpdatePath = "\(User.rootDatabasePath)/\(user.ID)/cleaningsMetadata/\(cleaning.ID)"
         let cleaningUpdatePath = "\(Cleaning.rootDatabasePath)/\(cleaning.ID)/\(cleaningPath)/\(user.ID)"
         
-        let value:Any = add ? true : NSNull()
-        let valuesForUpdate = [userUpdatePath : value,
-                               cleaningUpdatePath : value]
+        let cleaningMetadata: Any = addMember ? metadata.toJSON : NSNull()
+        let userData: Any = addMember ? true : NSNull()
+        
+        let valuesForUpdate = [userUpdatePath : cleaningMetadata,
+                               cleaningUpdatePath : userData]
         
         dataManager.updateObjects(valuesForUpdate)
     }

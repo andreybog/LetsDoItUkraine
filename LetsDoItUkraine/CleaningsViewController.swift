@@ -8,8 +8,6 @@
 
 import UIKit
 import GoogleMaps
-import GooglePlaces
-
 
 class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, GMSMapViewDelegate, CleaningsMapPresentDelegate {
     
@@ -63,6 +61,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func locateOnMapWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String){
         mapManager.locate(searchMarker: self.searchMarker,onMap: mapView, withLongtitude: lon, andLatitude: lat, andTitle: title)
+        self.presenter.prepareCollectionViewWith(Coordinates: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        self.cleaningsCollectionView.reloadData()
+        setCollectionViewVisible(isCollectionViewVisible: true)
     }
     
     private func showEnableLocationServicesAlert(){
@@ -82,22 +83,42 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
     }
     
+    func didUpdateCurrentCleanings() {
+        DispatchQueue.main.async {
+            if !self.cleaningsCollectionView.isHidden {
+                self.cleaningsCollectionView.reloadData()
+            }
+        }
+    }
+    
     //MARK: - GMSMapViewDelegate
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        self.setCollectionViewVisible(isCollectionViewVisible: true)
-        let data = presenter.getCoordinatesBy(ID: marker.snippet!)
-        mapView.animate(toLocation: data.0!)
-        mapView.animate(toZoom: 14)
-        self.cleaningsCollectionView.reloadData()
-        self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: data.1!, section: 0), at: .centeredHorizontally, animated: true)
-        self.searchMarker.map = nil
+        if marker.snippet != nil {
+            let coordinate = presenter.prepareCollectionViewAndGetCoordinatesWith(ID: marker.snippet!)
+            mapView.animate(toLocation: coordinate)
+            mapView.animate(toZoom: 14)
+            self.cleaningsCollectionView.reloadData()
+            self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
+            setCollectionViewVisible(isCollectionViewVisible: true)
+            self.searchMarker.map = nil
+        }
         return true
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        self.setCollectionViewVisible(isCollectionViewVisible: false)
-        self.searchMarker.map = nil
+        if cleaningsCollectionView.isHidden {
+            if self.searchMarker.map != nil{
+                self.searchMarker.map = nil
+            } else {
+                mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
+                self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
+                self.cleaningsCollectionView.reloadData()
+                setCollectionViewVisible(isCollectionViewVisible: true)
+            }
+        } else {
+            setCollectionViewVisible(isCollectionViewVisible: false)
+        }
     }
     
     //MARK: - UICollectionViewDataSource
@@ -125,7 +146,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             let coordinators = presenter.getCoordinatorsBy(Index: index)
             let cleanPlaceViewController = segue.destination as! CleanPlaceViewController
             cleanPlaceViewController.cleaning = cleaning!
-            cleanPlaceViewController.coordiantors = coordinators
+            cleanPlaceViewController.coordiantors = coordinators!
         } 
     }
     

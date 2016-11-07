@@ -66,7 +66,7 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
   - IQKeyboardManagerSwift (4.0.6)
-  - Kingfisher (3.1.4)
+  - Kingfisher (3.2.0)
 
 DEPENDENCIES:
   - FBSDKCoreKit
@@ -100,7 +100,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   IQKeyboardManagerSwift: b3015e819559ca76381f87a0833f44d178564603
-  Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
+  Kingfisher: 50407d1d5dbc34965009d425a286342ff36a84ea
 
 PODFILE CHECKSUM: c90a421c1c1dad7965852e86c05be57676a12518
 

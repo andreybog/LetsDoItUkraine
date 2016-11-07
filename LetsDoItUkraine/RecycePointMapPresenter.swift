@@ -80,26 +80,23 @@ class RecyclePointMapPresenter {
         self.recyclePointCategories = FiltersModel.sharedModel.categories
         pointsManager.getAllRecyclePoints { (points) in
             self.pointsArray = points
-            self.pointsURL = [URL?](repeatElement(nil, count: self.pointsArray.count))
-            self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
-            self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
         }
     }
     
     func pointsCount() -> Int{
-        return pointsArray.count
+        return currentPointsArray.count
     }
     
     func getPointBy(Index index: Int) -> RecyclePoint? {
-        return pointsArray[index]
+        return currentPointsArray[index]
     }
     
     func fillRecyclePointShortDetailsIn(Cell cell: RecyclePointMapCollectionViewCell, byIndex index: Int){
-        cell.address = pointsArray[index].address
+        cell.address = currentPointsArray[index].address 
         cell.distance = "\(String(describing: pointDistances[index] ?? 0)) КМ"
-        cell.title = pointsArray[index].title
+        cell.title = currentPointsArray[index].title
         cell.type = pointCategories[index]
-        cell.workingHours = pointsArray[index].schedule ?? ""
+        cell.workingHours = currentPointsArray[index].schedule ?? ""
     }
     
     func getPointsIdsAndCoordinates() -> [(String, CLLocationCoordinate2D)] {
@@ -111,14 +108,62 @@ class RecyclePointMapPresenter {
         return array
     }
     
-    func getCoordinatesBy(ID number: String) -> (CLLocationCoordinate2D?, Int?){
+    func prepareCollectionViewWith(Coordinates coordinate: CLLocationCoordinate2D){
+        var distanceArray = [(Int, Double)]()
+        let selectedLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         for (index,point) in pointsArray.enumerated(){
+            let distance = selectedLocation.distance(from: CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)) / 1000
+            distanceArray.append((index, distance.rounded()))
+        }
+        distanceArray = distanceArray.sorted { $0.1 < $1.1 }
+        self.currentPointsArray.removeAll()
+        for i in 0..<20 {
+            self.currentPointsArray.insert(pointsArray[distanceArray[i].0], at: i)
+        }
+        self.loadImageURLs()
+        self.loadRecyclePointCategories()
+        self.loadDistanceToPoints()
+    }
+    
+    func prepareCollectionViewAndGetCoordinatesWith(ID number: String) -> (CLLocationCoordinate2D){
+        var selectedPoint = RecyclePoint()
+        for point in pointsArray{
             if point.ID == number{
-                self.currentPointsArray.append(point)
-                return (point.coordinate, index)
+                selectedPoint = point
             }
         }
-        return (nil, nil)
+        if pointsArray.count > 1{
+            var distanceArray = [(Int, Double)]()
+            let selectedLocation = CLLocation(latitude: selectedPoint.coordinate.latitude, longitude: selectedPoint.coordinate.longitude)
+            for (index,point) in pointsArray.enumerated(){
+                if point.ID == selectedPoint.ID{
+                    continue
+                }
+                let distance = selectedLocation.distance(from: CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)) / 1000
+                distanceArray.append((index, distance.rounded()))
+            }
+            distanceArray = distanceArray.sorted { $0.1 < $1.1 }
+            self.currentPointsArray.removeAll()
+            currentPointsArray.insert(selectedPoint, at: 0)
+            var cellsCount = 20
+            if cellsCount > currentPointsArray.count{
+                cellsCount = currentPointsArray.count
+            }
+            for i in 1..<20 {
+                self.currentPointsArray.insert(pointsArray[distanceArray[i-1].0], at: i)
+            }
+        } else {
+            self.currentPointsArray.insert(selectedPoint, at: 0)
+        }
+        self.loadImageURLs()
+        self.loadRecyclePointCategories()
+        self.loadDistanceToPoints()
+        return (selectedPoint.coordinate)
+    }
+    
+    
+    func sortFunc(tup1: (Int, Double), tup2: (Int, Double)) -> Bool {
+        return tup1.1 < tup2.1
     }
     
     func getStreetImageURLViewForCellBy(Index index: Int) -> URL?{
@@ -128,32 +173,22 @@ class RecyclePointMapPresenter {
     private func loadAllPoints() {
         pointsManager.getAllRecyclePoints { (recyclePoints) in
             self.pointsArray = recyclePoints
-            self.loadImageURLs()
-            self.loadRecyclePointCategories()
-            self.loadDistanceToPoints()
             self.delegate?.didUpdateRecyclePoints()
-            
         }
-
     }
     
     private func loadPointsWith(categories: Set<RecyclePointCategory>) {
         pointsManager.getSelectedRecyclePoints(categories: categories, handler:{ (points) in
             self.pointsArray = points
-            self.loadImageURLs()
-            self.loadRecyclePointCategories()
-            self.loadDistanceToPoints()
-            if self.delegate != nil{
-                self.delegate.didUpdateRecyclePoints()
-            }
+            self.delegate?.didUpdateRecyclePoints()
         })
     }
     
     private func loadDistanceToPoints() {
-        if !pointsArray.isEmpty {
+        if !currentPointsArray.isEmpty {
             pointDistances.removeAll()
-            self.pointDistances = [Double?](repeatElement(nil, count: self.pointsArray.count))
-            for (index, point) in pointsArray.enumerated() {
+            self.pointDistances = [Double?](repeatElement(nil, count: self.currentPointsArray.count))
+            for (index, point) in currentPointsArray.enumerated() {
                 let distance : Double?
                 if CLLocationManager().location != nil {
                     let destination = CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)
@@ -167,10 +202,10 @@ class RecyclePointMapPresenter {
     }
     
     private func loadImageURLs() {
-        if !pointsArray.isEmpty {
+        if !currentPointsArray.isEmpty {
             pointsURL.removeAll()
-            pointsURL = [URL?](repeatElement(nil, count: pointsArray.count))
-            for (index,point) in pointsArray.enumerated(){
+            pointsURL = [URL?](repeatElement(nil, count: currentPointsArray.count))
+            for (index,point) in currentPointsArray.enumerated(){
                 let coordinate = "\(point.coordinate.latitude), \(point.coordinate.longitude)"
                 let streetViewFormatter = StreetViewFormatter()
                 let urlString = streetViewFormatter.setStreetViewImageWith(coordinates: coordinate)
@@ -183,10 +218,10 @@ class RecyclePointMapPresenter {
     }
     
     private func loadRecyclePointCategories() {
-        if !pointsArray.isEmpty {
+        if !currentPointsArray.isEmpty {
             pointCategories.removeAll()
-            self.pointCategories = [String](repeatElement("", count: self.pointsArray.count))
-            for (index, point) in pointsArray.enumerated() {
+            self.pointCategories = [String](repeatElement("", count: self.currentPointsArray.count))
+            for (index, point) in currentPointsArray.enumerated() {
                 let categories = point.categories
                 self.pointCategories[index] = categories.map { $0.literal }.joined(separator: ",")
             }
