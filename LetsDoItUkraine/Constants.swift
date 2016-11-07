@@ -14,6 +14,14 @@ let kGooglePlacesAPIKey = "AIzaSyB14eOlQa6V3g4lRaxYfROITTbWB5AvOSA"
 let kGoogleMapsGeocodingAPIKey = "AIzaSyBcX36PWtVP6_4wFVDvxbFnsv_olOrfy4A"
 
 
+enum NotificationsNames: String {
+    case currentUserProfileChanged = "userProfileChanged"
+    
+    var name: Notification.Name {
+        return Notification.Name(self.rawValue)
+    }
+}
+
 enum ImageStoragePath: String {
     case news = "News_images"
     case cleanings = "Cleanings_images"
