@@ -84,8 +84,10 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     func didUpdateCurrentCleanings() {
-        if !cleaningsCollectionView.isHidden {
-            cleaningsCollectionView.reloadData()
+        DispatchQueue.main.async {
+            if !self.cleaningsCollectionView.isHidden {
+                self.cleaningsCollectionView.reloadData()
+            }
         }
     }
     
@@ -109,10 +111,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             if self.searchMarker.map != nil{
                 self.searchMarker.map = nil
             } else {
-                self.searchMarker.position = coordinate
-                self.searchMarker.map = mapView
-                mapView.animate(toLocation: coordinate)
-                mapView.animate(toZoom: 14)
+                mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
                 self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
                 self.cleaningsCollectionView.reloadData()
                 setCollectionViewVisible(isCollectionViewVisible: true)
@@ -147,7 +146,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             let coordinators = presenter.getCoordinatorsBy(Index: index)
             let cleanPlaceViewController = segue.destination as! CleanPlaceViewController
             cleanPlaceViewController.cleaning = cleaning!
-            cleanPlaceViewController.coordiantors = coordinators
+            cleanPlaceViewController.coordiantors = coordinators!
         } 
     }
     

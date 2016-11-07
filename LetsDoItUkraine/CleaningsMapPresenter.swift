@@ -75,7 +75,7 @@ class CleaningsMapPresenter {
     
     private var cleaningsArray = [Cleaning]()
     private var currentCleaningsArray = [Cleaning]()
-    private var cleaningsCoordinators = [[User]]()
+    private var cleaningsCoordinators = [[User]?]()
     private var cleaningsDistricts = [String]()
     private var streetViewImages = [URL?]()
     private var cleaningDistances = [Double?]()
@@ -157,10 +157,10 @@ class CleaningsMapPresenter {
             }
             cell.address = currentCleaningsArray[index].address
             if !cleaningsCoordinators.isEmpty{
-                if let coordinator = cleaningsCoordinators[index].first {
+                if let coordinator = cleaningsCoordinators[index]?.first {
                 cell.coordinator = "Координатор: \(coordinator.firstName) \(coordinator.lastName ?? "")"
                 } else {
-                    cell.coordinator = ""
+                    cell.coordinator = "Координатор: Загружается..."
                 }
             } else {
                 cell.coordinator = "Координатор: Загружается..."
@@ -200,7 +200,9 @@ class CleaningsMapPresenter {
     }
     
     private func fillMemberDistrictArraysAndStreetViewUrl() {
+        self.cleaningsCoordinators = [[User]?](repeatElement(nil, count: currentCleaningsArray.count))
         for (index, cleaning) in currentCleaningsArray.enumerated() {
+            
             if cleaning.coordinatorsIds != nil {
                 usersManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { [unowned self] users in
                     self.cleaningsCoordinators.insert(users, at: index)
@@ -208,6 +210,7 @@ class CleaningsMapPresenter {
                 })
             }
             
+            self.cleaningsDistricts.insert("", at: index)
             localityManager.searchForSublocalityWith(coordinates: cleaning.coordinate, handler: { [unowned self] (localityName) in
                 self.cleaningsDistricts.insert(localityName, at: index)
                 self.delegate?.didUpdateCurrentCleanings()

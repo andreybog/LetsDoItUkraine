@@ -72,14 +72,19 @@ class MapManager {
     }
     
     func locate(searchMarker marker: GMSMarker, onMap map: GMSMapView, withLongtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
-        DispatchQueue.main.async {
             let position = CLLocationCoordinate2DMake(lat, lon)
             marker.position = position
             let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: 14)
             map.camera = camera
             marker.title = title
             marker.map = map
-        }
+    }
+    
+    func locate(searchMarker marker: GMSMarker, onMap map: GMSMapView, withCoordinate coordinate: CLLocationCoordinate2D) {
+        marker.position = coordinate
+        map.animate(toLocation: coordinate)
+        map.animate(toZoom: 14)
+        marker.map = map
     }
     
     func setPudding(on isPaddingOn: Bool, onMapView map: GMSMapView) {
