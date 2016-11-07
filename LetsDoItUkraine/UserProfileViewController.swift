@@ -33,8 +33,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.cleaningsTableView.estimatedRowHeight = 44
-//        self.cleaningsTableView.rowHeight = UITableViewAutomaticDimension
+        self.cleaningsTableView.estimatedRowHeight = 44
+        self.cleaningsTableView.rowHeight = UITableViewAutomaticDimension
 //        
 //        UsersManager.defaultManager.getCurrentUser { [unowned self] (user) in
 //            if let currentUser = user {
