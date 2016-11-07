@@ -22,7 +22,7 @@ struct User : CustomStringConvertible {
     var photo: URL?
     var country: String?
     var city: String?
-    var cleaningsMetadata: [CleaningMetadata]?
+    var cleaningsMetadata = [CleaningMetadata]()
   
   var description: String {
     let lastName = self.lastName ?? ""
