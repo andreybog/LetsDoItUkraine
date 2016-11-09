@@ -13,11 +13,7 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
 
     @IBOutlet weak var tableViewMembers: UITableView!
    
-    var firstNameMember:[String] = [""]
-    var lastNameMember:[String] = [""]
-    var phoneMember:[String] = [""]
-    var photoMember = [URL]()
-    var idUser:[String] = [""]
+    var listUsers = [User]()
     
     
     override func viewDidLoad() {
@@ -31,24 +27,16 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.firstNameMember.count
+        return self.listUsers.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = self.tableViewMembers.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCellCleanMember
         
-        if lastNameMember.count > indexPath.row {
-          cell.nameMember.text = firstNameMember[indexPath.row] + " " + lastNameMember[indexPath.row]
-        } else {
-          cell.nameMember.text = firstNameMember[indexPath.row]
-        }
-        
-        if phoneMember.count > indexPath.row {
-          cell.phoneMember.text = phoneMember[indexPath.row]
-        }
-        
-        if photoMember.count > indexPath.row {
-          cell.photoMember.kf.setImage(with: photoMember[indexPath.row], placeholder: #imageLiteral(resourceName: "placeholder"))
+        if listUsers.count > indexPath.row {
+          cell.nameMember.text = listUsers[indexPath.row].firstName + " " + (listUsers[indexPath.row].lastName ?? "")
+          cell.phoneMember.text = listUsers[indexPath.row].phone ?? "Не укзаан"
+          cell.photoMember.kf.setImage(with: listUsers[indexPath.row].photo, placeholder: #imageLiteral(resourceName: "placeholder"))
         }
         
         return cell

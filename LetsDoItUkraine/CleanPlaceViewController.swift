@@ -24,6 +24,7 @@ class CleanPlaceViewController: UIViewController {
     
     @IBOutlet weak var goToCleaning: UIButton!
     
+    @IBOutlet weak var listOfMembers: UIButton!
     @IBOutlet weak var volunteers: UILabel!
     @IBOutlet weak var coordinators: UILabel!
     @IBOutlet var cleaningPlaces: [UIImageView]!
@@ -38,11 +39,6 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
     var coordiantors: [User]!
-    var firstNameMember = [String]()
-    var lastNameMember = [String]()
-    var phoneMember = [String]()
-    var photoMember = [URL]()
-    var idUser:[String] = [""]
     ////   var members: [User]!
     
     
@@ -55,7 +51,7 @@ class CleanPlaceViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        
+        self.listOfMembers.isHidden = true
         // getCleaningMembers
         if let user = coordiantors.first {
             
@@ -90,7 +86,7 @@ class CleanPlaceViewController: UIViewController {
             if let _ = cleaning.datetime {
                 self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
             } else {
-                self.cleaningDate.text = ""
+                self.cleaningDate.text = "Не укзаана"
             }
             
             
@@ -144,34 +140,21 @@ class CleanPlaceViewController: UIViewController {
         //REMOVE
         if segue.identifier == "toListMembers" {
             let listMembersVC = segue.destination as! ListOfMembers
-            firstNameMember = []
-            lastNameMember = []
-            phoneMember = []
-            photoMember = []
+            var listUsers = [User]()
+
             if let _ = self.cleaning {
                 for idd in self.cleaning.cleanersIds! {
                     UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
 
                         if mem != nil {
-                            let firstN = mem?.firstName ?? ""
-                            let lastN = mem?.lastName ?? ""
-                            let phoneN = mem?.phone ?? ""
+                              listUsers.append(mem!)
                             
-                            self.idUser.append((mem?.ID)!)
-                            self.firstNameMember.append(firstN)
-                            self.phoneMember.append(phoneN)
-                            self.lastNameMember.append(lastN)
-                            self.photoMember.append((mem?.photo)! as URL)
                         }
                     })
                 }
             }
             
-            listMembersVC.firstNameMember = self.firstNameMember
-            listMembersVC.lastNameMember = self.lastNameMember
-            listMembersVC.phoneMember = self.phoneMember
-            listMembersVC.photoMember = self.photoMember
-            listMembersVC.idUser = self.idUser
+              listMembersVC.listUsers = listUsers
         }
         
     }

@@ -32,10 +32,10 @@ class RecyclePointViewController: UIViewController {
         super.viewDidLoad()
         
              self.recyclePointName.text = recyclePoint?.title ?? ""
-             self.recyclePointPhone.text = recyclePoint?.phone ?? ""
-             self.recyclePointEmail.text = recyclePoint?.website ?? ""
-             self.recyclePointSchedule.text = recyclePoint?.schedule ?? ""
-             self.recyclePointAddress.text = recyclePoint?.address ?? ""
+             self.recyclePointPhone.text = recyclePoint?.phone ?? "Не укзаан"
+             self.recyclePointEmail.text = recyclePoint?.website ?? "Не укзаан"
+             self.recyclePointSchedule.text = recyclePoint?.schedule ?? "Не укзаан"
+             self.recyclePointAddress.text = recyclePoint?.address ?? "Не укзаан"
              self.recyclePointSummary.text = recyclePoint?.summary ?? ""
             
             if let _ = recyclePoint?.logo {
