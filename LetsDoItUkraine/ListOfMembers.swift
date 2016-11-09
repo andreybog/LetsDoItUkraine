@@ -14,10 +14,21 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var tableViewMembers: UITableView!
    
     var listUsers = [User]()
-    
+    var cleaning: Cleaning!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let _ = self.cleaning {
+            for idd in self.cleaning.cleanersIds! {
+                UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
+                    if mem != nil {
+                        self.listUsers.append(mem!)
+                        
+                    }
+                })
+            }
+        }
         // Do any additional setup after loading the view.
     }
 

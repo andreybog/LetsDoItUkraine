@@ -31,11 +31,12 @@ class RecyclePointViewController: UIViewController {
         
         super.viewDidLoad()
         
+             self.navigationController?.navigationBar.tintColor = UIColor.white
              self.recyclePointName.text = recyclePoint?.title ?? ""
-             self.recyclePointPhone.text = recyclePoint?.phone ?? "Не укзаан"
-             self.recyclePointEmail.text = recyclePoint?.website ?? "Не укзаан"
-             self.recyclePointSchedule.text = recyclePoint?.schedule ?? "Не укзаан"
-             self.recyclePointAddress.text = recyclePoint?.address ?? "Не укзаан"
+             self.recyclePointPhone.text = recyclePoint?.phone ?? "Не указан"
+             self.recyclePointEmail.text = recyclePoint?.website ?? "Не указан"
+             self.recyclePointSchedule.text = recyclePoint?.schedule ?? "Не указан"
+             self.recyclePointAddress.text = recyclePoint?.address ?? "Не указан"
              self.recyclePointSummary.text = recyclePoint?.summary ?? ""
             
             if let _ = recyclePoint?.logo {

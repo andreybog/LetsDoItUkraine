@@ -39,7 +39,6 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
     var coordiantors: [User]!
-    ////   var members: [User]!
     
     
     
@@ -51,7 +50,17 @@ class CleanPlaceViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.listOfMembers.isHidden = true
+        
+        UsersManager.defaultManager.getCurrentUser { [unowned self] (cUsers) in
+            if let user = cUsers,
+                let coordinatorIds = user.asCoordinatorIds,
+                coordinatorIds.contains(self.cleaning.ID) {
+                self.listOfMembers.isHidden = false
+            } else {
+                 self.listOfMembers.isHidden = true
+            }
+        }
+       
         // getCleaningMembers
         if let user = coordiantors.first {
             
@@ -86,7 +95,7 @@ class CleanPlaceViewController: UIViewController {
             if let _ = cleaning.datetime {
                 self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
             } else {
-                self.cleaningDate.text = "Не укзаана"
+                self.cleaningDate.text = "Не указано"
             }
             
             
@@ -122,68 +131,40 @@ class CleanPlaceViewController: UIViewController {
     }
     
     @IBAction func openListOfMembers(_ sender: AnyObject) {
-        //For test
-        self.performSegue(withIdentifier: "toListMembers", sender: self)
-        
-        //Not for test
-        /*
-        UsersManager.defaultManager.getCurrentUser { (cUsers) in
-            if let user = cUsers, let coordinatorIds = user.asCoordinatorIds, coordinatorIds.contains(self.cleaning.ID) {
+        //self.performSegue(withIdentifier: "toListMembers", sender: self)
+        UsersManager.defaultManager.getCurrentUser { [unowned self] (cUsers) in
+            if let user = cUsers,
+            let coordinatorIds = user.asCoordinatorIds,
+            coordinatorIds.contains(self.cleaning.ID) {
                 self.performSegue(withIdentifier: "toListMembers", sender: self)
             }
         }
-        */
-
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //REMOVE
         if segue.identifier == "toListMembers" {
             let listMembersVC = segue.destination as! ListOfMembers
-            var listUsers = [User]()
-
-            if let _ = self.cleaning {
-                for idd in self.cleaning.cleanersIds! {
-                    UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
-
-                        if mem != nil {
-                              listUsers.append(mem!)
-                            
-                        }
-                    })
-                }
-            }
-            
-              listMembersVC.listUsers = listUsers
+            listMembersVC.cleaning = cleaning
         }
         
     }
     
     
     @IBAction func goToCleaning(_ sender: AnyObject) {
-        
-        //UsersManager.defaultManager.getCurrentUser { (cUsers) in
-        //    print(cUsers)
-        //}
-        
-        // no need
-        var curUser = User()
-        curUser.ID = "i25"
-        curUser.firstName = "Анна"
-        curUser.lastName = "Фугас"
-//        curUser.asCleanersIds = ["i08"]
-        // let curUser: User? = nil
-        //
-        
-        if curUser != nil {
-            CleaningsManager.defaultManager.addMember(curUser, toCleaning: self.cleaning, as: .cleaner)
-            self.goToCleaning.isEnabled = false
-            self.goToCleaning.setTitleColor(UIColor.gray, for: UIControlState.normal)
-        } else {
-            print("need registration")
-            self.performSegue(withIdentifier: "authorizationMember", sender: self)
-        }
-        
+
+        UsersManager.defaultManager.getCurrentUser { (cUsers) in
+           if let user = cUsers {
+            CleaningsManager.defaultManager.addMember(user, toCleaning: self.cleaning, as: .cleaner)
+            self.goToCleaning.isHidden = true
+           } else {
+            
+            let modalViewController = AuthorizationViewController()
+            modalViewController.modalPresentationStyle = .overCurrentContext
+            self.present(modalViewController, animated: true, completion: nil)
+
+          }
+         }
     }
     
     
