@@ -37,6 +37,10 @@ class AuthorizationUtils {
             vc.navigationController!.present(authVC, animated: true, completion: nil)
         }
     }
+    
+    static func isCurrentUserEnabled() -> Bool {
+        return FIRAuth.auth()?.currentUser != nil
+    }
 }
 
 
