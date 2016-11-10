@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Firebase
 
 extension Date {
     func dateStringWithFormat(format: String) -> String {
@@ -178,28 +179,33 @@ class CleanPlaceViewController: UIViewController {
     
     
     @IBAction func goToCleaning(_ sender: AnyObject) {
-        
-        //UsersManager.defaultManager.getCurrentUser { (cUsers) in
-        //    print(cUsers)
-        //}
-        
-        // no need
         var curUser = User()
         curUser.ID = "i25"
         curUser.firstName = "Анна"
         curUser.lastName = "Фугас"
-//        curUser.asCleanersIds = ["i08"]
-        // let curUser: User? = nil
-        //
         
-        if curUser != nil {
-            CleaningsManager.defaultManager.addMember(curUser, toCleaning: self.cleaning, as: .cleaner)
+        AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
             self.goToCleaning.isEnabled = false
             self.goToCleaning.setTitleColor(UIColor.gray, for: UIControlState.normal)
-        } else {
-            print("need registration")
-            self.performSegue(withIdentifier: "authorizationMember", sender: self)
-        }
+            self.goToApplicationAcceptedView()
+            }, onFailed: {
+                self.showMessageToUser()
+        })
+    }
+    
+    func goToApplicationAcceptedView() {
+        self.performSegue(withIdentifier: "ShowApplicationAcceptedView", sender: self)
+    }
+    
+    func showMessageToUser() {
+        let alert = UIAlertController(title:"Авторизация" , message: "Авторизация не совершена. У вас ограничен доступ к этому функционалу", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func cancelToCleanPlaceVC(segue: UIStoryboardSegue) {
         
     }
     

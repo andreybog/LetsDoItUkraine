@@ -7,17 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
-class MainTabBarController: UITabBarController {
-
-
-    
-//     MARK: - Navigation
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if let index = tabBar.items?.index(of: item), index == 1  {
-            print("In contacts")
+        if let index = tabBar.items?.index(of: item), index == 4  {
+            print("CreateCleaning vc")
             
         }
     }
+
 }
