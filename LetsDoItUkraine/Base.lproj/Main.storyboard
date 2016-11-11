@@ -40,13 +40,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zft-48-YWj">
-                                                <rect key="frame" x="0.0" y="50" width="124.5" height="84"/>
+                                                <rect key="frame" x="0.0" y="50" width="125" height="84"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place3.png" translatesAutoresizingMaskIntoConstraints="NO" id="Apn-o7-ump">
-                                                <rect key="frame" x="250.5" y="50" width="124.5" height="84"/>
+                                                <rect key="frame" x="251" y="50" width="124" height="84"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cl_place2.png" translatesAutoresizingMaskIntoConstraints="NO" id="NJz-6F-Gyn">
-                                                <rect key="frame" x="125.5" y="50" width="124" height="84"/>
+                                                <rect key="frame" x="126" y="50" width="124" height="84"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -512,7 +512,7 @@
                         <outlet property="cleaningNameCoordinator" destination="cnS-Dh-sWc" id="faH-7W-Kd7"/>
                         <outlet property="cleaningPhone" destination="rvH-wg-d6k" id="GZS-h4-a0s"/>
                         <outlet property="cleaningPlace" destination="yC7-yp-VZo" id="Ltk-gV-0Yy"/>
-                        <outlet property="coordinators" destination="HgR-mj-r4i" id="HJu-5K-3Pu"/>
+                        <outlet property="coordinatorsLabel" destination="HgR-mj-r4i" id="Dy4-nE-9np"/>
                         <outlet property="goToCleaning" destination="1Kk-lA-CJt" id="YKe-xj-ovZ"/>
                         <outlet property="listOfMembers" destination="6uV-zA-W3U" id="bc1-e5-7QS"/>
                         <outlet property="numberOfMembers" destination="B53-vg-6G9" id="GEB-W4-qeN"/>
@@ -522,6 +522,7 @@
                         <outletCollection property="cleaningPlaces" destination="Apn-o7-ump" collectionClass="NSMutableArray" id="bj0-gp-zOZ"/>
                         <segue destination="Zru-Bj-Cl1" kind="show" identifier="toListMembers" id="WkF-mc-7gH"/>
                         <segue destination="Zbx-jq-9r8" kind="show" identifier="ShowApplicationAcceptedView" id="FkD-F7-Pjq"/>
+                        <segue destination="6RS-kg-jwm" kind="presentation" identifier="showApplicationAcceptedScreen" id="iJB-e8-BDe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1083,7 +1084,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wdv-W9-On2">
-                                                    <rect key="frame" x="126" y="35" width="201" height="59"/>
+                                                    <rect key="frame" x="126" y="35" width="201" height="58"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1947,7 +1948,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Body" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAq-0P-aHs">
-                                                    <rect key="frame" x="20" y="266" width="335" height="140"/>
+                                                    <rect key="frame" x="20" y="266" width="335" height="139"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1956,7 +1957,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="228"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbk-tg-uI5">
-                                                    <rect key="frame" x="20" y="411" width="150" height="25"/>
+                                                    <rect key="frame" x="20" y="410" width="150" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="8wq-Z5-3tq"/>
                                                     </constraints>
@@ -1965,7 +1966,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0VA-Vr-Cn2">
-                                                    <rect key="frame" x="305" y="411" width="50" height="25"/>
+                                                    <rect key="frame" x="305" y="410" width="50" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="KBz-NA-aE7"/>
                                                         <constraint firstAttribute="height" constant="25" id="owG-pX-afp"/>
@@ -2259,7 +2260,7 @@
                         <viewControllerLayoutGuide type="top" id="J6B-7d-jLK"/>
                         <viewControllerLayoutGuide type="bottom" id="0zJ-by-REu"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="Zqp-ol-MDn">
+                    <view key="view" contentMode="scaleToFill" id="Zqp-ol-MDn">
                         <rect key="frame" x="0.0" y="64" width="375" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2484,7 +2485,7 @@
             <objects>
                 <navigationController id="lof-dA-Oz2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" image="Profile" id="TiE-LW-wAH"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Rcd-SM-mhL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rcd-SM-mhL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2562,7 +2563,7 @@
                                 <rect key="frame" x="0.0" y="143" width="375" height="73"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMf-XD-AIG">
-                                        <rect key="frame" x="10" y="10" width="111.5" height="30"/>
+                                        <rect key="frame" x="10" y="10" width="112" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="bB6-S1-wzB"/>
                                         </constraints>
@@ -2571,7 +2572,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Woc-Pj-82f">
-                                        <rect key="frame" x="131.5" y="10" width="112" height="30"/>
+                                        <rect key="frame" x="132" y="10" width="112" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="nuI-lF-tkN"/>
                                         </constraints>
@@ -2580,7 +2581,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JD-mW-Va6">
-                                        <rect key="frame" x="253.5" y="10" width="111.5" height="30"/>
+                                        <rect key="frame" x="254" y="10" width="111" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="abf-WH-7bY"/>
                                         </constraints>
@@ -2589,19 +2590,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="координатор" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kj3-02-Opn">
-                                        <rect key="frame" x="10" y="45" width="111.5" height="23"/>
+                                        <rect key="frame" x="10" y="45" width="112" height="23"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="19"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="волонтер" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWT-c8-FFi">
-                                        <rect key="frame" x="131.5" y="45" width="112" height="23"/>
+                                        <rect key="frame" x="132" y="45" width="112" height="23"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="19"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="активность" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYW-ME-NR0">
-                                        <rect key="frame" x="253.5" y="45" width="111.5" height="23"/>
+                                        <rect key="frame" x="254" y="45" width="111" height="23"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="19"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2660,7 +2661,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uM-to-sHc">
-                                                    <rect key="frame" x="41" y="42" width="316" height="40"/>
+                                                    <rect key="frame" x="41" y="42" width="316" height="39"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2682,7 +2683,7 @@
                                         <color key="backgroundColor" red="0.96854275465011597" green="0.96868163347244263" blue="0.96851247549057007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="cleaningAdressTextLabel" destination="1uM-to-sHc" id="OPk-Xi-MK8"/>
-                                            <segue destination="rJ6-tA-pAI" kind="show" identifier="cleaningPlaceSegue" id="Hvm-St-pWv"/>
+                                            <segue destination="rJ6-tA-pAI" kind="show" identifier="cleaningPlaceSegue" id="TDg-3O-4PF"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="noCleaningCell" rowHeight="130" id="v2o-jc-KhH" customClass="NoCleaningCell" customModule="LetsDoItUkraine" customModuleProvider="target">
@@ -2721,7 +2722,7 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcE-JA-tEA">
-                                                    <rect key="frame" x="10" y="70" width="172.5" height="30"/>
+                                                    <rect key="frame" x="10" y="70" width="173" height="30"/>
                                                     <color key="backgroundColor" red="0.43470865488052368" green="0.76543217897415161" blue="0.59618693590164185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="yw0-id-Zk5"/>
@@ -2741,7 +2742,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOC-DB-Kyt">
-                                                    <rect key="frame" x="192.5" y="70" width="172.5" height="30"/>
+                                                    <rect key="frame" x="193" y="70" width="172" height="30"/>
                                                     <color key="backgroundColor" red="0.43470865489999999" green="0.76543217900000005" blue="0.59618693590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="rND-HO-oBE"/>
@@ -2796,7 +2797,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBq-Qk-ddd">
-                                                    <rect key="frame" x="41" y="42" width="316" height="40"/>
+                                                    <rect key="frame" x="41" y="42" width="316" height="39"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -3149,7 +3150,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3168,7 +3169,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Уборки" image="Cleaning" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3189,7 +3190,7 @@
                     <tabBarItem key="tabBarItem" title="Новости" image="news_icon" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3208,7 +3209,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YMS-lc-SA7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Создать" image="AddCleaning" selectedImage="AddCleaning" id="48R-Aw-fKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="J2j-Zk-ZOR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="J2j-Zk-ZOR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3253,7 +3254,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="exC-NW-dfF"/>
-        <segue reference="Hvm-St-pWv"/>
+        <segue reference="TDg-3O-4PF"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
 </document>

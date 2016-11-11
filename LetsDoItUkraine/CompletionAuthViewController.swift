@@ -50,10 +50,18 @@ class CompletionAuthViewController: UIViewController {
             user.photo = URL(string: photo)
         }
         
-        UsersManager.defaultManager.createUser(user)
-        if let success = successCallback {
-            success()
-        } 
+        UsersManager.defaultManager.createUser(user) { [unowned self] (error, user) in
+            if error != nil {
+                if let failed = self.failedCallback {
+                    failed()
+                }
+            } else {
+                UsersManager.defaultManager.currentUser = user
+                if let success = self.successCallback {
+                    success()
+                }
+            }
+        }
     }
     
     

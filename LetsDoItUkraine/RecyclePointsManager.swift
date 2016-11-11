@@ -146,7 +146,10 @@ class RecyclePointsManager {
         var recyclePoint = recyclePoint
         
         recyclePoint.ID = recyclePointId
-        dataManager.createObject(recyclePoint)
+//        dataManager.createObject(recyclePoint)
+        dataManager.createObject(recyclePoint) { (error, ref) in
+            
+        }
     }
 }
 

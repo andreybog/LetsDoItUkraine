@@ -41,6 +41,7 @@
 		55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E711DAD82BB00A04685 /* CleaningsManager.swift */; };
 		55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E731DAD85E300A04685 /* RecyclePointsManager.swift */; };
 		55033E761DAD867600A04685 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E751DAD867600A04685 /* NewsManager.swift */; };
+		550451F01DD65B1900C18A93 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550451EF1DD65B1900C18A93 /* ColorExtension.swift */; };
 		552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BF8FC1DA196D7008D5317 /* AppDelegate.swift */; };
 		552BF9041DA196D7008D5317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9021DA196D7008D5317 /* Main.storyboard */; };
 		552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */; };
@@ -116,6 +117,7 @@
 		55033E711DAD82BB00A04685 /* CleaningsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsManager.swift; sourceTree = "<group>"; };
 		55033E731DAD85E300A04685 /* RecyclePointsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointsManager.swift; sourceTree = "<group>"; };
 		55033E751DAD867600A04685 /* NewsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
+		550451EF1DD65B1900C18A93 /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		552BF8F91DA196D7008D5317 /* LetsDoItUkraine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsDoItUkraine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		552BF8FC1DA196D7008D5317 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		552BF9031DA196D7008D5317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				16803D271DBD52FD00FB2C8F /* DateExtension.swift */,
+				550451EF1DD65B1900C18A93 /* ColorExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
 				0652A9FD1DC2A23F00DF38DF /* CustomCellCleanMember.swift in Sources */,
+				550451F01DD65B1900C18A93 /* ColorExtension.swift in Sources */,
 				CEAEB4761DB6772400730B8F /* Checkbox.swift in Sources */,
 				CE425A291DBFE36900F9650A /* AddNewsViewController.swift in Sources */,
 				CEF58EDC1DCD1C900084FDD0 /* CompletionAuthViewController.swift in Sources */,
