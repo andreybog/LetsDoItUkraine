@@ -36,6 +36,7 @@ class CompletionAuthViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     @IBAction func DoneButtonWasTouched() {
         var user = User()
         guard let ID = userDict["id"] as? String, let firstName = userFirstName.text else {return}
