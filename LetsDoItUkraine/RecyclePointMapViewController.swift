@@ -106,18 +106,17 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         if recyclePointsCollectionView.isHidden{
             if self.searchMarker.map != nil{
                 self.searchMarker.map = nil
-                setCollectionViewVisible(isCollectionViewVisible: false)
             } else {
-                self.searchMarker.position = coordinate
-                self.searchMarker.map = mapView
-                mapView.animate(toLocation: coordinate)
-                mapView.animate(toZoom: 14)
+                DispatchQueue.main.async {
+                    self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
+                }
                 self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
                 self.recyclePointsCollectionView.reloadData()
                 setCollectionViewVisible(isCollectionViewVisible: true)
             }
         } else {
             setCollectionViewVisible(isCollectionViewVisible: false)
+            self.searchMarker.map = nil
         }
         
     }

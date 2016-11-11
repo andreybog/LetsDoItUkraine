@@ -111,13 +111,16 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             if self.searchMarker.map != nil{
                 self.searchMarker.map = nil
             } else {
-                mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
+                DispatchQueue.main.async {
+                    self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
+                }
                 self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
                 self.cleaningsCollectionView.reloadData()
                 setCollectionViewVisible(isCollectionViewVisible: true)
             }
         } else {
             setCollectionViewVisible(isCollectionViewVisible: false)
+            self.searchMarker.map = nil
         }
     }
     
