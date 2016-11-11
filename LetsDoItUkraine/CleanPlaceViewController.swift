@@ -155,7 +155,9 @@ class CleanPlaceViewController: UIViewController {
 
         UsersManager.defaultManager.getCurrentUser { (cUsers) in
            if let user = cUsers {
-            CleaningsManager.defaultManager.addMember(user, toCleaning: self.cleaning, as: .cleaner)
+           CleaningsManager.defaultManager.addMember(user, toCleaning: self.cleaning, as: .cleaner)
+            
+            self.performSegue(withIdentifier: "request_ok", sender: self)
             self.goToCleaning.isHidden = true
            } else {
             

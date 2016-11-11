@@ -475,6 +475,7 @@
                         <outletCollection property="cleaningPlaces" destination="Apn-o7-ump" collectionClass="NSMutableArray" id="bj0-gp-zOZ"/>
                         <segue destination="Zru-Bj-Cl1" kind="show" identifier="toListMembers" id="WkF-mc-7gH"/>
                         <segue destination="v5W-pN-DXC" kind="show" identifier="authorizationMember" id="OkL-o9-pom"/>
+                        <segue destination="6RS-kg-jwm" kind="presentation" identifier="request_ok" id="Zb6-4c-IqZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anW-dm-Kzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -836,6 +837,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mx-v2-dC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4356" y="728"/>
+        </scene>
+        <!--Add Member View Controller-->
+        <scene sceneID="61F-UZ-0Ve">
+            <objects>
+                <viewController id="6RS-kg-jwm" customClass="AddMemberViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ka5-8I-Mzb"/>
+                        <viewControllerLayoutGuide type="bottom" id="YJX-lJ-Kyi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bFD-Dj-IaI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abb-Gz-sgf">
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ok" translatesAutoresizingMaskIntoConstraints="NO" id="RcF-Tx-YwK">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="98" id="7gr-gw-fyB"/>
+                                            <constraint firstAttribute="width" constant="98" id="MlB-jp-M7r"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ваша заявка принята" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tko-4U-sY0">
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="RcF-Tx-YwK" firstAttribute="centerX" secondItem="abb-Gz-sgf" secondAttribute="centerX" id="fdG-69-eev"/>
+                                    <constraint firstItem="tko-4U-sY0" firstAttribute="centerX" secondItem="abb-Gz-sgf" secondAttribute="centerX" id="ogh-7w-mV2"/>
+                                    <constraint firstItem="RcF-Tx-YwK" firstAttribute="top" secondItem="abb-Gz-sgf" secondAttribute="top" constant="10" id="prC-h2-QeS"/>
+                                    <constraint firstAttribute="height" constant="155" id="ylO-Bz-mUf"/>
+                                    <constraint firstItem="tko-4U-sY0" firstAttribute="top" secondItem="RcF-Tx-YwK" secondAttribute="bottom" constant="20" id="zRg-ys-2s4"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KY-b4-Cf8">
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.76470588240000004" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Fp6-iT-iDj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeVC:" destination="6RS-kg-jwm" eventType="touchUpInside" id="xZy-fa-qPh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="abb-Gz-sgf" secondAttribute="trailing" id="2aE-sA-peq"/>
+                            <constraint firstItem="YJX-lJ-Kyi" firstAttribute="top" secondItem="9KY-b4-Cf8" secondAttribute="bottom" id="5Qf-EN-Wtj"/>
+                            <constraint firstItem="9KY-b4-Cf8" firstAttribute="leading" secondItem="bFD-Dj-IaI" secondAttribute="leadingMargin" constant="-16" id="5iX-Ok-957"/>
+                            <constraint firstItem="abb-Gz-sgf" firstAttribute="centerY" secondItem="bFD-Dj-IaI" secondAttribute="centerY" id="6QE-tR-W7N"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9KY-b4-Cf8" secondAttribute="trailing" constant="-16" id="WXJ-S5-AeX"/>
+                            <constraint firstItem="abb-Gz-sgf" firstAttribute="leading" secondItem="bFD-Dj-IaI" secondAttribute="leadingMargin" id="avH-Dd-8Qp"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F3N-lA-Yc7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2941.5999999999999" y="3242.4287856071965"/>
         </scene>
         <!--List Of Members-->
         <scene sceneID="ZCW-M3-GwC">
@@ -2813,6 +2878,7 @@
         <image name="location_cl" width="13" height="16"/>
         <image name="multiple-users_cl" width="18" height="14"/>
         <image name="news_icon" width="25" height="25"/>
+        <image name="ok" width="108" height="108"/>
         <image name="phone_clear" width="14" height="14"/>
         <image name="placeholder" width="1280" height="960"/>
         <image name="settings" width="21" height="21"/>
