@@ -22,4 +22,11 @@ extension Date {
     var shortDate: String {
         return Formatter.shortDate.string(from: self)
     }
+    var dateWithLocale: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "ru_RU") as Locale!
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+        return dateFormatter.string(from: self)
+    }
 }

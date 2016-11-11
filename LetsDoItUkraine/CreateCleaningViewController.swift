@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
 import GooglePlaces
+import QuartzCore
 
 class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SearchResultsDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let kSearchResultCellIdentifier = "searchResultCell"
-
+    
+    @IBOutlet weak var descriptionLabelTextField: UITextField!
     @IBOutlet weak var dateAndTimeTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet var addPhotoButtons: [UIButton]!
@@ -22,19 +25,26 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     var buttonTag = Int()
     var cleaningDate = Date()
     var cleaningDescription:String?
-    var newCleaning = Cleaning()
-    
+    var photosUrls = [URL]()
+    var coordinate = CLLocationCoordinate2D()
     let searchController = SearchResultsController()
+    var currentUser = User()
+    
+    
     let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+
         imagePicker.delegate = self
         searchController.delegate = self
         addressSearchBar.delegate = self
-        
+        let image = #imageLiteral(resourceName: "location_cl")
+        addressSearchBar.setImage(image, for: UISearchBarIcon.search, state: UIControlState.normal)
+//        descriptionLabelTextField.isUserInteractionEnabled = false
         for button in addPhotoButtons {
+            button.contentMode = .scaleToFill
             button.setImage(#imageLiteral(resourceName: "PlaceholderCleaningPhoto"), for: UIControlState.normal)
         }
     }
@@ -47,11 +57,11 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
-            }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
-        }
+    }
     // MARK: - UITableViewDelegate
     
     // MARK: - UISearchBarDelegate
@@ -82,8 +92,35 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
             self.searchController.reloadDataWith(Array: self.resultArray)
         }
     }
-
+    
     // MARK: - Actions
+    
+
+    @IBAction func descriptionLabelDidTapped(_ sender: Any) {
+    }
+    
+    @IBAction func nextButtonDIdTapped(_ sender: UIButton) {
+        var cleaning = Cleaning()
+        if let address = addressSearchBar.placeholder {
+            cleaning.address = address
+        }
+        cleaning.coordinate = coordinate
+        cleaning.summary = descriptionTextField.text
+        cleaning.datetime = cleaningDate
+        let coordinatorsIDs = ["i01"]
+        cleaning.coordinatorsIds = coordinatorsIDs
+        loadPhotos(photos: addPhotoButtons) { (urls, error) in
+            if (error != nil) {
+                cleaning.pictures = urls
+                self.currentUser.create(cleaning)
+            } else {
+                let alertController = UIAlertController(title: "Failed to load image", message: "try again", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Try again", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
     
     @IBAction func addPhotoButtonDidTapped(_ sender: UIButton!) {
         imagePicker.allowsEditing = true
@@ -120,6 +157,29 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // MARK: - LoadData
+    func loadPhotos (photos:[UIButton], handler: @escaping (_:[URL], _:Error?) -> Void) {
+        var urls = [URL]()
+        var error:Error?
+        
+        for photo in photos {
+            if !(photo.currentImage?.isEqual(#imageLiteral(resourceName: "PlaceholderCleaningPhoto")))! {
+                ImageLoader.default.upload(image: photo.currentImage!, to: ImageStoragePath.cleanings.rawValue, handler: {
+                    (url, err) in
+                    if error == nil {
+                        if let newUrl = url {
+                            urls.append(newUrl)
+                        }
+                    } else {
+                        error = err
+                    }
+                })
+            }
+        }
+        handler(urls, error)
+    }
+    
+    
+    
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -134,6 +194,7 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
         guard let selectedImage = selectedImageFromPicker else {return}
         for button in addPhotoButtons{
             if button.tag == buttonTag {
+                button.contentMode = .scaleToFill
                 button.setImage(selectedImage, for: UIControlState.normal)
             }
             dismiss(animated: true, completion: nil)
@@ -143,31 +204,29 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - SearchResultDelegate
     func pass(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
+        coordinate = CLLocationCoordinate2DMake(lat, lon)
         addressSearchBar.placeholder = title
     }
-
+    
     
     // MARK: - UITextFieldDelegate
-
-
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
         datePickerView.locale = NSLocale(localeIdentifier: "ru_RU") as Locale
         datePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         textField.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
-        
+        dateAndTimeTextField.text = datePickerView.date.dateWithLocale
     }
     
     func datePickerValueChanged(sender:UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "ru_RU") as Locale!
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        dateAndTimeTextField.text = dateFormatter.string(from: sender.date)
+        dateAndTimeTextField.text = sender.date.dateWithLocale
+        cleaningDate = sender.date
     }
-
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
         return true
     }
     
@@ -175,4 +234,5 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
         super.didReceiveMemoryWarning()
         
     }
+    
 }
