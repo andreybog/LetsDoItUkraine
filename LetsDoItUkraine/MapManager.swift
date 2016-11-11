@@ -82,8 +82,6 @@ class MapManager {
     
     func locate(searchMarker marker: GMSMarker, onMap map: GMSMapView, withCoordinate coordinate: CLLocationCoordinate2D) {
         marker.position = coordinate
-        map.animate(toLocation: marker.position)
-        map.animate(toZoom: 14)
         marker.map = map
     }
     
