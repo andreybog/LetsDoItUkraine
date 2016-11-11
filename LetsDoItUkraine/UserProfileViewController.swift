@@ -26,6 +26,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kCleaningPlaceSegue = "cleaningPlaceSegue"
     let kAddCleaningSegue = "addCleaningSegue"
     let kSearchCleaningSegue = "searchCleaningSegue"
+    
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -152,7 +153,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: -Segue
-    
+    //showCleaningInfoScreenFromMyProfile
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case kCleaningPlaceSegue:
@@ -164,6 +165,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 } else {
                     cleaning = userCleaningsAsCleaner[indexPath.row]
                 }
+                
+//                UsersManager.defaultManager
                 nextScene?.cleaning = cleaning
             }
         case kAddCleaningSegue:

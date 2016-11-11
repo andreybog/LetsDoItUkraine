@@ -242,7 +242,7 @@ class CleaningsManager {
         let cleaningId = cleaningsRootRef.childByAutoId().key
         var cleaning = cleaning
         cleaning.ID = cleaningId
-        dataManager.createObject(cleaning)
+        dataManager.createObject(cleaning) { (error, ref) in }
         addMember(user, toCleaning: cleaning, as: .coordinator)
     }
     

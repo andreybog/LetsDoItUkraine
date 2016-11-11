@@ -79,8 +79,11 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
             /*UsersManager.defaultManager.getUser(withId: ID, handler: {[unowned self] (gotUser) in
                 if gotUser != nil {
                     self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
-                    if let success = self.successCallback {
-                        success()
+                    UsersManager.defaultManager.currentUser = gotUser
+                    DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                        if let success = self.successCallback {
+                            success()
+                        }
                     }
                 } else {
                     guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }

@@ -188,9 +188,10 @@ class DataManager {
     
     // MARK: - API - UPDATE
     
-    func createObject<T:FirebaseInitable>(_ object:T) {
+    func createObject<T:FirebaseInitable>(_ object:T, withCompletionBlock block: @escaping (_: Error?, _: FIRDatabaseReference) -> Void) {
         let reference = rootRef.child(T.rootDatabasePath)
-        reference.updateChildValues(object.toJSON)
+//        reference.updateChildValues(object.toJSON)
+        reference.updateChildValues(object.toJSON, withCompletionBlock: block)
     }
     
     func updateObjects(_ values: [String : Any]) {

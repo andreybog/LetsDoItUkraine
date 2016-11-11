@@ -100,7 +100,8 @@ class NewsManager {
         
         news.ID = newsId
         news.isConfirmed = false
-        dataManager.createObject(news)
+
+        dataManager.createObject(news) { (error, ref) in }
     }
     
 }
