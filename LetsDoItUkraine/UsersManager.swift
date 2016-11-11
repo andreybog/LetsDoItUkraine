@@ -220,6 +220,11 @@ class UsersManager {
         self.dataManager.createObject(user)
     }
   
+    func logOut() {
+        try? FIRAuth.auth()?.signOut()
+        currentUser = nil
+    }
+    
   // MARK: - OBSERVERS
     
     private func addObservers() {

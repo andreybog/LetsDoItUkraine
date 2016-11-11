@@ -7,16 +7,31 @@
 //
 
 import UIKit
+import Firebase
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
 
-
+//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//        if let index = tabBar.items?.index(of: item), index == 4  {
+//            
+//            print("hello")
+//            
+//        }
+//    }
     
-//     MARK: - Navigation
-
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if let index = tabBar.items?.index(of: item), index == 1  {
-            print("In contacts")
+    
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        if viewController is CreateCleaningViewController {
+            if !AuthorizationUtils.isCurrentUserEnabled() {
+                AuthorizationUtils.authorize(vc: self, onSuccess: {
+                    self.selectedIndex = 4
+                    }, onFailed: {
+                        
+                })
+                return false
+            }
             
             // for testing
 //            CleaningsManager.defaultManager.getCleaning(withId: "i02", handler: { (cleaning) in
@@ -33,5 +48,6 @@ class MainTabBarController: UITabBarController {
 //            })
             
         }
+        return true
     }
 }

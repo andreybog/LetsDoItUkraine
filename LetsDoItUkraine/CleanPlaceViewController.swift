@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Firebase
 
 extension Date {
     func dateStringWithFormat(format: String) -> String {
@@ -153,20 +154,47 @@ class CleanPlaceViewController: UIViewController {
     
     @IBAction func goToCleaning(_ sender: AnyObject) {
 
-        UsersManager.defaultManager.getCurrentUser { (cUsers) in
-           if let user = cUsers {
-           CleaningsManager.defaultManager.addMember(user, toCleaning: self.cleaning, as: .cleaner)
-            
-            self.performSegue(withIdentifier: "request_ok", sender: self)
-            self.goToCleaning.isHidden = true
-           } else {
-            
-            let modalViewController = AuthorizationViewController()
-            modalViewController.modalPresentationStyle = .overCurrentContext
-            self.present(modalViewController, animated: true, completion: nil)
 
-          }
-         }
+//        UsersManager.defaultManager.getCurrentUser { (cUsers) in
+//           if let user = cUsers {
+//           CleaningsManager.defaultManager.addMember(user, toCleaning: self.cleaning, as: .cleaner)
+            //
+//            self.performSegue(withIdentifier: "request_ok", sender: self)
+//            self.goToCleaning.isHidden = true
+//           } else {
+            //
+//            let modalViewController = AuthorizationViewController()
+//            modalViewController.modalPresentationStyle = .overCurrentContext
+//            self.present(modalViewController, animated: true, completion: nil)
+//
+//          }
+//         }
+
+              
+        AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
+            self.goToCleaning.isEnabled = false
+            self.goToCleaning.setTitleColor(UIColor.gray, for: UIControlState.normal)
+            self.goToApplicationAcceptedView()
+            }, onFailed: {
+                self.showMessageToUser()
+        })
+    }
+    
+    func goToApplicationAcceptedView() {
+        self.performSegue(withIdentifier: "ShowApplicationAcceptedView", sender: self)
+    }
+    
+    func showMessageToUser() {
+        let alert = UIAlertController(title:"Авторизация" , message: "Авторизация не совершена. У вас ограничен доступ к этому функционалу", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func cancelToCleanPlaceVC(segue: UIStoryboardSegue) {
+        
+
     }
     
     

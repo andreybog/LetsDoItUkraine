@@ -94,10 +94,8 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFilters" {
-            if let navcon = segue.destination as? UINavigationController {
-                if let filtersVC = navcon.viewControllers.first as? RecyclePointListViewController {
-                    filtersVC.selectedCategories = Set(recyclePointCategories)
-                }
+            if let filtersVC = segue.destination as? RecyclePointListViewController {
+                filtersVC.selectedCategories = Set(recyclePointCategories)
             }
         }
     }

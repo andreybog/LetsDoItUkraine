@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 
 class UserProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -179,13 +180,21 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func addCleaningDidTapped(_ sender: AnyObject) {
-        print("add button tapped")
-        performSegue(withIdentifier:kAddCleaningSegue, sender: self)
+        AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
+            self.goToCreationCleaningVC()
+            }, onFailed: {
+                self.showMessageToUser()
+        })
+    }
+    
+    func goToCreationCleaningVC() {
+       performSegue(withIdentifier:kAddCleaningSegue, sender: self)
     }
 
     @IBAction func settingsButtonDidTapped(_ sender: AnyObject) {
     }
     
+
     
     //MARK: - Notifications
     
@@ -194,6 +203,14 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             self.user = currentUser
             self.updateUserInformation()
         }
+    }
+
+    func showMessageToUser() {
+        let alert = UIAlertController(title:"Авторизация" , message: "Авторизация не совершена. У вас ограничен доступ к этому функционалу", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
     }
 }
 

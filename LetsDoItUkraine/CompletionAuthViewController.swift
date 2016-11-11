@@ -17,6 +17,9 @@ class CompletionAuthViewController: UIViewController {
     @IBOutlet weak var userPhoneNumber: UITextField!
     @IBOutlet weak var userCity: UITextField!
     
+    var successCallback: (() -> Void)?
+    var failedCallback: (() -> Void)?
+    
     var userDict = [String: Any]()
     
     override func viewDidLoad() {
@@ -42,12 +45,22 @@ class CompletionAuthViewController: UIViewController {
         user.lastName = userLastName.text
         user.city = userCity.text
         user.email = userMail.text
+        user.phone = userPhoneNumber.text
         if let photo = userDict["picture"] as? String {
             user.photo = URL(string: photo)
         }
         
         UsersManager.defaultManager.createUser(user)
+        if let success = successCallback {
+            success()
+        }
     }
+    
+    
+    
+    
+    
+    
     
 
 

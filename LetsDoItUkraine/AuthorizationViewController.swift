@@ -21,6 +21,11 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: FBSDKLoginButton!
     
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    var successCallback: (() -> Void)?
+    var failedCallback: (() -> Void)?
+    
     var isLoggedIn = false
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +59,9 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
             if let email = data["email"] as? String {
                 user["email"] = email
             }
+            if let phone = data["phoneNumber"] as? String {
+                user["phone"] = phone
+            }
             
             if let picture = data["picture"] as? NSDictionary,
                 let data = picture["data"] as? NSDictionary,
@@ -61,10 +69,29 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
                 user["picture"] = url
             }
             
-            guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
+            /*guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
             completionAuthVC.userDict = user
+            completionAuthVC.successCallback = self.successCallback
+            completionAuthVC.failedCallback = self.failedCallback
             
-            self.present(completionAuthVC, animated: true, completion: nil)
+            self.present(completionAuthVC, animated: true, completion: nil)*/
+            
+            UsersManager.defaultManager.getUser(withId: ID, handler: {[unowned self] (gotUser) in
+                if gotUser != nil {
+                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                    if let success = self.successCallback {
+                        success()
+                    }
+                } else {
+                    guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
+                    completionAuthVC.userDict = user
+                    completionAuthVC.successCallback = self.successCallback
+                    completionAuthVC.failedCallback = self.failedCallback
+                    
+                    
+                    self.present(completionAuthVC, animated: true, completion: nil)
+                }
+            })
             
         }
         
@@ -83,6 +110,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
         loginButton.isHidden = true
+        cancelButton.isHidden = true
     }
     
     func showContent() {
@@ -90,6 +118,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
         loginButton.isHidden = false
+        cancelButton.isHidden = false 
     }
     
     
@@ -120,14 +149,48 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
     
-    @IBAction func loginButtonWasTouched() {
-        
+    
+    @IBAction func cancelButtonWasTouched() {
+        self.dismiss(animated: true, completion: nil)
     }
     
+    
+    
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        try! FIRAuth.auth()!.signOut()
+        UsersManager.defaultManager.logOut()
     }
     
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
