@@ -17,4 +17,12 @@ class StreetViewFormatter{
         let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
         return urlString
     }
+    func setWideStreetViewImageWith(coordinates: String) -> String {
+        let mainURL = "https://maps.googleapis.com/maps/api/streetview?"
+        let size = "600x200"
+        let location = "\(coordinates.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
+        let urlString = "\(mainURL)size=\(size)&location=\(location)&key=\(kGoogleStreetViewAPIKey)"
+        return urlString
+    }
+    
 }

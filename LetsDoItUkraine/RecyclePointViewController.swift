@@ -41,7 +41,9 @@ class RecyclePointViewController: UIViewController {
             if let _ = recyclePoint?.logo {
               self.recyclePointLogo.kf.setImage(with: recyclePoint?.logo, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
-            
+        
+            getStreetViewImage()
+        
             if let _ = recyclePoint?.picture {
                 self.recyclePointPicture.kf.setImage(with: recyclePoint?.picture, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
@@ -54,6 +56,17 @@ class RecyclePointViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func getStreetViewImage(){
+        if let point = self.recyclePoint{
+            let streetViewManager = StreetViewFormatter()
+            let coordinate = "\(point.coordinate.latitude), \(point.coordinate.longitude)"
+            let urlString = streetViewManager.setWideStreetViewImageWith(coordinates: coordinate)
+            recyclePoint!.picture = URL(string: urlString);
+
+        }
     }
     
 
