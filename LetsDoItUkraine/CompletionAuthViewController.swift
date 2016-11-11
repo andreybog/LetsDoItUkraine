@@ -53,7 +53,7 @@ class CompletionAuthViewController: UIViewController {
         UsersManager.defaultManager.createUser(user)
         if let success = successCallback {
             success()
-        }
+        } 
     }
     
     
