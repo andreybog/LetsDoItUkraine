@@ -68,15 +68,15 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
                 let url = data["url"] as? String {
                 user["picture"] = url
             }
-            /*
+            
             guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
             completionAuthVC.userDict = user
             completionAuthVC.successCallback = self.successCallback
             completionAuthVC.failedCallback = self.failedCallback
             
-            self.present(completionAuthVC, animated: true, completion: nil)*/
+            self.present(completionAuthVC, animated: true, completion: nil)
             
-            UsersManager.defaultManager.getUser(withId: ID, handler: {[unowned self] (gotUser) in
+            /*UsersManager.defaultManager.getUser(withId: ID, handler: {[unowned self] (gotUser) in
                 if gotUser != nil {
                     self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
                     if let success = self.successCallback {
@@ -91,7 +91,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
                     
                     self.present(completionAuthVC, animated: true, completion: nil)
                 }
-            })
+            })*/
             
         }
         
