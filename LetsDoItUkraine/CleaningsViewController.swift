@@ -130,6 +130,11 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         setCollectionViewVisible(isCollectionViewVisible: true)
     }
     
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        mapView.animate(toZoom: 14)
+        return true
+    }
+    
     //MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.cleaningsCount()
