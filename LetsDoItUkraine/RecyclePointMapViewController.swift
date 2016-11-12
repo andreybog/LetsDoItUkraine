@@ -129,7 +129,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         mapView.animate(toZoom: 14)
-        return true
+        return false
     }
 
     //MARK: - UICollectionViewDataSource
