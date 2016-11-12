@@ -165,7 +165,13 @@ class CleaningsMapPresenter {
             } else {
                 cell.coordinator = "Координатор: Загружается..."
             }
-            cell.participants = "Пойдет: \(currentCleaningsArray[index].cleanersIds!.count)"
+            var cleaners = ""
+            if let cleanersIds = currentCleaningsArray[index].cleanersIds{
+                cleaners = "\(cleanersIds.count)"
+            } else {
+                cleaners = "0"
+            }
+            cell.participants = "Пойдет : \(cleaners)"
             cell.distance = "\(String(describing: cleaningDistances[index] ?? 0)) КМ"
         }
     }
