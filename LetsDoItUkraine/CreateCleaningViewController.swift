@@ -15,7 +15,7 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     
     let kSearchResultCellIdentifier = "searchResultCell"
     
-    @IBOutlet weak var descriptionLabelTextField: UITextField!
+    @IBOutlet weak var descriptionButton: UIButton!
     @IBOutlet weak var dateAndTimeTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet var addPhotoButtons: [UIButton]!
@@ -46,7 +46,6 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
         
         let image = #imageLiteral(resourceName: "location_cl")
         addressSearchBar.setImage(image, for: UISearchBarIcon.search, state: UIControlState.normal)
-//        descriptionLabelTextField.isUserInteractionEnabled = false
         for button in addPhotoButtons {
             button.contentMode = .scaleToFill
             button.setImage(#imageLiteral(resourceName: "PlaceholderCleaningPhoto"), for: UIControlState.normal)
@@ -104,8 +103,10 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - Actions
     
-
-    @IBAction func descriptionLabelDidTapped(_ sender: Any) {
+    
+    
+    @IBAction func descriptionButtonDidTapped(_ sender: UIButton) {
+        descriptionTextField.becomeFirstResponder()
     }
     
     @IBAction func nextButtonDIdTapped(_ sender: UIButton) {
@@ -119,9 +120,15 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
         let coordinatorsIDs = ["i01"]
         cleaning.coordinatorsIds = coordinatorsIDs
         loadPhotos(photos: addPhotoButtons) { (urls, error) in
-            if (error != nil) {
+            if (error == nil) {
                 cleaning.pictures = urls
                 self.currentUser.create(cleaning)
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController(title: "Images successful Loaded", message: "=)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "Try again", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             } else {
                 let alertController = UIAlertController(title: "Failed to load image", message: "try again", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "Try again", style: .default, handler: nil)
@@ -174,7 +181,7 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
             if !(photo.currentImage?.isEqual(#imageLiteral(resourceName: "PlaceholderCleaningPhoto")))! {
                 ImageLoader.default.upload(image: photo.currentImage!, to: ImageStoragePath.cleanings.rawValue, handler: {
                     (url, err) in
-                    if error == nil {
+                    if err == nil {
                         if let newUrl = url {
                             urls.append(newUrl)
                         }
