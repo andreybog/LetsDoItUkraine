@@ -87,7 +87,7 @@ extension Cleaning : FirebaseInitable {
         if let pictures = pictures {
             var picDict = [String:String]()
             for (index, url) in pictures.enumerated() {
-                picDict[String(index)] = url.absoluteString
+                picDict["i\(index)"] = url.absoluteString
             }
             data["pictures"] = picDict
         }
@@ -237,13 +237,19 @@ class CleaningsManager {
     
     // MARK: - MODIFY METHODS
     
-    func createCleaning(_ cleaning:Cleaning, byCoordinator user:User) {
+    func createCleaning(_ cleaning:Cleaning, byCoordinator user:User, withCompletionBlock block: @escaping (Error?, Cleaning?)->Void) {
         let cleaningsRootRef = dataManager.rootRef.child(Cleaning.rootDatabasePath)
         let cleaningId = cleaningsRootRef.childByAutoId().key
         var cleaning = cleaning
         cleaning.ID = cleaningId
-        dataManager.createObject(cleaning) { (error, ref) in }
-        addMember(user, toCleaning: cleaning, as: .coordinator)
+        dataManager.createObject(cleaning) { [unowned self] (error, ref) in
+            if error != nil {
+                block(error, nil)
+            } else {
+                self.addMember(user, toCleaning: cleaning, as: .coordinator)
+                block(nil, cleaning)
+            }
+        }
     }
     
     func addMember(_ user:User, toCleaning cleaning: Cleaning, as memberType: UserRole) {

@@ -165,7 +165,7 @@ class CleaningsMapPresenter {
             } else {
                 cell.coordinator = "Координатор: Загружается..."
             }
-            cell.participants = "Пойдет: \(currentCleaningsArray[index].cleanersIds!.count)"
+            cell.participants = "Пойдет: \(currentCleaningsArray[index].cleanersIds?.count ?? 0)"
             cell.distance = "\(String(describing: cleaningDistances[index] ?? 0)) КМ"
         }
     }

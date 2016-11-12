@@ -69,22 +69,22 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
                 user["picture"] = url
             }
             
-            guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
+            /*guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
             completionAuthVC.userDict = user
             completionAuthVC.successCallback = self.successCallback
             completionAuthVC.failedCallback = self.failedCallback
             
-            self.present(completionAuthVC, animated: true, completion: nil)
+            self.present(completionAuthVC, animated: true, completion: nil)*/
             
-            /*UsersManager.defaultManager.getUser(withId: ID, handler: {[unowned self] (gotUser) in
+            UsersManager.defaultManager.getUser(withId: ID, handler: {[unowned self] (gotUser) in
                 if gotUser != nil {
-                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
                     UsersManager.defaultManager.currentUser = gotUser
-                    DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+//                    DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                         if let success = self.successCallback {
                             success()
                         }
-                    }
+//                    }
+                    self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
                 } else {
                     guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
                     completionAuthVC.userDict = user
@@ -94,7 +94,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
                     
                     self.present(completionAuthVC, animated: true, completion: nil)
                 }
-            })*/
+            })
             
         }
         

@@ -93,12 +93,12 @@ class CleanPlaceViewController: UIViewController {
                 }
             }
             
-            self.numberOfMembers.text = String(cleaning.cleanersIds!.count)
+            self.numberOfMembers.text = String(cleaning.cleanersIds?.count ?? 0)
             self.coordinatorsLabel.text = String(cleaning.coordinatorsIds!.count)
-            self.volunteers.text = String(cleaning.cleanersIds!.count)
+            self.volunteers.text = String(cleaning.cleanersIds?.count ?? 0)
             
             if let _ = cleaning.datetime {
-                self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+                self.cleaningDate.text = cleaning.startAt!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
             } else {
                 self.cleaningDate.text = "Не указано"
             }

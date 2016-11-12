@@ -93,8 +93,8 @@ extension User {
         return (cleaningsMetadata.filter { $0.startAt < pivotDate }).map { $0.ID }
     }
     
-    func create(_ cleaning: Cleaning) {
-        CleaningsManager.defaultManager.createCleaning(cleaning, byCoordinator: self)
+    func create(_ cleaning: Cleaning, withCompletionBlock block: @escaping (Error?, Cleaning?)->Void) {
+        CleaningsManager.defaultManager.createCleaning(cleaning, byCoordinator: self, withCompletionBlock: block)
     }
     
     func go(to cleaning: Cleaning) {
@@ -228,7 +228,7 @@ class UsersManager {
             if error != nil {
                 block(error, nil)
             } else {
-                UsersManager.defaultManager.getUser(withId: ref.key, handler: { (user) in
+                UsersManager.defaultManager.getUser(withId: user.ID, handler: { (user) in
                     if user != nil {
                         return block(nil, user)
                     }

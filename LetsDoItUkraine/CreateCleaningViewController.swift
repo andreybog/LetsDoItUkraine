@@ -14,6 +14,7 @@ import QuartzCore
 class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SearchResultsDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let kSearchResultCellIdentifier = "searchResultCell"
+    let kCleaningPlaceSegue = "cleaningPlaceSegue"
     
     @IBOutlet weak var descriptionLabelTextField: UITextField!
     @IBOutlet weak var dateAndTimeTextField: UITextField!
@@ -28,7 +29,7 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     var photosUrls = [URL]()
     var coordinate = CLLocationCoordinate2D()
     let searchController = SearchResultsController()
-    var currentUser = User()
+//    var currentUser = User()
     
     
     let imagePicker = UIImagePickerController()
@@ -109,25 +110,30 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func nextButtonDIdTapped(_ sender: UIButton) {
+        let usersManager = UsersManager.defaultManager
         var cleaning = Cleaning()
+        
         if let address = addressSearchBar.placeholder {
             cleaning.address = address
         }
         cleaning.coordinate = coordinate
         cleaning.summary = descriptionTextField.text
-        cleaning.datetime = cleaningDate
-        let coordinatorsIDs = ["i01"]
-        cleaning.coordinatorsIds = coordinatorsIDs
-        loadPhotos(photos: addPhotoButtons) { (urls, error) in
-            if (error != nil) {
-                cleaning.pictures = urls
-                self.currentUser.create(cleaning)
-            } else {
-                let alertController = UIAlertController(title: "Failed to load image", message: "try again", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Try again", style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
+        cleaning.startAt = cleaningDate
+        cleaning.createdAt = Date()
+        
+        if let currentUser = usersManager.currentUser, usersManager.isCurrentUserCanAddCleaning {
+            loadPhotos(photos: addPhotoButtons) { [unowned self] (urls, error) in
+                if (error == nil) {
+                    cleaning.pictures = urls
+                    currentUser.create(cleaning) { (error, cleaning) in
+                        //TODO: - segue to cleanings info screen
+                    }
+                } else {
+                    self.showMessageToUser("Ошибка загрузки картинки")
+                }
             }
+        } else {
+            showMessageToUser("Вы не можете создать новую уборку")
         }
     }
     
@@ -169,22 +175,31 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     func loadPhotos (photos:[UIButton], handler: @escaping (_:[URL], _:Error?) -> Void) {
         var urls = [URL]()
         var error:Error?
+        let dispatchGroup = DispatchGroup()
+        
         
         for photo in photos {
             if !(photo.currentImage?.isEqual(#imageLiteral(resourceName: "PlaceholderCleaningPhoto")))! {
+                dispatchGroup.enter()
                 ImageLoader.default.upload(image: photo.currentImage!, to: ImageStoragePath.cleanings.rawValue, handler: {
                     (url, err) in
                     if error == nil {
                         if let newUrl = url {
                             urls.append(newUrl)
                         }
+                        dispatchGroup.leave()
                     } else {
                         error = err
+                        dispatchGroup.leave()
                     }
                 })
             }
         }
-        handler(urls, error)
+        
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            handler(urls, error)
+        }
+        
     }
     
     
@@ -244,4 +259,14 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
         
     }
     
+    func showMessageToUser(_ message: String) {
+        let alert = UIAlertController(title:"Создание уборки" , message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    //MARK: - Segues
+        
 }
