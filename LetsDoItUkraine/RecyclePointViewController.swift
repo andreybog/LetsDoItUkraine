@@ -12,16 +12,19 @@ import Kingfisher
 class RecyclePointViewController: UIViewController {
     
     @IBOutlet weak var recyclePointData: UILabel!
-    @IBOutlet weak var recyclePointCategories: UILabel!
+   // @IBOutlet weak var recyclePointCategories: UILabel!
     @IBOutlet weak var recyclePointPicture: UIImageView!
     @IBOutlet weak var recyclePointLogo: UIImageView!
     @IBOutlet weak var recyclePointAddress: UILabel!
     @IBOutlet weak var recyclePointSummary: UILabel!
     @IBOutlet weak var recyclePointSchedule: UILabel!
-    @IBOutlet weak var recyclePointEmail: UILabel!
-
+    
+    @IBOutlet weak var recyclePointCategories: UILabel!
+    @IBOutlet weak var recyclePointEmailTextView: UITextView!
+   
     @IBOutlet weak var recyclePointName: UILabel!
-    @IBOutlet weak var recyclePointPhone: UILabel!
+    
+    @IBOutlet weak var recyclePointPhoneTextView: UITextView!
     var recyclePoint: RecyclePoint!
     var coordiantors: [User]!
     //    var members: [User]!
@@ -33,8 +36,8 @@ class RecyclePointViewController: UIViewController {
         
              self.navigationController?.navigationBar.tintColor = UIColor.white
              self.recyclePointName.text = recyclePoint?.title ?? ""
-             self.recyclePointPhone.text = recyclePoint?.phone ?? "Не указан"
-             self.recyclePointEmail.text = recyclePoint?.website ?? "Не указан"
+             self.recyclePointPhoneTextView.text = recyclePoint?.phone ?? "Не указан"
+             self.recyclePointEmailTextView.text = recyclePoint?.website ?? "Не указан"
              self.recyclePointSchedule.text = recyclePoint?.schedule ?? "Не указан"
              self.recyclePointAddress.text = recyclePoint?.address ?? "Не указан"
              self.recyclePointSummary.text = recyclePoint?.summary ?? ""
@@ -48,9 +51,12 @@ class RecyclePointViewController: UIViewController {
             if let _ = recyclePoint?.picture {
                 self.recyclePointPicture.kf.setImage(with: recyclePoint?.picture, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
-            //self.recyclePointData.text = recyclePoint?.
-            //self.recyclePointCategories.text = recyclePoint?.categories
-        
+           let stringArray = Array(recyclePoint.categories)
+           var listCategory = ""
+            for id in 0 ..< recyclePoint.categories.count {
+              listCategory = listCategory + ", " + String(describing: stringArray[id])
+            }
+        self.recyclePointCategories.text = listCategory 
         
     }
 
