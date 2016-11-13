@@ -34,6 +34,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
                 print("Default")
             }
         }
+        searchMarker.appearAnimation = kGMSMarkerAnimationPop
         presenter.delegate = self
         presenter.loadCleanings()
         mapManager.setup(map: mapView)
@@ -108,20 +109,30 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if cleaningsCollectionView.isHidden {
-            if self.searchMarker.map != nil{
-                self.searchMarker.map = nil
-            } else {
-                DispatchQueue.main.async {
-                    self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
-                }
-                self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
-                self.cleaningsCollectionView.reloadData()
-                setCollectionViewVisible(isCollectionViewVisible: true)
+            DispatchQueue.main.async {
+                self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
             }
+            self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
+            self.cleaningsCollectionView.reloadData()
+            setCollectionViewVisible(isCollectionViewVisible: true)
         } else {
             setCollectionViewVisible(isCollectionViewVisible: false)
             self.searchMarker.map = nil
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+        DispatchQueue.main.async {
+            self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
+        }
+        self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
+        self.cleaningsCollectionView.reloadData()
+        setCollectionViewVisible(isCollectionViewVisible: true)
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        mapView.animate(toZoom: 14)
+        return false
     }
     
     //MARK: - UICollectionViewDataSource

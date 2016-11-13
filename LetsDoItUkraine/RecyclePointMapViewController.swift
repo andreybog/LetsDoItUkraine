@@ -33,6 +33,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
                 print("Default")
             }
         }
+        searchMarker.appearAnimation = kGMSMarkerAnimationPop
         presenter.delegate = self
         mapManager.setup(map: mapView)
         mapView.delegate = self
@@ -104,16 +105,12 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if recyclePointsCollectionView.isHidden{
-            if self.searchMarker.map != nil{
-                self.searchMarker.map = nil
-            } else {
                 DispatchQueue.main.async {
-                    self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
+                self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
                 }
                 self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
                 self.recyclePointsCollectionView.reloadData()
-                setCollectionViewVisible(isCollectionViewVisible: true)
-            }
+                self.setCollectionViewVisible(isCollectionViewVisible: true)
         } else {
             setCollectionViewVisible(isCollectionViewVisible: false)
             self.searchMarker.map = nil
@@ -121,7 +118,19 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         
     }
     
-
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+        DispatchQueue.main.async {
+            self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
+        }
+        self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
+        self.recyclePointsCollectionView.reloadData()
+        self.setCollectionViewVisible(isCollectionViewVisible: true)
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        mapView.animate(toZoom: 14)
+        return false
+    }
 
     //MARK: - UICollectionViewDataSource
     

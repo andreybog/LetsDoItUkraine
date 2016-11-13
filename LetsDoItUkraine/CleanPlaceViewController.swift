@@ -27,7 +27,7 @@ class CleanPlaceViewController: UIViewController {
     
     @IBOutlet weak var listOfMembers: UIButton!
     @IBOutlet weak var volunteers: UILabel!
-    @IBOutlet weak var coordinators: UILabel!
+    @IBOutlet weak var coordinatorsLabel: UILabel!
     @IBOutlet var cleaningPlaces: [UIImageView]!
     @IBOutlet weak var cleaningCoordinatorPhoto: UIImageView!
     @IBOutlet weak var numberOfMembers: UILabel!
@@ -39,7 +39,7 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var cleaningDescription: UILabel!
     @IBOutlet weak var cleaningNameCoordinator: UILabel!
     var cleaning: Cleaning!
-    var coordiantors: [User]!
+    var coordiantors: [User]?
     
     
     
@@ -51,19 +51,9 @@ class CleanPlaceViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        
-        UsersManager.defaultManager.getCurrentUser { [unowned self] (cUsers) in
-            if let user = cUsers,
-                let coordinatorIds = user.asCoordinatorIds,
-                coordinatorIds.contains(self.cleaning.ID) {
-                self.listOfMembers.isHidden = false
-            } else {
-                 self.listOfMembers.isHidden = true
-            }
-        }
-       
-        // getCleaningMembers
-        if let user = coordiantors.first {
+    
+        let updateCoordinators = { [unowned self] in
+            let user = self.coordiantors!.first!
             
             self.cleaningPhone.text = user.phone ?? "Не укзаан"
             self.cleaningEmail.text = user.email ?? "Не указан"
@@ -73,6 +63,20 @@ class CleanPlaceViewController: UIViewController {
                 self.cleaningCoordinatorPhoto.kf.setImage(with: photo, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
         }
+        
+        // getCleaningMembers
+        if let _ = coordiantors {
+            updateCoordinators()
+            
+        } else {
+            UsersManager.defaultManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { (users) in
+                if !users.isEmpty {
+                    self.coordiantors = users
+                    updateCoordinators()
+                }
+            })
+        }
+        
         
         // getCleaning
         if let cleaning = self.cleaning {
@@ -89,12 +93,12 @@ class CleanPlaceViewController: UIViewController {
                 }
             }
             
-            self.numberOfMembers.text = String(cleaning.cleanersIds!.count)
-            self.coordinators.text = String(cleaning.coordinatorsIds!.count)
-            self.volunteers.text = String(cleaning.cleanersIds!.count)
+            self.numberOfMembers.text = String(cleaning.cleanersIds?.count ?? 0)
+            self.coordinatorsLabel.text = String(cleaning.coordinatorsIds!.count)
+            self.volunteers.text = String(cleaning.cleanersIds?.count ?? 0)
             
             if let _ = cleaning.datetime {
-                self.cleaningDate.text = cleaning.datetime!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+                self.cleaningDate.text = cleaning.startAt!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
             } else {
                 self.cleaningDate.text = "Не указано"
             }
@@ -102,13 +106,33 @@ class CleanPlaceViewController: UIViewController {
             
         } else {
             self.numberOfMembers.text = "0"
-            self.coordinators.text = "0"
+            self.coordinatorsLabel.text = "0"
             self.volunteers.text = "0"
         }
         
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
+    
+    func updateUIWith(user: User?) {
+        
+        if let currentUser = user {
+            self.listOfMembers.isHidden = !self.cleaning.coordinatorsIds!.contains(currentUser.ID)
+            
+            goToCleaning.isEnabled = UsersManager.defaultManager.isCurrentUserCanAddCleaning
+     
+        } else {
+            self.listOfMembers.isHidden = true
+            goToCleaning.isEnabled = true
+        }
+        
+        goToCleaning.backgroundColor = goToCleaning.isEnabled ? UIColor.dirtyGreen() : UIColor.gray
+    }
     
     @IBAction func goToWebSite(_ sender: AnyObject) {
         
@@ -153,39 +177,28 @@ class CleanPlaceViewController: UIViewController {
     
     
     @IBAction func goToCleaning(_ sender: AnyObject) {
-
-
-//        UsersManager.defaultManager.getCurrentUser { (cUsers) in
-//           if let user = cUsers {
-//           CleaningsManager.defaultManager.addMember(user, toCleaning: self.cleaning, as: .cleaner)
-            //
-//            self.performSegue(withIdentifier: "request_ok", sender: self)
-//            self.goToCleaning.isHidden = true
-//           } else {
-            //
-//            let modalViewController = AuthorizationViewController()
-//            modalViewController.modalPresentationStyle = .overCurrentContext
-//            self.present(modalViewController, animated: true, completion: nil)
-//
-//          }
-//         }
-
-              
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
-            self.goToCleaning.isEnabled = false
-            self.goToCleaning.setTitleColor(UIColor.gray, for: UIControlState.normal)
-            self.goToApplicationAcceptedView()
+            
+            let currentUser = UsersManager.defaultManager.currentUser!
+            
+            if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
+                currentUser.go(to: self.cleaning)
+                self.goToApplicationAcceptedView()
+            } else {
+                self.showMessageToUser("Авторизация не совершена.")
+            }
+            
             }, onFailed: {
-                self.showMessageToUser()
+                self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу")
         })
     }
     
     func goToApplicationAcceptedView() {
-        self.performSegue(withIdentifier: "ShowApplicationAcceptedView", sender: self)
+        self.performSegue(withIdentifier: "showApplicationAcceptedScreen", sender: self)
     }
     
-    func showMessageToUser() {
-        let alert = UIAlertController(title:"Авторизация" , message: "Авторизация не совершена. У вас ограничен доступ к этому функционалу", preferredStyle: .alert)
+    func showMessageToUser(_ message: String) {
+        let alert = UIAlertController(title:"Авторизация" , message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)

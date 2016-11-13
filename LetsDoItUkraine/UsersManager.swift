@@ -93,8 +93,8 @@ extension User {
         return (cleaningsMetadata.filter { $0.startAt < pivotDate }).map { $0.ID }
     }
     
-    func create(_ cleaning: Cleaning) {
-        CleaningsManager.defaultManager.createCleaning(cleaning, byCoordinator: self)
+    func create(_ cleaning: Cleaning, withCompletionBlock block: @escaping (Error?, Cleaning?)->Void) {
+        CleaningsManager.defaultManager.createCleaning(cleaning, byCoordinator: self, withCompletionBlock: block)
     }
     
     func go(to cleaning: Cleaning) {
@@ -114,7 +114,7 @@ class UsersManager {
   
     private var allUsers = [String:User]()
     
-    private(set) var currentUser:User? {
+    var currentUser:User? {
         willSet {
             if newValue == nil {
                 currentUserCleanings = nil
@@ -150,6 +150,13 @@ class UsersManager {
             return nil
         }
         return cleanings.filter { $0.startAt < pivotDate }
+    }
+    
+    var isCurrentUserCanAddCleaning: Bool {
+        let currUser = currentUser
+        let con1 = currUser?.asCoordinatorIds?.isEmpty ?? true
+        let con2 = currUser?.asCleanerIds?.isEmpty ?? true
+        return con1 && con2
     }
     
     private var addHandler: FIRDatabaseHandle?
@@ -216,8 +223,20 @@ class UsersManager {
       
   // MARK: - MODIFY USER
   
-    func createUser(_ user: User) {
-        self.dataManager.createObject(user)
+    func createUser(_ user: User, withCompletionBlock block: @escaping (_: Error?, _: User?) -> Void) {
+        self.dataManager.createObject(user, withCompletionBlock: { (error, ref) in
+            if error != nil {
+                block(error, nil)
+            } else {
+                UsersManager.defaultManager.getUser(withId: user.ID, handler: { (user) in
+                    if user != nil {
+                        return block(nil, user)
+                    }
+                    let error = NSError(domain: "FIRDatabase: User not created", code: 111, userInfo: nil)
+                    block(error, nil)
+                })
+            }
+        })
     }
   
     func logOut() {
