@@ -179,18 +179,22 @@ class CleanPlaceViewController: UIViewController {
     @IBAction func goToCleaning(_ sender: AnyObject) {
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
             
-            let currentUser = UsersManager.defaultManager.currentUser!
-            
-            if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
-                currentUser.go(to: self.cleaning)
-                self.goToApplicationAcceptedView()
-            } else {
-                self.showMessageToUser("Авторизация не совершена.")
-            }
-            
+            DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+                let currentUser = UsersManager.defaultManager.currentUser!
+                
+                if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
+                    currentUser.go(to: self.cleaning)
+                    self.goToApplicationAcceptedView()
+                } else {
+                    self.showMessageToUser("Вы не можете иметь несколько активных уборок.")
+                }
+                
+                }
             }, onFailed: {
                 self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу")
+                
         })
+        
     }
     
     func goToApplicationAcceptedView() {
