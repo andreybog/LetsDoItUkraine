@@ -14,7 +14,7 @@ import QuartzCore
 class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SearchResultsDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let kSearchResultCellIdentifier = "searchResultCell"
-    let kCleaningPlaceSegue = "cleaningPlaceSegue"
+    let kCleaningPlaceSegue = "cleaningDescriptionVCSegue"
     
     @IBOutlet weak var descriptionButton: UIButton!
     @IBOutlet weak var dateAndTimeTextField: UITextField!
@@ -28,9 +28,7 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     var cleaningDescription:String?
     var photosUrls = [URL]()
     var coordinate = CLLocationCoordinate2D()
-    let searchController = SearchResultsController()
-//    var currentUser = User()
-    
+    let searchController = SearchResultsController()    
     
     let imagePicker = UIImagePickerController()
     
@@ -126,8 +124,8 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
             loadPhotos(photos: addPhotoButtons) { [unowned self] (urls, error) in
                 if (error == nil) {
                     cleaning.pictures = urls
-                    currentUser.create(cleaning) { (error, cleaning) in
-                        //TODO: - segue to cleanings info screen
+                    currentUser.create(cleaning) { [unowned self] (error, cleaning) in
+                        self.goToCleaningVc()
                     }
                 } else {
                     self.showMessageToUser("Ошибка загрузки картинки")
@@ -173,11 +171,11 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // MARK: - LoadData
+    
     func loadPhotos (photos:[UIButton], handler: @escaping (_:[URL], _:Error?) -> Void) {
         var urls = [URL]()
         var error:Error?
         let dispatchGroup = DispatchGroup()
-        
         
         for photo in photos {
             if !(photo.currentImage?.isEqual(#imageLiteral(resourceName: "PlaceholderCleaningPhoto")))! {
@@ -265,9 +263,14 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
-        
     }
     
-    //MARK: - Segues
-        
+    //MARK: - Segue
+    func goToCleaningVc() {
+        performSegue(withIdentifier:kCleaningPlaceSegue, sender: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        _ = segue.destination as? CleanPlaceViewController
+    }
 }

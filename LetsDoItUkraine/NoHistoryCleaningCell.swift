@@ -1,21 +1,23 @@
 //
-//  NoCleaningCell.swift
+//  NoHistoryCleaningCell.swift
 //  LetsDoItUkraine
 //
-//  Created by Anton A on 10.10.16.
+//  Created by Anton A on 13.11.16.
 //  Copyright © 2016 goit. All rights reserved.
 //
 
 import UIKit
 
-class NoCleaningCell: UITableViewCell {
+class NoHistoryCleaningCell: UITableViewCell {
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
+        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
         // Configure the view for the selected state
     }
 

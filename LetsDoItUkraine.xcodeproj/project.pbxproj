@@ -13,6 +13,7 @@
 		066A59E11DD614D70037EA6A /* AddMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A59E01DD614D70037EA6A /* AddMemberViewController.swift */; };
 		06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */; };
 		1612CD0F1DB3987700877C4D /* HistoryCleningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */; };
+		1645E9601DD8AAD200147641 /* NoHistoryCleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */; };
 		166166FD1DBE9047006FED9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166166FC1DBE9047006FED9A /* Constants.swift */; };
 		16803D281DBD52FD00FB2C8F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16803D271DBD52FD00FB2C8F /* DateExtension.swift */; };
 		16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D501DA440AB004EABD6 /* UserProfileViewController.swift */; };
@@ -71,6 +72,7 @@
 		06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanPlaceViewController.swift; sourceTree = "<group>"; };
 		144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.debug.xcconfig"; sourceTree = "<group>"; };
 		1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCleningCell.swift; sourceTree = "<group>"; };
+		1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoHistoryCleaningCell.swift; sourceTree = "<group>"; };
 		166166FC1DBE9047006FED9A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		16803D271DBD52FD00FB2C8F /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateExtension.swift; path = Extensions/DateExtension.swift; sourceTree = "<group>"; };
 		16852D501DA440AB004EABD6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */,
 				7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */,
 				CE425A261DBFD0D200F9650A /* NewsTableViewCell.swift */,
+				1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -336,7 +339,7 @@
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = S6L573JZYJ;
+						DevelopmentTeam = 5KX3Y2CU6T;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -450,6 +453,7 @@
 				0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */,
 				7F5BFEBE1DC9EDA500A5EEF5 /* LocalityManager.swift in Sources */,
 				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
+				1645E9601DD8AAD200147641 /* NoHistoryCleaningCell.swift in Sources */,
 				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
 				0652A9FD1DC2A23F00DF38DF /* CustomCellCleanMember.swift in Sources */,
@@ -601,7 +605,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = 5KX3Y2CU6T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -609,7 +613,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS.LDUq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -623,7 +627,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = 5KX3Y2CU6T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -631,7 +635,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS.LDUq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
