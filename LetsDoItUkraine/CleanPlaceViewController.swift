@@ -161,7 +161,7 @@ class CleanPlaceViewController: UIViewController {
             if let user = cUsers,
             let coordinatorIds = user.asCoordinatorIds,
             coordinatorIds.contains(self.cleaning.ID) {
-                self.performSegue(withIdentifier: "toListMembers", sender: self)
+               self.performSegue(withIdentifier: "toListMembers", sender: self)
             }
         }
         

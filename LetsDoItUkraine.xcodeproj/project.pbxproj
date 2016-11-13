@@ -143,13 +143,6 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		16852D471DA43B7A004EABD6 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Data;
-			sourceTree = "<group>";
-		};
 		256BA0641F3F63FEA67EC2E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,7 +173,6 @@
 		552BF8FB1DA196D7008D5317 /* LetsDoItUkraine */ = {
 			isa = PBXGroup;
 			children = (
-				16852D471DA43B7A004EABD6 /* Data */,
 				7FF46FA41DC1E18C007F62E6 /* Presenters */,
 				55AD708C1DA1A67300FA1049 /* ViewControllers */,
 				55AD708D1DA1A68A00FA1049 /* Model */,
@@ -208,7 +200,6 @@
 				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
 				CEF58EDB1DCD1C900084FDD0 /* CompletionAuthViewController.swift */,
 				0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */,
-				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
 				168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */,
 				CEB9092C1DD0749700206685 /* ApplicationAcceptedViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
@@ -254,6 +245,7 @@
 		55AD708F1DA1A6C800FA1049 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
 				16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */,
 				16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */,
 				7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */,
@@ -336,7 +328,6 @@
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = S6L573JZYJ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -601,7 +592,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -609,7 +600,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS1.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -623,7 +614,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -631,7 +622,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goIOS1.LDU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;

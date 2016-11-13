@@ -3,31 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "CleanPlaceViewController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():CleanPlaceViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "curUser1.asCoordinatorIds?.contains(self.cleaning.ID)">
-            </PersistentString>
-            <PersistentString
-               value = "firstNameMember">
-            </PersistentString>
-            <PersistentString
-               value = "segue.identifier">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #2):CleanPlaceViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "users[0].photo">
-            </PersistentString>
-            <PersistentString
-               value = "users[0]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "CleanPlaceViewController.viewDidLoad() -&gt; ():CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -45,10 +20,99 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CleanPlaceViewController.goToCleaning(AnyObject) -&gt; ():CleanPlaceViewController.swift">
+         contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #2):CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "users[0].photo">
+            </PersistentString>
+            <PersistentString
+               value = "users[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UsersManager.getUser(withId : String, handler : (User?) -&gt; ()) -&gt; ():UsersManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "user">
+            </PersistentString>
+            <PersistentString
+               value = "userId">
+            </PersistentString>
+            <PersistentString
+               value = "allUsers[userId]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "curUser1.asCoordinatorIds?.contains(self.cleaning.ID)">
+            </PersistentString>
+            <PersistentString
+               value = "firstNameMember">
+            </PersistentString>
+            <PersistentString
+               value = "segue.identifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RecyclePointViewController.viewDidLoad() -&gt; ():RecyclePointViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "category">
+            </PersistentString>
+            <PersistentString
+               value = "listCategory">
+            </PersistentString>
+            <PersistentString
+               value = "stringArray[0]">
+            </PersistentString>
+            <PersistentString
+               value = "listCategory ">
+            </PersistentString>
+            <PersistentString
+               value = "recyclePoint.categories">
+            </PersistentString>
+            <PersistentString
+               value = "recyclePoint?.categories(1)">
+            </PersistentString>
+            <PersistentString
+               value = "recyclePoint?.categories.count">
+            </PersistentString>
+            <PersistentString
+               value = "inn">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ListOfMembers.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ListOfMembers.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "phoneMember[indexPath.row]">
+            </PersistentString>
+            <PersistentString
                value = "self.cleaning">
+            </PersistentString>
+            <PersistentString
+               value = "photoMember.count">
+            </PersistentString>
+            <PersistentString
+               value = "lastNameMember.count">
+            </PersistentString>
+            <PersistentString
+               value = "listOfMembersCleaning">
+            </PersistentString>
+            <PersistentString
+               value = "firstNameMember[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "firstNameMember.count">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -64,43 +128,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ListOfMembers.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ListOfMembers.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "phoneMember[indexPath.row]">
-            </PersistentString>
-            <PersistentString
-               value = "photoMember.count">
-            </PersistentString>
-            <PersistentString
-               value = "firstNameMember.count">
-            </PersistentString>
-            <PersistentString
-               value = "firstNameMember[indexPath.row]">
-            </PersistentString>
-            <PersistentString
-               value = "indexPath.row">
-            </PersistentString>
-            <PersistentString
-               value = "lastNameMember.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "UsersManager.getUser(withId : String, handler : (User?) -&gt; ()) -&gt; ():UsersManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "allUsers[userId]">
-            </PersistentString>
-            <PersistentString
-               value = "userId">
-            </PersistentString>
-            <PersistentString
-               value = "user">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "CleanPlaceViewController.(goToCleaning(AnyObject) -&gt; ()).(closure #1):CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -109,24 +136,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "UsersManager.getCurrentUser(handler : (User?) -&gt; ()) -&gt; ():UsersManager.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "currentUser.uid">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "CleanPlaceViewController.(viewDidLoad() -&gt; ()).(closure #1):CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "NSURL(string:&quot;http://m.io.ua/img_aa/medium/0644/08/06440810.jpg&quot;)">
+               value = "cleaning?.datetime as! String?">
             </PersistentString>
             <PersistentString
                value = "resource">
             </PersistentString>
             <PersistentString
-               value = "cleaning?.datetime as! String?">
+               value = "NSData(contentsOf: item)">
             </PersistentString>
             <PersistentString
                value = "cleaning?.pictures?[0]">
@@ -135,7 +154,76 @@
                value = "self.cleaningPlace.text">
             </PersistentString>
             <PersistentString
-               value = "NSData(contentsOf: item)">
+               value = "NSURL(string:&quot;http://m.io.ua/img_aa/medium/0644/08/06440810.jpg&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ListOfMembers.viewWillAppear(Bool) -&gt; ():ListOfMembers.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.cleaning">
+            </PersistentString>
+            <PersistentString
+               value = "listUsers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ListOfMembers.viewDidLoad() -&gt; ():ListOfMembers.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.cleaning">
+            </PersistentString>
+            <PersistentString
+               value = "self.cleaning.cleanersIds">
+            </PersistentString>
+            <PersistentString
+               value = "listOfMembersCleaning">
+            </PersistentString>
+            <PersistentString
+               value = "self.listOfMembersCleaning.count">
+            </PersistentString>
+            <PersistentString
+               value = "self.tableViewMembers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ListOfMembers.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ListOfMembers.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.listOfMembersCleaning.count">
+            </PersistentString>
+            <PersistentString
+               value = "listOfMembersCleaning">
+            </PersistentString>
+            <PersistentString
+               value = "self.cleaning">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ListOfMembers.(viewDidLoad() -&gt; ()).(closure #1):ListOfMembers.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.listOfMembersCleaning.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CleanPlaceViewController.goToCleaning(AnyObject) -&gt; ():CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.cleaning">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UsersManager.getCurrentUser(handler : (User?) -&gt; ()) -&gt; ():UsersManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentUser.uid">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
