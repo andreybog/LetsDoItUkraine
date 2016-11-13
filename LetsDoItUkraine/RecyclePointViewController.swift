@@ -54,7 +54,7 @@ class RecyclePointViewController: UIViewController {
            let stringArray = Array(recyclePoint.categories)
            var listCategory = ""
             for id in 0 ..< recyclePoint.categories.count {
-              listCategory = listCategory + ", " + String(describing: stringArray[id])
+              listCategory = listCategory + String(describing: stringArray[id]) + ", "
             }
         self.recyclePointCategories.text = listCategory 
         
