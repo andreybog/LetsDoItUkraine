@@ -27,7 +27,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kAddCleaningSegue = "addCleaningSegue"
     let kSearchCleaningSegue = "searchCleaningSegue"
     let kNoHistoryCleaningIdentifier = "NoHistoryCleaningCell"
-    
+    let kFullSizePhotoSegue = "fullSizePhotoSegue"
+
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -179,14 +180,15 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 } else {
                     cleaning = userCleaningsAsCleaner[indexPath.row]
                 }
-                
-//                UsersManager.defaultManager
+            
                 nextScene?.cleaning = cleaning
             }
-        case kAddCleaningSegue:
-            _ = segue.destination as? CleaningsViewController
-        case kSearchCleaningSegue:
-            _ = segue.destination as? CleaningsViewController
+        case kFullSizePhotoSegue:
+            let nextScene = segue.destination as? UserProfilePhotoViewController
+            nextScene?.image = userPhotoImageView.image!
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
         default:
             break
         }
@@ -194,6 +196,12 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     // MARK: -Actions
+    
+    @IBAction func userPhotoDidTapped(_ sender: UIButton) {
+        if userPhotoImageView.image != #imageLiteral(resourceName: "Profile") {
+            performSegue(withIdentifier:kFullSizePhotoSegue, sender: self)
+        }
+    }
     
     @IBAction func addCleaningDidTapped(_ sender: AnyObject) {
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in

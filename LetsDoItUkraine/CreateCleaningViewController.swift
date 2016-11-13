@@ -11,7 +11,7 @@ import CoreLocation
 import GooglePlaces
 import QuartzCore
 
-class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SearchResultsDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreateCleaningViewController: UIViewController, UITextFieldDelegate, SearchResultsDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let kSearchResultCellIdentifier = "searchResultCell"
     let kCleaningPlaceSegue = "cleaningDescriptionVCSegue"
@@ -20,7 +20,7 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var dateAndTimeTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet var addPhotoButtons: [UIButton]!
-    @IBOutlet weak var addressSearchBar: UISearchBar!
+    @IBOutlet weak var searchButton: UIButton!
     
     var resultArray = [String]()
     var buttonTag = Int()
@@ -38,13 +38,6 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
 
         imagePicker.delegate = self
         searchController.delegate = self
-        addressSearchBar.delegate = self
-
-        addressSearchBar.layer.borderWidth = 0.01
-        addressSearchBar.layer.borderColor = UIColor.white.cgColor
-        
-        let image = #imageLiteral(resourceName: "location_cl")
-        addressSearchBar.setImage(image, for: UISearchBarIcon.search, state: UIControlState.normal)
         for button in addPhotoButtons {
             button.contentMode = .scaleToFill
             button.setImage(#imageLiteral(resourceName: "PlaceholderCleaningPhoto"), for: UIControlState.normal)
@@ -52,38 +45,16 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
 
     }
     
+    // MARK: - Actions
     
-    
-    
-    
-    // MARK: - UITableViewDataSource
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    // MARK: - UITableViewDelegate
-    
-    // MARK: - UISearchBarDelegate
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        
-        if searchBar == self.addressSearchBar {
-            let controller = UISearchController(searchResultsController: self.searchController)
-            controller.hidesNavigationBarDuringPresentation = true
-            controller.searchBar.delegate = self
-            controller.searchBar.text = self.addressSearchBar.placeholder
-            present(controller, animated: true, completion: nil)
-            return false
+    @IBAction func searchButtonDidTapped(_ sender: Any) {
+        let controller = UISearchController(searchResultsController: self.searchController)
+        controller.hidesNavigationBarDuringPresentation = true
+        controller.searchBar.delegate = self
+        if searchButton.titleLabel?.text != "   Адресс уборки" {
+            controller.searchBar.text = searchButton.titleLabel?.text
         }
-        return true
+        present(controller, animated: true, completion: nil)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -99,41 +70,43 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
             self.searchController.reloadDataWith(Array: self.resultArray)
         }
     }
-    
-    // MARK: - Actions
-    
-    
+
     
     @IBAction func descriptionButtonDidTapped(_ sender: UIButton) {
         descriptionTextField.becomeFirstResponder()
     }
     
     @IBAction func nextButtonDIdTapped(_ sender: UIButton) {
-        let usersManager = UsersManager.defaultManager
-        var cleaning = Cleaning()
-        
-        if let address = addressSearchBar.placeholder {
-            cleaning.address = address
-        }
-        cleaning.coordinate = coordinate
-        cleaning.summary = descriptionTextField.text
-        cleaning.startAt = cleaningDate
-        cleaning.createdAt = Date()
-        
-        if let currentUser = usersManager.currentUser, usersManager.isCurrentUserCanAddCleaning {
-            loadPhotos(photos: addPhotoButtons) { [unowned self] (urls, error) in
-                if (error == nil) {
-                    cleaning.pictures = urls
-                    currentUser.create(cleaning) { [unowned self] (error, cleaning) in
-                        self.goToCleaningVc()
+        if searchButton.titleLabel?.text != "   Адресс уборки" && (dateAndTimeTextField.text?.characters.count)! > 0 && cleaningDate.isGreaterThanDate(dateToCompare: Date()) {
+            let usersManager = UsersManager.defaultManager
+            var cleaning = Cleaning()
+            
+            if let address = searchButton.titleLabel?.text {
+                cleaning.address = address
+            }
+            cleaning.coordinate = coordinate
+            cleaning.summary = descriptionTextField.text
+            cleaning.startAt = cleaningDate
+            cleaning.createdAt = Date()
+            
+            if let currentUser = usersManager.currentUser, usersManager.isCurrentUserCanAddCleaning {
+                loadPhotos(photos: addPhotoButtons) { [unowned self] (urls, error) in
+                    if (error == nil) {
+                        cleaning.pictures = urls
+                        currentUser.create(cleaning) { [unowned self] (error, cleaning) in
+                            self.goToCleaningVc()
+                        }
+                    } else {
+                        self.showMessageToUser("Ошибка загрузки картинки")
                     }
-                } else {
-                    self.showMessageToUser("Ошибка загрузки картинки")
                 }
+            } else {
+                showMessageToUser("Вы не можете создать новую уборку")
             }
         } else {
-            showMessageToUser("Вы не можете создать новую уборку")
+            showMessageToUser("Заполните, пожалуйста поля корректно")
         }
+        
     }
     
     @IBAction func addPhotoButtonDidTapped(_ sender: UIButton!) {
@@ -228,7 +201,13 @@ class CreateCleaningViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - SearchResultDelegate
     func pass(longtitude lon: Double, andLatitude lat: Double, andTitle title: String) {
         coordinate = CLLocationCoordinate2DMake(lat, lon)
-        addressSearchBar.placeholder = title
+        if title == "" {
+            searchButton.setTitleColor(UIColor.gray, for: .normal)
+            searchButton.setTitle("   Адресс уборки", for: .normal)
+        } else {
+            searchButton.setTitleColor(UIColor.black, for: .normal)
+            searchButton.setTitle(title, for: .normal)
+        }
     }
     
     
