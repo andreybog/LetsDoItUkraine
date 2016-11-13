@@ -200,7 +200,6 @@
 				CEC432A41DB4112000D361CA /* AuthorizationViewController.swift */,
 				CEF58EDB1DCD1C900084FDD0 /* CompletionAuthViewController.swift */,
 				0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */,
-				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
 				168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */,
 				CEB9092C1DD0749700206685 /* ApplicationAcceptedViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
@@ -246,6 +245,7 @@
 		55AD708F1DA1A6C800FA1049 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */,
 				16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */,
 				16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */,
 				7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */,
