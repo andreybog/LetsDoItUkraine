@@ -92,5 +92,13 @@ class MapManager {
             map.padding = UIEdgeInsetsMake(0, 0, 0, 0)
         }
     }
+    
+    func moveAt(Coordiante coordinate: CLLocationCoordinate2D, onMap map: GMSMapView) {
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(0.5)
+        map.animate(toLocation: coordinate)
+        map.animate(toZoom: 14)
+        CATransaction.commit()
+    }
 
 }

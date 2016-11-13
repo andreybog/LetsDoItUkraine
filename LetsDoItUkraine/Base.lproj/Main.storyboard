@@ -1336,6 +1336,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cleaningsCollectionView" destination="CF5-t3-9LH" id="Zhk-2g-0pa"/>
+                        <outlet property="collectionViewLayoutConstraint" destination="sdo-IO-nHM" id="NWi-GL-pvT"/>
                         <outlet property="mapView" destination="CUU-Va-WRV" id="sVl-Bc-rUm"/>
                     </connections>
                 </viewController>
@@ -1546,6 +1547,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionViewLayoutConstraint" destination="zER-cH-MeO" id="BiN-3f-awV"/>
                         <outlet property="mapView" destination="c6g-rv-BsU" id="JrZ-nk-csl"/>
                         <outlet property="recyclePointsCollectionView" destination="k5y-WQ-TKF" id="22s-Qx-BTR"/>
                     </connections>
@@ -3266,8 +3268,8 @@
         <image name="webSite" width="14" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="9ho-nQ-ISv"/>
         <segue reference="exC-NW-dfF"/>
-        <segue reference="TDg-3O-4PF"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
 </document>
