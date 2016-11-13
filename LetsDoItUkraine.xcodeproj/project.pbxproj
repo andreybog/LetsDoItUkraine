@@ -13,12 +13,14 @@
 		066A59E11DD614D70037EA6A /* AddMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A59E01DD614D70037EA6A /* AddMemberViewController.swift */; };
 		06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */; };
 		1612CD0F1DB3987700877C4D /* HistoryCleningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */; };
+		1645E9601DD8AAD200147641 /* NoHistoryCleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */; };
 		166166FD1DBE9047006FED9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166166FC1DBE9047006FED9A /* Constants.swift */; };
 		16803D281DBD52FD00FB2C8F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16803D271DBD52FD00FB2C8F /* DateExtension.swift */; };
 		16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D501DA440AB004EABD6 /* UserProfileViewController.swift */; };
 		16852D941DAAEB86004EABD6 /* NoCleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */; };
 		168BC3931DC6AB0300BF8345 /* CreateCleaningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */; };
 		16D7D8A81DAD7A9E0034528E /* CleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */; };
+		16E51A1D1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E51A1C1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift */; };
 		55033E701DAD7FA000A04685 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E6F1DAD7FA000A04685 /* UsersManager.swift */; };
 		55033E721DAD82BB00A04685 /* CleaningsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E711DAD82BB00A04685 /* CleaningsManager.swift */; };
 		55033E741DAD85E300A04685 /* RecyclePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55033E731DAD85E300A04685 /* RecyclePointsManager.swift */; };
@@ -71,12 +73,14 @@
 		06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanPlaceViewController.swift; sourceTree = "<group>"; };
 		144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.debug.xcconfig"; sourceTree = "<group>"; };
 		1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCleningCell.swift; sourceTree = "<group>"; };
+		1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoHistoryCleaningCell.swift; sourceTree = "<group>"; };
 		166166FC1DBE9047006FED9A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		16803D271DBD52FD00FB2C8F /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateExtension.swift; path = Extensions/DateExtension.swift; sourceTree = "<group>"; };
 		16852D501DA440AB004EABD6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		16852D931DAAEB86004EABD6 /* NoCleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoCleaningCell.swift; sourceTree = "<group>"; };
 		168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCleaningViewController.swift; sourceTree = "<group>"; };
 		16D7D8A71DAD7A9E0034528E /* CleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningCell.swift; sourceTree = "<group>"; };
+		16E51A1C1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoViewController.swift; sourceTree = "<group>"; };
 		55033E6F1DAD7FA000A04685 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		55033E711DAD82BB00A04685 /* CleaningsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsManager.swift; sourceTree = "<group>"; };
 		55033E731DAD85E300A04685 /* RecyclePointsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointsManager.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */,
 				168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */,
 				CEB9092C1DD0749700206685 /* ApplicationAcceptedViewController.swift */,
+				16E51A1C1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 				55CA866A1DCDED030009A95B /* MainTabBarController.swift */,
 			);
@@ -252,6 +257,7 @@
 				1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */,
 				7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */,
 				CE425A261DBFD0D200F9650A /* NewsTableViewCell.swift */,
+				1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -428,6 +434,7 @@
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
 				7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */,
 				7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */,
+				16E51A1D1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift in Sources */,
 				7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */,
 				7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */,
 				CEB9092D1DD0749700206685 /* ApplicationAcceptedViewController.swift in Sources */,
@@ -442,6 +449,7 @@
 				0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */,
 				7F5BFEBE1DC9EDA500A5EEF5 /* LocalityManager.swift in Sources */,
 				CEC432A51DB4112000D361CA /* AuthorizationViewController.swift in Sources */,
+				1645E9601DD8AAD200147641 /* NoHistoryCleaningCell.swift in Sources */,
 				CE425A271DBFD0D200F9650A /* NewsTableViewCell.swift in Sources */,
 				CE51C5801DA6DB4C006397B3 /* User.swift in Sources */,
 				0652A9FD1DC2A23F00DF38DF /* CustomCellCleanMember.swift in Sources */,

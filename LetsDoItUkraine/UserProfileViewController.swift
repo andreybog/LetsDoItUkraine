@@ -26,7 +26,9 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kCleaningPlaceSegue = "cleaningPlaceSegue"
     let kAddCleaningSegue = "addCleaningSegue"
     let kSearchCleaningSegue = "searchCleaningSegue"
-    
+    let kNoHistoryCleaningIdentifier = "NoHistoryCleaningCell"
+    let kFullSizePhotoSegue = "fullSizePhotoSegue"
+
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -119,7 +121,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         if (section == 0) {
             return 1
         } else {
-            return userCleaningsPast.count
+            if !userCleaningsPast.isEmpty {
+                return userCleaningsPast.count
+            } else {
+                return 1
+            }
         }
     }
     
@@ -143,13 +149,22 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 }
                 return UITableViewCell()
             }
-        } else {
-            if let cell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as? HistoryCleningCell {
-                cell.configureWithCleaning(cleaning: userCleaningsPast[indexPath.row])
-                return cell
+        } else if indexPath.section == 1 {
+            if (!userCleaningsPast.isEmpty){
+                if let cell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as? HistoryCleningCell {
+                    cell.configureWithCleaning(cleaning: userCleaningsPast[indexPath.row])
+                    return cell
+                }
+                return UITableViewCell()
+            } else {
+                if let cell = tableView.dequeueReusableCell(withIdentifier:kNoHistoryCleaningIdentifier, for: indexPath) as? NoHistoryCleaningCell {
+                    cell.selectionStyle = .none
+                    return cell
+                }
+                return UITableViewCell()
             }
-            return UITableViewCell()
         }
+        return UITableViewCell()
     }
     
     // MARK: -Segue
@@ -165,14 +180,15 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 } else {
                     cleaning = userCleaningsAsCleaner[indexPath.row]
                 }
-                
-//                UsersManager.defaultManager
+            
                 nextScene?.cleaning = cleaning
             }
-        case kAddCleaningSegue:
-            _ = segue.destination as? CleaningsViewController
-        case kSearchCleaningSegue:
-            _ = segue.destination as? CleaningsViewController
+        case kFullSizePhotoSegue:
+            let nextScene = segue.destination as? UserProfilePhotoViewController
+            nextScene?.image = userPhotoImageView.image!
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
         default:
             break
         }
@@ -180,9 +196,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     // MARK: -Actions
-
-    @IBAction func searchCleaningsButtonDidTapped(_ sender: AnyObject) {
-        performSegue(withIdentifier:kSearchCleaningSegue, sender: self)
+    
+    @IBAction func userPhotoDidTapped(_ sender: UIButton) {
+        if userPhotoImageView.image != #imageLiteral(resourceName: "Profile") {
+            performSegue(withIdentifier:kFullSizePhotoSegue, sender: self)
+        }
     }
     
     @IBAction func addCleaningDidTapped(_ sender: AnyObject) {
@@ -196,8 +214,21 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     func goToCreationCleaningVC() {
        performSegue(withIdentifier:kAddCleaningSegue, sender: self)
     }
+    
+    func goToSearchCleaningVc() {
+        performSegue(withIdentifier:kSearchCleaningSegue, sender: self)
+    }
 
     @IBAction func settingsButtonDidTapped(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: "Покинуть профиль?", message: "Для выхода из вашего профиля нажмите \"Выйти\"", preferredStyle: .actionSheet)
+        let logoutAction = UIAlertAction(title: "Выйти", style: .destructive) { [unowned self] (alert: UIAlertAction!) in
+            UsersManager.defaultManager.logOut()
+            self.goToSearchCleaningVc()
+        }
+        let cancel = UIAlertAction(title: "Отмена", style: .default, handler: nil)
+        alertController.addAction(cancel)
+        alertController.addAction(logoutAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 

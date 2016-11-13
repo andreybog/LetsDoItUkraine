@@ -22,6 +22,7 @@ extension Date {
     var shortDate: String {
         return Formatter.shortDate.string(from: self)
     }
+    
     var dateWithLocale: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "ru_RU") as Locale!
@@ -29,4 +30,29 @@ extension Date {
         dateFormatter.timeStyle = .short
         return dateFormatter.string(from: self)
     }
+    
+    func isGreaterThanDate(dateToCompare: Date) -> Bool {
+        var isGreater = false
+        if self.compare(dateToCompare) == ComparisonResult.orderedDescending {
+            isGreater = true
+        }
+        return isGreater
+    }
+    
+    func isLessThanDate(dateToCompare: Date) -> Bool {
+        var isLess = false
+        if self.compare(dateToCompare) == ComparisonResult.orderedAscending {
+            isLess = true
+        }
+        return isLess
+    }
+    
+    func equalToDate(dateToCompare: Date) -> Bool {
+        var isEqualTo = false
+        if self.compare(dateToCompare) == ComparisonResult.orderedSame {
+            isEqualTo = true
+        }
+        return isEqualTo
+    }
+
 }
