@@ -30,6 +30,9 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     var coordinate = CLLocationCoordinate2D()
     let searchController = SearchResultsController()    
     
+    var coordinator: User?
+    var createdCleaning: Cleaning?
+    
     let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
@@ -43,6 +46,18 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
             button.setImage(#imageLiteral(resourceName: "PlaceholderCleaningPhoto"), for: UIControlState.normal)
         }
 
+    }
+    
+    
+    func clearAllFields() {
+        searchButton.titleLabel?.text = ""
+        descriptionTextField.text = ""
+        dateAndTimeTextField.text = ""
+        
+        for button in addPhotoButtons {
+            button.contentMode = .scaleToFill
+            button.setImage(#imageLiteral(resourceName: "PlaceholderCleaningPhoto"), for: UIControlState.normal)
+        }
     }
     
     // MARK: - Actions
@@ -94,6 +109,9 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
                     if (error == nil) {
                         cleaning.pictures = urls
                         currentUser.create(cleaning) { [unowned self] (error, cleaning) in
+                            self.coordinator = currentUser
+                            self.createdCleaning = cleaning
+                            self.clearAllFields()
                             self.goToCleaningVc()
                         }
                     } else {
@@ -220,6 +238,7 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
         let datePickerView:UIDatePicker = UIDatePicker()
         datePickerView.locale = NSLocale(localeIdentifier: "ru_RU") as Locale
         datePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        datePickerView.minimumDate = Date()
         textField.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(datePickerValueChanged), for: UIControlEvents.valueChanged)
         dateAndTimeTextField.text = datePickerView.date.dateWithLocale
@@ -257,6 +276,11 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        _ = segue.destination as? CleanPlaceViewController
+        if let id = segue.identifier {
+            if let cleaningInfoVc = segue.destination as? CleanPlaceViewController, id == kCleaningPlaceSegue {
+                cleaningInfoVc.cleaning = createdCleaning
+                cleaningInfoVc.coordiantors = [coordinator!]
+            }
+        }
     }
 }

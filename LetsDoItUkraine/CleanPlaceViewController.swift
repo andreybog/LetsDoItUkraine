@@ -62,6 +62,8 @@ class CleanPlaceViewController: UIViewController {
             if let photo = user.photo {
                 self.cleaningCoordinatorPhoto.kf.setImage(with: photo, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
+            
+            
         }
         
         // getCleaningMembers
@@ -111,12 +113,17 @@ class CleanPlaceViewController: UIViewController {
         }
         
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func updateUIWith(user: User?) {
@@ -156,15 +163,10 @@ class CleanPlaceViewController: UIViewController {
     }
     
     @IBAction func openListOfMembers(_ sender: AnyObject) {
-        //self.performSegue(withIdentifier: "toListMembers", sender: self)
-        UsersManager.defaultManager.getCurrentUser { [unowned self] (cUsers) in
-            if let user = cUsers,
-            let coordinatorIds = user.asCoordinatorIds,
-            coordinatorIds.contains(self.cleaning.ID) {
-                self.performSegue(withIdentifier: "toListMembers", sender: self)
-            }
-        }
         
+        if let user = UsersManager.defaultManager.currentUser, cleaning.coordinatorsIds!.contains(user.ID) {
+            self.performSegue(withIdentifier: "toListMembers", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -179,26 +181,30 @@ class CleanPlaceViewController: UIViewController {
     @IBAction func goToCleaning(_ sender: AnyObject) {
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
             
-            let currentUser = UsersManager.defaultManager.currentUser!
-            
-            if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
-                currentUser.go(to: self.cleaning)
-                self.goToApplicationAcceptedView()
-            } else {
-                self.showMessageToUser("Авторизация не совершена.")
-            }
-            
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                let currentUser = UsersManager.defaultManager.currentUser!
+                
+                if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
+                    currentUser.go(to: self.cleaning)
+                    self.goToApplicationAcceptedView()
+                } else {
+                    self.showMessageToUser("Первышен лимит активных уборок.", title: "Заявка на уборку")
+                }
+                
+                }
             }, onFailed: {
-                self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу")
+                self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу", title: "Авторизация")
+                
         })
+        
     }
     
     func goToApplicationAcceptedView() {
         self.performSegue(withIdentifier: "showApplicationAcceptedScreen", sender: self)
     }
     
-    func showMessageToUser(_ message: String) {
-        let alert = UIAlertController(title:"Авторизация" , message: message, preferredStyle: .alert)
+    func showMessageToUser(_ message: String, title: String) {
+        let alert = UIAlertController(title: title , message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
@@ -210,6 +216,12 @@ class CleanPlaceViewController: UIViewController {
 
     }
     
+    
+    // MARK: - Observers
+    
+    func handleCurrentUserProfileChanged(_ notification: Notification) {
+        updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
     
     /*
      // MARK: - Navigation

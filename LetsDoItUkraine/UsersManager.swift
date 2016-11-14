@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FBSDKLoginKit
 
 extension User : FirebaseInitable {
     
@@ -122,6 +123,7 @@ class UsersManager {
             }
         }
         didSet {
+            NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
             if currentUser != nil, currentUser?.ID != oldValue?.ID {
                 currentUserCleanings = [Cleaning]()
                 addObservers()
@@ -153,10 +155,7 @@ class UsersManager {
     }
     
     var isCurrentUserCanAddCleaning: Bool {
-        let currUser = currentUser
-        let con1 = currUser?.asCoordinatorIds?.isEmpty ?? true
-        let con2 = currUser?.asCleanerIds?.isEmpty ?? true
-        return con1 && con2
+        return currentUser?.asCoordinatorIds?.isEmpty ?? true && currentUser?.asCleanerIds?.isEmpty ?? true
     }
     
     private var addHandler: FIRDatabaseHandle?
@@ -240,8 +239,9 @@ class UsersManager {
     }
   
     func logOut() {
-        try? FIRAuth.auth()?.signOut()
         currentUser = nil
+        try? FIRAuth.auth()?.signOut()
+        FBSDKLoginManager().logOut()
     }
     
   // MARK: - OBSERVERS

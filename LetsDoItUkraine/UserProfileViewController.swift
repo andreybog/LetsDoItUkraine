@@ -37,6 +37,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handlerCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +65,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handlerCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
+        
     }
     
     deinit {
@@ -197,6 +198,10 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: -Actions
     
+    @IBAction func findCleaningDidTapped(_ sender: UIButton) {
+        goToSearchCleaningVc()
+    }
+    
     @IBAction func userPhotoDidTapped(_ sender: UIButton) {
         if userPhotoImageView.image != #imageLiteral(resourceName: "Profile") {
             performSegue(withIdentifier:kFullSizePhotoSegue, sender: self)
@@ -212,11 +217,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func goToCreationCleaningVC() {
-       performSegue(withIdentifier:kAddCleaningSegue, sender: self)
+        tabBarController?.selectedIndex = MainTabBarItemsIndexes.cleaningCreation.index
     }
     
     func goToSearchCleaningVc() {
-        performSegue(withIdentifier:kSearchCleaningSegue, sender: self)
+        tabBarController?.selectedIndex = MainTabBarItemsIndexes.map.index
     }
 
     @IBAction func settingsButtonDidTapped(_ sender: AnyObject) {

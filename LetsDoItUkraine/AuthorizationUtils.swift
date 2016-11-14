@@ -24,7 +24,12 @@ class AuthorizationUtils {
             
             func wrapCallback(_ maybeCallback: (() -> Void)?) -> (() -> Void)? {
                 return {
-                    vc.navigationController!.dismiss(animated: true, completion: nil)
+                    if let _ = vc.navigationController?.dismiss(animated: true, completion: nil) {
+                        
+                    } else if let tabBar = vc as? UITabBarController {
+                        tabBar.dismiss(animated: true, completion: nil)
+                    }
+                    
                     if let callback = maybeCallback {
                         callback()
                     }
@@ -34,7 +39,12 @@ class AuthorizationUtils {
             authVC.successCallback = wrapCallback(onSuccess)
             authVC.failedCallback = wrapCallback(onFailed)
             
-            vc.navigationController!.present(authVC, animated: true, completion: nil)
+            if let _ = vc.navigationController?.present(authVC, animated: true, completion: nil) {
+                
+            } else if let tabBar = vc as? UITabBarController {
+                tabBar.present(authVC, animated: true, completion: nil)
+            }
+            
         }
     }
     

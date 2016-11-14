@@ -30,3 +30,14 @@ enum ImageStoragePath: String {
         return self.rawValue
     }
 }
+
+enum MainTabBarItemsIndexes: Int {
+    case profile
+    case map
+    case news
+    case cleaningCreation
+ 
+    var index: Int {
+        return self.rawValue
+    }
+}

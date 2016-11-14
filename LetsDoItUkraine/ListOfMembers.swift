@@ -13,41 +13,52 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
 
     @IBOutlet weak var tableViewMembers: UITableView!
    
-    var listUsers = [User]()
+    var listOfMembersCleaning = [User]()
     var cleaning: Cleaning!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let _ = self.cleaning {
-            for idd in self.cleaning.cleanersIds! {
-                UsersManager.defaultManager.getUser(withId: idd, handler: { (mem) in
-                    if mem != nil {
-                        self.listUsers.append(mem!)
-                        
+
+        if (self.cleaning != nil) && (self.cleaning.cleanersIds != nil) {
+            let group = DispatchGroup()
+            for idCleaner in self.cleaning.cleanersIds! {
+                group.enter()
+                UsersManager.defaultManager.getUser(withId: idCleaner, handler: { (memberOfCleaning) in
+                    if memberOfCleaning != nil {
+                        self.listOfMembersCleaning.append(memberOfCleaning!)
                     }
+                    group.leave()
                 })
             }
+            group.notify(queue: DispatchQueue.main) {
+              self.tableViewMembers.reloadData()
+            }
+            
         }
-        // Do any additional setup after loading the view.
     }
 
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.listUsers.count
+        return self.listOfMembersCleaning.count
+    }
+   
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = self.tableViewMembers.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCellCleanMember
         
-        if listUsers.count > indexPath.row {
-          cell.nameMember.text = listUsers[indexPath.row].firstName + " " + (listUsers[indexPath.row].lastName ?? "")
-          cell.phoneMember.text = listUsers[indexPath.row].phone ?? "Не укзаан"
-          cell.photoMember.kf.setImage(with: listUsers[indexPath.row].photo, placeholder: #imageLiteral(resourceName: "placeholder"))
+        if listOfMembersCleaning.count > indexPath.row {
+          cell.nameMember.text = listOfMembersCleaning[indexPath.row].firstName + " " + (listOfMembersCleaning[indexPath.row].lastName ?? "")
+          cell.phoneMember.text = listOfMembersCleaning[indexPath.row].phone ?? "Не укзаан"
+          cell.photoMember.kf.setImage(with: listOfMembersCleaning[indexPath.row].photo, placeholder: #imageLiteral(resourceName: "placeholder"))
         }
         
         return cell

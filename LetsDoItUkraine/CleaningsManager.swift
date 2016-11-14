@@ -247,6 +247,7 @@ class CleaningsManager {
                 block(error, nil)
             } else {
                 self.addMember(user, toCleaning: cleaning, as: .coordinator)
+                cleaning.coordinatorsIds = [user.ID]
                 block(nil, cleaning)
             }
         }
