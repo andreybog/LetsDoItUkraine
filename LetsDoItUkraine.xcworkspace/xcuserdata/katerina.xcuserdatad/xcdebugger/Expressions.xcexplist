@@ -91,7 +91,13 @@
          contextName = "CleanPlaceViewController.showPopUp(UIButton) -&gt; ():CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "#imageLiteral(resourceName: &quot;placeholder&quot;)">
+            </PersistentString>
+            <PersistentString
                value = "sender.imageView">
+            </PersistentString>
+            <PersistentString
+               value = "sender.imageView?.image ">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
