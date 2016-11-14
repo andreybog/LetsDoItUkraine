@@ -13,6 +13,8 @@ class RecyclePointViewController: UIViewController {
     
     @IBOutlet weak var recyclePointData: UILabel!
    // @IBOutlet weak var recyclePointCategories: UILabel!
+    
+    
     @IBOutlet weak var recyclePointPicture: UIImageView!
     @IBOutlet weak var recyclePointLogo: UIImageView!
     @IBOutlet weak var recyclePointAddress: UILabel!

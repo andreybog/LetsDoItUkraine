@@ -28,7 +28,8 @@ class CleanPlaceViewController: UIViewController {
     @IBOutlet weak var listOfMembers: UIButton!
     @IBOutlet weak var volunteers: UILabel!
     @IBOutlet weak var coordinatorsLabel: UILabel!
-    @IBOutlet var cleaningPlaces: [UIImageView]!
+    //@IBOutlet var cleaningPlaces: [UIImageView]!
+    @IBOutlet var cleaningPlacesButtons: [UIButton]!
     @IBOutlet weak var cleaningCoordinatorPhoto: UIImageView!
     @IBOutlet weak var numberOfMembers: UILabel!
     @IBOutlet weak var cleaningName: UILabel!
@@ -71,7 +72,7 @@ class CleanPlaceViewController: UIViewController {
             updateCoordinators()
             
         } else {
-            UsersManager.defaultManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { (users) in
+            UsersManager.defaultManager.getUsers(withIds: cleaning.coordinatorsIds!, handler: { [unowned self] (users) in
                 if !users.isEmpty {
                     self.coordiantors = users
                     updateCoordinators()
@@ -89,9 +90,14 @@ class CleanPlaceViewController: UIViewController {
             
             
             if cleaning.pictures != nil {
-                let minValue = min(self.cleaningPlaces.count, cleaning.pictures!.count)
+                let minValue = min(self.cleaningPlacesButtons.count, cleaning.pictures!.count)
                 for i in 0..<minValue {
-                    self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
+                   let data = NSData(contentsOf:(cleaning.pictures?[i])!)
+                    if data != nil {
+                    self.cleaningPlacesButtons[i].setImage(UIImage(data:data! as Data), for: .normal)
+                        //setBackgroundImage(UIImage(data:data! as Data), for: .normal)
+                    //self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
+                    }
                 }
             }
             
@@ -119,7 +125,13 @@ class CleanPlaceViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateUIWith(user: UsersManager.defaultManager.currentUser)
+        if let currentUser = UsersManager.defaultManager.currentUser {
+            return updateUIWith(user: currentUser)
+        } else {
+            UsersManager.defaultManager.getCurrentUser(handler: { [unowned self] (user) in
+                self.updateUIWith(user: user)
+            })
+        }
     }
     
     deinit {
@@ -217,10 +229,24 @@ class CleanPlaceViewController: UIViewController {
     }
     
     
+
     // MARK: - Observers
     
     func handleCurrentUserProfileChanged(_ notification: Notification) {
         updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
+
+    @IBAction func showPopUp(_ sender: UIButton) {
+        //AnyObject
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cleaningPlacePoUpID") as! PopUpViewController
+        popOverVC.imageCleaningPlace = sender.imageView?.image
+        
+        if sender.imageView?.image != nil {
+           self.addChildViewController(popOverVC)
+           popOverVC.view.frame = self.view.frame
+           self.view.addSubview(popOverVC.view)
+           popOverVC.didMove(toParentViewController: self)
+        }
     }
     
     /*
