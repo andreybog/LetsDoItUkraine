@@ -151,7 +151,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             }
         } else if indexPath.section == 1 {
             if (!userCleaningsPast.isEmpty){
-                if let cell = tableView.dequeueReusableCell(withIdentifier:  kCleaningCellIdentifier, for: indexPath) as? HistoryCleningCell {
+                if let cell = tableView.dequeueReusableCell(withIdentifier:  kHistoryCleaningIdentifier, for: indexPath) as? HistoryCleningCell {
                     cell.configureWithCleaning(cleaning: userCleaningsPast[indexPath.row])
                     return cell
                 }
