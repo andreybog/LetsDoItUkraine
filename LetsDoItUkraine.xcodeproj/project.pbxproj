@@ -10,6 +10,7 @@
 		062468F91DB4319F00D2BC3A /* RecyclePointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */; };
 		0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */; };
 		0652A9FD1DC2A23F00DF38DF /* CustomCellCleanMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */; };
+		0668AB9D1DD9441F00644C6C /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668AB9C1DD9441F00644C6C /* PopUpViewController.swift */; };
 		066A59E11DD614D70037EA6A /* AddMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A59E01DD614D70037EA6A /* AddMemberViewController.swift */; };
 		06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */; };
 		1612CD0F1DB3987700877C4D /* HistoryCleningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */; };
@@ -69,6 +70,7 @@
 		062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointViewController.swift; sourceTree = "<group>"; };
 		0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOfMembers.swift; sourceTree = "<group>"; };
 		0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCleanMember.swift; sourceTree = "<group>"; };
+		0668AB9C1DD9441F00644C6C /* PopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		066A59E01DD614D70037EA6A /* AddMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMemberViewController.swift; sourceTree = "<group>"; };
 		06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanPlaceViewController.swift; sourceTree = "<group>"; };
 		144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.debug.xcconfig"; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				168BC3921DC6AB0300BF8345 /* CreateCleaningViewController.swift */,
 				CEB9092C1DD0749700206685 /* ApplicationAcceptedViewController.swift */,
 				16E51A1C1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift */,
+				0668AB9C1DD9441F00644C6C /* PopUpViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 				55CA866A1DCDED030009A95B /* MainTabBarController.swift */,
 			);
@@ -434,6 +437,7 @@
 				06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */,
 				7F5BFEC01DCA0B9600A5EEF5 /* MapManager.swift in Sources */,
 				7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */,
+				0668AB9D1DD9441F00644C6C /* PopUpViewController.swift in Sources */,
 				16E51A1D1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift in Sources */,
 				7FFD270E1DB6662800D083F0 /* SearchResultsController.swift in Sources */,
 				7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */,
