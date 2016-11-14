@@ -27,8 +27,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let kAddCleaningSegue = "addCleaningSegue"
     let kSearchCleaningSegue = "searchCleaningSegue"
     let kNoHistoryCleaningIdentifier = "NoHistoryCleaningCell"
-    let kFullSizePhotoSegue = "fullSizePhotoSegue"
-
+    
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
     var userCleaningsAsCleaner = [Cleaning]()
@@ -184,14 +183,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             
                 nextScene?.cleaning = cleaning
             }
-        case kFullSizePhotoSegue:
-            let nextScene = segue.destination as? UserProfilePhotoViewController
-            nextScene?.image = userPhotoImageView.image!
-            let backItem = UIBarButtonItem()
-            backItem.title = "Back"
-            navigationItem.backBarButtonItem = backItem
         default:
-            break
+        break
         }
     }
     
@@ -204,7 +197,12 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func userPhotoDidTapped(_ sender: UIButton) {
         if userPhotoImageView.image != #imageLiteral(resourceName: "Profile") {
-            performSegue(withIdentifier:kFullSizePhotoSegue, sender: self)
+        let userPhotoPopUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "fullSizePhotoVC") as! UserProfilePhotoViewController
+        userPhotoPopUpVC.image = userPhotoImageView.image!
+        self.addChildViewController(userPhotoPopUpVC)
+        userPhotoPopUpVC.view.frame = self.view.frame
+        self.view.addSubview(userPhotoPopUpVC.view)
+        userPhotoPopUpVC.didMove(toParentViewController: self)
         }
     }
     
