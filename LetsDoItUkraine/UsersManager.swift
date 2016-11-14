@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FBSDKLoginKit
 
 extension User : FirebaseInitable {
     
@@ -240,6 +241,7 @@ class UsersManager {
     func logOut() {
         currentUser = nil
         try? FIRAuth.auth()?.signOut()
+        FBSDKLoginManager().logOut()
     }
     
   // MARK: - OBSERVERS

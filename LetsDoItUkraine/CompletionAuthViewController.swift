@@ -37,7 +37,10 @@ class CompletionAuthViewController: UIViewController {
     }
     
     
-    @IBAction func DoneButtonWasTouched() {
+    //MARK: - Actions
+    
+    
+    @IBAction func actionDoneButtonWasTouched() {
         var user = User()
         guard let ID = userDict["id"] as? String, let firstName = userFirstName.text else {return}
         user.ID = ID

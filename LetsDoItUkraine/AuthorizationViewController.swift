@@ -161,6 +161,7 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("login Button Did LogOut".uppercased())
+        
 //        UsersManager.defaultManager.logOut()
     }
     

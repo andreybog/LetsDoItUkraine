@@ -163,15 +163,10 @@ class CleanPlaceViewController: UIViewController {
     }
     
     @IBAction func openListOfMembers(_ sender: AnyObject) {
-        //self.performSegue(withIdentifier: "toListMembers", sender: self)
-        UsersManager.defaultManager.getCurrentUser { [unowned self] (cUsers) in
-            if let user = cUsers,
-            let coordinatorIds = user.asCoordinatorIds,
-            coordinatorIds.contains(self.cleaning.ID) {
-               self.performSegue(withIdentifier: "toListMembers", sender: self)
-            }
-        }
         
+        if let user = UsersManager.defaultManager.currentUser, cleaning.coordinatorsIds!.contains(user.ID) {
+            self.performSegue(withIdentifier: "toListMembers", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
