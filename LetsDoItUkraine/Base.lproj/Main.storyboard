@@ -33,14 +33,20 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxs-x4-gdD">
-                                                <state key="normal" image="placeholder" backgroundImage="placeholder"/>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxs-x4-gdD">
+                                                <connections>
+                                                    <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="kVK-wY-3vg"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ML4-aq-2b4">
-                                                <state key="normal" image="placeholder" backgroundImage="placeholder"/>
+                                                <connections>
+                                                    <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="kIS-q9-WDS"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGM-SL-F5M">
-                                                <state key="normal" image="placeholder" backgroundImage="placeholder"/>
+                                                <connections>
+                                                    <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="lFi-Oh-qRN"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
