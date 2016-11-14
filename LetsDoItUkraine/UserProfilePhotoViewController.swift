@@ -15,7 +15,7 @@ class UserProfilePhotoViewController: UIViewController {
     
     override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = UIColor.white
+    self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
     self.userPhoto.image = image
     self.showAnimate()
     }

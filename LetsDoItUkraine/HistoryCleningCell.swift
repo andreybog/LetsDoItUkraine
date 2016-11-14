@@ -25,7 +25,9 @@ class HistoryCleningCell: UITableViewCell {
     }
     
     func configureWithCleaning (cleaning:Cleaning) {
-        cleaningDateTextLabel.text = cleaning.datetime.shortDate
+        if let cleaningDate = cleaning.startAt {
+            cleaningDateTextLabel.text = cleaningDate.shortDate
+        }
         cleaningAdressTextLabel.text = cleaning.address
     }
 

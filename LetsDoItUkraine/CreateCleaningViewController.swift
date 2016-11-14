@@ -21,6 +21,7 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet var addPhotoButtons: [UIButton]!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var resultArray = [String]()
     var buttonTag = Int()
@@ -38,7 +39,8 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
-
+        activityIndicator.isHidden = true
+        descriptionTextField.isScrollEnabled = false
         imagePicker.delegate = self
         searchController.delegate = self
         for button in addPhotoButtons {
@@ -93,6 +95,9 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     
     @IBAction func nextButtonDIdTapped(_ sender: UIButton) {
         if searchButton.titleLabel?.text != "   Адресс уборки" && (dateAndTimeTextField.text?.characters.count)! > 0 {
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+            self.view.isUserInteractionEnabled = false
             let usersManager = UsersManager.defaultManager
             var cleaning = Cleaning()
             
@@ -112,14 +117,22 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
                             self.coordinator = currentUser
                             self.createdCleaning = cleaning
                             self.clearAllFields()
+                            self.activityIndicator.stopAnimating()
+                            self.activityIndicator.isHidden = true
                             self.goToCleaningVc()
                         }
                     } else {
                         self.showMessageToUser("Ошибка загрузки картинки")
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                        self.view.isUserInteractionEnabled = true
                     }
                 }
             } else {
-                showMessageToUser("Вы не можете создать новую уборку")
+                showMessageToUser("Вы не можете создать новую уборку, так как у вас есть активная уборка")
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                self.view.isUserInteractionEnabled = true
             }
         } else {
             if searchButton.titleLabel?.text == "   Адресс уборки" {
@@ -154,7 +167,7 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
             }
         })
         
-        if !(sender.currentImage?.isEqual(#imageLiteral(resourceName: "PlaceholderCleaningPhoto")))! {
+        if sender.currentImage! != #imageLiteral(resourceName: "PlaceholderCleaningPhoto") {
             alert.addAction(deleteAction)
         }
         alert.addAction(cameraAction)
