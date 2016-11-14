@@ -899,13 +899,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="alU-O2-CKq" firstAttribute="leading" secondItem="xn2-L1-QPb" secondAttribute="leadingMargin" id="13B-Bp-wby"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="alU-O2-CKq" secondAttribute="trailing" id="2kr-5p-RT0"/>
+                            <constraint firstAttribute="trailing" secondItem="alU-O2-CKq" secondAttribute="trailing" id="2G8-I5-wPO"/>
                             <constraint firstAttribute="trailing" secondItem="5fD-vS-Ym9" secondAttribute="trailing" id="7L1-Ux-Zxj"/>
+                            <constraint firstItem="alU-O2-CKq" firstAttribute="leading" secondItem="xn2-L1-QPb" secondAttribute="leading" id="7ob-9d-5CI"/>
                             <constraint firstAttribute="bottom" secondItem="5fD-vS-Ym9" secondAttribute="bottom" id="8Lh-3V-wtt"/>
-                            <constraint firstItem="cL0-7L-ufs" firstAttribute="top" secondItem="alU-O2-CKq" secondAttribute="bottom" id="I1n-QM-Oo6"/>
                             <constraint firstItem="5fD-vS-Ym9" firstAttribute="leading" secondItem="xn2-L1-QPb" secondAttribute="leading" id="RVc-vb-BR7"/>
-                            <constraint firstItem="alU-O2-CKq" firstAttribute="top" secondItem="e5J-NI-2uL" secondAttribute="bottom" id="kAJ-Vy-dM7"/>
+                            <constraint firstItem="cL0-7L-ufs" firstAttribute="top" secondItem="alU-O2-CKq" secondAttribute="bottom" id="b5M-SJ-t8G"/>
+                            <constraint firstItem="alU-O2-CKq" firstAttribute="top" secondItem="e5J-NI-2uL" secondAttribute="bottom" id="qND-5L-j0w"/>
                             <constraint firstItem="5fD-vS-Ym9" firstAttribute="top" secondItem="xn2-L1-QPb" secondAttribute="top" id="rKN-RT-UDD"/>
                         </constraints>
                     </view>
@@ -2323,7 +2323,7 @@
             <objects>
                 <navigationController id="lof-dA-Oz2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" image="Profile" id="TiE-LW-wAH"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Rcd-SM-mhL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Rcd-SM-mhL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3052,7 +3052,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3071,7 +3071,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Уборки" image="Cleaning" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3092,7 +3092,7 @@
                     <tabBarItem key="tabBarItem" title="Новости" image="news_icon" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3111,7 +3111,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YMS-lc-SA7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Создать" image="AddCleaning" selectedImage="AddCleaning" id="48R-Aw-fKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="J2j-Zk-ZOR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="J2j-Zk-ZOR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
