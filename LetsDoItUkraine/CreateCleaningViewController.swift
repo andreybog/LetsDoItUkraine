@@ -77,7 +77,7 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     }
     
     @IBAction func nextButtonDIdTapped(_ sender: UIButton) {
-        if searchButton.titleLabel?.text != "   Адресс уборки" && (dateAndTimeTextField.text?.characters.count)! > 0 && cleaningDate.isGreaterThanDate(dateToCompare: Date()) {
+        if searchButton.titleLabel?.text != "   Адресс уборки" && (dateAndTimeTextField.text?.characters.count)! > 0 {
             let usersManager = UsersManager.defaultManager
             var cleaning = Cleaning()
             
@@ -104,9 +104,12 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
                 showMessageToUser("Вы не можете создать новую уборку")
             }
         } else {
-            showMessageToUser("Заполните, пожалуйста поля корректно")
+            if searchButton.titleLabel?.text == "   Адресс уборки" {
+                showMessageToUser("Вы не указали, адресс уборки")
+            } else {
+                showMessageToUser("Вы не указали, дату и время уборки")
+            }
         }
-        
     }
     
     @IBAction func addPhotoButtonDidTapped(_ sender: UIButton!) {
@@ -223,8 +226,12 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     }
     
     func datePickerValueChanged(sender:UIDatePicker) {
-        dateAndTimeTextField.text = sender.date.dateWithLocale
-        cleaningDate = sender.date
+        if sender.date.isLessThanDate(dateToCompare: Date()) {
+            sender.date = Date()
+        } else {
+            dateAndTimeTextField.text = sender.date.dateWithLocale
+            cleaningDate = sender.date
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -237,7 +244,7 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
         
     }
     
-    func showMessageToUser(_ message: String) {
+    func showMessageToUser(_ message: String){
         let alert = UIAlertController(title:"Создание уборки" , message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)

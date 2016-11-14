@@ -1055,7 +1055,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="09I-oo-6zo" id="HmJ-Ic-uJB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c2w-E5-6I4">
@@ -1336,6 +1336,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cleaningsCollectionView" destination="CF5-t3-9LH" id="Zhk-2g-0pa"/>
+                        <outlet property="collectionViewLayoutConstraint" destination="sdo-IO-nHM" id="NWi-GL-pvT"/>
                         <outlet property="mapView" destination="CUU-Va-WRV" id="sVl-Bc-rUm"/>
                     </connections>
                 </viewController>
@@ -1546,6 +1547,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionViewLayoutConstraint" destination="zER-cH-MeO" id="BiN-3f-awV"/>
                         <outlet property="mapView" destination="c6g-rv-BsU" id="JrZ-nk-csl"/>
                         <outlet property="recyclePointsCollectionView" destination="k5y-WQ-TKF" id="22s-Qx-BTR"/>
                     </connections>
@@ -1938,7 +1940,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="456"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cRX-KK-7R0" id="5Aa-e9-J9m">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="455"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="455.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Title" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBr-Cc-GRH">
@@ -2260,7 +2262,7 @@
                         <viewControllerLayoutGuide type="top" id="J6B-7d-jLK"/>
                         <viewControllerLayoutGuide type="bottom" id="0zJ-by-REu"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="Zqp-ol-MDn">
+                    <view key="view" contentMode="scaleToFill" id="Zqp-ol-MDn">
                         <rect key="frame" x="0.0" y="64" width="375" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2657,7 +2659,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AJO-1w-reQ" id="aTl-2M-Kv7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_cl" translatesAutoresizingMaskIntoConstraints="NO" id="rhC-vA-OdZ">
@@ -2713,7 +2715,7 @@
                                         <rect key="frame" x="0.0" y="128" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v2o-jc-KhH" id="lM7-hb-Z01">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gYS-jM-cc4">
@@ -2802,7 +2804,7 @@
                                         <rect key="frame" x="0.0" y="258" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hbu-yd-cZE" id="UBb-sQ-gbB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_cl" translatesAutoresizingMaskIntoConstraints="NO" id="eW4-1b-JPZ">
@@ -2812,7 +2814,7 @@
                                                         <constraint firstAttribute="width" constant="12" id="9S0-2k-CAT"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Место уборки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahv-TD-0b2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Место уборки" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahv-TD-0b2">
                                                     <rect key="frame" x="40" y="18" width="104" height="14"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                                     <color key="textColor" red="0.50012916330000001" green="0.79582339530000001" blue="0.7201760411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2857,7 +2859,7 @@
                                         <rect key="frame" x="0.0" y="358" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eY1-ic-L9C" id="eSK-AZ-KXR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Вы еще не участвовали в уборках" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0G-CC-EYD">
@@ -2927,7 +2929,7 @@
                         <outlet property="userPhotoImageView" destination="wUW-pB-b6i" id="seR-Sk-DGr"/>
                         <outlet property="volunteerCounterTextLabel" destination="Woc-Pj-82f" id="Fsh-3J-fUp"/>
                         <segue destination="N3V-KQ-OLE" kind="show" identifier="addCleaningSegue" id="exC-NW-dfF"/>
-                        <segue destination="gvc-8T-BzV" kind="show" identifier="fullSizePhotoSegue" action="showDetailViewController:sender:" id="nyY-X8-u5H"/>
+                        <segue destination="gvc-8T-BzV" kind="showDetail" identifier="fullSizePhotoSegue" id="nyY-X8-u5H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pyV-Ak-5iH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2946,39 +2948,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5mx-M8-jgU">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9EL-zT-OhM">
+                                <rect key="frame" x="0.0" y="159" width="375" height="286"/>
+                            </imageView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d29-lA-DJ4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="68" id="a2O-DE-37d"/>
+                                    <constraint firstAttribute="height" constant="60" id="cZZ-4O-qPw"/>
                                 </constraints>
-                                <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </textAttributes>
                                 <items>
-                                    <navigationItem title="Title" id="gqn-o6-k9U">
-                                        <barButtonItem key="backBarButtonItem" title="Профиль" id="KZE-zT-UGK"/>
-                                        <barButtonItem key="leftBarButtonItem" id="1ub-sm-DgP">
+                                    <navigationItem title="фото" id="eV3-Og-ReH">
+                                        <barButtonItem key="backBarButtonItem" systemItem="done" id="xjP-qD-8zB">
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9EL-zT-OhM">
-                                <rect key="frame" x="0.0" y="203" width="375" height="237"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.96854275469999995" green="0.96868163350000003" blue="0.96851247549999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="5mx-M8-jgU" firstAttribute="leading" secondItem="EIf-gM-trg" secondAttribute="leading" id="HTR-Fr-B2i"/>
-                            <constraint firstItem="5mx-M8-jgU" firstAttribute="top" secondItem="EIf-gM-trg" secondAttribute="top" id="J66-mR-W1t"/>
-                            <constraint firstAttribute="trailing" secondItem="5mx-M8-jgU" secondAttribute="trailing" id="KNQ-Zh-cVL"/>
+                            <constraint firstAttribute="trailing" secondItem="d29-lA-DJ4" secondAttribute="trailing" id="8Jr-2t-tPS"/>
+                            <constraint firstItem="d29-lA-DJ4" firstAttribute="leading" secondItem="EIf-gM-trg" secondAttribute="leading" id="IH4-Kl-Tk2"/>
                             <constraint firstItem="qDO-uU-lhd" firstAttribute="top" secondItem="9EL-zT-OhM" secondAttribute="bottom" constant="178" id="OZQ-S5-aTB"/>
+                            <constraint firstItem="9EL-zT-OhM" firstAttribute="top" secondItem="OMw-tw-UrA" secondAttribute="bottom" constant="139" id="a4i-kE-n0h"/>
+                            <constraint firstItem="d29-lA-DJ4" firstAttribute="top" secondItem="EIf-gM-trg" secondAttribute="top" id="mZ8-6q-Sme"/>
                             <constraint firstAttribute="trailing" secondItem="9EL-zT-OhM" secondAttribute="trailing" id="mkt-KS-TUk"/>
-                            <constraint firstItem="9EL-zT-OhM" firstAttribute="top" secondItem="5mx-M8-jgU" secondAttribute="bottom" constant="135" id="mo1-Ml-zBe"/>
                             <constraint firstItem="9EL-zT-OhM" firstAttribute="leading" secondItem="EIf-gM-trg" secondAttribute="leading" id="yDQ-xJ-PlT"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="userPhoto" destination="9EL-zT-OhM" id="gOJ-PT-J5y"/>
                     </connections>
@@ -3294,7 +3293,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Уборки" image="Cleaning" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

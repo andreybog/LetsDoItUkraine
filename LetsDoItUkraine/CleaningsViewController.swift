@@ -15,6 +15,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     //MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var cleaningsCollectionView: UICollectionView!
+    @IBOutlet weak var collectionViewLayoutConstraint: NSLayoutConstraint!
     
     //MARK: - Properties
     var searchMarker = GMSMarker()
@@ -40,14 +41,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         mapManager.setup(map: mapView)
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        mapManager.setCurrentLocationOn(map: mapView)
         self.setCollectionViewVisible(isCollectionViewVisible: false)
+        mapManager.setCurrentLocationOn(map: mapView)
     }
-    
     
     //MARK: - Methods
     private func setUpCollectionViewCellWidth(){
@@ -56,8 +52,18 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     private func setCollectionViewVisible(isCollectionViewVisible: Bool){
-        self.cleaningsCollectionView.isHidden = !isCollectionViewVisible
-        mapManager.setPudding(on: isCollectionViewVisible, onMapView: mapView)
+        var constant : CGFloat = 0.0
+        if isCollectionViewVisible {
+            constant = 8.0
+        } else {
+            constant = -100.0
+        }
+        self.collectionViewLayoutConstraint.constant = constant
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+            self.mapManager.setPudding(on: isCollectionViewVisible, onMapView: self.mapView)
+
+        })
     }
     
     func locateOnMapWith(longtitude lon: Double, andLatitude lat: Double, andTitle title: String){
@@ -79,14 +85,14 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     //MARK: - CleaningsMapPresentDelegate
     func didUpdateCleanings() {
         mapManager.setMarkersWith(Array: presenter.getCleaningsIdsAndCoordinates(), onMap: mapView)
-        if !cleaningsCollectionView.isHidden {
+        if collectionViewLayoutConstraint.constant > 0 {
             cleaningsCollectionView.reloadData()
         }
     }
     
     func didUpdateCurrentCleanings() {
-        DispatchQueue.main.async {
-            if !self.cleaningsCollectionView.isHidden {
+        DispatchQueue.main.async {[unowned self] in
+            if self.collectionViewLayoutConstraint.constant > 0 {
                 self.cleaningsCollectionView.reloadData()
             }
         }
@@ -97,8 +103,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if marker.snippet != nil {
             let coordinate = presenter.prepareCollectionViewAndGetCoordinatesWith(ID: marker.snippet!)
-            mapView.animate(toLocation: coordinate)
-            mapView.animate(toZoom: 14)
+            mapManager.moveAt(Coordiante: coordinate, onMap: mapView)
             self.cleaningsCollectionView.reloadData()
             self.cleaningsCollectionView.scrollToItem(at:IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
             setCollectionViewVisible(isCollectionViewVisible: true)
@@ -108,8 +113,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        if cleaningsCollectionView.isHidden {
-            DispatchQueue.main.async {
+        if collectionViewLayoutConstraint.constant < 0 {
+            DispatchQueue.main.async {[unowned self] in
                 self.mapManager.locate(searchMarker: self.searchMarker, onMap: mapView, withCoordinate: coordinate)
             }
             self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
@@ -127,7 +132,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         }
         self.presenter.prepareCollectionViewWith(Coordinates: coordinate)
         self.cleaningsCollectionView.reloadData()
-        setCollectionViewVisible(isCollectionViewVisible: true)
+        if collectionViewLayoutConstraint.constant < 0 {
+            self.setCollectionViewVisible(isCollectionViewVisible: true)
+        }
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
@@ -186,8 +193,8 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        mapView.animate(toLocation: presenter.getCleaningBy(Index: self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row)!.coordinate)
-        mapView.animate(toZoom: 14)
+        let coordinate = presenter.getCleaningBy(Index: self.cleaningsCollectionView.indexPathsForVisibleItems.first!.row)!.coordinate
+        mapManager.moveAt(Coordiante: coordinate, onMap: mapView)
     }
     
     deinit {
