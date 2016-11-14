@@ -34,16 +34,19 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxs-x4-gdD">
+                                                <state key="normal" backgroundImage="placeholder"/>
                                                 <connections>
                                                     <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="kVK-wY-3vg"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ML4-aq-2b4">
+                                                <state key="normal" backgroundImage="placeholder"/>
                                                 <connections>
                                                     <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="kIS-q9-WDS"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGM-SL-F5M">
+                                                <state key="normal" backgroundImage="placeholder"/>
                                                 <connections>
                                                     <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="lFi-Oh-qRN"/>
                                                 </connections>
@@ -911,10 +914,13 @@
                             <constraint firstItem="alU-O2-CKq" firstAttribute="centerY" secondItem="xn2-L1-QPb" secondAttribute="centerY" id="nnX-ur-Oeg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imagePopUp" destination="5fD-vS-Ym9" id="U4m-QL-CHv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sKb-Ii-Sdo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2276" y="2449"/>
+            <point key="canvasLocation" x="2276" y="2448.1259370314842"/>
         </scene>
         <!--Add Member View Controller-->
         <scene sceneID="61F-UZ-0Ve">
@@ -2322,7 +2328,7 @@
             <objects>
                 <navigationController id="lof-dA-Oz2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" image="Profile" id="TiE-LW-wAH"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Rcd-SM-mhL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Rcd-SM-mhL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3051,7 +3057,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3070,7 +3076,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Уборки" image="Cleaning" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3091,7 +3097,7 @@
                     <tabBarItem key="tabBarItem" title="Новости" image="news_icon" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3110,7 +3116,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YMS-lc-SA7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Создать" image="AddCleaning" selectedImage="AddCleaning" id="48R-Aw-fKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="J2j-Zk-ZOR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="J2j-Zk-ZOR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

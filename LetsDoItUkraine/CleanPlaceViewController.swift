@@ -91,8 +91,10 @@ class CleanPlaceViewController: UIViewController {
                 let minValue = min(self.cleaningPlacesButtons.count, cleaning.pictures!.count)
                 for i in 0..<minValue {
                    let data = NSData(contentsOf:(cleaning.pictures?[i])!)
+                    if data != nil {
                     self.cleaningPlacesButtons[i].setBackgroundImage(UIImage(data:data! as Data), for: .normal)
                     //self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
+                    }
                 }
             }
             
@@ -223,6 +225,9 @@ class CleanPlaceViewController: UIViewController {
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cleaningPlacePoUpID") as! PopUpViewController
         self.addChildViewController(popOverVC)
         popOverVC.view.frame = self.view.frame
+        /////////////////?????
+        popOverVC.imagePopUp = sender.imageView
+        /////////////////
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParentViewController: self)
         
