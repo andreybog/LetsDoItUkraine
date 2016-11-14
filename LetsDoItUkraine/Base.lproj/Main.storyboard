@@ -2853,7 +2853,6 @@
                         <outlet property="userNameTextLabel" destination="CB4-qb-QCu" id="nFl-nw-Skh"/>
                         <outlet property="userPhotoImageView" destination="wUW-pB-b6i" id="seR-Sk-DGr"/>
                         <outlet property="volunteerCounterTextLabel" destination="Woc-Pj-82f" id="Fsh-3J-fUp"/>
-                        <segue destination="gvc-8T-BzV" kind="show" identifier="fullSizePhotoSegue" action="showDetailViewController:sender:" id="nyY-X8-u5H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pyV-Ak-5iH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2863,7 +2862,7 @@
         <!--User Profile Photo View Controller-->
         <scene sceneID="c6N-Gf-Qd9">
             <objects>
-                <viewController id="gvc-8T-BzV" customClass="UserProfilePhotoViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="fullSizePhotoVC" id="gvc-8T-BzV" customClass="UserProfilePhotoViewController" customModule="LetsDoItUkraine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OMw-tw-UrA"/>
                         <viewControllerLayoutGuide type="bottom" id="qDO-uU-lhd"/>
@@ -2873,29 +2872,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9EL-zT-OhM">
-                                <rect key="frame" x="0.0" y="203" width="375" height="242"/>
+                                <rect key="frame" x="0.0" y="159" width="375" height="286"/>
                             </imageView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d29-lA-DJ4">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BuA-iD-t18">
+                                <rect key="frame" x="156" y="111" width="63" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="cZZ-4O-qPw"/>
+                                    <constraint firstAttribute="height" constant="40" id="Mp4-bF-dHL"/>
                                 </constraints>
-                                <items>
-                                    <navigationItem title="фото" id="eV3-Og-ReH">
-                                        <barButtonItem key="backBarButtonItem" systemItem="done" id="xjP-qD-8zB">
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                                <state key="normal" title="Закрыть">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="closePhoto:" destination="gvc-8T-BzV" eventType="touchUpInside" id="Y0q-O1-f8C"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96854275469999995" green="0.96868163350000003" blue="0.96851247549999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="d29-lA-DJ4" secondAttribute="trailing" id="8Jr-2t-tPS"/>
-                            <constraint firstItem="d29-lA-DJ4" firstAttribute="leading" secondItem="EIf-gM-trg" secondAttribute="leading" id="IH4-Kl-Tk2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BuA-iD-t18" secondAttribute="trailing" constant="140" id="5JZ-IE-05m"/>
                             <constraint firstItem="qDO-uU-lhd" firstAttribute="top" secondItem="9EL-zT-OhM" secondAttribute="bottom" constant="178" id="OZQ-S5-aTB"/>
+                            <constraint firstItem="9EL-zT-OhM" firstAttribute="top" secondItem="BuA-iD-t18" secondAttribute="bottom" constant="8" id="Wz4-s4-pSo"/>
                             <constraint firstItem="9EL-zT-OhM" firstAttribute="top" secondItem="OMw-tw-UrA" secondAttribute="bottom" constant="139" id="a4i-kE-n0h"/>
-                            <constraint firstItem="d29-lA-DJ4" firstAttribute="top" secondItem="EIf-gM-trg" secondAttribute="top" id="mZ8-6q-Sme"/>
+                            <constraint firstItem="BuA-iD-t18" firstAttribute="leading" secondItem="EIf-gM-trg" secondAttribute="leadingMargin" constant="140" id="aDX-bf-9PL"/>
                             <constraint firstAttribute="trailing" secondItem="9EL-zT-OhM" secondAttribute="trailing" id="mkt-KS-TUk"/>
                             <constraint firstItem="9EL-zT-OhM" firstAttribute="leading" secondItem="EIf-gM-trg" secondAttribute="leading" id="yDQ-xJ-PlT"/>
                         </constraints>
