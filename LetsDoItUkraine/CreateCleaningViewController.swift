@@ -115,17 +115,18 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
                             self.goToCleaningVc()
                         }
                     } else {
-                        self.showMessageToUser("Ошибка загрузки картинки")
+                        self.showMessageToUser("Ошибка загрузки картинки", title: "Создание уборки")
                     }
                 }
             } else {
-                showMessageToUser("Вы не можете создать новую уборку")
+                let descriptionMsg = (usersManager.currentUser?.asCleanerIds?.isEmpty ?? false) ? "подписаны на другую уборку" : "являетесь координатором другой уборки"
+                showMessageToUser("Вы не можете создать новую уборку, так как вы \(descriptionMsg)", title: "Создание уборки")
             }
         } else {
             if searchButton.titleLabel?.text == "   Адресс уборки" {
-                showMessageToUser("Вы не указали, адресс уборки")
+                showMessageToUser("Вы не указали, адресс уборки", title: "Создание уборки")
             } else {
-                showMessageToUser("Вы не указали, дату и время уборки")
+                showMessageToUser("Вы не указали, дату и время уборки", title: "Создание уборки")
             }
         }
     }
@@ -263,8 +264,8 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
         
     }
     
-    func showMessageToUser(_ message: String){
-        let alert = UIAlertController(title:"Создание уборки" , message: message, preferredStyle: .alert)
+    func showMessageToUser(_ message: String, title: String){
+        let alert = UIAlertController(title: title , message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)

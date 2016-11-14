@@ -45,14 +45,40 @@ class CleanPlaceViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
-            
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title = "Место уборки";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
     
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCleaningChangedNotification), name: kCleaningsManagerCleaningChangeNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func updateUIWith(user: User?) {
+        
+        if let currentUser = user {
+            self.listOfMembers.isHidden = !self.cleaning.coordinatorsIds!.contains(currentUser.ID)
+            
+            goToCleaning.isEnabled = UsersManager.defaultManager.isCurrentUserCanAddCleaning
+     
+        } else {
+            self.listOfMembers.isHidden = true
+            goToCleaning.isEnabled = true
+        }
+        
+        goToCleaning.backgroundColor = goToCleaning.isEnabled ? UIColor.dirtyGreen() : UIColor.gray
+        
         let updateCoordinators = { [unowned self] in
             let user = self.coordiantors!.first!
             
@@ -89,24 +115,26 @@ class CleanPlaceViewController: UIViewController {
             self.cleaningDescription.text = cleaning.summary ?? ""
             
             
-//            if cleaning.pictures != nil {
-//                let minValue = min(self.cleaningPlacesButtons.count, cleaning.pictures!.count)
-//                for i in 0..<minValue {
-//                   let data = NSData(contentsOf:(cleaning.pictures?[i])!)
-//                    if data != nil {
-//                    self.cleaningPlacesButtons[i].setImage(UIImage(data:data! as Data), for: .normal)
-//                        //setBackgroundImage(UIImage(data:data! as Data), for: .normal)
-//                    //self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
-//                    }
-//                }
-//            }
+            // ------------------------ // Добавить загрузку картинок ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
+            
+            //            if cleaning.pictures != nil {
+            //                let minValue = min(self.cleaningPlacesButtons.count, cleaning.pictures!.count)
+            //                for i in 0..<minValue {
+            //                   let data = NSData(contentsOf:(cleaning.pictures?[i])!)
+            //                    if data != nil {
+            //                    self.cleaningPlacesButtons[i].setImage(UIImage(data:data! as Data), for: .normal)
+            //                        //setBackgroundImage(UIImage(data:data! as Data), for: .normal)
+            //                    //self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
+            //                    }
+            //                }
+            //            }
             
             self.numberOfMembers.text = String(cleaning.cleanersIds?.count ?? 0)
             self.coordinatorsLabel.text = String(cleaning.coordinatorsIds!.count)
             self.volunteers.text = String(cleaning.cleanersIds?.count ?? 0)
             
-            if let _ = cleaning.datetime {
-                self.cleaningDate.text = cleaning.startAt!.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
+            if let startAt = cleaning.startAt {
+                self.cleaningDate.text = startAt.dateStringWithFormat(format: "dd MMMM yyyy, hh:mm ")
             } else {
                 self.cleaningDate.text = "Не указано"
             }
@@ -117,34 +145,6 @@ class CleanPlaceViewController: UIViewController {
             self.coordinatorsLabel.text = "0"
             self.volunteers.text = "0"
         }
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleCleaningChangedNotification), name: kCleaningsManagerCleaningChangeNotification, object: nil)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateUIWith(user: UsersManager.defaultManager.currentUser)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func updateUIWith(user: User?) {
-        
-        if let currentUser = user {
-            self.listOfMembers.isHidden = !self.cleaning.coordinatorsIds!.contains(currentUser.ID)
-            
-            goToCleaning.isEnabled = UsersManager.defaultManager.isCurrentUserCanAddCleaning
-     
-        } else {
-            self.listOfMembers.isHidden = true
-            goToCleaning.isEnabled = true
-        }
-        
-        goToCleaning.backgroundColor = goToCleaning.isEnabled ? UIColor.dirtyGreen() : UIColor.gray
     }
     
     @IBAction func goToWebSite(_ sender: AnyObject) {
@@ -183,17 +183,15 @@ class CleanPlaceViewController: UIViewController {
         
     }
     
-    
     @IBAction func goToCleaning(_ sender: AnyObject) {
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
-                let currentUser = UsersManager.defaultManager.currentUser!
-                
-                if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
-                    currentUser.go(to: self.cleaning)
-                    self.goToApplicationAcceptedView()
-                } else {
-                    self.showMessageToUser("Первышен лимит активных уборок.", title: "Заявка на уборку")
-                }
+            
+            if let currentUser = UsersManager.defaultManager.currentUser, UsersManager.defaultManager.isCurrentUserCanAddCleaning {
+                currentUser.go(to: self.cleaning)
+                self.goToApplicationAcceptedView()
+            } else {
+                self.showMessageToUser("Первышен лимит активных уборок.", title: "Заявка на уборку")
+            }
             }, onFailed: {
                 self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу", title: "Авторизация")
                 

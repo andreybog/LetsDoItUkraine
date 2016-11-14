@@ -31,9 +31,12 @@ extension User : FirebaseInitable {
         }
         
         if let metadata = data["cleaningsMetadata"] as? [String : [String:Any]] {
-            cleaningsMetadata = metadata.map { (_, value) -> CleaningMetadata in
-                return CleaningMetadata(data: value)!
+            var metadataDict: [String : CleaningMetadata] = [:]
+            
+            for (key, value) in metadata {
+                metadataDict[key] = CleaningMetadata(data: value)
             }
+            cleaningsMetadata = metadataDict
         }
     }
     
@@ -50,7 +53,8 @@ extension User : FirebaseInitable {
         
         
         var metadata = [String : Any]()
-        for data in cleaningsMetadata {
+        
+        for data in cleaningsMetadata.values {
             metadata[data.ID] = data.toJSON
         }
         data["cleaningsMetadata"] = metadata
@@ -75,7 +79,7 @@ extension User {
             return nil
         }
         
-        return (cleaningsMetadata.filter { $0.startAt >= pivotDate && $0.userRole! == UserRole.coordinator }).map { $0.ID }
+        return (cleaningsMetadata.values.filter { $0.startAt >= pivotDate && $0.userRole! == UserRole.coordinator }).map { $0.ID }
     }
     
     var asCleanerIds:[String]? {
@@ -83,7 +87,7 @@ extension User {
             return nil
         }
         
-        return (cleaningsMetadata.filter { $0.startAt >= pivotDate && $0.userRole! == UserRole.cleaner }).map { $0.ID }
+        return (cleaningsMetadata.values.filter { $0.startAt >= pivotDate && $0.userRole! == UserRole.cleaner }).map { $0.ID }
     }
     
     var pastCleaningsIds:[String]? {
@@ -91,7 +95,7 @@ extension User {
             return nil
         }
         
-        return (cleaningsMetadata.filter { $0.startAt < pivotDate }).map { $0.ID }
+        return (cleaningsMetadata.values.filter { $0.startAt < pivotDate }).map { $0.ID }
     }
     
     func create(_ cleaning: Cleaning, withCompletionBlock block: @escaping (Error?, Cleaning?)->Void) {
@@ -125,33 +129,33 @@ class UsersManager {
         }
         didSet {
             if currentUser != nil, currentUser?.ID != oldValue?.ID {
-                currentUserCleanings = [Cleaning]()
+                currentUserCleanings = [String:Cleaning]()
                 addObservers()
             }
         }
     }
     
-    var currentUserCleanings: [Cleaning]?
+    var currentUserCleanings: [String : Cleaning]?
     
     var currentUserAsCoordinator: [Cleaning]? {
         guard let cleanings = currentUserCleanings, let pivotDate = dataManager.pivotDate else {
             return nil
         }
-        return cleanings.filter { $0.startAt >= pivotDate && ($0.coordinatorsIds?.contains(currentUser!.ID) ?? false) }
+        return cleanings.values.filter { $0.startAt >= pivotDate && ($0.coordinatorsIds?.contains(currentUser!.ID) ?? false) }
     }
     
     var currentUserAsCleaner: [Cleaning]? {
         guard let cleanings = currentUserCleanings, let pivotDate = dataManager.pivotDate else {
             return nil
         }
-        return cleanings.filter { $0.startAt >= pivotDate && ($0.cleanersIds?.contains(currentUser!.ID) ?? false) }
+        return cleanings.values.filter { $0.startAt >= pivotDate && ($0.cleanersIds?.contains(currentUser!.ID) ?? false) }
     }
     
     var currentUserPastCleanings: [Cleaning]? {
         guard let cleanings = currentUserCleanings, let pivotDate = dataManager.pivotDate else {
             return nil
         }
-        return cleanings.filter { $0.startAt < pivotDate }
+        return cleanings.values.filter { $0.startAt < pivotDate }
     }
     
     var isCurrentUserCanAddCleaning: Bool {
@@ -253,8 +257,8 @@ class UsersManager {
                 
                 CleaningsManager.defaultManager.getCleaning(withId: metadata.ID, handler: { (cleaning) in
                     if cleaning != nil {
-                        self?.currentUser?.cleaningsMetadata.append(metadata)
-                        self?.currentUserCleanings?.append(cleaning!)
+                        self?.currentUser?.cleaningsMetadata[metadata.ID] = metadata
+                        self?.currentUserCleanings?[cleaning!.ID] = cleaning!
                         NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
                     }
                 })
@@ -263,31 +267,22 @@ class UsersManager {
         
         changeHandler = currentUser?.ref.child("cleaningsMetadata").observe(.childChanged, with: { [weak self] (snapshot) in
             if let data = snapshot.value as? [String : Any], let metadata = CleaningMetadata(data: data) {
-                
-                if let index = self?.currentUser?.cleaningsMetadata.index(where: { $0.ID == metadata.ID }) {
-                    
-                    CleaningsManager.defaultManager.getCleaning(withId: metadata.ID, handler: { (cleaning) in
-                        if cleaning != nil {
-                            self?.currentUser?.cleaningsMetadata[index] = metadata
-                            self?.currentUserCleanings?[index] = cleaning!
-                            NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
-                        }
-                    })
-                    
-                }
+                CleaningsManager.defaultManager.getCleaning(withId: metadata.ID, handler: { (cleaning) in
+                    if cleaning != nil {
+                        self?.currentUser?.cleaningsMetadata[metadata.ID] = metadata
+                        self?.currentUserCleanings?[cleaning!.ID] = cleaning!
+                        NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
+                    }
+                })
             }
         })
         
         removeHandler = currentUser?.ref.child("cleaningsMetadata").observe(.childRemoved, with: { [weak self] (snapshot) in
             if let data = snapshot.value as? [String : Any], let metadata = CleaningMetadata(data: data) {
-                
-                if let index = self?.currentUser?.cleaningsMetadata.index(where: { $0.ID == metadata.ID }) {
-                    self?.currentUser?.cleaningsMetadata.remove(at: index)
-                    self?.currentUserCleanings?.remove(at: index)
-                    NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
-                }
+                _ = self?.currentUser?.cleaningsMetadata.removeValue(forKey: metadata.ID)
+                _ = self?.currentUserCleanings?.removeValue(forKey: metadata.ID)
+                NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
             }
-            
         })
     }
     

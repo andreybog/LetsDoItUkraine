@@ -45,12 +45,9 @@ extension Cleaning : FirebaseInitable {
         
         ID = id
         address = addr
-        
-        datetime = (data["dateTime"] as? String)?.date()
         createdAt = Date(timeIntervalSince1970: (data["createdAt"] as! Double))
         startAt = Date(timeIntervalSince1970: (data["startAt"] as! Double))
         summary = data["description"] as? String
-        isActive = data["active"] as! Bool
         coordinate = CLLocationCoordinate2D(latitude: data["latitude"] as! Double,
                                             longitude: data["longitude"] as! Double)
         
@@ -73,16 +70,13 @@ extension Cleaning : FirebaseInitable {
     
     var toJSON: [String : Any] {
         var data: [String : Any] = ["id"        : ID,
-                                    "active"    : isActive,
                                     "latitude"  : coordinate.latitude,
                                     "longitude" : coordinate.longitude,
                                     "address"   : address,
                                     "createdAt" : createdAt.timeIntervalSince1970,
                                     "startAt"   : startAt.timeIntervalSince1970]
         
-        if let datetime = datetime { data["dateTime"] = datetime.string() }
         if let summary = summary { data["description"] = summary }
-        
         
         if let pictures = pictures {
             var picDict = [String:String]()

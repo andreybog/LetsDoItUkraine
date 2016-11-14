@@ -79,18 +79,17 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
             UsersManager.defaultManager.getUser(withId: ID, handler: {[unowned self] (gotUser) in
                 if gotUser != nil {
                     UsersManager.defaultManager.currentUser = gotUser
-//                    DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                        if let success = self.successCallback {
-                            success()
-                        }
-//                    }
+                    
+                    if let success = self.successCallback {
+                        success()
+                    }
+
                     self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
                 } else {
                     guard let completionAuthVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletionAuth") as? CompletionAuthViewController else { return }
                     completionAuthVC.userDict = user
                     completionAuthVC.successCallback = self.successCallback
                     completionAuthVC.failedCallback = self.failedCallback
-                    
                     
                     self.present(completionAuthVC, animated: true, completion: nil)
                 }
@@ -161,8 +160,6 @@ class AuthorizationViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("login Button Did LogOut".uppercased())
-        
-//        UsersManager.defaultManager.logOut()
     }
     
 
