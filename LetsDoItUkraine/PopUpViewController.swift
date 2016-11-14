@@ -11,13 +11,12 @@ import UIKit
 class PopUpViewController: UIViewController {
 
     @IBOutlet weak var imagePopUp: UIImageView!
+    var imageCleaningPlace : UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        /////////////?????
-        //self.imagePopUp.image = UIImage(named: "cl_place1")
-        /////////////
+        self.imagePopUp.image = imageCleaningPlace
         
         self.showAnimate()
          

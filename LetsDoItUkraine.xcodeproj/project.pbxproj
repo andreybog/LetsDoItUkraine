@@ -10,7 +10,6 @@
 		062468F91DB4319F00D2BC3A /* RecyclePointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */; };
 		0652A9FB1DC29AFB00DF38DF /* ListOfMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */; };
 		0652A9FD1DC2A23F00DF38DF /* CustomCellCleanMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */; };
-		0655B5A81DD9BF370060A726 /* cl_place1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0655B5A71DD9BF370060A726 /* cl_place1.png */; };
 		0668AB9D1DD9441F00644C6C /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668AB9C1DD9441F00644C6C /* PopUpViewController.swift */; };
 		066A59E11DD614D70037EA6A /* AddMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A59E01DD614D70037EA6A /* AddMemberViewController.swift */; };
 		06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */; };
@@ -71,7 +70,6 @@
 		062468F81DB4319F00D2BC3A /* RecyclePointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointViewController.swift; sourceTree = "<group>"; };
 		0652A9FA1DC29AFB00DF38DF /* ListOfMembers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOfMembers.swift; sourceTree = "<group>"; };
 		0652A9FC1DC2A23F00DF38DF /* CustomCellCleanMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCleanMember.swift; sourceTree = "<group>"; };
-		0655B5A71DD9BF370060A726 /* cl_place1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cl_place1.png; sourceTree = "<group>"; };
 		0668AB9C1DD9441F00644C6C /* PopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		066A59E01DD614D70037EA6A /* AddMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMemberViewController.swift; sourceTree = "<group>"; };
 		06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanPlaceViewController.swift; sourceTree = "<group>"; };
@@ -294,7 +292,6 @@
 		CE51C5761DA6DB25006397B3 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				0655B5A71DD9BF370060A726 /* cl_place1.png */,
 				166166FC1DBE9047006FED9A /* Constants.swift */,
 				552BF8FC1DA196D7008D5317 /* AppDelegate.swift */,
 				552BF9071DA196D7008D5317 /* LaunchScreen.storyboard */,
@@ -370,7 +367,6 @@
 			files = (
 				7FB90CC71DC7AFCE006B6D86 /* Assets.xcassets in Resources */,
 				552BF9091DA196D7008D5317 /* LaunchScreen.storyboard in Resources */,
-				0655B5A81DD9BF370060A726 /* cl_place1.png in Resources */,
 				552BF9131DA19916008D5317 /* GoogleService-Info.plist in Resources */,
 				552BF9041DA196D7008D5317 /* Main.storyboard in Resources */,
 			);

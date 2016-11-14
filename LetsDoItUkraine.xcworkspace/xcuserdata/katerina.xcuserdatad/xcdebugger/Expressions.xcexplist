@@ -88,6 +88,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CleanPlaceViewController.showPopUp(UIButton) -&gt; ():CleanPlaceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sender.imageView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ListOfMembers.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ListOfMembers.swift">
          <PersistentStrings>
             <PersistentString
@@ -133,6 +141,9 @@
             <PersistentString
                value = "imagePopUp">
             </PersistentString>
+            <PersistentString
+               value = "im1">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -147,7 +158,10 @@
          contextName = "CleanPlaceViewController.showPopUp(AnyObject) -&gt; ():CleanPlaceViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sender.imageView">
+               value = "sender.currentImage">
+            </PersistentString>
+            <PersistentString
+               value = "self.cleaningPlacesButtons[0]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
