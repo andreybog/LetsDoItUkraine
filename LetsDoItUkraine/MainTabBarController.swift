@@ -25,7 +25,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if let nav = viewController as? UINavigationController, let rootVc = nav.viewControllers.first {
-            if rootVc is CreateCleaningViewController || rootVc is UserProfileViewController, !AuthorizationUtils.isCurrentUserEnabled() {
+            if rootVc is CreateCleaningViewController || rootVc is UserProfileViewController, UsersManager.defaultManager.currentUser == nil {
                 
                 AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
                     if let index = self.lastSelectedIndex {

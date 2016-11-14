@@ -57,7 +57,7 @@ class DataManager {
     var pivotDateAddHandler:FIRDatabaseHandle?
     
     lazy var rootRef:FIRDatabaseReference = {
-        FIRDatabase.database().persistenceEnabled = true
+//        FIRDatabase.database().persistenceEnabled = true
         let ref = FIRDatabase.database().reference()
         
         return ref

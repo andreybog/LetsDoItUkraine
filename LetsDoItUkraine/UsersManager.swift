@@ -30,11 +30,11 @@ extension User : FirebaseInitable {
             photo = nil
         }
         
-//        if let metadata = data["cleaningsMetadata"] as? [String : [String:Any]] {
-//            cleaningsMetadata = metadata.map { (_, value) -> CleaningMetadata in
-//                return CleaningMetadata(data: value)!
-//            }
-//        }
+        if let metadata = data["cleaningsMetadata"] as? [String : [String:Any]] {
+            cleaningsMetadata = metadata.map { (_, value) -> CleaningMetadata in
+                return CleaningMetadata(data: value)!
+            }
+        }
     }
     
     var toJSON: [String : Any] {
@@ -117,13 +117,13 @@ class UsersManager {
     
     var currentUser:User? {
         willSet {
+            NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
             if newValue == nil {
                 currentUserCleanings = nil
                 removeObservers()
             }
         }
         didSet {
-            NotificationCenter.default.post(Notification(name: NotificationsNames.currentUserProfileChanged.name))
             if currentUser != nil, currentUser?.ID != oldValue?.ID {
                 currentUserCleanings = [Cleaning]()
                 addObservers()

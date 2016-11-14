@@ -89,17 +89,17 @@ class CleanPlaceViewController: UIViewController {
             self.cleaningDescription.text = cleaning.summary ?? ""
             
             
-            if cleaning.pictures != nil {
-                let minValue = min(self.cleaningPlacesButtons.count, cleaning.pictures!.count)
-                for i in 0..<minValue {
-                   let data = NSData(contentsOf:(cleaning.pictures?[i])!)
-                    if data != nil {
-                    self.cleaningPlacesButtons[i].setImage(UIImage(data:data! as Data), for: .normal)
-                        //setBackgroundImage(UIImage(data:data! as Data), for: .normal)
-                    //self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
-                    }
-                }
-            }
+//            if cleaning.pictures != nil {
+//                let minValue = min(self.cleaningPlacesButtons.count, cleaning.pictures!.count)
+//                for i in 0..<minValue {
+//                   let data = NSData(contentsOf:(cleaning.pictures?[i])!)
+//                    if data != nil {
+//                    self.cleaningPlacesButtons[i].setImage(UIImage(data:data! as Data), for: .normal)
+//                        //setBackgroundImage(UIImage(data:data! as Data), for: .normal)
+//                    //self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
+//                    }
+//                }
+//            }
             
             self.numberOfMembers.text = String(cleaning.cleanersIds?.count ?? 0)
             self.coordinatorsLabel.text = String(cleaning.coordinatorsIds!.count)
@@ -120,18 +120,12 @@ class CleanPlaceViewController: UIViewController {
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCleaningChangedNotification), name: kCleaningsManagerCleaningChangeNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let currentUser = UsersManager.defaultManager.currentUser {
-            return updateUIWith(user: currentUser)
-        } else {
-            UsersManager.defaultManager.getCurrentUser(handler: { [unowned self] (user) in
-                self.updateUIWith(user: user)
-            })
-        }
+        updateUIWith(user: UsersManager.defaultManager.currentUser)
     }
     
     deinit {
@@ -192,8 +186,6 @@ class CleanPlaceViewController: UIViewController {
     
     @IBAction func goToCleaning(_ sender: AnyObject) {
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                 let currentUser = UsersManager.defaultManager.currentUser!
                 
                 if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
@@ -201,8 +193,6 @@ class CleanPlaceViewController: UIViewController {
                     self.goToApplicationAcceptedView()
                 } else {
                     self.showMessageToUser("Первышен лимит активных уборок.", title: "Заявка на уборку")
-                }
-                
                 }
             }, onFailed: {
                 self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу", title: "Авторизация")
@@ -234,6 +224,16 @@ class CleanPlaceViewController: UIViewController {
     
     func handleCurrentUserProfileChanged(_ notification: Notification) {
         updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
+    
+    //kCleaningsManagerCleaningChangeNotification
+    func handleCleaningChangedNotification(_ notification: Notification) {
+        let changedCleaning = notification.userInfo![kCleaningsManagerCleaningKey] as! Cleaning
+        
+        if changedCleaning.ID == cleaning.ID {
+            cleaning = changedCleaning
+            updateUIWith(user: UsersManager.defaultManager.currentUser)
+        }
     }
 
     @IBAction func showPopUp(_ sender: UIButton) {
