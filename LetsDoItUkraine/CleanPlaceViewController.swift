@@ -62,6 +62,8 @@ class CleanPlaceViewController: UIViewController {
             if let photo = user.photo {
                 self.cleaningCoordinatorPhoto.kf.setImage(with: photo, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
+            
+            
         }
         
         // getCleaningMembers
@@ -111,12 +113,17 @@ class CleanPlaceViewController: UIViewController {
         }
         
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func updateUIWith(user: User?) {
@@ -179,19 +186,19 @@ class CleanPlaceViewController: UIViewController {
     @IBAction func goToCleaning(_ sender: AnyObject) {
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
             
-            DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                 let currentUser = UsersManager.defaultManager.currentUser!
                 
                 if UsersManager.defaultManager.isCurrentUserCanAddCleaning {
                     currentUser.go(to: self.cleaning)
                     self.goToApplicationAcceptedView()
                 } else {
-                    self.showMessageToUser("Вы не можете иметь несколько активных уборок.")
+                    self.showMessageToUser("Первышен лимит активных уборок.", title: "Заявка на уборку")
                 }
                 
                 }
             }, onFailed: {
-                self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу")
+                self.showMessageToUser("Авторизация не совершена. У вас ограничен доступ к этому функционалу", title: "Авторизация")
                 
         })
         
@@ -201,8 +208,8 @@ class CleanPlaceViewController: UIViewController {
         self.performSegue(withIdentifier: "showApplicationAcceptedScreen", sender: self)
     }
     
-    func showMessageToUser(_ message: String) {
-        let alert = UIAlertController(title:"Авторизация" , message: message, preferredStyle: .alert)
+    func showMessageToUser(_ message: String, title: String) {
+        let alert = UIAlertController(title: title , message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
@@ -214,6 +221,12 @@ class CleanPlaceViewController: UIViewController {
 
     }
     
+    
+    // MARK: - Observers
+    
+    func handleCurrentUserProfileChanged(_ notification: Notification) {
+        updateUIWith(user: UsersManager.defaultManager.currentUser)
+    }
     
     /*
      // MARK: - Navigation

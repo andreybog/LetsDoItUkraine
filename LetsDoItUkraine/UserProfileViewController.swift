@@ -216,7 +216,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func goToSearchCleaningVc() {
-        performSegue(withIdentifier:kSearchCleaningSegue, sender: self)
+        tabBarController?.selectedIndex = 1
     }
 
     @IBAction func settingsButtonDidTapped(_ sender: AnyObject) {
