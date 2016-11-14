@@ -321,7 +321,7 @@ class CleaningsManager {
         
         changeHandler = activeCleaningsReference.observe(.childChanged, with: { [unowned self] (snapshot) in
             if let data = snapshot.value as? [String : Any], let cleaning = Cleaning(data: data) {
-                self.activeCleanings.updateValue(cleaning, forKey: cleaning.ID)
+                self.activeCleanings[cleaning.ID] = cleaning
                 
                 let changeNotification = Notification(name: kCleaningsManagerCleaningChangeNotification,
                                                       object: self,

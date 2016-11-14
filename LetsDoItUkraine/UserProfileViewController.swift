@@ -22,11 +22,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     let kNoCleaningCellIdetefier = "noCleaningCell"
     let kCleaningCellIdentifier = "cleningCell"
-    let kHistoryCleaningIdentifier = "HistoryCleaning"
+    let kHistoryCleaningIdentifier = "historyCleaningCell"
     let kCleaningPlaceSegue = "cleaningPlaceSegue"
     let kAddCleaningSegue = "addCleaningSegue"
     let kSearchCleaningSegue = "searchCleaningSegue"
-    let kNoHistoryCleaningIdentifier = "NoHistoryCleaningCell"
+    let kNoHistoryCleaningIdentifier = "noHistoryCleaningCell"
     
     var user = User()
     var userCleaningsAsModerator = [Cleaning]()
@@ -37,6 +37,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handlerCurrentUserProfileChanged), name: NotificationsNames.currentUserProfileChanged.name, object: nil)
+        cleaningsTableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,10 +78,12 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         let userCity = self.user.city ?? ""
         let asVolunteerIDsCounter = self.user.asCleanerIds?.count ?? 0
         let asCoordinatorIDsCounter = self.user.asCoordinatorIds?.count ?? 0
+        let pastCleaningsCounter = self.user.pastCleaningsIds?.count ?? 0
         self.userNameTextLabel.text = self.user.firstName + " " + lastName
         self.userLocationTextLabel.text = userCountry + " " + userCity
         self.coordinatorCounterTextLabel.text = String(asCoordinatorIDsCounter)
         self.volunteerCounterTextLabel.text = String(asVolunteerIDsCounter)
+        self.activityCounterTextLabel.text = String(pastCleaningsCounter)
         if let userPhoto = self.user.photo {
             self.userPhotoImageView.kf.setImage(with: userPhoto)
             self.userPhotoImageView.contentMode = UIViewContentMode.scaleAspectFit

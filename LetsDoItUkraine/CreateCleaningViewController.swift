@@ -21,6 +21,7 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet var addPhotoButtons: [UIButton]!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var resultArray = [String]()
     var buttonTag = Int()
@@ -38,7 +39,8 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
-
+        activityIndicator.isHidden = true
+        descriptionTextField.isScrollEnabled = false
         imagePicker.delegate = self
         searchController.delegate = self
         for button in addPhotoButtons {
@@ -93,6 +95,10 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     
     @IBAction func nextButtonDIdTapped(_ sender: UIButton) {
         if searchButton.titleLabel?.text != "   Адресс уборки" && (dateAndTimeTextField.text?.characters.count)! > 0 {
+            
+            self.activityIndicatorStart()
+            self.view.isUserInteractionEnabled = false
+            
             let usersManager = UsersManager.defaultManager
             var cleaning = Cleaning()
             
@@ -108,19 +114,28 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
                 loadPhotos(photos: addPhotoButtons) { [unowned self] (urls, error) in
                     if (error == nil) {
                         cleaning.pictures = urls
-                        currentUser.create(cleaning) { [unowned self] (error, cleaning) in
+                        
+                        currentUser.create(cleaning) { (error, cleaning) in
                             self.coordinator = currentUser
                             self.createdCleaning = cleaning
                             self.clearAllFields()
+                            
+                            self.activityIndicatorStop()
                             self.goToCleaningVc()
                         }
                     } else {
                         self.showMessageToUser("Ошибка загрузки картинки", title: "Создание уборки")
+                        
+                        self.activityIndicatorStop()
+                        self.view.isUserInteractionEnabled = true
                     }
                 }
             } else {
                 let descriptionMsg = (usersManager.currentUser?.asCleanerIds?.isEmpty ?? false) ? "подписаны на другую уборку" : "являетесь координатором другой уборки"
                 showMessageToUser("Вы не можете создать новую уборку, так как вы \(descriptionMsg)", title: "Создание уборки")
+                
+                self.activityIndicatorStop()
+                self.view.isUserInteractionEnabled = true
             }
         } else {
             if searchButton.titleLabel?.text == "   Адресс уборки" {
@@ -129,6 +144,16 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
                 showMessageToUser("Вы не указали, дату и время уборки", title: "Создание уборки")
             }
         }
+    }
+    
+    func activityIndicatorStart() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func activityIndicatorStop() {
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.isHidden = true
     }
     
     @IBAction func addPhotoButtonDidTapped(_ sender: UIButton!) {
@@ -155,7 +180,7 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
             }
         })
         
-        if !(sender.currentImage?.isEqual(#imageLiteral(resourceName: "PlaceholderCleaningPhoto")))! {
+        if sender.currentImage! != #imageLiteral(resourceName: "PlaceholderCleaningPhoto") {
             alert.addAction(deleteAction)
         }
         alert.addAction(cameraAction)
