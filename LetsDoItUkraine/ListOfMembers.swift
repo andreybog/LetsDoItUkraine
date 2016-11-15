@@ -19,25 +19,35 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if (self.cleaning != nil) && (self.cleaning.cleanersIds != nil) {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCleaningDidChangedNotification), name: kCleaningsManagerCleaningChangeNotification, object: nil)
+        
+        loadData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func loadData() {
+        if cleaning != nil && cleaning.cleanersIds != nil {
             let group = DispatchGroup()
+            listOfMembersCleaning = []
+            
             for idCleaner in self.cleaning.cleanersIds! {
                 group.enter()
-                UsersManager.defaultManager.getUser(withId: idCleaner, handler: { (memberOfCleaning) in
+                UsersManager.defaultManager.getUser(withId: idCleaner, handler: { [weak self] (memberOfCleaning) in
                     if memberOfCleaning != nil {
-                        self.listOfMembersCleaning.append(memberOfCleaning!)
+                        self?.listOfMembersCleaning.append(memberOfCleaning!)
                     }
                     group.leave()
                 })
             }
             group.notify(queue: DispatchQueue.main) {
-              self.tableViewMembers.reloadData()
+                self.tableViewMembers.reloadData()
             }
             
         }
     }
-
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -56,22 +66,23 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
        let cell = self.tableViewMembers.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCellCleanMember
         
         if listOfMembersCleaning.count > indexPath.row {
-          cell.nameMember.text = listOfMembersCleaning[indexPath.row].firstName + " " + (listOfMembersCleaning[indexPath.row].lastName ?? "")
-          cell.phoneMember.text = listOfMembersCleaning[indexPath.row].phone ?? "Не укзаан"
-          cell.photoMember.kf.setImage(with: listOfMembersCleaning[indexPath.row].photo, placeholder: #imageLiteral(resourceName: "placeholder"))
+            let member = listOfMembersCleaning[indexPath.row]
+            
+          cell.nameMember.text = "\(member.firstName) \(member.lastName ?? "")"
+          cell.phoneMember.text = member.phone ?? "Не укзаан"
+          cell.photoMember.kf.setImage(with: member.photo, placeholder: #imageLiteral(resourceName: "placeholder"))
         }
         
         return cell
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @objc private func handleCleaningDidChangedNotification(_ notification: Notification) {
+        let changedCleaning = notification.userInfo?[kCleaningsManagerCleaningKey] as! Cleaning
+        
+        if changedCleaning.ID == cleaning.ID {
+            loadData()
+        }
     }
-    */
 
 }
