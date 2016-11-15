@@ -199,13 +199,15 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func userPhotoDidTapped(_ sender: UIButton) {
-        if userPhotoImageView.image != #imageLiteral(resourceName: "Profile") {
-        let userPhotoPopUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "fullSizePhotoVC") as! UserProfilePhotoViewController
-        userPhotoPopUpVC.image = userPhotoImageView.image!
-        self.addChildViewController(userPhotoPopUpVC)
-        userPhotoPopUpVC.view.frame = self.view.frame
-        self.view.addSubview(userPhotoPopUpVC.view)
-        userPhotoPopUpVC.didMove(toParentViewController: self)
+        //AnyObject
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cleaningPlacePoUpID") as! PopUpViewController
+        popOverVC.imageCleaningPlace = userPhotoImageView.image
+        
+        if userPhotoImageView.image != nil {
+            self.addChildViewController(popOverVC)
+            popOverVC.view.frame = self.view.frame
+            self.view.addSubview(popOverVC.view)
+            popOverVC.didMove(toParentViewController: self)
         }
     }
     
