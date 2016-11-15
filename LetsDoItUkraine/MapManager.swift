@@ -51,7 +51,7 @@ class MapManager {
     func setCurrentLocationOn(map: GMSMapView){
         if let mylocation = map.myLocation{
             map.animate(toLocation: mylocation.coordinate)
-            map.animate(toZoom: 11)
+            map.animate(toZoom: 14)
         } else {
             map.animate(toLocation: (CLLocationCoordinate2DMake(48.6997654,31.9802874)))
             map.animate(toZoom: 4.3)

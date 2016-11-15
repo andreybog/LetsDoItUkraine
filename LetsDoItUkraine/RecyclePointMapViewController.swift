@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, GMSMapViewDelegate, RecyclePointMapPresentDelegate {
+class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, GMSMapViewDelegate, RecyclePointMapPresentDelegate, CLLocationManagerDelegate{
     
     //MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
@@ -39,8 +39,10 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         mapManager.setup(map: mapView)
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
-        mapManager.setCurrentLocationOn(map: mapView)
         setCollectionViewVisible(isCollectionViewVisible: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+            self.mapManager.setCurrentLocationOn(map: self.mapView)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +54,8 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
             
         }
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -194,6 +198,13 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let coordinate = (presenter.getPointBy(Index: self.recyclePointsCollectionView.indexPathsForVisibleItems.first!.row)?.coordinate)!
         mapManager.moveAt(Coordiante: coordinate, onMap: mapView)
+    }
+    
+    //MARK: - CLLocationManagerDelegate
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let lastLocation = locations[0]
+        
     }
     
     //MARK: - Prepare For Segue 

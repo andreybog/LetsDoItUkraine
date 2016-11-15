@@ -42,7 +42,9 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
         mapView.delegate = self
         self.setUpCollectionViewCellWidth()
         self.setCollectionViewVisible(isCollectionViewVisible: false)
-        mapManager.setCurrentLocationOn(map: mapView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+            self.mapManager.setCurrentLocationOn(map: self.mapView)
+        })
     }
     
     //MARK: - Methods
