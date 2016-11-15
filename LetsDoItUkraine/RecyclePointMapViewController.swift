@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, GMSMapViewDelegate, RecyclePointMapPresentDelegate, CLLocationManagerDelegate{
+class RecyclePointMapViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, GMSMapViewDelegate, RecyclePointMapPresentDelegate{
     
     //MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
@@ -200,14 +200,7 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
         mapManager.moveAt(Coordiante: coordinate, onMap: mapView)
     }
     
-    //MARK: - CLLocationManagerDelegate
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let lastLocation = locations[0]
-        
-    }
-    
-    //MARK: - Prepare For Segue 
+    //MARK: - Prepare For Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RecyclePointDetailsSegue", let cell = sender as?  RecyclePointMapCollectionViewCell{
