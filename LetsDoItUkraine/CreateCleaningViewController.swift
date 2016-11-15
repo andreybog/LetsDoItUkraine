@@ -67,6 +67,8 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
     @IBAction func searchButtonDidTapped(_ sender: Any) {
         let controller = UISearchController(searchResultsController: self.searchController)
         controller.hidesNavigationBarDuringPresentation = true
+        controller.searchBar.placeholder = "Введите адрес..."
+        controller.searchBar.setValue("Отмена", forKey: "_cancelButtonText")
         controller.searchBar.delegate = self
         if searchButton.titleLabel?.text != "   Адресс уборки" {
             controller.searchBar.text = searchButton.titleLabel?.text
