@@ -15,6 +15,7 @@
 		06C20A911DA7B1F2004E1B7E /* CleanPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C20A901DA7B1F2004E1B7E /* CleanPlaceViewController.swift */; };
 		1612CD0F1DB3987700877C4D /* HistoryCleningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */; };
 		1645E9601DD8AAD200147641 /* NoHistoryCleaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */; };
+		164FCC781DDB98B600424FE0 /* VolunteerDescriptionPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164FCC771DDB98B600424FE0 /* VolunteerDescriptionPopUpViewController.swift */; };
 		166166FD1DBE9047006FED9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166166FC1DBE9047006FED9A /* Constants.swift */; };
 		16803D281DBD52FD00FB2C8F /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16803D271DBD52FD00FB2C8F /* DateExtension.swift */; };
 		16852D511DA440AB004EABD6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16852D501DA440AB004EABD6 /* UserProfileViewController.swift */; };
@@ -78,6 +79,7 @@
 		144F65919015FC79FFBC43E6 /* Pods-LetsDoItUkraine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsDoItUkraine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine.debug.xcconfig"; sourceTree = "<group>"; };
 		1612CD0E1DB3987700877C4D /* HistoryCleningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCleningCell.swift; sourceTree = "<group>"; };
 		1645E95F1DD8AAD200147641 /* NoHistoryCleaningCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoHistoryCleaningCell.swift; sourceTree = "<group>"; };
+		164FCC771DDB98B600424FE0 /* VolunteerDescriptionPopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerDescriptionPopUpViewController.swift; sourceTree = "<group>"; };
 		166166FC1DBE9047006FED9A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		16803D271DBD52FD00FB2C8F /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateExtension.swift; path = Extensions/DateExtension.swift; sourceTree = "<group>"; };
 		16852D501DA440AB004EABD6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				CEB9092C1DD0749700206685 /* ApplicationAcceptedViewController.swift */,
 				16E51A1C1DD8F3BE007D44CC /* UserProfilePhotoViewController.swift */,
 				0668AB9C1DD9441F00644C6C /* PopUpViewController.swift */,
+				164FCC771DDB98B600424FE0 /* VolunteerDescriptionPopUpViewController.swift */,
 				55AD708F1DA1A6C800FA1049 /* Cells */,
 				55CA866A1DCDED030009A95B /* MainTabBarController.swift */,
 			);
@@ -475,6 +478,7 @@
 				7F1EC6DE1DBFD26B00235EDA /* RecyclePointMapViewController.swift in Sources */,
 				7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */,
 				55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */,
+				164FCC781DDB98B600424FE0 /* VolunteerDescriptionPopUpViewController.swift in Sources */,
 				CE425A251DBFCF9A00F9650A /* NewsListViewController.swift in Sources */,
 				CE6EC3831DBDF56000449440 /* FiltersModel.swift in Sources */,
 				CECCC0C71DB2D81600C7A1D5 /* RecyclePointListViewController.swift in Sources */,

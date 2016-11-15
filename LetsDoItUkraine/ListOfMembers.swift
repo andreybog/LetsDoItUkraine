@@ -76,13 +76,27 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
         return cell
         
     }
-    
+
     @objc private func handleCleaningDidChangedNotification(_ notification: Notification) {
         let changedCleaning = notification.userInfo?[kCleaningsManagerCleaningKey] as! Cleaning
         
         if changedCleaning.ID == cleaning.ID {
             loadData()
         }
+    }
+
+    // MARK: -TableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentCell = tableView.cellForRow(at:indexPath) as! CustomCellCleanMember
+        let volunteerPopUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "volunteerDescriptionPopUp") as! VolunteerDescriptionPopUpViewController
+        volunteerPopUpVC.volunteerPhoto = currentCell.photoMember.image!
+        volunteerPopUpVC.volunteerName = currentCell.nameMember.text!
+        volunteerPopUpVC.volunteerPhoneNumber = currentCell.phoneMember.text!
+        self.addChildViewController(volunteerPopUpVC)
+        volunteerPopUpVC.view.frame = self.view.frame
+        self.view.addSubview(volunteerPopUpVC.view)
+        volunteerPopUpVC.didMove(toParentViewController: self)
     }
 
 }
