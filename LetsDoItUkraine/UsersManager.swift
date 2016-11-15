@@ -102,12 +102,12 @@ extension User {
         CleaningsManager.defaultManager.createCleaning(cleaning, byCoordinator: self, withCompletionBlock: block)
     }
     
-    func go(to cleaning: Cleaning) {
-        CleaningsManager.defaultManager.addMember(self, toCleaning: cleaning, as: .cleaner)
+    func go(to cleaning: Cleaning, withCompletionBlock block: @escaping (Error?, User?)->Void) {
+        CleaningsManager.defaultManager.addMember(self, toCleaning: cleaning, as: .cleaner, withCompletionBlock: block)
     }
     
-    func refuse(from cleaning: Cleaning) {
-        CleaningsManager.defaultManager.removeMember(self, fromCleaning: cleaning, as: .cleaner)
+    func refuse(from cleaning: Cleaning, withCompletionBlock block: @escaping (Error?, User?)->Void) {
+        CleaningsManager.defaultManager.removeMember(self, fromCleaning: cleaning, as: .cleaner, withCompletionBlock: block)
     }
 }
 

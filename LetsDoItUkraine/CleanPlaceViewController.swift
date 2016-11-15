@@ -187,8 +187,14 @@ class CleanPlaceViewController: UIViewController {
         AuthorizationUtils.authorize(vc: self, onSuccess: { [unowned self] in
             
             if let currentUser = UsersManager.defaultManager.currentUser, UsersManager.defaultManager.isCurrentUserCanAddCleaning {
-                currentUser.go(to: self.cleaning)
-                self.goToApplicationAcceptedView()
+                currentUser.go(to: self.cleaning) { [unowned self] (error, user) in
+                    if error != nil {
+                        print("Error: \(error!.localizedDescription)")
+                        self.showMessageToUser("Что-то пошло не так.", title: "Ошибка")
+                    }
+                    UsersManager.defaultManager.currentUser = user
+                    self.goToApplicationAcceptedView()
+                }
             } else {
                 self.showMessageToUser("Первышен лимит активных уборок.", title: "Заявка на уборку")
             }
