@@ -89,6 +89,7 @@ class MapsPageViewController: UIPageViewController, UISearchBarDelegate, SearchR
         
         controller.searchBar.delegate = self
         controller.searchBar.placeholder = "Введите адрес..."
+        controller.searchBar.setValue("Отмена", forKey: "_cancelButtonText")
         present(controller, animated: true)
     }
     
