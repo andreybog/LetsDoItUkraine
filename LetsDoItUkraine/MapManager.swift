@@ -100,5 +100,22 @@ class MapManager {
         map.animate(toZoom: 14)
         CATransaction.commit()
     }
+    
+    func drawDirection(toLocation destination: CLLocationCoordinate2D,withRoute route: String, onMap map: GMSMapView) {
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(2)
+        let path = GMSPath(fromEncodedPath: route)
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = 3
+        polyline.strokeColor = UIColor.dirtyGreen()
+        polyline.map = map
+        let cameraUpdate = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: (map.myLocation?.coordinate)!, coordinate: destination), with: UIEdgeInsets(top: 80, left: 80, bottom: 80, right: 80))
+        map.animate(with: cameraUpdate)
+        let destinationMarker = GMSMarker(position: destination)
+        destinationMarker.appearAnimation = kGMSMarkerAnimationPop
+        destinationMarker.icon = GMSMarker.markerImage(with: UIColor.dirtyGreen())
+        destinationMarker.map = map
+        CATransaction.commit()
+    }
 
 }

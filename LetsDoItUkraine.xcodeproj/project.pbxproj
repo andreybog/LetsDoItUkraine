@@ -37,6 +37,7 @@
 		7F1EC6DE1DBFD26B00235EDA /* RecyclePointMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */; };
 		7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */; };
 		7F1F0E221DDB3E0E00A8A17D /* DirectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1F0E211DDB3E0E00A8A17D /* DirectionManager.swift */; };
+		7F1F0E241DDB4ED800A8A17D /* DirectionsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1F0E231DDB4ED800A8A17D /* DirectionsMapViewController.swift */; };
 		7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */; };
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
 		7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */; };
@@ -101,6 +102,7 @@
 		7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapViewController.swift; sourceTree = "<group>"; };
 		7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F1F0E211DDB3E0E00A8A17D /* DirectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionManager.swift; sourceTree = "<group>"; };
+		7F1F0E231DDB4ED800A8A17D /* DirectionsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsMapViewController.swift; sourceTree = "<group>"; };
 		7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsViewController.swift; sourceTree = "<group>"; };
 		7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewFormatter.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		55AD708C1DA1A67300FA1049 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7F1F0E231DDB4ED800A8A17D /* DirectionsMapViewController.swift */,
 				16852D501DA440AB004EABD6 /* UserProfileViewController.swift */,
 				7FEA9B351DC0D0E100C90E06 /* MapsPageViewController.swift */,
 				7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */,
@@ -446,6 +449,7 @@
 				7FEA9B361DC0D0E100C90E06 /* MapsPageViewController.swift in Sources */,
 				CEB9092D1DD0749700206685 /* ApplicationAcceptedViewController.swift in Sources */,
 				7FF46FA61DC1E1C1007F62E6 /* RecycePointMapPresenter.swift in Sources */,
+				7F1F0E241DDB4ED800A8A17D /* DirectionsMapViewController.swift in Sources */,
 				066A59E11DD614D70037EA6A /* AddMemberViewController.swift in Sources */,
 				552BF8FD1DA196D7008D5317 /* AppDelegate.swift in Sources */,
 				7FC2CA3D1DCA62E20017A095 /* RecycleCategory.swift in Sources */,
