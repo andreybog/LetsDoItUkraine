@@ -73,11 +73,14 @@ class RecyclePointMapPresenter {
     private var currentPointsArray = [RecyclePoint]()
     private var pointsURL = [URL?]()
     private var recyclePointCategories = Set<RecyclePointCategory>()
+    private var controlGroupCategories = Set<RecyclePointCategory>()
     private var pointCategories = [String]()
     private var pointDistances = [Double?]()
+    private var hasFilterChanged = false
 
     init() {
         self.recyclePointCategories = FiltersModel.sharedModel.categories
+        self.controlGroupCategories = self.recyclePointCategories
         pointsManager.getAllRecyclePoints { (points) in
             self.pointsArray = points
         }
@@ -109,16 +112,21 @@ class RecyclePointMapPresenter {
     }
     
     func prepareCollectionViewWith(Coordinates coordinate: CLLocationCoordinate2D){
-        var distanceArray = [(Int, Double)]()
-        let selectedLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        for (index,point) in pointsArray.enumerated(){
-            let distance = selectedLocation.distance(from: CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)) / 1000
-            distanceArray.append((index, distance.rounded()))
-        }
-        distanceArray = distanceArray.sorted { $0.1 < $1.1 }
-        self.currentPointsArray.removeAll()
-        for i in 0..<20 {
-            self.currentPointsArray.insert(pointsArray[distanceArray[i].0], at: i)
+        if pointsArray.count == 1 {
+            self.currentPointsArray.removeAll()
+            self.currentPointsArray.insert(pointsArray[0], at: 0)
+        } else {
+            var distanceArray = [(Int, Double)]()
+            let selectedLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            for (index,point) in pointsArray.enumerated(){
+                let distance = selectedLocation.distance(from: CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)) / 1000
+                distanceArray.append((index, distance.rounded()))
+            }
+            distanceArray = distanceArray.sorted { $0.1 < $1.1 }
+            self.currentPointsArray.removeAll()
+            for i in 0..<20 {
+                self.currentPointsArray.insert(pointsArray[distanceArray[i].0], at: i)
+            }
         }
         self.loadImageURLs()
         self.loadRecyclePointCategories()
@@ -153,6 +161,7 @@ class RecyclePointMapPresenter {
                 self.currentPointsArray.insert(pointsArray[distanceArray[i-1].0], at: i)
             }
         } else {
+            self.currentPointsArray.removeAll()
             self.currentPointsArray.insert(selectedPoint, at: 0)
         }
         self.loadImageURLs()
@@ -228,8 +237,18 @@ class RecyclePointMapPresenter {
         }
     }
     
+    func hasFiltersChanged() -> Bool{
+        return self.hasFilterChanged
+    }
+    
     func loadPoints() {
         self.recyclePointCategories = FiltersModel.sharedModel.categories
+        if self.recyclePointCategories != self.controlGroupCategories {
+            self.controlGroupCategories = self.recyclePointCategories
+            self.hasFilterChanged = true
+        } else {
+            self.hasFilterChanged = false
+        }
         if recyclePointCategories.count != 0{
             self.loadPointsWith(categories: self.recyclePointCategories)
         } else {

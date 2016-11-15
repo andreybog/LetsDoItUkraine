@@ -46,6 +46,11 @@ class RecyclePointMapViewController: UIViewController, UICollectionViewDataSourc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.loadPoints()
+        if presenter.hasFiltersChanged() {
+            self.setCollectionViewVisible(isCollectionViewVisible: false)
+            mapManager.setCurrentLocationOn(map: mapView)
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
