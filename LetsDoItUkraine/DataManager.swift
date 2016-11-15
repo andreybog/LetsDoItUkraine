@@ -193,8 +193,8 @@ class DataManager {
         reference.updateChildValues(object.toJSON, withCompletionBlock: block)
     }
     
-    func updateObjects(_ values: [String : Any]) {
-        rootRef.updateChildValues(values)
+    func updateObjects(_ values: [String : Any], withCompletionBlock block: @escaping (_: Error?, _: FIRDatabaseReference) -> Void) {
+        rootRef.updateChildValues(values, withCompletionBlock: block)
     }
     
     // MARK: - API - ADD OBSERVERS

@@ -118,11 +118,17 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
                         cleaning.pictures = urls
                         
                         currentUser.create(cleaning) { (error, cleaning) in
+                            if error != nil {
+                                print("Error: \(error!.localizedDescription)")
+                                self.showMessageToUser("Ошибка: \(error!.localizedDescription)", title: "Создание уборки")
+                                return
+                            }
                             self.coordinator = currentUser
                             self.createdCleaning = cleaning
                             self.clearAllFields()
                             
                             self.activityIndicatorStop()
+                            self.view.isUserInteractionEnabled = true
                             self.goToCleaningVc()
                         }
                     } else {

@@ -240,22 +240,27 @@ class CleaningsManager {
             if error != nil {
                 block(error, nil)
             } else {
-                self.addMember(user, toCleaning: cleaning, as: .coordinator)
-                cleaning.coordinatorsIds = [user.ID]
-                block(nil, cleaning)
+                self.addMember(user, toCleaning: cleaning, as: .coordinator) { (error, newUser) in
+                    if error != nil {
+                        return block(error, nil)
+                    }
+                    
+                    cleaning.coordinatorsIds = [user.ID]
+                    block(nil, cleaning)
+                }
             }
         }
     }
     
-    func addMember(_ user:User, toCleaning cleaning: Cleaning, as memberType: UserRole) {
-        updateMember(user, withCleaning: cleaning, as: memberType, addMember: true)
+    func addMember(_ user:User, toCleaning cleaning: Cleaning, as memberType: UserRole, withCompletionBlock block: @escaping (Error?, User?)->Void) {
+        updateMember(user, withCleaning: cleaning, as: memberType, addMember: true, withCompletionBlock: block)
     }
     
-    func removeMember(_ user:User, fromCleaning cleaning: Cleaning, as memberType: UserRole) {
-        updateMember(user, withCleaning: cleaning, as: memberType, addMember: false)
+    func removeMember(_ user:User, fromCleaning cleaning: Cleaning, as memberType: UserRole, withCompletionBlock block: @escaping (Error?, User?)->Void) {
+        updateMember(user, withCleaning: cleaning, as: memberType, addMember: false, withCompletionBlock: block)
     }
     
-    private func updateMember(_ user: User, withCleaning cleaning: Cleaning, as memberType: UserRole, addMember: Bool) {
+    private func updateMember(_ user: User, withCleaning cleaning: Cleaning, as memberType: UserRole, addMember: Bool, withCompletionBlock block: @escaping (Error?, User?)->Void) {
         
         var metadata = CleaningMetadata()
         
@@ -276,7 +281,14 @@ class CleaningsManager {
         let valuesForUpdate = [userUpdatePath : cleaningMetadata,
                                cleaningUpdatePath : userData]
         
-        dataManager.updateObjects(valuesForUpdate)
+        dataManager.updateObjects(valuesForUpdate) { (error, ref) in
+            if error != nil {
+                return block(error, nil)
+            }
+            var modifiedUser = user
+            modifiedUser.cleaningsMetadata[metadata.ID] = metadata
+            block(nil, modifiedUser)
+        }
     }
     
     // MARK: - OBSERVER METHODS
