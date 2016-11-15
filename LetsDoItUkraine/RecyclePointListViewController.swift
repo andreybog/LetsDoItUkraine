@@ -38,10 +38,12 @@ class RecyclePointListViewController: UIViewController {
         }
     }
     @IBAction func didTouchAllCategoriesCheckBox(_ sender: Checkbox) {
-//        
-//        for tup in checkboxesWithCategories {
-//            tup.0.isChecked = !sender.isChecked
-//        }
+        for tup in checkboxesWithCategories {
+            if tup.1 == .All{
+                continue
+            }
+            tup.0.isChecked = !sender.isChecked
+        }
     }
     
     @IBAction func SearchButtonWasTouched() {
