@@ -81,6 +81,7 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
         let changedCleaning = notification.userInfo?[kCleaningsManagerCleaningKey] as! Cleaning
         
         if changedCleaning.ID == cleaning.ID {
+            cleaning = changedCleaning
             loadData()
         }
     }
@@ -88,6 +89,8 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
     // MARK: -TableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let currentCell = tableView.cellForRow(at:indexPath) as! CustomCellCleanMember
         let volunteerPopUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "volunteerDescriptionPopUp") as! VolunteerDescriptionPopUpViewController
         volunteerPopUpVC.volunteerPhoto = currentCell.photoMember.image!

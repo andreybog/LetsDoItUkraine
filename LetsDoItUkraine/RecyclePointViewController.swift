@@ -29,6 +29,7 @@ class RecyclePointViewController: UIViewController {
     @IBOutlet weak var recyclePointPhoneTextView: UITextView!
     var recyclePoint: RecyclePoint!
     var coordiantors: [User]!
+    //private var recyclePointCategories = Set<RecyclePointCategory>()
     //    var members: [User]!
     
     
@@ -53,12 +54,8 @@ class RecyclePointViewController: UIViewController {
             if let _ = recyclePoint?.picture {
                 self.recyclePointPicture.kf.setImage(with: recyclePoint?.picture, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
-           let stringArray = Array(recyclePoint.categories)
-           var listCategory = ""
-            for id in 0 ..< recyclePoint.categories.count {
-              listCategory = listCategory + String(describing: stringArray[id]) + ", "
-            }
-        self.recyclePointCategories.text = listCategory 
+    
+        self.recyclePointCategories.text = recyclePoint.categories.map{$0.literal}.joined(separator:", ")
         
     }
 
