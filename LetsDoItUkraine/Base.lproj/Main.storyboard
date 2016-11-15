@@ -1635,6 +1635,9 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="checkedImgName" value="AllRecyclePoints"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="uncheckedImgName" value="AllFilters"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTouchAllCategoriesCheckBox:" destination="JTK-qa-cyo" eventType="touchUpInside" id="4rT-Mr-Nf6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RhL-RU-rJA" customClass="Checkbox" customModule="LetsDoItUkraine" customModuleProvider="target">
                                 <rect key="frame" x="26" y="135" width="45" height="45"/>

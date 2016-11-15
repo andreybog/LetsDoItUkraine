@@ -36,6 +36,7 @@
 		55F658BB1DA9238B00441EBE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F658BA1DA9238B00441EBE /* DataManager.swift */; };
 		7F1EC6DE1DBFD26B00235EDA /* RecyclePointMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */; };
 		7F1EC6E01DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */; };
+		7F1F0E221DDB3E0E00A8A17D /* DirectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1F0E211DDB3E0E00A8A17D /* DirectionManager.swift */; };
 		7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */; };
 		7F269BFA1DAAA69F008BE654 /* CleaningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */; };
 		7F5BFEBA1DC9E64A00A5EEF5 /* StreetViewFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */; };
@@ -99,6 +100,7 @@
 		55F658BA1DA9238B00441EBE /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		7F1EC6DD1DBFD26B00235EDA /* RecyclePointMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapViewController.swift; sourceTree = "<group>"; };
 		7F1EC6DF1DBFDB8900235EDA /* RecyclePointMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclePointMapCollectionViewCell.swift; sourceTree = "<group>"; };
+		7F1F0E211DDB3E0E00A8A17D /* DirectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionManager.swift; sourceTree = "<group>"; };
 		7F269BF71DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		7F269BF91DAAA69F008BE654 /* CleaningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningsViewController.swift; sourceTree = "<group>"; };
 		7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewFormatter.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				7F5BFEB91DC9E64A00A5EEF5 /* StreetViewFormatter.swift */,
 				7F5BFEBD1DC9EDA500A5EEF5 /* LocalityManager.swift */,
 				7F5BFEBF1DCA0B9600A5EEF5 /* MapManager.swift */,
+				7F1F0E211DDB3E0E00A8A17D /* DirectionManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -337,7 +340,7 @@
 				TargetAttributes = {
 					552BF8F81DA196D7008D5317 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = S6L573JZYJ;
+						DevelopmentTeam = 8Z4963745C;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -476,6 +479,7 @@
 				55033E761DAD867600A04685 /* NewsManager.swift in Sources */,
 				1612CD0F1DB3987700877C4D /* HistoryCleningCell.swift in Sources */,
 				CE266C9C1DC10C0E00732D5B /* NewsItemViewController.swift in Sources */,
+				7F1F0E221DDB3E0E00A8A17D /* DirectionManager.swift in Sources */,
 				7F269BF81DAA72E4008BE654 /* CleaningsMapCollectionViewCell.swift in Sources */,
 				062468F91DB4319F00D2BC3A /* RecyclePointViewController.swift in Sources */,
 			);
@@ -605,7 +609,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = 8Z4963745C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -613,7 +617,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goIOS.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LDU.goios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -627,7 +631,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S6L573JZYJ;
+				DEVELOPMENT_TEAM = 8Z4963745C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -635,7 +639,7 @@
 				INFOPLIST_FILE = LetsDoItUkraine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = goIOS.LDU;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LDU.goios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
