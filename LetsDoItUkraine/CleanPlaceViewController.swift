@@ -89,8 +89,6 @@ class CleanPlaceViewController: UIViewController {
             if let photo = user.photo {
                 self.cleaningCoordinatorPhoto.kf.setImage(with: photo, placeholder: #imageLiteral(resourceName: "placeholder"))
             }
-            
-            
         }
         
         // getCleaningMembers
@@ -114,20 +112,12 @@ class CleanPlaceViewController: UIViewController {
             self.cleaningName.text = cleaning.address
             self.cleaningDescription.text = cleaning.summary ?? ""
             
-            
-            // ------------------------ // Добавить загрузку картинок ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
-            
-            //            if cleaning.pictures != nil {
-            //                let minValue = min(self.cleaningPlacesButtons.count, cleaning.pictures!.count)
-            //                for i in 0..<minValue {
-            //                   let data = NSData(contentsOf:(cleaning.pictures?[i])!)
-            //                    if data != nil {
-            //                    self.cleaningPlacesButtons[i].setImage(UIImage(data:data! as Data), for: .normal)
-            //                        //setBackgroundImage(UIImage(data:data! as Data), for: .normal)
-            //                    //self.cleaningPlaces[i].kf.setImage(with: cleaning.pictures?[i], placeholder: #imageLiteral(resourceName: "placeholder"))
-            //                    }
-            //                }
-            //            }
+            if let picturesUrls = cleaning.pictures {
+                let minValue = min(self.cleaningPlacesButtons.count, picturesUrls.count)
+                for i in 0..<minValue {
+                    self.cleaningPlacesButtons[i].kf.setImage(with: picturesUrls[i], for: .normal)
+                }
+            }
             
             self.numberOfMembers.text = String(cleaning.cleanersIds?.count ?? 0)
             self.coordinatorsLabel.text = String(cleaning.coordinatorsIds!.count)
