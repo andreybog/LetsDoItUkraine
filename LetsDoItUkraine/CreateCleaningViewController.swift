@@ -162,19 +162,19 @@ class CreateCleaningViewController: UIViewController, UITextFieldDelegate, Searc
         imagePicker.allowsEditing = true
         buttonTag = sender.tag
         print(buttonTag)
-        let alert = UIAlertController(title: "Please choose photo", message: nil, preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) {[unowned self] (action) in
+        let alert = UIAlertController(title: "Выберите фотографию", message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Сделать фото", style: .default) {[unowned self] (action) in
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         
-        let libraryAction = UIAlertAction(title: "Library", style: .default) {[unowned self] (action) in
+        let libraryAction = UIAlertAction(title: "Фотоальбом", style: .default) {[unowned self] (action) in
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { [unowned self] (action) in
+        let deleteAction = UIAlertAction(title: "Удалить фото", style: .destructive, handler: { [unowned self] (action) in
             for button in self.addPhotoButtons{
                 if button.tag == self.buttonTag {
                     button.setImage(#imageLiteral(resourceName: "PlaceholderCleaningPhoto"), for: UIControlState.normal)

@@ -57,21 +57,26 @@ class ListOfMembers: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         if listOfMembersCleaning.count > indexPath.row {
           cell.nameMember.text = listOfMembersCleaning[indexPath.row].firstName + " " + (listOfMembersCleaning[indexPath.row].lastName ?? "")
-          cell.phoneMember.text = listOfMembersCleaning[indexPath.row].phone ?? "Не укзаан"
+          cell.phoneMember.text = listOfMembersCleaning[indexPath.row].phone ?? "Не указан"
           cell.photoMember.kf.setImage(with: listOfMembersCleaning[indexPath.row].photo, placeholder: #imageLiteral(resourceName: "placeholder"))
         }
         
         return cell
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: -TableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentCell = tableView.cellForRow(at:indexPath) as! CustomCellCleanMember
+        let volunteerPopUpVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "volunteerDescriptionPopUp") as! VolunteerDescriptionPopUpViewController
+        volunteerPopUpVC.volunteerPhoto = currentCell.photoMember.image!
+        volunteerPopUpVC.volunteerName = currentCell.nameMember.text!
+        volunteerPopUpVC.volunteerPhoneNumber = currentCell.phoneMember.text!
+        self.addChildViewController(volunteerPopUpVC)
+        volunteerPopUpVC.view.frame = self.view.frame
+        self.view.addSubview(volunteerPopUpVC.view)
+        volunteerPopUpVC.didMove(toParentViewController: self)
     }
-    */
 
 }
