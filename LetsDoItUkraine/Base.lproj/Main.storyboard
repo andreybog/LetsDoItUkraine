@@ -1201,7 +1201,7 @@
                                                         <constraint firstAttribute="height" constant="14" id="zf7-NX-bXg"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wdv-W9-On2">
+                                                <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wdv-W9-On2">
                                                     <rect key="frame" x="126" y="21" width="201" height="33"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2656,7 +2656,7 @@
             <objects>
                 <navigationController id="lof-dA-Oz2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" image="Profile" id="TiE-LW-wAH"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Rcd-SM-mhL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Rcd-SM-mhL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3437,7 +3437,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3DW-Tj-Il3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="LZS-gf-utt"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="TbV-J5-MOb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="TbV-J5-MOb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3456,7 +3456,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-nQ-rOj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Уборки" image="Cleaning" id="71A-m6-OA4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="lgK-3A-JGW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="lgK-3A-JGW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3477,7 +3477,7 @@
                     <tabBarItem key="tabBarItem" title="Новости" image="news_icon" selectedImage="news_icon" id="ddL-MU-PQ7"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="zbS-uW-rMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="zbS-uW-rMS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3496,7 +3496,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YMS-lc-SA7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Создать" image="AddCleaning" selectedImage="AddCleaning" id="48R-Aw-fKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="J2j-Zk-ZOR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="J2j-Zk-ZOR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
