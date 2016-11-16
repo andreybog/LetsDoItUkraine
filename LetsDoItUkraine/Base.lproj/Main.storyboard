@@ -39,21 +39,21 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxs-x4-gdD">
+                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxs-x4-gdD">
                                                 <rect key="frame" x="0.0" y="50" width="124.5" height="84"/>
                                                 <state key="normal" backgroundImage="placeholder"/>
                                                 <connections>
                                                     <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="kVK-wY-3vg"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ML4-aq-2b4">
+                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ML4-aq-2b4">
                                                 <rect key="frame" x="125.5" y="50" width="124" height="84"/>
                                                 <state key="normal" backgroundImage="placeholder"/>
                                                 <connections>
                                                     <action selector="showPopUp:" destination="rJ6-tA-pAI" eventType="touchUpInside" id="kIS-q9-WDS"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGM-SL-F5M">
+                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGM-SL-F5M">
                                                 <rect key="frame" x="250.5" y="50" width="124.5" height="84"/>
                                                 <state key="normal" backgroundImage="placeholder"/>
                                                 <connections>
@@ -608,7 +608,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfL-zi-mpU">
                                 <rect key="frame" x="0.0" y="20" width="375" height="797"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="j3H-sL-brT">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="j3H-sL-brT">
                                         <rect key="frame" x="0.0" y="-62" width="375" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="PAW-5n-Ou2"/>
@@ -1269,20 +1269,20 @@
                                     <constraint firstAttribute="width" secondItem="ykf-NW-vdc" secondAttribute="height" multiplier="32:25" id="DL5-5C-nkZ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAf-bo-1W6">
-                                <rect key="frame" x="20" y="310" width="280" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Боря Гордиенко" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAf-bo-1W6">
+                                <rect key="frame" x="20" y="320" width="280" height="30"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="25"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amx-ed-Iho">
-                                <rect key="frame" x="20" y="355" width="280" height="30"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="25"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+380634545454" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amx-ed-Iho">
+                                <rect key="frame" x="20" y="365" width="280" height="20.5"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KN2-Zm-pPd">
-                                <rect key="frame" x="130" y="400" width="60" height="60"/>
+                                <rect key="frame" x="130" y="400.5" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="G1o-El-rxj"/>
                                     <constraint firstAttribute="height" constant="60" id="Jxi-8g-Oy9"/>
@@ -1293,10 +1293,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Q9-Ow-KXR">
-                                <rect key="frame" x="26" y="490" width="268" height="42"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="25"/>
+                                <rect key="frame" x="26" y="952" width="268" height="36"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="20"/>
                                 <state key="normal" title="Закрыть">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="closeButtonTapped:" destination="qYr-bz-Pzu" eventType="touchUpInside" id="Xus-3H-y7W"/>
@@ -1308,12 +1308,12 @@
                             <constraint firstItem="tAf-bo-1W6" firstAttribute="centerX" secondItem="FYr-jo-KFX" secondAttribute="centerX" id="9HN-zW-bAx"/>
                             <constraint firstAttribute="trailing" secondItem="tAf-bo-1W6" secondAttribute="trailing" constant="20" id="GZy-wL-7il"/>
                             <constraint firstItem="tAf-bo-1W6" firstAttribute="leading" secondItem="FYr-jo-KFX" secondAttribute="leading" constant="20" id="Jjy-kb-12E"/>
+                            <constraint firstItem="eWa-3m-joN" firstAttribute="top" secondItem="5Q9-Ow-KXR" secondAttribute="bottom" constant="12" id="Jzv-Nn-36S"/>
                             <constraint firstItem="ykf-NW-vdc" firstAttribute="leading" secondItem="FYr-jo-KFX" secondAttribute="leading" id="Ovz-Hj-08p"/>
                             <constraint firstItem="ykf-NW-vdc" firstAttribute="top" secondItem="nxO-ra-vRj" secondAttribute="bottom" constant="20" id="PHH-jV-aIY"/>
-                            <constraint firstItem="tAf-bo-1W6" firstAttribute="top" secondItem="ykf-NW-vdc" secondAttribute="bottom" constant="20" id="Q3q-BG-lqQ"/>
+                            <constraint firstItem="tAf-bo-1W6" firstAttribute="top" secondItem="ykf-NW-vdc" secondAttribute="bottom" constant="30" id="Q3q-BG-lqQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5Q9-Ow-KXR" secondAttribute="trailing" constant="10" id="RhV-Ip-kzJ"/>
                             <constraint firstItem="KN2-Zm-pPd" firstAttribute="top" secondItem="amx-ed-Iho" secondAttribute="bottom" constant="15" id="XLK-V3-1pg"/>
-                            <constraint firstItem="5Q9-Ow-KXR" firstAttribute="top" secondItem="KN2-Zm-pPd" secondAttribute="bottom" constant="30" id="ch5-aM-jTq"/>
                             <constraint firstItem="amx-ed-Iho" firstAttribute="centerX" secondItem="FYr-jo-KFX" secondAttribute="centerX" id="eTH-QZ-Yfn"/>
                             <constraint firstItem="KN2-Zm-pPd" firstAttribute="centerX" secondItem="FYr-jo-KFX" secondAttribute="centerX" id="iL4-an-EC3"/>
                             <constraint firstItem="5Q9-Ow-KXR" firstAttribute="leading" secondItem="FYr-jo-KFX" secondAttribute="leadingMargin" constant="10" id="iSS-vP-rj8"/>
@@ -1520,7 +1520,7 @@
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="hes-2T-TdA">
-                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <rect key="frame" x="85" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Сдать"/>
@@ -1533,7 +1533,7 @@
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="Shape" id="ShG-Oh-s4g">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QY4-wV-6K3">
-                                <rect key="frame" x="338" y="11" width="21" height="22"/>
+                                <rect key="frame" x="283" y="11" width="21" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Shape"/>
                                 <connections>
