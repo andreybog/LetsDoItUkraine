@@ -9,7 +9,9 @@
 import Foundation
 import Firebase
 
-let kDatabaseDateFormat:String = "yyyy-MM-dd'T'HH:mm:ss'Z'00"
+//"2016-11-19T18:01:08+02:00"
+//yyyy-MM-dd'T'HH:mm:ss.SSSZ
+let kDatabaseDateFormat:String = "yyyy-MM-dd'T'HH:mm:ssZ"
 let kForbiddenPathCharacterSet = CharacterSet(charactersIn:".#$[]")
 
 extension String {
@@ -79,10 +81,10 @@ class DataManager {
             return
         }
         
-        let pivotDateRef = rootRef.child("date/pivotDate/_zap_data_last_live_poll")
+        let pivotDateRef = rootRef.child("date/pivotDate/id")
         pivotDateRef.observeSingleEvent(of: .value, with: { [weak self] (snap) in
-            if let val = snap.value as? Double {
-                let pivotDate = Date(timeIntervalSince1970: val)
+            if let val = snap.value as? String, let date = val.date() {
+                let pivotDate = date
                 self?.pivotDate = pivotDate
                 completion(pivotDate)
             } else {
