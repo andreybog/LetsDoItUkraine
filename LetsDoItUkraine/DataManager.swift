@@ -84,16 +84,15 @@ class DataManager {
         let pivotDateRef = rootRef.child("date/pivotDate/id")
         pivotDateRef.observeSingleEvent(of: .value, with: { [weak self] (snap) in
             if let val = snap.value as? String, let date = val.date() {
-                let pivotDate = date
-                self?.pivotDate = pivotDate
-                completion(pivotDate)
+                self?.pivotDate = date
+                completion(date)
             } else {
                 print("DATABASE ERROR: Can't get pivot date")
             }
         })
         pivotDateHandler = pivotDateRef.observe(.value, with: { [weak self] (snap) in
-            if let val = snap.value as? Double {
-                self?.pivotDate = Date(timeIntervalSince1970: val)
+            if let val = snap.value as? String, let date = val.date() {
+                self?.pivotDate = date
             } else {
                 print("DATABASE ERROR: Can't get pivot date")
             }

@@ -324,6 +324,7 @@
 				552BF8F71DA196D7008D5317 /* Resources */,
 				43EA1C64F7E3C8D5759C2045 /* [CP] Embed Pods Frameworks */,
 				4FE60B0E317297B6912B3BA6 /* [CP] Copy Pods Resources */,
+				55229FA01DE2462E0054F7FB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -413,6 +414,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LetsDoItUkraine/Pods-LetsDoItUkraine-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		55229FA01DE2462E0054F7FB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1d1f0574969a18ce3fdfbddf527d6a65046716f2 bd7ffbb1056732469dd2485218c45f8dd643383094d6211fe64f677143b31398";
 		};
 		B812555FC701FA9F231F44B0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -169,7 +169,7 @@ class CleaningsViewController: UIViewController,CLLocationManagerDelegate, UICol
             let coordinators = presenter.getCoordinatorsBy(Index: index)
             let cleanPlaceViewController = segue.destination as! CleanPlaceViewController
             cleanPlaceViewController.cleaning = cleaning!
-            cleanPlaceViewController.coordiantors = coordinators!
+            cleanPlaceViewController.coordiantors = coordinators
         } 
     }
     

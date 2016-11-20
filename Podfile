@@ -16,6 +16,8 @@ target 'LetsDoItUkraine' do
   pod 'GooglePlaces'
   pod 'Kingfisher', '~> 3.0'
   pod 'IQKeyboardManagerSwift', '4.0.6'
+  pod 'Fabric'
+  pod 'Crashlytics'
   
   # Pods for LetsDoItUkraine
 
